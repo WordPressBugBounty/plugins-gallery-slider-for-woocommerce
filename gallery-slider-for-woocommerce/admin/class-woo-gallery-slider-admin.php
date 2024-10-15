@@ -111,7 +111,7 @@ class Woo_Gallery_Slider_Admin {
 				__( 'To show this video on the %1$sShop page%2$s, %3$s Upgrade To Pro!%2$s', 'gallery-slider-for-woocommerce' ),
 				'<a href="https://demo.woogallery.io/" target="_blank" class="btn"><strong>',
 				'</strong></a>',
-				'<a href="https://woogallery.io/pricing/?ref=143" target="_blank" class="btn"><strong>',
+				'<a href="https://woogallery.io/pricing/?ref=143" target="_blank" class="btn"><strong>'
 			),
 		);
 		return $form_fields;

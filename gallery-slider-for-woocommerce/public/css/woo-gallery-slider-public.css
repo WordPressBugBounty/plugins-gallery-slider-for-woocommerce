@@ -42,6 +42,7 @@ div.product div.product-description {
   -webkit-box-ordinal-group: 2;
   -ms-flex-order: 1;
   order: 1;
+	max-width: 100%;
 }
 
 #wpgs-gallery.wcgs-woocommerce-product-gallery .gallery-navigation-carousel {
@@ -767,7 +768,4 @@ div.product div.product-description {
 /* Elementor lightbox conflict */
 .wcgs-fancybox-custom-wrapper~.elementor-lightbox {
   display: none !important;
-}
-.elementor-element .wcgs-carousel {
-	max-width: 100%;
 }

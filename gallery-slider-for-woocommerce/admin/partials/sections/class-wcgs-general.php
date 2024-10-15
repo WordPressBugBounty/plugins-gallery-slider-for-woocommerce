@@ -38,7 +38,7 @@ class WCGS_General {
 							'<strong>',
 							'</strong>',
 							'<a href="' . WOO_GALLERY_SLIDER_PRO_LINK . '" target="_blank"><strong>',
-							'</strong></a>',
+							'</strong></a>'
 						),
 						'options' => array(
 							'horizontal'        => array(
@@ -99,7 +99,7 @@ class WCGS_General {
 						'type'       => 'slider',
 						'title'      => __( 'Thumbnail Items Per View', 'gallery-slider-for-woocommerce' ),
 						'dependency' => array( 'gallery_layout', '!=', 'hide_thumb' ),
-						//'title_help' => '<div class="wcgs-info-label">' . __( 'Thumbnail Items Per View', 'gallery-slider-for-woocommerce' ) . '</div><div class="wcgs-short-content">' . __( 'Number of item per view (slides visible at the same time on thumbnail slider\'s container).', 'gallery-slider-for-woocommerce' ) . '</div>',
+						// 'title_help' => '<div class="wcgs-info-label">' . __( 'Thumbnail Items Per View', 'gallery-slider-for-woocommerce' ) . '</div><div class="wcgs-short-content">' . __( 'Number of item per view (slides visible at the same time on thumbnail slider\'s container).', 'gallery-slider-for-woocommerce' ) . '</div>',
 					),
 					array(
 						'id'          => 'thumbnails_sliders_space',
@@ -295,7 +295,7 @@ class WCGS_General {
 							),
 							'<i class="sp-wgsp-icon-laptop"></i>',
 							'<br> <i class="sp-wgsp-icon-tablet"></i>',
-							'<br> <i class="sp-wgsp-icon-mobile"></i>',
+							'<br> <i class="sp-wgsp-icon-mobile"></i>'
 						),
 					),
 					array(

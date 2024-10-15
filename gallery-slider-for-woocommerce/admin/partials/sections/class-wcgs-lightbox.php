@@ -289,7 +289,7 @@ class WCGS_Lightbox {
 							'<strong>',
 							'</strong>',
 							'<a href="https://woogallery.io/pricing/?ref=143" target="_blank" class="btn"><strong>',
-							'</strong></a>',
+							'</strong></a>'
 						),
 						'dependency' => array( 'lightbox', '==', true ),
 					),

@@ -637,7 +637,7 @@ class WCGS_Gallery {
 											'<span>',
 											'</span>',
 											'<a href="' . WOO_GALLERY_SLIDER_PRO_LINK . '" target="_blank">',
-											'</a>',
+											'</a>'
 										),
 										'options'    => array(
 											'in_side'    => array(
@@ -849,15 +849,15 @@ class WCGS_Gallery {
 										'dependency' => array( 'zoom', '==', true ),
 									),
 									array(
-										'id'      => 'exclude_zoom_by_products_type',
-										'type'    => 'select',
-										'title'   => __( 'Exclude Zoom', 'gallery-slider-for-woocommerce' ),
-										'options' => array(
+										'id'         => 'exclude_zoom_by_products_type',
+										'type'       => 'select',
+										'title'      => __( 'Exclude Zoom', 'gallery-slider-for-woocommerce' ),
+										'options'    => array(
 											'from_product' => __( 'Product(s)', 'gallery-slider-for-woocommerce' ),
 											'from_category' => __( 'Category(s)', 'gallery-slider-for-woocommerce' ),
 											'none'         => __( 'None', 'gallery-slider-for-woocommerce' ),
 										),
-										'default' => 'none',
+										'default'    => 'none',
 										'dependency' => array( 'zoom', '==', true ),
 									),
 									array(
@@ -894,7 +894,7 @@ class WCGS_Gallery {
 											'</strong></a>',
 											'<strong>',
 											'</strong>',
-											'<a href="https://woogallery.io/pricing/?ref=143" target="_blank" class="btn"><strong>',
+											'<a href="https://woogallery.io/pricing/?ref=143" target="_blank" class="btn"><strong>'
 										),
 									),
 								),
@@ -917,7 +917,7 @@ class WCGS_Gallery {
 											'</b></a>',
 											'<a class="wcgs-open-live-demo" href="https://demo.woogallery.io/play-modes/" target="_blank"><strong>',
 											'</strong></a>',
-											'<a href="https://woogallery.io/pricing/?ref=143" target="_blank" class="btn"><strong>',
+											'<a href="https://woogallery.io/pricing/?ref=143" target="_blank" class="btn"><strong>'
 										),
 									),
 									array(
@@ -1076,7 +1076,7 @@ class WCGS_Gallery {
 						),
 					),
 				),
-			),
+			)
 		);
 	}
 }

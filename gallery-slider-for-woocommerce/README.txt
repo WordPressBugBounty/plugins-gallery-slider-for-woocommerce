@@ -4,8 +4,8 @@ Tags: woocommerce product gallery carousel, woocommerce product gallery slider, 
 Requires at least: 5.3
 Tested up to: 6.6.2
 WC requires at least: 4.5
-WC tested up to: 9.2.3
-Stable tag: 2.1.2
+WC tested up to: 9.3.3
+Stable tag: 2.1.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -349,9 +349,6 @@ The WooGallery is fully compatible with WordPress multisite, including network-a
 
 [__Upgrade To our Pro version Today!__](https://woogallery.io/pricing/?ref=143) You’ll never regret it.✌️
 
-## 👨‍💻 AUTHOR – BACKED BY A TRUSTED TEAM ##
-**The [WooGallery](https://woogallery.io/)** plugin is designed and developed with love by the team behind [__ShapedPlugin LLC__](https://shapedplugin.com/), a dedicated WordPress and WooCommerce plugin marketplace trusted by **3,22,000+** happy, active users worldwide. 🌏
-
 
 == Installation ==
 
@@ -413,6 +410,11 @@ Yes, the plugin is compatible with the most popular WooCommerce themes. We’re 
 
 
 == Changelog ==
+
+= Version 2.1.3 - Oct 15, 2024 =
+* Fix: The PHP 7.2 compatibility issue.
+* Fix: The Elementor plugin CSS conflict issue with WooGallery.
+* Tested: WooCommerce 9.3.3 compatibility.
 
 = Version 2.1.2 - Sep 12, 2024 =
 * Fix: The CSS conflict issue when a single product template was built with the latest Elementor builder.

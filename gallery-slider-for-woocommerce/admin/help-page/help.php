@@ -696,7 +696,7 @@ class Woo_Gallery_Slider_Help {
 					<div class="wcgs-our-plugin-list">
 						<h3 class="wcgs-section-title-help">Upgrade your Website with our High-quality Plugins!</h3>
 						<div class="wcgs-our-plugin-list-wrap">
-							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://wordpresscarousel.com/">
+							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://wpcarousel.io/">
 								<i class="wcgs-icon-button-arrow-icon"></i>
 								<img src="https://ps.w.org/wp-carousel-free/assets/icon-256x256.png" alt="WP Carousel">
 								<h4>WP Carousel</h4>
@@ -720,7 +720,7 @@ class Woo_Gallery_Slider_Help {
 								<h4>Product Slider for WooCommerce</h4>
 								<p>Boost sales by interactive product Slider, Grid, and Table in your WooCommerce website or store.</p>
 							</a>
-							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://wooproductslider.io/">
+							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://woogallery.io/">
 								<i class="wcgs-icon-button-arrow-icon"></i>
 								<img src="https://ps.w.org/gallery-slider-for-woocommerce/assets/icon-256x256.gif" alt="WooGallery">
 								<h4>WooGallery</h4>
@@ -744,10 +744,10 @@ class Woo_Gallery_Slider_Help {
 								<h4>Easy Accordion</h4>
 								<p>Minimize customer support by offering comprehensive FAQs and increasing conversions.</p>
 							</a>
-							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://shapedplugin.com/plugin/woocommerce-category-slider-pro/">
+							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://shapedplugin.com/woocategory/">
 								<i class="wcgs-icon-button-arrow-icon"></i>
-								<img src="https://ps.w.org/woo-category-slider-grid/assets/icon-256x256.png" alt="Category Slider for WooCommerce">
-								<h4>Category Slider for WooCommerce</h4>
+								<img src="https://ps.w.org/woo-category-slider-grid/assets/icon-256x256.png" alt="WooCategory">
+								<h4>WooCategory</h4>
 								<p>Display by filtering the list of categories aesthetically and boosting sales.</p>
 							</a>
 							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://wptabs.com/">
