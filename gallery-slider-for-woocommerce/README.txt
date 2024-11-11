@@ -2,10 +2,10 @@
 Contributors: shapedplugin, rubel_miah, khalilu, shamimmiashuhagh
 Tags: woocommerce product gallery carousel, woocommerce product gallery slider, product image zoom, additional variation gallery, product featured video
 Requires at least: 5.3
-Tested up to: 6.6.2
+Tested up to: 6.7
 WC requires at least: 4.5
 WC tested up to: 9.3.3
-Stable tag: 2.1.3
+Stable tag: 2.1.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -410,6 +410,11 @@ Yes, the plugin is compatible with the most popular WooCommerce themes. We’re 
 
 
 == Changelog ==
+
+= Version 2.1.4 - Nov 11, 2024 =
+* Fix: Some strings translation issue.
+* Updated: The language (.pot) file.
+* Tested: WordPress 6.7 compatibility.
 
 = Version 2.1.3 - Oct 15, 2024 =
 * Fix: The PHP 7.2 compatibility issue.

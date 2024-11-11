@@ -36,12 +36,28 @@ class WCGS_Settings {
 				'show_footer'        => false,
 				'sticky_header'      => true,
 				'show_sub_menu'      => false,
-				'footer_credit'      => __( 'Enjoying <strong>WooGallery?</strong> Please rate us <span class="spwpcp-footer-text-star">★★★★★</span> <a href="https://wordpress.org/support/plugin/gallery-slider-for-woocommerce/reviews/?filter=5#new-post" target="_blank">WordPress.org</a>. Your positive feedback will help us grow more. Thank you! 😊', 'gallery-slider-for-woocommerce' ),
+				'footer_credit'      => sprintf(
+					/* translators: 1: start strong tag, 2: close strong tag, 3: span tag start, 4: span tag end, 5: anchor tag start, 6: anchor tag ended. */
+					__( 'Enjoying %1$sWooGallery?%2$s Please rate us %3$s★★★★★%4$s %5$sWordPress.org.%6$s Your positive feedback will help us grow more. Thank you! 😊', 'gallery-slider-for-woocommerce' ),
+					'<strong>',
+					'</strong>',
+					'<span class="spwpcp-footer-text-star">',
+					'</span>',
+					'<a href="https://wordpress.org/support/plugin/gallery-slider-for-woocommerce/reviews/?filter=5#new-post" target="_blank">',
+					'</a>'
+				),
 				'footer_after'       => "<div id='BuyProPopupContent' style='display: none;'>
-				<div class='wcgs-popup-content'><div class='pro-image-tag'><span class='pro-icon'><img src='" .  plugin_dir_url( __DIR__ ) . 'img/go-pro-icon.svg'  . "'></span></div><h2> Upgrade to <strong>WooGallery Pro</strong></h2>
-				<h3>To unlock this feature, simply upgrade to Pro!</h3>
-				<p class='wcgs-popup-p'>" . __( 'Take your online shop\'s product page experience to the next level with many premium features and <strong>Boost Sales!</strong> 🚀', 'gallery-slider-for-woocommerce' ) . "</p>
-				<p><a href='" . esc_url( WOO_GALLERY_SLIDER_PRO_LINK ) . "' target='_blank' class='btn'>" . __( 'Upgrade To Pro Now', 'gallery-slider-for-woocommerce' ) . '</a></p></div></div>',
+				<div class='wcgs-popup-content'><div class='pro-image-tag'><span class='pro-icon'><img src='" . plugin_dir_url( __DIR__ ) . 'img/go-pro-icon.svg' . "'></span></div><h2> " . sprintf(
+					/* translators: 1: start strong tag, 2: close strong tag. */
+					__( 'Upgrade to %1$sWooGallery Pro%2$s', 'gallery-slider-for-woocommerce' ),
+					'<strong>',
+					'</strong>'
+				) . '</h2><h3>' . __( 'To unlock this feature, simply upgrade to Pro!', 'gallery-slider-for-woocommerce' ) . "</h3><p class='wcgs-popup-p'>" . sprintf(
+					/* translators: 1: start strong tag, 2: close strong tag. */
+					__( 'Take your online shop\'s product page experience to the next level with many premium features and %1$sBoost Sales!%2$s', 'gallery-slider-for-woocommerce' ),
+					'<strong>',
+					'</strong>'
+				) . " 🚀</p><p><a href='" . esc_url( WOO_GALLERY_SLIDER_PRO_LINK ) . "' target='_blank' class='btn'>" . __( 'Upgrade To Pro Now', 'gallery-slider-for-woocommerce' ) . '</a></p></div></div>',
 			)
 		);
 
