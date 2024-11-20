@@ -145,7 +145,7 @@ class Woo_Gallery_Slider {
 		/**
 		 * Admin review notice.
 		 */
-		require_once plugin_dir_path( __DIR__ ) . 'admin/partials/notices/review.php';
+		require_once plugin_dir_path( __DIR__ ) . 'admin/partials/class-wgs-admin-notices.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
