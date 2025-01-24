@@ -34,7 +34,7 @@ class WCGS_General {
 						'title'   => __( 'Gallery Layout', 'gallery-slider-for-woocommerce' ),
 						'desc'    => sprintf(
 							/* translators: 1: start strong tag, 2: close strong tag, 3: start link and strong tag, 4: close link and strong tag. */
-							__( 'Want to %1$s boost your sales %2$s   by enhancing your product page layout and design? %3$sUpgrade To Pro!%4$s', 'gallery-slider-for-woocommerce' ),
+							__( 'Want to %1$s boost your sales %2$s by enhancing your product page layout and design? %3$sUpgrade To Pro!%4$s', 'gallery-slider-for-woocommerce' ),
 							'<strong>',
 							'</strong>',
 							'<a href="' . WOO_GALLERY_SLIDER_PRO_LINK . '" target="_blank"><strong>',

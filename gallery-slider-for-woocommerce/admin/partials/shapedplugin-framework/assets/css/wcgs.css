@@ -1199,6 +1199,11 @@
   padding-bottom: 0;
 }
 
+@media screen and (max-width: 1480px) {
+  .wcgs-field-image_select.gallery_layout .wcgs--image {
+      margin: 0 5px 10px 0;
+  }
+}
 /**
  * 03. 21. Field: select
  */

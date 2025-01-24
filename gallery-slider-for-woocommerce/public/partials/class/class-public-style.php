@@ -77,6 +77,12 @@ class WCGS_Public_Style extends WCGS_Public_Settings {
 		if ( $gallery_width < 100 ) {
 			$summary_width_with_unit = 'calc(' . ( 100 - $gallery_width ) . '% - 50px)';
 			$dynamic_css            .= '@media screen and (min-width:992px ){
+				#wpgs-gallery.wcgs-woocommerce-product-gallery {
+					max-width: 100%;
+				}
+				#wpgs-gallery.wcgs-woocommerce-product-gallery:has( + .summary ) {
+					max-width: ' . $gallery_width . '%;
+				}
                 #wpgs-gallery.wcgs-woocommerce-product-gallery+.summary {
                     max-width: ' . $summary_width_with_unit . ';
                 }

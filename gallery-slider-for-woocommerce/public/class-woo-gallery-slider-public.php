@@ -484,10 +484,10 @@ class Woo_Gallery_Slider_Public {
 				$this->plugin_name,
 				'wcgs_object',
 				array(
-					'wcgs_data'            => $this->json_data,
-					'wcgs_settings'        => get_option( 'wcgs_settings' ),
-					'wcgs_product_wrapper' => apply_filters( 'wcgs_product_wrapper', '.single-product .product' ),
-					'wcgs_body_font_size'  => apply_filters( 'wcgs_body_font_size', '14' ),
+					'wcgs_data'             => $this->json_data,
+					'wcgs_settings'         => get_option( 'wcgs_settings' ),
+					'wcgs_other_variations' => apply_filters( 'wcgs_other_variations', '.spswp-shop-variations' ), // To exclude other variations like related products variations.
+					'wcgs_body_font_size'   => apply_filters( 'wcgs_body_font_size', '14' ),
 				)
 			);
 		}
@@ -529,6 +529,8 @@ if ( ! function_exists( 'wcgs_image_meta' ) ) {
 					'alt_text'    => $image_alt,
 				);
 				if ( ! empty( $video_url ) ) {
+					// Replace 'shorts/' by 'watch?v=' in the video URL.
+					$video_url       = str_replace( 'shorts/', 'watch?v=', $video_url );
 					$result['video'] = $video_url;
 				}
 

@@ -166,6 +166,8 @@ class Woo_Gallery_Slider_Help {
 						break;
 					case 'location-weather':
 					case 'testimonial-free':
+					case 'easy-accordion-free':
+					case 'logo-carousel-free':
 					case 'gallery-slider-for-woocommerce':
 						$image_type = 'gif';
 						break;
@@ -734,13 +736,13 @@ class Woo_Gallery_Slider_Help {
 							</a>
 							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://logocarousel.com/">
 								<i class="wcgs-icon-button-arrow-icon"></i>
-								<img src="https://ps.w.org/logo-carousel-free/assets/icon-256x256.png" alt="Logo Carousel">
+								<img src="https://ps.w.org/logo-carousel-free/assets/icon-256x256.gif" alt="Logo Carousel">
 								<h4>Logo Carousel</h4>
 								<p>Showcase a group of logo images with Title, Description, Tooltips, Links, and Popup as a grid or in a carousel.</p>
 							</a>
 							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://easyaccordion.io/">
 								<i class="wcgs-icon-button-arrow-icon"></i>
-								<img src="https://ps.w.org/easy-accordion-free/assets/icon-256x256.png" alt="Easy Accordion">
+								<img src="https://ps.w.org/easy-accordion-free/assets/icon-256x256.gif" alt="Easy Accordion">
 								<h4>Easy Accordion</h4>
 								<p>Minimize customer support by offering comprehensive FAQs and increasing conversions.</p>
 							</a>
@@ -756,13 +758,13 @@ class Woo_Gallery_Slider_Help {
 								<h4>WP Tabs</h4>
 								<p>Display tabbed content smartly & quickly on your WordPress site without coding skills.</p>
 							</a>
-							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://shapedplugin.com/plugin/woocommerce-quick-view-pro/">
+							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://shapedplugin.com/quick-view-for-woocommerce/">
 								<i class="wcgs-icon-button-arrow-icon"></i>
 								<img src="https://ps.w.org/woo-quickview/assets/icon-256x256.png" alt="Quick View for WooCommerce">
 								<h4>Quick View for WooCommerce</h4>
 								<p>Quickly view product information with smooth animation via AJAX in a nice Modal without opening the product page.</p>
 							</a>
-							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://shapedplugin.com/plugin/smart-brands-for-woocommerce/">
+							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://shapedplugin.com/smart-brands/">
 								<i class="wcgs-icon-button-arrow-icon"></i>
 								<img src="https://ps.w.org/smart-brands-for-woocommerce/assets/icon-256x256.png" alt="Smart Brands for WooCommerce">
 								<h4>Smart Brands for WooCommerce</h4>

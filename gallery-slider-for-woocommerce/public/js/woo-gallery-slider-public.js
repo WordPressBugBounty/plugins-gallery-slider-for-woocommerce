@@ -29,7 +29,7 @@
 
 		// set all settings
 		var settings = wcgs_object.wcgs_settings,
-			wcgs_product_wrapper = wcgs_object.wcgs_product_wrapper,
+			wcgs_other_variations = wcgs_object.wcgs_other_variations,
 			wcgs_body_font_size = parseInt(wcgs_object.wcgs_body_font_size),
 			gallery_w = 0,
 			summary_w = 0;
@@ -533,7 +533,14 @@
 					gallery_w = gallery_hestia_width;
 				}
 			}
-
+			// Fix  the gallery width issue for Avada theme and product page builder case.
+			if (!$('#wpgs-gallery ~ .summary').length) {
+				gallery_width = $('#wpgs-gallery').parent('*').width();
+				if (typeof gallery_width === "number" && gallery_width > 50 ) {
+					gallery_w = gallery_width;
+				}
+			}
+			
 			if ($(window).width() < 992) {
 				if (settings.gallery_responsive_width.width > 0) {
 					gallery_w = settings.gallery_responsive_width.width;
@@ -578,13 +585,15 @@
 			});
 			return uniqueArray;
 		}
+		// Check if wcgs_other_variations is not empty.
+		wcgs_other_variations = wcgs_other_variations ? wcgs_other_variations : '.spswp-shop-variations';
 		// Event listener for change event on select elements within elements with the class '.variations'
-		$(document).on('change', '.variations select', function () {
+		$(document).on('change', 'form.variations_form .variations:not('+wcgs_other_variations+') select', function () {
 			// Object to store selected variations
 			var variations_items = [];
 			var variationsArray = {};
 			// Iterate over each table row with class '.variations'
-			$('.variations tr').each(function (i) {
+			$('form.variations_form .variations:not('+wcgs_other_variations+') tr').each(function (i) {
 				// Get attribute name and value for each select element
 				var attributeName = $(this).find('select').data('attribute_name');
 				var attributeValue = $(this).find('select').val();
@@ -593,6 +602,7 @@
 				if (attributeValue) {
 					variationsArray[attributeName] = attributeValue; // Store attribute and its value in variationsArray
 				}
+				// console.log(variationsArray);
 			});
 			var video_showed = false;
 			// Check if wcgs_object.wcgs_data is not empty
@@ -619,16 +629,25 @@
 						}
 					}
 				});
+
+				// Remove duplicate items from variations_items array.
+				variations_items = variations_items.length > 0 ? uniqueMultidimensionalArray(variations_items, 'full_url') : variations_items;
 				// Check if variationsArray matches the current data item.
 				if (variations_items.length > 0) {
-					variations_items = uniqueMultidimensionalArray(variations_items, 'full_url');
 					// Display preloader while updating the gallery
 					$('.wcgs-gallery-preloader').css('z-index', 99);
 					$('.wcgs-gallery-preloader').css('opacity', 0);
 					$('#wpgs-gallery').addClass('wcgs-transition-none');
+
 					// Destroy existing Swiper instances and clear gallery elements.
-					wcgs_swiper_thumb.destroy(true);
-					wcgs_swiper_gallery.destroy(true);
+					function destroySwiperIfInitialized(swiperInstance) {
+						if (swiperInstance && swiperInstance.initialized) {
+							swiperInstance.destroy(true, true);
+						}
+					}
+					destroySwiperIfInitialized(wcgs_swiper_thumb);
+					destroySwiperIfInitialized(wcgs_swiper_gallery);
+
 					$('#wpgs-gallery .wcgs-carousel .swiper-wrapper > *, #wpgs-gallery .gallery-navigation-carousel .swiper-wrapper > *').remove();
 					// Process each item in the response array to update the gallery
 					var gallery = variations_items;

@@ -2,10 +2,10 @@
 Contributors: shapedplugin, rubel_miah, khalilu, shamimmiashuhagh
 Tags: woocommerce product gallery carousel, woocommerce product gallery slider, product image zoom, additional variation gallery, product featured video
 Requires at least: 5.3
-Tested up to: 6.7
+Tested up to: 6.7.1
 WC requires at least: 4.5
-WC tested up to: 9.4.2
-Stable tag: 2.1.5
+WC tested up to: 9.6.0
+Stable tag: 2.1.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -410,6 +410,14 @@ Yes, the plugin is compatible with the most popular WooCommerce themes. We’re 
 
 
 == Changelog ==
+
+= Version 2.1.6 - Jan 24, 2025 =
+* New: The YouTube Short Video support.
+* Improved: The plugin backend options style.
+* Fix: The gallery width issue with the Avada theme when a product has only one image.
+* Fix: The JS warning was found rarely.
+* Tested: WordPress 6.7.1 compatibility.
+* Tested: WooCommerce 9.6.0 compatibility.
 
 = Version 2.1.5 - Nov 20, 2024 =
 * Fix: The plugin style issue for RTL sites.

@@ -169,20 +169,21 @@ if ( ! empty( $default_variation ) ) {
 						$video     = $slide['video'];
 						$video_url = wp_parse_url( $video );
 						if ( isset( $video_url['host'] ) && strpos( $video_url['host'], 'youtu' ) !== false ) {
+							// Check if it's a YouTube Shorts URL.
 							parse_str( $video, $video_query_array );
 							$video_id = array_values( $video_query_array )[0];
 							?>
-									<a  class="wcgs-slider-lightbox" href="<?php echo esc_url( $video ); ?>" data-fancybox="view" data-fancybox-type="iframe" data-fancybox-height="600" data-fancybox-width="400" aria-label="lightbox-icon"></a>
+								<a  class="wcgs-slider-lightbox" href="<?php echo esc_url( $video ); ?>" data-fancybox="view" data-fancybox-type="iframe" data-fancybox-height="600" data-fancybox-width="400" aria-label="lightbox-icon"></a>
 								<?php
 								if ( 'inline' === $video_popup_place ) {
 									?>
-											<div class="wcgs-iframe-wrapper">
-											<div class="skip-lazy wcgs-iframe wcgs-youtube-video" data-video-id="<?php echo esc_attr( $video_id ); ?>" data-src="<?php echo esc_attr( $video ); ?>"></div><img class="skip-lazy wcgs-slider-image-tag" style="visibility: hidden" alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" /></div>
-											<?php
+									<div class="wcgs-iframe-wrapper">
+									<div class="skip-lazy wcgs-iframe wcgs-youtube-video" data-video-id="<?php echo esc_attr( $video_id ); ?>" data-src="<?php echo esc_attr( $video ); ?>"></div><img class="skip-lazy wcgs-slider-image-tag" style="visibility: hidden" alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" /></div>
+									<?php
 								} else {
 									?>
-										<img class="skip-lazy wcgs-slider-image-tag" alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" data-type="youtube" />
-											<?php
+									<img class="skip-lazy wcgs-slider-image-tag" alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" data-type="youtube" />
+									<?php
 								}
 								$video_showed = true;
 						} else {
