@@ -129,6 +129,61 @@ class WCGS_Advance {
 								),
 							),
 							array(
+								'title'  => __( 'Speed Optimization', 'gallery-slider-for-woocommerce' ),
+								'icon'   => 'sp_wgs-icon-gauge',
+								'fields' => array(
+									array(
+										'id'      => 'optimize_notice',
+										'type'    => 'notice',
+										'style'   => 'normal',
+										'class'   => 'wcgs-light-notice',
+										'content' => sprintf(
+											// translators: 1: start bold tag, 2: close bold tag, 3: start link tag, 4: close link tag.
+											__( 'To improve the loading speed of your single product page with %3$sWooGallery%4$s, please follow these %1$sguidelines%2$s. Additionally, you may refer to your caching plugin\'s recommendations for further optimization.', 'gallery-slider-for-woocommerce' ),
+											'<a href="https://docs.shapedplugin.com/docs/gallery-slider-for-woocommerce-pro/configurations/how-to-speed-up-your-single-product-page" target="_blank"><b>',
+											'</b></a>',
+											'<b>',
+											'</b>',
+										),
+									),
+									array(
+										'id'         => 'lazy_load_gallery',
+										'type'       => 'checkbox',
+										'title'      => __( 'Load the Product Gallery on the Visible Viewport', 'gallery-slider-for-woocommerce' ),
+										'title_help' => __( 'Check this box if you would like WooGallery plugin to ensure the product gallery loads automatically when it enters the visible viewport', 'gallery-slider-for-woocommerce' ),
+										'default'    => true,
+									),
+									array(
+										'id'         => 'remove_default_wc_gallery',
+										'type'       => 'checkbox',
+										'title'      => __( 'Remove Default WooCommerce Gallery Scripts', 'gallery-slider-for-woocommerce' ),
+										'title_help' => __( 'WooCommerce gallery assets are disabled because WooGallery is handling those functions.', 'gallery-slider-for-woocommerce' ),
+										'default'    => array( 'lightbox', 'zoom', 'slider' ),
+										'options'    => array(
+											'lightbox' => __( 'Lightbox(PhotoSwipe) ', 'gallery-slider-for-woocommerce' ),
+											'zoom'     => __( 'Zoom (Zoom)', 'gallery-slider-for-woocommerce' ),
+											'slider'   => __( 'Slider(FlexSlider)', 'gallery-slider-for-woocommerce' ),
+										),
+									),
+									array(
+										'id'         => 'dequeue_single_product_css',
+										'type'       => 'text',
+										'title'      => __( 'Add handler to Dequeue Unnecessary CSS files', 'gallery-slider-for-woocommerce' ),
+										'desc'       => __( 'Enter the CSS file handlers separated by comma. e.g., theme-style, plugin-style-xyz', 'gallery-slider-for-woocommerce' ),
+										'title_help' => __( 'Enter the CSS file handles to remove, separated by commas. Caution: Incorrectly removing CSS files can break site styling. Only use this if you understand CSS handles.', 'gallery-slider-for-woocommerce' ),
+										'default'    => '',
+									),
+									array(
+										'id'         => 'dequeue_single_product_js',
+										'type'       => 'text',
+										'title'      => __( 'Add handler to Dequeue Unnecessary JS files ', 'gallery-slider-for-woocommerce' ),
+										'desc'       => __( 'Enter the JS file handlers, separated by comma. e.g., theme-script, plugin-script-xyz', 'gallery-slider-for-woocommerce' ),
+										'title_help' => __( 'Enter the JS file handles to remove, separated by commas. Caution: Incorrectly removing JS files can break site styling. Only use this if you understand JS handles.', 'gallery-slider-for-woocommerce' ),
+										'default'    => '',
+									),
+								),
+							),
+							array(
 								'title'  => __( 'License Key', 'gallery-slider-for-woocommerce' ),
 								'icon'   => 'sp_wgs-icon-license-tab',
 								'fields' => array(
@@ -145,6 +200,7 @@ class WCGS_Advance {
 									),
 								),
 							),
+
 						),
 					),
 

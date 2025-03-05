@@ -36,13 +36,38 @@ class WCGS_Gallery {
 								'fields' => array(
 									array(
 										'id'         => 'autoplay',
-										'class'      => 'pro_switcher',
 										'type'       => 'switcher',
 										'title'      => esc_html__( 'AutoPlay', 'gallery-slider-for-woocommerce' ),
 										'text_on'    => __( 'Enabled', 'gallery-slider-for-woocommerce' ),
 										'text_off'   => __( 'Disabled', 'gallery-slider-for-woocommerce' ),
 										'text_width' => 96,
+										'default'    => false,
 									),
+									// array(
+									// 'id'         => 'autoplay_interval',
+									// 'type'       => 'slider',
+									// 'title'      => __( 'AutoPlay Interval', 'gallery-slider-for-woocommerce' ),
+									// 'default'    => 3000,
+									// 'min'        => 0,
+									// 'max'        => 12000,
+									// 'step'       => 50,
+									// 'unit'       => 'ms',
+									// 'dependency' => array( 'autoplay', '==', 'true', true ),
+									// 'title_help' => __( '<div class="wcgs-info-label">AutoPlay Interval</div><div class="wcgs-short-content">Set the autoplay delay or interval time, indicating the duration to pause between automatically cycling through slides. For example, 1000 milliseconds (ms) equal 1 second.</div>', 'gallery-slider-for-woocommerce' ),
+
+									// ),
+									// array(
+									// 'id'         => 'autoplay_speed',
+									// 'type'       => 'slider',
+									// 'title'      => __( 'AutoPlay Speed', 'gallery-slider-for-woocommerce' ),
+									// 'default'    => 300,
+									// 'min'        => 0,
+									// 'max'        => 2000,
+									// 'step'       => 50,
+									// 'unit'       => 'ms',
+									// 'title_help' => __( '<div class="wcgs-info-label">AutoPlay Speed</div><div class="wcgs-short-content">Set slider scrolling speed. e.g. 1000 milliseconds(ms) = 1 second.</div>', 'gallery-slider-for-woocommerce' ),
+									// ),
+
 									array(
 										'id'         => 'slide_orientation',
 										'type'       => 'select',
@@ -77,14 +102,14 @@ class WCGS_Gallery {
 										'default' => 'slide',
 									),
 									array(
-										'id'         => 'adaptive_height',
-										'type'       => 'switcher',
-										'title'      => esc_html__( 'Adaptive Height', 'gallery-slider-for-woocommerce' ),
-										'title_help' => '<div class="wcgs-info-label">' . __( 'Adaptive Height', 'gallery-slider-for-woocommerce' ) . '</div><div class="wcgs-short-content">' . __( 'Adjust the height of gallery images according to the highest item.', 'gallery-slider-for-woocommerce' ) . '</div>',
-										'text_on'    => __( 'Enabled', 'gallery-slider-for-woocommerce' ),
-										'text_off'   => __( 'Disabled', 'gallery-slider-for-woocommerce' ),
-										'text_width' => 96,
-										'default'    => true,
+										'id'          => 'adaptive_height',
+										'type'        => 'switcher',
+										'title'       => esc_html__( 'Adaptive Height', 'gallery-slider-for-woocommerce' ),
+										'title_video' => '<div class="wcgs-img-tag"><video autoplay loop muted playsinline><source src="https://plugins.svn.wordpress.org/gallery-slider-for-woocommerce/assets/visuals/adaptive-height.webm" type="video/webm"></video></div><div class="wcgs-info-label">' . __( 'Adaptive Height', 'gallery-slider-for-woocommerce' ) . '</div>',
+										'text_on'     => __( 'Enabled', 'gallery-slider-for-woocommerce' ),
+										'text_off'    => __( 'Disabled', 'gallery-slider-for-woocommerce' ),
+										'text_width'  => 96,
+										'default'     => false,
 									),
 									array(
 										'id'         => 'accessibility',
@@ -272,7 +297,7 @@ class WCGS_Gallery {
 											'always' => esc_html__( 'Always', 'gallery-slider-for-woocommerce' ),
 											'hover'  => esc_html__( 'On hover', 'gallery-slider-for-woocommerce' ),
 										),
-										'default'    => 'always',
+										'default'    => 'hover',
 										'dependency' => array( 'navigation', '==', true ),
 									),
 									array(
@@ -357,7 +382,7 @@ class WCGS_Gallery {
 										'text_on'    => esc_html__( 'Show', 'gallery-slider-for-woocommerce' ),
 										'text_off'   => esc_html__( 'Hide', 'gallery-slider-for-woocommerce' ),
 										'text_width' => 80,
-										'default'    => false,
+										'default'    => true,
 									),
 									array(
 										'id'         => 'thumb_nav_visibility',
@@ -367,7 +392,7 @@ class WCGS_Gallery {
 											'always' => esc_html__( 'Always', 'gallery-slider-for-woocommerce' ),
 											'hover'  => esc_html__( 'On hover', 'gallery-slider-for-woocommerce' ),
 										),
-										'default'    => 'always',
+										'default'    => 'hover',
 										'dependency' => array( 'thumbnailnavigation', '==', 'true', true ),
 									),
 									array(
@@ -523,7 +548,7 @@ class WCGS_Gallery {
 										'id'      => 'image_sizes',
 										'type'    => 'image_sizes',
 										'title'   => esc_html__( 'Image Size', 'gallery-slider-for-woocommerce' ),
-										'default' => 'full',
+										'default' => 'woocommerce_single',
 									),
 									array(
 										'id'         => 'product_img_crop_size',
@@ -561,13 +586,10 @@ class WCGS_Gallery {
 										'title'   => __( 'Lazy Load', 'gallery-slider-for-woocommerce' ),
 										'options' => array(
 											'false'    => __( 'Off', 'gallery-slider-for-woocommerce' ),
-											'ondemand' => array(
-												'option_name' => __( 'On Demand', 'gallery-slider-for-woocommerce' ),
-												'pro_only' => true,
-											),
+											'ondemand' => __( 'On Demand', 'gallery-slider-for-woocommerce' ),
 										),
 										'radio'   => true,
-										'default' => 'false',
+										'default' => 'ondemand',
 									),
 									array(
 										'id'         => 'preloader',
@@ -841,7 +863,7 @@ class WCGS_Gallery {
 									array(
 										'id'         => 'mobile_zoom',
 										'type'       => 'switcher',
-										'title'      => esc_html__( 'Enable Zoom for Mobile Devices', 'gallery-slider-for-woocommerce' ),
+										'title'      => esc_html__( 'Use Zoom for Mobile Devices', 'gallery-slider-for-woocommerce' ),
 										'text_on'    => __( 'Enabled', 'gallery-slider-for-woocommerce' ),
 										'text_off'   => __( 'Disabled', 'gallery-slider-for-woocommerce' ),
 										'text_width' => 96,
@@ -889,7 +911,7 @@ class WCGS_Gallery {
 										'class'   => 'wcgs-light-notice',
 										'content' => sprintf(
 											/* translators: 1: start link and strong tag, 2: close link and strong tag, 3: start strong tag, 4: close strong tag. 5: start link and strong tag, 6: close link and strong tag. */
-											__( 'Looking to provide your customers with %1$sa more product-detailed view %2$s and %3$sboost sales%4$s? %5$sUpgrade To Pro!%2$s', 'gallery-slider-for-woocommerce' ),
+											__( 'Looking to provide your customers with %1$sa more product-detailed view%2$s and %3$sboost sales%4$s? %5$sUpgrade To Pro!%2$s', 'gallery-slider-for-woocommerce' ),
 											'<a class="wcgs-open-live-demo" href="https://demo.woogallery.io/zoom-styles/" target="_blank"><strong>',
 											'</strong></a>',
 											'<strong>',
@@ -910,7 +932,7 @@ class WCGS_Gallery {
 										'class'   => 'wcgs-light-notice',
 										'content' => sprintf(
 											/* translators: 1: start strong tag, 2: close strong tag, 3: start strong tag, 4: close strong tag, 5: start link and blod tag, 6: close link and bold tag. 7: start link and strong tag, 8: close link and strong tag. 9: start link and strong tag, 10: close link and strong tag. */
-											__( '%1$sWooGallery%2$s (lite version) allows you to add a %1$sYouTube%2$s video to the Product Gallery. %3$sSee Instructions%4$s . To add %1$sunlimited%2$s and multiple types of videos, e.g., %1$sSelf-Hosted, Vimeo, Dailymotion, and Facebook %2$s videos, and enable excellent %5$sProduct Video %6$s options, %7$s Upgrade To Pro!%6$s', 'gallery-slider-for-woocommerce' ),
+											__( '%1$sWooGallery%2$s (lite version) allows you to add a %1$sYouTube%2$s video to the Product Gallery; See %3$sInstructions%4$s. To add unlimited of various types, such as %1$sSelf-Hosted videos, Vimeo, Dailymotion, and Facebook%2$s videos, and enable excellent %5$sProduct Video%6$s options, %7$s Upgrade To Pro!%6$s', 'gallery-slider-for-woocommerce' ),
 											'<strong>',
 											'</strong>',
 											'<a href="https://docs.shapedplugin.com/docs/gallery-slider-for-woocommerce-pro/configurations/how-to-add-different-types-of-videos-to-the-product-and-variation-gallery-images/" target="_blank"><b>',

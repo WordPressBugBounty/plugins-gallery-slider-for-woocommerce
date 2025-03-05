@@ -85,7 +85,6 @@ if ( ! class_exists( 'WCGS' ) ) {
 			add_action( 'init', array( 'WCGS', 'setup' ) );
 			add_action( 'switch_theme', array( 'WCGS', 'setup' ) );
 			add_action( 'admin_enqueue_scripts', array( 'WCGS', 'add_admin_enqueue_scripts' ), 20 );
-
 		}
 
 		/**
@@ -104,9 +103,7 @@ if ( ! class_exists( 'WCGS' ) ) {
 						$params['args']       = $value;
 						$params['sections']   = self::$args['sections'][ $key ];
 						self::$inited[ $key ] = true;
-
 						WCGS_Options::instance( $key, $params );
-
 						if ( ! empty( $value['show_in_customizer'] ) ) {
 							self::$args['customize_options'][ $key ] = $value;
 							self::$inited[ $key ]                    = null;
@@ -114,9 +111,20 @@ if ( ! class_exists( 'WCGS' ) ) {
 					}
 				}
 			}
+			// Setup metabox option framework.
+			$params = array();
+			if ( class_exists( 'WCGS_Metabox' ) && ! empty( self::$args['metabox_options'] ) ) {
+				foreach ( self::$args['metabox_options'] as $key => $value ) {
+					if ( ! empty( self::$args['sections'][ $key ] ) && ! isset( self::$inited[ $key ] ) ) {
+							$params['args']       = $value;
+							$params['sections']   = self::$args['sections'][ $key ];
+							self::$inited[ $key ] = true;
+							WCGS_Metabox::instance( $key, $params );
+					}
+				}
+			}
 
 			do_action( 'wcgs_loaded' );
-
 		}
 
 		/**
@@ -130,7 +138,16 @@ if ( ! class_exists( 'WCGS' ) ) {
 
 			self::$args['options'][ $id ] = $args;
 		}
-
+		/**
+		 * Create metabox option.
+		 *
+		 * @param  mixed $id
+		 * @param  mixed $args
+		 * @return void
+		 */
+		public static function createMetabox( $id, $args = array() ) {
+			self::$args['metabox_options'][ $id ] = $args;
+		}
 		/**
 		 * Create section.
 		 *
@@ -151,7 +168,7 @@ if ( ! class_exists( 'WCGS' ) ) {
 		public static function constants() {
 
 			// we need this path-finder code for set URL of framework.
-			$dirname        = wp_normalize_path( dirname( dirname( __FILE__ ) ) );
+			$dirname        = wp_normalize_path( dirname( __DIR__ ) );
 			$theme_dir      = wp_normalize_path( get_parent_theme_file_path() );
 			$plugin_dir     = wp_normalize_path( WP_PLUGIN_DIR );
 			$located_plugin = ( preg_match( '#' . self::sanitize_dirname( $plugin_dir ) . '#', self::sanitize_dirname( $dirname ) ) ) ? true : false;
@@ -163,7 +180,6 @@ if ( ! class_exists( 'WCGS' ) ) {
 
 			self::$dir = $dirname;
 			self::$url = $directory_uri . $foldername;
-
 		}
 
 		/**
@@ -207,7 +223,6 @@ if ( ! class_exists( 'WCGS' ) ) {
 				return self::$dir . '/' . $file;
 
 			}
-
 		}
 
 		/**
@@ -249,18 +264,18 @@ if ( ! class_exists( 'WCGS' ) ) {
 		 */
 		public static function includes() {
 
-			// includes helpers.
+			// Includes helpers.
 			self::include_plugin_file( 'functions/actions.php' );
 			self::include_plugin_file( 'functions/deprecated.php' );
 			self::include_plugin_file( 'functions/helpers.php' );
 			self::include_plugin_file( 'functions/sanitize.php' );
 			self::include_plugin_file( 'functions/validate.php' );
 
-			// includes free version classes.
+			// Includes free version classes.
 			self::include_plugin_file( 'classes/abstract.class.php' );
 			self::include_plugin_file( 'classes/fields.class.php' );
 			self::include_plugin_file( 'classes/options.class.php' );
-
+			self::include_plugin_file( 'classes/metabox-options.class.php' );
 		}
 
 		/**
@@ -305,7 +320,6 @@ if ( ! class_exists( 'WCGS' ) ) {
 					}
 				}
 			}
-
 		}
 
 		/**
@@ -315,7 +329,7 @@ if ( ! class_exists( 'WCGS' ) ) {
 		 */
 		public static function add_admin_enqueue_scripts() {
 			$current_screen = get_current_screen();
-			if ( is_object( $current_screen ) && 'toplevel_page_wpgs-settings' === $current_screen->base ) {
+			if ( is_object( $current_screen ) && 'toplevel_page_wpgs-settings' === $current_screen->base || 'woogallery_page_assign_layout' === $current_screen->base || 'wcgs_layouts' === $current_screen->post_type ) {
 				// check for developer mode.
 				$min = ( apply_filters( 'wcgs_dev_mode', false ) || WP_DEBUG ) ? '' : '.min';
 
@@ -442,8 +456,20 @@ if ( ! class_exists( 'WCGS' ) ) {
 				if ( ! empty( $field['title'] ) ) {
 					$subtitle = ( ! empty( $field['subtitle'] ) ) ? '<p class="wcgs-text-subtitle">' . $field['subtitle'] . '</p>' : '';
 					// $title_help = ( ! empty( $field['title_help'] ) ) ? '<span class="wcgs-help wcgs-title-help"><span class="wcgs-help-text">' . $field['title_help'] . '</span><span class="sp_wgs-icon-question-circle"></span></span>' : '';
-					$title_help = ( ! empty( $field['title_help'] ) ) ? '<span class="wcgs-help wcgs-title-help"><span class="wcgs-help-text">' . $field['title_help'] . '</span> <span class="tooltip-icon"><img src="' . self::include_plugin_url( 'assets/images/info.svg' ) . '"></span></span>' : '';
-					echo wp_kses_post( '<div class="wcgs-title"><h4>' . $field['title'] . $title_help . '</h4>' . $subtitle . '</div>' );
+					$title_help = '';
+					if ( ! empty( $field['title_help'] ) || ! empty( $field['title_video'] ) ) {
+						$help_text       = ! empty( $field['title_help'] ) ? $field['title_help'] : '';
+						$icon_type       = ! empty( $field['title_video'] ) ? 'video_info.svg' : 'info.svg';
+						$video_help_attr = ! empty( $field['title_video'] ) ? ' title-video-help' : '';
+						$title_help      = sprintf(
+							'<span class="wcgs-help wcgs-title-help">
+							<span class="wcgs-help-text ' . esc_attr( $video_help_attr ) . '">%s</span><span class="tooltip-icon"><img src="%s"></span></span>',
+							$help_text . ( ! empty( $field['title_video'] ) ? $field['title_video'] : '' ),
+							self::include_plugin_url( 'assets/images/' . $icon_type )
+						);
+					}
+					// $title_help = ( ! empty( $field['title_help'] ) ) ? '<span class="wcgs-help wcgs-title-help"><span class="wcgs-help-text">' . $field['title_help'] . '</span> <span class="tooltip-icon"><img src="' . self::include_plugin_url( 'assets/images/info.svg' ) . '"></span></span>' : '';
+					echo '<div class="wcgs-title"><h4>' . $field['title'] . $title_help . '</h4>' . $subtitle . '</div>';
 				}
 
 				echo ( ! empty( $field['title'] ) ) ? '<div class="wcgs-fieldset">' : '';
@@ -468,9 +494,7 @@ if ( ! class_exists( 'WCGS' ) ) {
 			echo ( ! empty( $field['title'] ) ) ? '</div>' : '';
 			echo '<div class="clear"></div>';
 			echo '</div>';
-
 		}
-
 	}
 
 	WCGS::init();

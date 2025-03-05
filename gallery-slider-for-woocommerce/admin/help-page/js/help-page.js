@@ -1,14 +1,15 @@
 ; (function ($) {
-	const hash = window.location.hash.replace('#', '').split('#')[1];
+
+	const hash = window.location.hash.replace('#', '');
 	$(window).on('hashchange', function() {
 		let hash = window.location.hash.replace('#', '').split('#')[1];
-		if ('get-started' === hash || 'recommended' === hash || 'lite-to-pro' === hash || 'about-us' === hash) {
-			$('.wcgs-nav.wcgs-nav-options ul li:last-child a').addClass('wcgs-section-active');
-			$('#wcgs-section-help').show();
-		}
-		if( !hash ) {
-			$('#wcgs-section-help').hide();
-		}
+		// if ('get-started' === hash || 'recommended' === hash || 'lite-to-pro' === hash || 'about-us' === hash) {
+		// 	$('.wcgs-nav.wcgs-nav-options ul li:last-child a').addClass('wcgs-section-active');
+		// 	$('#wcgs-section-help').show();
+		// }
+		// if( !hash ) {
+		// 	$('#wcgs-section-help').hide();
+		// }
 	})
 	// Help page tab menu script.
 	$('.sp-woo-gallery-slider-help').on('click', '.wcgs-header-nav-menu a', function (e) {
@@ -24,7 +25,6 @@
 
 		$('#' + tabId).css('display', 'block');
 	})
-
 	if ('recommended' === hash) {
 		$('.sp-woo-gallery-slider-help .wcgs-header-nav-menu a[data-id="recommended-tab"]').trigger('click');
 	}

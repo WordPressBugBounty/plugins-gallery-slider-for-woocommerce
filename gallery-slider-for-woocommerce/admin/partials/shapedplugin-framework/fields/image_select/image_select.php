@@ -79,7 +79,7 @@ if ( ! class_exists( 'WCGS_Field_image_select' ) ) {
 						echo '<p><b>' . esc_html( $option['option_name'] ) . '</b></p>';
 					}
 					if ( isset( $option['option_demo_url'] ) ) {
-						echo '<p class="wcgs-img-title"><b>' . esc_html( $option['option_name'] ) . '</b><a href="' . esc_url( $option['option_demo_url'] ) . '" tooltip="Demo" class="wcgs-live-demo-icon" target="_blank"><i class="sp_wgs-icon-external-link"></i></a></p>';
+						echo '<p class="wcgs-img-title"><b>' . esc_html( $option['option_name'] ) . '</b><a href="' . esc_url( $option['option_demo_url'] ) . '" tooltip="Demo" class="wcgs-live-demo-icon" target="_blank"><i class="sp_wgs-icon-external_link"></i></a></p>';
 					}
 					echo '</div>';
 				}

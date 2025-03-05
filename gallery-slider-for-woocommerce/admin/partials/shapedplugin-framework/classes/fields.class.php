@@ -91,7 +91,6 @@ if ( ! class_exists( 'WCGS_Fields' ) ) {
 			}
 
 			return $field_name . $nested_name;
-
 		}
 
 		/**
@@ -128,7 +127,6 @@ if ( ! class_exists( 'WCGS_Fields' ) ) {
 			}
 
 			return $atts;
-
 		}
 
 		/**
@@ -153,7 +151,6 @@ if ( ! class_exists( 'WCGS_Fields' ) ) {
 			$output .= ( ! empty( $this->field['_error'] ) ) ? '<p class="wcgs-text-error">' . $this->field['_error'] . '</p>' : '';
 
 			return $output;
-
 		}
 
 		/**
@@ -209,7 +206,11 @@ if ( ! class_exists( 'WCGS_Fields' ) ) {
 				case 'tag':
 				case 'tags':
 					$taxonomies = ( isset( $query_args['taxonomies'] ) ) ? $query_args['taxonomies'] : 'post_tag';
-					$tags       = get_terms( $taxonomies, $query_args );
+					if ( ! isset( $query_args['taxonomy'] ) ) {
+						unset( $query_args['taxonomies'] );
+						$query_args['taxonomy'] = $taxonomies;
+					}
+					$tags = get_terms( $query_args );
 					if ( ! is_wp_error( $tags ) && ! empty( $tags ) ) {
 						foreach ( $tags as $tag ) {
 							$options[ $tag->term_id ] = $tag->name;
@@ -221,15 +222,12 @@ if ( ! class_exists( 'WCGS_Fields' ) ) {
 				case 'menu':
 				case 'menus':
 					$menus = wp_get_nav_menus( $query_args );
-
 					if ( ! is_wp_error( $menus ) && ! empty( $menus ) ) {
 						foreach ( $menus as $menu ) {
 							$options[ $menu->term_id ] = $menu->name;
 						}
 					}
-
 					break;
-
 				case 'post_type':
 				case 'post_types':
 					$post_types = get_post_types(
@@ -282,8 +280,6 @@ if ( ! class_exists( 'WCGS_Fields' ) ) {
 			}
 
 			return $options;
-
 		}
-
 	}
 }

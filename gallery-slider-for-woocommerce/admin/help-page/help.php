@@ -135,7 +135,7 @@ class Woo_Gallery_Slider_Help {
 			}
 		}
 
-		$woocommerce_plugin = array( 'woo-category-slider-grid', 'woo-product-slider', 'woo-quickview', 'smart-brands-for-woocommerce' );
+		$woocommerce_plugin = array('smart-swatches', 'woo-category-slider-grid', 'woo-product-slider', 'woo-quickview', 'smart-brands-for-woocommerce' );
 		$woo_plugins        = array();
 		$normal_plugins     = array();
 
@@ -148,7 +148,6 @@ class Woo_Gallery_Slider_Help {
 		}
 
 		$plugins_arr = array_merge( $woo_plugins, $normal_plugins );
-
 		if ( is_array( $plugins_arr ) && ( count( $plugins_arr ) > 0 ) ) {
 
 			foreach ( $plugins_arr as $plugin ) {
@@ -337,21 +336,36 @@ class Woo_Gallery_Slider_Help {
 
 		?>
 		<div class="sp-woo-gallery-slider-help">
-			<!-- Header section start -->
-			<div class="wcgs-header-nav">
-				<div class="wcgs-container">
-					<div class="wcgs-header-nav-menu">
-						<ul>
-							<li><a class="active" data-id="get-start-tab"  href="<?php echo esc_url( home_url( '' ) . '/wp-admin/admin.php?page=wpgs-settings#tab=help#get-started' ); ?>">Get Started</a></li>
-							<li><a href="<?php echo esc_url( home_url( '' ) . '/wp-admin/admin.php?page=wpgs-settings#tab=help#recommended' ); ?>" data-id="recommended-tab">Recommended</a></li>
-							<li><a href="<?php echo esc_url( home_url( '' ) . '/wp-admin/admin.php?page=wpgs-settings#tab=help#lite-to-pro' ); ?>" data-id="lite-to-pro-tab">Lite Vs Pro</a></li>
-							<li><a href="<?php echo esc_url( home_url( '' ) . '/wp-admin/admin.php?page=wpgs-settings#tab=help#about-us' ); ?>" data-id="about-us-tab">About Us</a></li>
-						</ul>
+			<section class="wcgs__help header">
+				<div class="spea-header-area-top">
+					<p>You’re currently using <b>WooGallery</b> lite. To access additional features, consider <a target="_blank" href="https://woogallery.io/pricing/?ref=143"><b>upgrading to Pro!</b></a></p>
+				</div>
+				<!-- Header section start -->
+				<div class="wcgsp-header-area">
+					<div class="wcgs-container">
+						<div class="wcgsp-header-logo">
+							<img src="<?php echo esc_url( WOO_GALLERY_SLIDER_URL . 'admin/help-page/img/woogallery_logo.svg' ); ?>" alt="woogallery_logo">
+							<span>v<?php echo esc_html( WOO_GALLERY_SLIDER_VERSION ); ?></span>
+						</div>
+					</div>
+					<div class="wcgsp-header-logo-shape">
+						<img src="<?php echo esc_url( WOO_GALLERY_SLIDER_URL . 'admin/help-page/img/watercolor-logo.svg' ); ?>" alt="">
 					</div>
 				</div>
-			</div>
-			<!-- Header section end -->
-
+				<div class="wcgs-header-nav">
+						<div class="wcgs-container">
+							<div class="wcgs-header-nav-menu">
+								<ul>
+									<li><a class="active" data-id="get-start-tab"  href="<?php echo esc_url( home_url( '' ) . '/wp-admin/admin.php?page=wpgs-help#get-started' ); ?>"> <i class="sp_wgs-icon-get_started"></i> Get Started</a></li>
+									<li><a href="<?php echo esc_url( home_url( '' ) . '/wp-admin/admin.php?page=wpgs-help#recommended' ); ?>" data-id="recommended-tab"> <i class="sp_wgs-icon-recommended"></i> Recommended</a></li>
+									<li><a href="<?php echo esc_url( home_url( '' ) . '/wp-admin/admin.php?page=wpgs-help#lite-to-pro' ); ?>" data-id="lite-to-pro-tab">  <i class="sp_wgs-icon-free_vs_pro"></i> Lite Vs Pro</a></li>
+									<li><a href="<?php echo esc_url( home_url( '' ) . '/wp-admin/admin.php?page=wpgs-help#about-us' ); ?>" data-id="about-us-tab"> <i class="sp_wgs-icon-about"></i>  About Us</a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				<!-- Header section end -->
+			</section>
 			<!-- Start Page -->
 			<section class="wcgs__help start-page" id="get-start-tab">
 				<div class="wcgs-container">
@@ -362,7 +376,7 @@ class Woo_Gallery_Slider_Help {
 							<iframe width="724" height="405" src="https://www.youtube.com/embed/aofImhOCZYs?si=NMYms_CEQi4KpDa4" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
 							<ul>
 								<li><a class='wcgs-medium-btn' href="<?php echo esc_url( home_url( '/' ) . 'wp-admin/admin.php?page=wpgs-settings#tab=general' ); ?>">Configure Settings</a></li>
-								<li><a target="_blank" class='wcgs-medium-btn' href="https://demo.woogallery.io/thumbnails-bottom/product/air-max-plus/">Live Demo</a></li>
+								<li><a target="_blank" class='wcgs-medium-btn' href="https://demo.woogallery.io/product/air-max-plus/">Live Demo</a></li>
 								<li><a target="_blank" class='wcgs-medium-btn arrow-btn' href="https://woogallery.io/?ref=143">Explore WooGallery <i class="wcgs-icon-button-arrow-icon"></i></a></li>
 							</ul>
 						</div>
@@ -414,12 +428,37 @@ class Woo_Gallery_Slider_Help {
 									<span class='wcgs-pro wcgs-check-icon'></span>
 								</li>
 								<li class='wcgs-body'>
-									<span class='wcgs-title'>Amazing Product Gallery Layouts (Thumbs Bottom & Top, Thumbs Left & Right, Grid, Hierarchy Grid, Anchor Navigation, and Slider)</span>
+									<span class='wcgs-title'>Amazing Product Gallery Layouts (Thumbs Bottom & Top, Thumbs Left & Right, Grid, Modern Grid, Vertival Scroll,Multi-row Thumbs, Hierarchy Grid, Anchor Navigation, and Slider)</span>
 									<span class='wcgs-free'><b>2</b></span>
-									<span class='wcgs-pro'><b>8</b></span>
+									<span class='wcgs-pro'><b>16</b></span>
 								</li>
 								<li class='wcgs-body'>
 									<span class='wcgs-title'>Dedicated Customization Options for Grid, Hierarchy Grid, and Anchor Navigation <i class="wcgs-new">New</i></span>
+									<span class='wcgs-free wcgs-close-icon'></span>
+									<span class='wcgs-pro wcgs-check-icon'></span>
+								</li>
+								<li class='wcgs-body'>
+									<span class='wcgs-title'>Craft and Assign Unique Layouts for Each Product <i class="wcgs-new">New</i></span>
+									<span class='wcgs-free'><b>1</b></span>
+									<span class='wcgs-pro'>Unlimited</span>
+								</li>
+								<li class='wcgs-body'>
+									<span class='wcgs-title'>Assign Layouts to Specific or Selected Categories <i class="wcgs-new">New</i></span>
+									<span class='wcgs-free'><b>1</b></span>
+									<span class='wcgs-pro'>Unlimited</span>
+								</li>
+								<li class='wcgs-body'>
+									<span class='wcgs-title'>Manage Efficiently All Layouts from an Intuitive Dashboard</span>
+									<span class='wcgs-free wcgs-close-icon'></span>
+									<span class='wcgs-pro wcgs-check-icon'></span>
+								</li>
+								<li class='wcgs-body'>
+									<span class='wcgs-title'>Customize Each Product Layout to Fit Your Store’s Design <i class="wcgs-new">New</i></span>
+									<span class='wcgs-free wcgs-close-icon'></span>
+									<span class='wcgs-pro wcgs-check-icon'></span>
+								</li>
+								<li class='wcgs-body'>
+									<span class='wcgs-title'>Display Slider Layout on Mobile Devices <i class="wcgs-hot">Hot</i></span>
 									<span class='wcgs-free wcgs-close-icon'></span>
 									<span class='wcgs-pro wcgs-check-icon'></span>
 								</li>
@@ -429,7 +468,7 @@ class Woo_Gallery_Slider_Help {
 									<span class='wcgs-pro wcgs-check-icon'></span>
 								</li>
 								<li class='wcgs-body'>
-									<span class='wcgs-title'>Display Product Video on the Shop or Product Archive Page <i class="wcgs-new">New</i> <i class="wcgs-hot">Hot</i></span>
+									<span class='wcgs-title'>Display Product Video on the Shop or Product Archive Page  <i class="wcgs-hot">Hot</i></span>
 									<span class='wcgs-free wcgs-close-icon'></span>
 									<span class='wcgs-pro wcgs-check-icon'></span>
 								</li>
@@ -514,7 +553,7 @@ class Woo_Gallery_Slider_Help {
 									<span class='wcgs-pro'><b>4</b></span>
 								</li>
 								<li class='wcgs-body'>
-									<span class='wcgs-title'>Thumbnails Navigation Styles (Outer, Inner, and Custom) <i class="wcgs-new">New</i> <i class="wcgs-hot">Hot</i></span>
+									<span class='wcgs-title'>Thumbnails Navigation Styles (Outer, Inner, and Custom) <i class="wcgs-hot">Hot</i></span>
 									<span class='wcgs-free'><b>1</b></span>
 									<span class='wcgs-pro'><b>3</b></span>
 								</li>
@@ -554,12 +593,12 @@ class Woo_Gallery_Slider_Help {
 									<span class='wcgs-pro wcgs-check-icon'></span>
 								</li>
 								<li class='wcgs-body'>
-									<span class='wcgs-title'>Product Video Play Modes (Inline, Popup) <i class="wcgs-new">New</i></span>
+									<span class='wcgs-title'>Product Video Play Modes (Inline, Popup) <i class="wcgs-hot">Hot</i></span>
 									<span class='wcgs-free wcgs-check-icon'></span>
 									<span class='wcgs-pro wcgs-check-icon'></span>
 								</li>
 								<li class='wcgs-body'>
-									<span class='wcgs-title'>Fully Customized Self-hosted Video Player with VideoJS  <i class="wcgs-new">New</i></span>
+									<span class='wcgs-title'>Fully Customized Self-hosted Video Player with VideoJS  <i class="wcgs-hot">Hot</i></span>
 									<span class='wcgs-free wcgs-close-icon'></span>
 									<span class='wcgs-pro wcgs-check-icon'></span>
 								</li>
@@ -570,6 +609,11 @@ class Woo_Gallery_Slider_Help {
 								</li>
 								<li class='wcgs-body'>
 									<span class='wcgs-title'>30+ Powerful Lightbox Options (Sliding Effects, Icon Display Position, Thumbnails Gallery, etc.)</span>
+									<span class='wcgs-free wcgs-close-icon'></span>
+									<span class='wcgs-pro wcgs-check-icon'></span>
+								</li>
+								<li class='wcgs-body'>
+									<span class='wcgs-title'>Lightbox Transform Controls <i class="wcgs-new">New</i></span>
 									<span class='wcgs-free wcgs-close-icon'></span>
 									<span class='wcgs-pro wcgs-check-icon'></span>
 								</li>
@@ -593,8 +637,8 @@ class Woo_Gallery_Slider_Help {
 									<a target="_blank" href="https://woogallery.io/pricing/?ref=143" class='wcgs-big-btn'>Upgrade to Pro Now!</a>
 									<span class='wcgs-small-paragraph'>14-Day No-Questions-Asked <a target="_blank" href="https://shapedplugin.com/refund-policy/">Refund Policy</a></span>
 								</div>
-								<a target="_blank" href="https://woogallery.io/?ref=143" class='wcgs-big-btn-border'>See All Features</a>
-								<a target="_blank" href="https://demo.woogallery.io/thumbnails-left/product/featherlight-cap/" class="wcgs-big-btn-border wcgs-pro-live-demo-btn">Pro Live Demo</a>
+								<a target="_blank" href="https://woogallery.io/#features" class='wcgs-big-btn-border'>See All Features</a>
+								<a target="_blank" href="https://demo.woogallery.io/product/hooded-track-jacket/" class="wcgs-big-btn-border wcgs-pro-live-demo-btn">Pro Live Demo</a>
 							</div>
 						</div>
 					</div>
@@ -677,13 +721,14 @@ class Woo_Gallery_Slider_Help {
 					<div class="wcgs-about-box">
 						<div class="wcgs-about-info">
 							<h3>All-in-One WooCommerce Product Image and Video Gallery Solution by the WooGallery Team, ShapedPlugin, LLC</h3>
-							<p>Over the years, we have found that many WooCommerce store owners struggle to effectively display multiple crystal-clear product images to online customers, which is essential to increase sales. However, this powerful plugin can help you with that and much more:</p>
+							<p> At <b>ShapedPlugin LLC</b>, we sought the best way to enhance WooCommerce product pages with engaging layouts inspired by Amazon, <b>Nike, Adidas, AliExpress,</b> and <b>Louis Vuitton</b>. We also wanted the flexibility to create custom layouts for specific products and categories. Finding no suitable solution, we finally built <a target="_blank" href="https://woogallery.io/?ref=143"><b>WooGallery</b></a>, which helps you boost sales!</p>
 							<ul>
 								<li><span class="wcgs-checkmark-icon"></span> Enable Product Gallery Slider on the Product Page</li>
-								<li><span class="wcgs-checkmark-icon"></span> Enable Additional Variation Images Gallery Slider</li>
-								<li><span class="wcgs-checkmark-icon"></span> Create Product Video Gallery</li>
-								<li><span class="wcgs-checkmark-icon"></span> Add Product Image Zoom and Lightbox</li>
-								<li><span class="wcgs-checkmark-icon"></span> Add Product Video on the Shop/Archive Page (Replace featured image)</li>
+								<li><span class="wcgs-checkmark-icon"></span> Enable Additional Variation Images Gallery Slider 🔥🔥</li>
+								<li><span class="wcgs-checkmark-icon"></span> Create Product Video Gallery 🔥</li>
+								<li><span class="wcgs-checkmark-icon"></span> Add Advanced Product Image Zoom & Lightbox</li>
+								<li><span class="wcgs-checkmark-icon"></span> Add Product Video on the Shop/Archive Page</li>
+								<li><span class="wcgs-checkmark-icon"></span>  Custom Layouts for Products & Categories 🔥🔥</li>
 							</ul>
 							<div class="wcgs-about-btn">
 								<a target="_blank" href="https://woogallery.io/?ref=143" class='wcgs-medium-btn'>Explore WooGallery</a>

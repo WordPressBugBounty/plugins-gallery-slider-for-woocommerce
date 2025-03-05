@@ -24,9 +24,8 @@ class Woo_Gallery_Slider_Admin_Notices {
 	public function __construct() {
 		add_action( 'admin_notices', array( $this, 'all_admin_notice' ) );
 		add_action( 'wp_ajax_sp-woogs-never-show-review-notice', array( $this, 'dismiss_review_notice' ) );
-		add_action( 'wp_ajax_dismiss_wqv_notice', array( $this, 'dismiss_wqv_notice' ) );
-		add_action( 'wp_ajax_dismiss_wcs_notice', array( $this, 'dismiss_wcs_notice' ) );
 		add_action( 'wp_ajax_sp_wgs-hide-offer-banner', array( $this, 'dismiss_offer_banner' ) );
+		add_action( 'wp_ajax_dismiss_smart_swatches_notice', array( $this, 'dismiss_smart_swatches_notice' ) );
 	}
 
 	/**
@@ -36,9 +35,8 @@ class Woo_Gallery_Slider_Admin_Notices {
 	 */
 	public function all_admin_notice() {
 		$this->display_review_notice();
-		$this->woo_product_category_install_admin_notice();
-		$this->wqv_install_admin_notice();
 		$this->show_admin_offer_banner();
+		$this->smart_swatches_install_admin_notice();
 	}
 
 	/**
@@ -158,42 +156,66 @@ class Woo_Gallery_Slider_Admin_Notices {
 		die;
 	}
 
+
 	/**
-	 * Category Slider for WooCommerce install notice for backend.
+	 * Dismiss Smart Swatches install notice message
 	 *
-	 * @since 2.2.11
+	 * @since 2.4.4
+	 *
+	 * @return void
 	 */
-	public function woo_product_category_install_admin_notice() {
-
-		if ( is_plugin_active( 'woo-category-slider-grid/woo-category-slider-grid.php' ) ) {
+	public function dismiss_smart_swatches_notice() {
+		$nonce = isset( $_GET['ajax_nonce'] ) ? sanitize_text_field( wp_unslash( $_GET['ajax_nonce'] ) ) : '';
+		// Check the update permission and nonce verification.
+		if ( ! current_user_can( 'install_plugins' ) || ! wp_verify_nonce( $nonce, 'smart-swatches-notice' ) ) {
+			wp_send_json_error( array( 'error' => esc_html__( 'Authorization failed!', 'gallery-slider-for-woocommerce' ) ), 401 );
+		}
+		update_option( 'sp-smart-swatches-notice-dismissed', 1 );
+		die;
+	}
+	/**
+	 * Smart Swatches install admin notice.
+	 */
+	public function smart_swatches_install_admin_notice() {
+		if ( is_plugin_active( 'smart-swatches/smart-swatches.php' ) || is_plugin_active( 'smart-swatches-pro/smart-swatches-pro.php' ) ) {
 			return;
 		}
-		if ( get_option( 'sp-wcs-notice-dismissed' ) ) {
+		if ( get_option( 'sp-smart-swatches-notice-dismissed' ) ) {
 			return;
 		}
 
-		$current_screen        = get_current_screen();
-		$the_current_post_type = is_object( $current_screen ) ? $current_screen->base : '';
+		$current_screen = get_current_screen();
 
-		if ( current_user_can( 'install_plugins' ) && 'toplevel_page_wpgs-settings' === $the_current_post_type ) {
-
-			$plugins     = array_keys( get_plugins() );
-			$slug        = 'woo-category-slider-grid';
-			$icon        = WOO_GALLERY_SLIDER_URL . 'admin/img/wcs-notice.svg';
+		if ( current_user_can( 'install_plugins' ) && is_object( $current_screen ) && is_object( $current_screen ) && 'wcgs_layouts' === $current_screen->post_type || 'toplevel_page_wpgs-settings' === $current_screen->base || 'woogallery_page_assign_layout' === $current_screen->base || 'woogallery_page_wpgs-help' === $current_screen->base ) {
+			$plugins = array_keys( get_plugins() );
+			$slug    = 'smart-swatches';
+			$icon    = 'https://ps.w.org/smart-swatches/assets/icon-128x128.gif';
+			// $icon        = SP_WPS_URL . 'Admin/assets/images/woo-quick-view-notice.svg';
 			$text        = esc_html__( 'Install', 'gallery-slider-for-woocommerce' );
 			$button_text = esc_html__( 'Install Now', 'gallery-slider-for-woocommerce' );
 			$install_url = esc_url( wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=' . $slug ), 'install-plugin_' . $slug ) );
 			$arrow       = '<svg width="14" height="10" viewBox="0 0 14 10" fill="#2171B1" xmlns="http://www.w3.org/2000/svg">
 			<path d="M13.8425 4.5226L10.465 0.290439C10.3403 0.138808 10.164 0.0428426 9.97274 0.0225711C9.7815 0.00229966 9.59007 0.0592883 9.43833 0.181617C9.29698 0.313072 9.20835 0.494686 9.18999 0.6906C9.17163 0.886513 9.22487 1.08246 9.33917 1.23966L11.7425 4.26263H0.723328C0.531488 4.26263 0.347494 4.3416 0.211843 4.4822C0.0761915 4.62279 0 4.81349 0 5.01232C0 5.21116 0.0761915 5.40182 0.211843 5.54241C0.347494 5.68301 0.531488 5.76202 0.723328 5.76202H11.7425L9.33917 8.78499C9.22616 8.94269 9.17373 9.13831 9.19206 9.33383C9.21038 9.52935 9.29815 9.71082 9.43833 9.84303C9.58951 9.96682 9.78128 10.0247 9.97296 10.0044C10.1646 9.98405 10.3411 9.88716 10.465 9.73421L13.8425 5.50204C13.9447 5.36535 14.0001 5.19731 14.0001 5.02439C14.0001 4.85147 13.9447 4.68347 13.8425 4.54677V4.5226Z"></path>
 		</svg>';
-
-			if ( in_array( 'woo-category-slider-grid/woo-category-slider-grid.php', $plugins, true ) ) {
+			if ( in_array( 'smart-swatches/smart-swatches.php', $plugins, true ) ) {
 				$text        = esc_html__( 'Activate', 'gallery-slider-for-woocommerce' );
 				$button_text = esc_html__( 'Activate', 'gallery-slider-for-woocommerce' );
-				$install_url = esc_url( self_admin_url( 'plugins.php?action=activate&plugin=' . urlencode( 'woo-category-slider-grid/woo-category-slider-grid.php' ) . '&plugin_status=all&paged=1&s&_wpnonce=' . urlencode( wp_create_nonce( 'activate-plugin_woo-category-slider-grid/woo-category-slider-grid.php' ) ) ) );
+				$install_url = esc_url( self_admin_url( 'plugins.php?action=activate&plugin=' . urlencode( 'smart-swatches/smart-swatches.php' ) . '&plugin_status=all&paged=1&s&_wpnonce=' . urlencode( wp_create_nonce( 'activate-plugin_smart-swatches/smart-swatches.php' ) ) ) );
 			}
 
-			$popup_url = esc_url(
+			$popup_woo_url = esc_url(
+				add_query_arg(
+					array(
+						'tab'       => 'plugin-information',
+						'plugin'    => 'gallery-slider-for-woocommerce',
+						'TB_iframe' => 'true',
+						'width'     => '772',
+						'height'    => '446',
+					),
+					admin_url( 'plugin-install.php' )
+				)
+			);
+			$popup_url     = esc_url(
 				add_query_arg(
 					array(
 						'tab'       => 'plugin-information',
@@ -205,95 +227,19 @@ class Woo_Gallery_Slider_Admin_Notices {
 					admin_url( 'plugin-install.php' )
 				)
 			);
-
-			$nonce = wp_create_nonce( 'wcs-notice' );
-			echo sprintf( '<div class="wcs-notice notice is-dismissible"  data-nonce="%7$s"><img src="%1$s"/><div class="wcs-notice-text">To Display <strong>Product Categories</strong> nicely to your Shop, %4$s the <a href="%2$s" class="thickbox open-plugin-details-modal"><strong>Category Slider for WooCommerce</strong></a> and <strong>Boost Sales!</strong> <a href="%3$s" rel="noopener" class="wcs-activate-btn">%5$s</a><a href="https://demo.shapedplugin.com/woocommerce-category-slider/woo-category-slider-lite-version-demo/" target="_blank" class="wcs-demo-button">See How It Works<span>%6$s</span></a></div></div>', esc_url( $icon ), esc_url( $popup_url ), esc_url( $install_url ), esc_html( $text ), esc_html( $button_text ), $arrow, esc_attr( $nonce ) ); // phpcs:ignore
+			$nonce         = wp_create_nonce( 'smart-swatches-notice' );
+			printf(
+				'<div class="smart-swatches-notice  is-dismissible" data-nonce="%7$s"><img src="%1$s" />
+			<div class="smart-swatches-notice-text">
+				<div class="smart-swatches-notice-content">
+				Use the <a href="%2$s" class="thickbox open-plugin-details-modal"><strong>Smart Swatches</strong></a> plugin with <a href="%8$s" class="thickbox open-plugin-details-modal"> <strong> WooGallery</strong></a> to transform dropdowns into <strong> Color, Button, Radio, and Image Swatches</strong>—A Perfect match to <strong> Boost Sales! 🚀 </strong>
+				</div>
+				<div class="smart-swatches-notice-action">
+					<a href="%3$s" rel="noopener" class="smart-swatches-activate-btn">%5$s</a>
+				</div>
+			</div>
+			<button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>', esc_url( $icon ), esc_url( $popup_url ), esc_url( $install_url ), esc_html( $text ), esc_html( $button_text ), $arrow, $nonce, esc_url( $popup_woo_url ) ); // phpcs:ignore
 		}
-	}
-
-	/**
-	 * Quick View for WooCommerce install admin notice.
-	 *
-	 * @since 2.2.11
-	 */
-	public function wqv_install_admin_notice() {
-
-		if ( is_plugin_active( 'woo-quickview/woo-quick-view.php' ) ) {
-			return;
-		}
-		if ( get_option( 'sp-wqv-notice-dismissed' ) ) {
-			return;
-		}
-
-		$current_screen        = get_current_screen();
-		$the_current_post_type = is_object( $current_screen ) ? $current_screen->base : '';
-
-		if ( current_user_can( 'install_plugins' ) && 'toplevel_page_wpgs-settings' === $the_current_post_type ) {
-
-			$plugins     = array_keys( get_plugins() );
-			$slug        = 'woo-quickview';
-			$icon        = WOO_GALLERY_SLIDER_URL . 'admin/img/woo-quick-view-notice.svg';
-			$text        = esc_html__( 'Install', 'gallery-slider-for-woocommerce' );
-			$button_text = esc_html__( 'Install Now', 'gallery-slider-for-woocommerce' );
-			$install_url = esc_url( wp_nonce_url( self_admin_url( 'update.php?action=install-plugin&plugin=' . $slug ), 'install-plugin_' . $slug ) );
-			$arrow       = '<svg width="14" height="10" viewBox="0 0 14 10" fill="#2171B1" xmlns="http://www.w3.org/2000/svg">
-			<path d="M13.8425 4.5226L10.465 0.290439C10.3403 0.138808 10.164 0.0428426 9.97274 0.0225711C9.7815 0.00229966 9.59007 0.0592883 9.43833 0.181617C9.29698 0.313072 9.20835 0.494686 9.18999 0.6906C9.17163 0.886513 9.22487 1.08246 9.33917 1.23966L11.7425 4.26263H0.723328C0.531488 4.26263 0.347494 4.3416 0.211843 4.4822C0.0761915 4.62279 0 4.81349 0 5.01232C0 5.21116 0.0761915 5.40182 0.211843 5.54241C0.347494 5.68301 0.531488 5.76202 0.723328 5.76202H11.7425L9.33917 8.78499C9.22616 8.94269 9.17373 9.13831 9.19206 9.33383C9.21038 9.52935 9.29815 9.71082 9.43833 9.84303C9.58951 9.96682 9.78128 10.0247 9.97296 10.0044C10.1646 9.98405 10.3411 9.88716 10.465 9.73421L13.8425 5.50204C13.9447 5.36535 14.0001 5.19731 14.0001 5.02439C14.0001 4.85147 13.9447 4.68347 13.8425 4.54677V4.5226Z"></path>
-		</svg>';
-
-			if ( in_array( 'woo-quickview/woo-quick-view.php', $plugins, true ) ) {
-				$text        = esc_html__( 'Activate', 'gallery-slider-for-woocommerce' );
-				$button_text = esc_html__( 'Activate', 'gallery-slider-for-woocommerce' );
-				$install_url = esc_url( self_admin_url( 'plugins.php?action=activate&plugin=' . urlencode( 'woo-quickview/woo-quick-view.php' ) . '&plugin_status=all&paged=1&s&_wpnonce=' . urlencode( wp_create_nonce( 'activate-plugin_woo-quickview/woo-quick-view.php' ) ) ) );
-			}
-
-			$popup_url = esc_url(
-				add_query_arg(
-					array(
-						'tab'       => 'plugin-information',
-						'plugin'    => $slug,
-						'TB_iframe' => 'true',
-						'width'     => '772',
-						'height'    => '446',
-					),
-					admin_url( 'plugin-install.php' )
-				)
-			);
-
-			$nonce = wp_create_nonce( 'wqv-notice' );
-			echo sprintf( '<div class="wqv-notice notice is-dismissible" data-nonce="%7$s"><img src="%1$s"/><div class="wqv-notice-text">To Allow the Customers to <strong>Have a Quick View of Products</strong>, %4$s the <a href="%2$s" class="thickbox open-plugin-details-modal"><strong>Quick View for WooCommerce</strong></a> and <strong>Boost Sales!</strong> <a href="%3$s" rel="noopener" class="wqv-activate-btn">%5$s</a><a href="https://demo.shapedplugin.com/woocommerce-quick-view/" target="_blank" class="wqv-demo-button">See How It Works<span>%6$s</span></a></div></div>', esc_url( $icon ), esc_url( $popup_url ), esc_url( $install_url ), esc_html( $text ), esc_html( $button_text ), $arrow, esc_attr( $nonce ) ); // phpcs:ignore
-		}
-	}
-
-	/**
-	 * Dismiss woo category slider grid install notice message for the backend.
-	 *
-	 * @since 2.1.11
-	 *
-	 * @return void
-	 */
-	public function dismiss_wcs_notice() {
-		$nonce = isset( $_POST['ajax_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['ajax_nonce'] ) ) : '';
-		// Check the update permission and nonce verification.
-		if ( ! current_user_can( 'install_plugins' ) || ! wp_verify_nonce( $nonce, 'wcs-notice' ) ) {
-			wp_send_json_error( array( 'error' => esc_html__( 'Authorization failed!', 'gallery-slider-for-woocommerce' ) ), 401 );
-		}
-		update_option( 'sp-wcs-notice-dismissed', 1 );
-	}
-
-	/**
-	 * Dismiss WQV install notice message
-	 *
-	 * @since 2.1.11
-	 *
-	 * @return void
-	 */
-	public function dismiss_wqv_notice() {
-		$nonce = isset( $_POST['ajax_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['ajax_nonce'] ) ) : '';
-		// Check the update permission and nonce verification.
-		if ( ! current_user_can( 'install_plugins' ) || ! wp_verify_nonce( $nonce, 'wqv-notice' ) ) {
-			wp_send_json_error( array( 'error' => esc_html__( 'Authorization failed!', 'gallery-slider-for-woocommerce' ) ), 401 );
-		}
-		update_option( 'sp-wqv-notice-dismissed', 1 );
 	}
 
 	/**
@@ -394,7 +340,7 @@ class Woo_Gallery_Slider_Admin_Notices {
 		if ( $current_date >= $start_date && $current_date <= $end_date ) {
 			// Start Banner HTML markup.
 			?>
-			<div class="sp_wgs-admin-offer-banner-section">	
+			<div class="sp_wgs-admin-offer-banner-section">
 			<?php if ( ! empty( $plugin_logo ) ) { ?>
 				<div class="sp_wgs-offer-banner-image">
 					<img src="<?php echo esc_url( $plugin_logo ); ?>" alt="Plugin Logo" class="sp_wgs-plugin-logo">
@@ -409,7 +355,7 @@ class Woo_Gallery_Slider_Admin_Notices {
 				</div>
 			<?php } ?>
 			<div class="sp_wgs-offer-additional-text">
-				<span class="sp_wgs-clock-icon">⏱</span><p><?php esc_html_e( 'Limited Time Offer, Upgrade Now!', 'wp-carousel-free' ); ?></p>
+				<span class="sp_wgs-clock-icon">⏱</span><p><?php esc_html_e( 'Limited Time Offer, Upgrade Now!', 'gallery-slider-for-woocommerce' ); ?></p>
 			</div>
 			<?php if ( ! empty( $action_url ) ) { ?>
 				<div class="sp_wgs-banner-action-button">

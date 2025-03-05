@@ -2,10 +2,10 @@
 Contributors: shapedplugin, rubel_miah, khalilu, shamimmiashuhagh
 Tags: woocommerce product gallery carousel, woocommerce product gallery slider, product image zoom, additional variation gallery, product featured video
 Requires at least: 5.3
-Tested up to: 6.7.1
+Tested up to: 6.7.2
 WC requires at least: 4.5
-WC tested up to: 9.6.0
-Stable tag: 2.1.6
+WC tested up to: 9.7.0
+Stable tag: 2.2.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -15,7 +15,7 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 🔥 All-in-One WooCommerce Product Image and Video Gallery Solution to Enhance Your Customers' Shopping Experience and Boost Sales Instantly! 🚀
 
-[__🖥️ Live Demo__](https://demo.woogallery.io/thumbnails-bottom/product/air-max-plus/) | [__📖 Documentation__](https://docs.shapedplugin.com/docs/gallery-slider-for-woocommerce/overview/) | [__🛟 Support__](https://shapedplugin.com/support/?user=lite) | [__🌐 Full Features List__](https://woogallery.io/) | [__🏆 Upgrade To Pro!__](https://woogallery.io/pricing/?ref=143)
+[__🖥️ Live Demo__](https://demo.woogallery.io/product/air-max-plus/) | [__📖 Documentation__](https://docs.shapedplugin.com/docs/gallery-slider-for-woocommerce/overview/) | [__🛟 Support__](https://shapedplugin.com/support/?user=lite) | [__🌐 Full Features List__](https://woogallery.io/) | [__🏆 Upgrade To Pro!__](https://woogallery.io/pricing/?ref=143)
 
 
 [youtube https://www.youtube.com/watch?v=aofImhOCZYs]
@@ -77,14 +77,14 @@ Moreover, you can upload or embed various types of videos from YouTube, Vimeo, D
 
 The WooGallery plugin has 8 different engaging layouts to show your product, variation gallery images, and videos. Each layout has a different navigation style and visual presentation. Select a layout that best suits your product display needs and design goals.
 
-* Thumbnails Bottom [Live Demo](https://demo.woogallery.io/thumbnails-bottom/product/air-max-plus/)
-* Thumbnails Top [Live Demo](https://demo.woogallery.io/thumbnails-top/product/elemental-backpack/)
-* Thumbnails Left (Pro) [Live Demo](https://demo.woogallery.io/thumbnails-left/product/featherlight-cap/)
-* Grid (New) (Pro) [Live Demo](https://demo.woogallery.io/grid/product/sports-wear/)
-* Hierarchy Grid (New) (Pro) [Live Demo](https://demo.woogallery.io/hierarchy-grid/product/cozy-pullover/)
-* Anchor Navigation (New) (Pro) [Live Demo](https://demo.woogallery.io/anchor-navigation/product/jersey-sweat-shirt/)
-* Thumbnails Right (Pro) [Live Demo](https://demo.woogallery.io/thumbnails-right/product/custom-dunk-low/)
-* Slider (Pro) [Live Demo](https://demo.woogallery.io/slider/product/duffel-bag/)
+* Thumbnails Bottom [Live Demo](https://demo.woogallery.io/product/air-max-plus/)
+* Thumbnails Top [Live Demo](https://demo.woogallery.io/product/elemental-backpack/)
+* Thumbnails Left (Pro) [Live Demo](https://demo.woogallery.io/product/featherlight-cap/)
+* Grid (New) (Pro) [Live Demo](https://demo.woogallery.io/product/sports-wear/)
+* Hierarchy Grid (New) (Pro) [Live Demo](https://demo.woogallery.io/product/cozy-pullover/)
+* Anchor Navigation (New) (Pro) [Live Demo](https://demo.woogallery.io/product/jersey-sweat-shirt/)
+* Thumbnails Right (Pro) [Live Demo](https://demo.woogallery.io/product/custom-dunk-low/)
+* Slider (Pro) [Live Demo](https://demo.woogallery.io/product/duffel-bag/)
 
 [Documentation](https://docs.shapedplugin.com/docs/gallery-slider-for-woocommerce-pro/configurations/how-to-choose-a-gallery-layout/)
 
@@ -92,7 +92,7 @@ The WooGallery plugin has 8 different engaging layouts to show your product, var
 
 By default, WooCommerce allows adding only one image per product variation. With the WooGallery plugin, you can add and display unlimited gallery images for each product variation. It is essential to show additional product images to boost sales.
 
-[Live Demo](https://demo.woogallery.io/thumbnails-left/product/featherlight-cap/) | [Documentation](https://docs.shapedplugin.com/docs/gallery-slider-for-woocommerce-pro/upload-images-in-the-variation-gallery/)
+[Live Demo](https://demo.woogallery.io/product/featherlight-cap/) | [Documentation](https://docs.shapedplugin.com/docs/gallery-slider-for-woocommerce-pro/upload-images-in-the-variation-gallery/)
 
 ✅ **Drag & Drop Custom Sorting for Product and Variation Gallery Images**
 
@@ -410,6 +410,27 @@ Yes, the plugin is compatible with the most popular WooCommerce themes. We’re 
 
 
 == Changelog ==
+
+= Version 2.2.0 - Mar 05, 2025 =
+* New: The Manage Layouts feature.
+* New: The Assign Layout feature.
+* New: The option to show different layouts for specific categorized products.
+* New: The option to show the unique layout for a specific product.
+* New: The Lazyload feature for gallery images.
+* New: The Autoplay option for the gallery slider.
+* New: The Plugin Options Tooltips are enhanced with video visuals. 
+* New: The Speed Optimization sub-tab was added in the Advanced Settings tab. 
+* New: Load the Product Gallery on the Visible Viewport option.
+* New: The Remove Default WooCommerce Gallery Scripts option.
+* New: The Add handler to Dequeue Unnecessary CSS files option.
+* New: The Add handler to Dequeue Unnecessary JS files option.
+* Improved: The plugin code was optimized to improve speed optimization
+* Improved: The WooGallery submenu is renamed to Global Settings.
+* Improved: The On Hover Transition of the Thumbnails Navigation.
+* Fix: The gallery style issue on the Elementor Single Product Template edit page.
+* Fix: The option style issue for the RTL sites.
+* Tested: WordPress 6.7.2 compatibility.
+* Tested: WooCommerce 9.7.0 compatibility.
 
 = Version 2.1.6 - Jan 24, 2025 =
 * New: The YouTube Short Video support.

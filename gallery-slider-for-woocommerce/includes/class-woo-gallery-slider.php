@@ -57,7 +57,6 @@ class Woo_Gallery_Slider {
 	 * @since    1.0.0
 	 */
 	public function __construct() {
-		define( 'SPWG_TRANSIENT_EXPIRATION', apply_filters( 'sp_gallery_transient_expiration', 0 ) );
 
 		if ( defined( 'WOO_GALLERY_SLIDER_VERSION' ) ) {
 			$this->version = WOO_GALLERY_SLIDER_VERSION;
@@ -123,7 +122,6 @@ class Woo_Gallery_Slider {
 		 */
 		require_once plugin_dir_path( __DIR__ ) . 'includes/class-woo-gallery-slider-loader.php';
 
-
 		require_once plugin_dir_path( __DIR__ ) . 'admin/help-page/help.php';
 
 		/**
@@ -182,7 +180,7 @@ class Woo_Gallery_Slider {
 	private function define_admin_hooks() {
 
 		$plugin_admin = new Woo_Gallery_Slider_Admin( $this->get_plugin_name(), $this->get_version() );
-
+		$this->loader->add_action( 'init', $plugin_admin, 'wcgs_layouts_post_type' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
 		$this->loader->add_action( 'woocommerce_product_after_variable_attributes', $plugin_admin, 'woocommerce_add_gallery_product_variation', 10, 3 );

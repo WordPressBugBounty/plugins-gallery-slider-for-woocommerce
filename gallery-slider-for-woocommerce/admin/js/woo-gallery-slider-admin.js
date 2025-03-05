@@ -228,5 +228,21 @@ jQuery(document).ready(function( $ ) {
 			}
 		})
 	});
+	// smart-swatches plugin notice
+	jQuery(document).on('click', '.smart-swatches-notice .notice-dismiss', function () {
+		var nonce = $(this).parents('.smart-swatches-notice').data('nonce');
+		jQuery.ajax({
+			url: ajaxurl,
+			data: {
+				action: 'dismiss_smart_swatches_notice',
+				ajax_nonce: nonce
+			}
+		});
 
+		$(this).parents('.smart-swatches-notice').hide();
+	});
+	// Active layout.
+	if ($('body').hasClass('post-type-wcgs_layouts')) {
+		$('a[href="edit.php?post_type=wcgs_layouts"]').parent().addClass('current').siblings().removeClass('current');
+	}
 });

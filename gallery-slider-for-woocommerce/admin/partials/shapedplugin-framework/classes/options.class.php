@@ -339,8 +339,9 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 			}
 
 		}
+
 		/**
-		 * Delete cache on save option.
+		 * Purge all the transients associated with our plugin.
 		 *
 		 * @return void
 		 */
@@ -350,9 +351,11 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 			if ( is_multisite() ) {
 				$wp_sitemeta = $wpdb->get_blog_prefix( BLOG_ID_CURRENT_SITE ) . 'sitemeta';
 				$wpdb->query( "DELETE FROM {$wp_sitemeta} WHERE `meta_key` LIKE ('%\spwg_product_variation_%')" );
+				$wpdb->query( "DELETE FROM {$wp_sitemeta} WHERE `meta_key` LIKE ('%\wcgsf_woo_gallery_%')" );
 			} else {
 				$wp_options = $wpdb->prefix . 'options';
 				$wpdb->query( "DELETE FROM {$wp_options} WHERE `option_name` LIKE ('%\_transient_spwg_product_variation_%')" );
+				$wpdb->query( "DELETE FROM {$wp_options} WHERE `option_name` LIKE ('%\_transient_wcgsf_woo_gallery_%')" );
 			}
 		}
 
@@ -773,7 +776,11 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 
 			echo '<div class="wcgs-header' . esc_attr( $sticky_class ) . '">';
 			echo '<div class="wcgs-header-inner">';
-			echo '<div class="wcgs-admin-header"><div class="wcgs-admin-logo"> WooGallery Settings</div>';
+			if ( $this->args['menu_slug'] === 'assign_layout' ) {
+				echo '<div class="wcgs-admin-header assign_layout_settings"><div class="wcgs-admin-logo"> WooGallery <div class="wcgs-version">v' . esc_html( WOO_GALLERY_SLIDER_VERSION ) . '</div></div>';
+			} else {
+				echo '<div class="wcgs-admin-header"><div class="wcgs-admin-logo"> WooGallery Settings <div class="wcgs-version">v' . esc_html( WOO_GALLERY_SLIDER_VERSION ) . '</div></div>';
+			}
 
 			echo '<div class="wcgs-header-right">';
 

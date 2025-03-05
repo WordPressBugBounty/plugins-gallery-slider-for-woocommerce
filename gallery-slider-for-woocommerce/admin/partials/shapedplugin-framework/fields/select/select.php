@@ -80,16 +80,13 @@ if ( ! class_exists( 'WCGS_Field_select' ) ) {
 						if ( is_array( $option ) && ! empty( $option ) ) {
 
 							echo '<optgroup label="' . esc_attr( $option_key ) . '">';
-
 							foreach ( $option as $sub_key => $sub_value ) {
-								$selected = ( in_array( $sub_key, $this->value, true ) ) ? ' selected' : '';
+								$selected = ( in_array( $sub_key, $this->value ) ) ? ' selected' : '';
 								echo '<option value="' . esc_attr( $sub_key ) . '" ' . esc_attr( $selected ) . '>' . esc_html( $sub_value ) . '</option>';
 							}
-
 							echo '</optgroup>';
-
 						} else {
-							$selected = ( in_array( $option_key, $this->value, true ) ) ? ' selected' : '';
+							$selected = ( in_array( $option_key, $this->value ) ) ? ' selected' : '';
 							echo '<option value="' . esc_attr( $option_key ) . '" ' . esc_attr( $selected ) . '>' . wp_kses_post( $option ) . '</option>';
 						}
 					}
@@ -98,7 +95,7 @@ if ( ! class_exists( 'WCGS_Field_select' ) ) {
 
 				} else {
 
-					echo ! empty( $this->field['empty_message'] ) ? esc_html( $this->field['empty_message'] ) : esc_html__( 'No data provided for this option type.', 'gallery-slider-for-woocommerce' );
+					echo ! empty( $this->field['empty_message'] ) ? wp_kses_post( $this->field['empty_message'] ) : esc_html__( 'No data provided for this option type.', 'gallery-slider-for-woocommerce' );
 
 				}
 			}

@@ -35,7 +35,7 @@ class WCGSP_Shoppage {
 						'content' => sprintf(
 							/* translators: 1: start link and strong tag, 2: close link and strong tag, 3: start link and strong tag, 4: close link and strong tag. */
 							__( 'Want to show multiple types of %1$s Product Featured Videos with AutoPlay%2$s on the %3$sShop/Archive Page%4$s and speed up customer decision-making? %5$sUpgrade To Pro!%6$s', 'gallery-slider-for-woocommerce' ),
-							'<a href="https://demo.woogallery.io/thumbnails-left/product-category/product-featured-video-autoplay/" target="_blank"><strong>',
+							'<a href="https://demo.woogallery.io/product-category/video-autoplay/" target="_blank"><strong>',
 							'</strong></a>',
 							'<a class="wcgs-open-live-demo" href="https://demo.woogallery.io/" target="_blank"><strong>',
 							'</strong></a>',
@@ -265,7 +265,7 @@ class WCGSP_Shoppage {
 						'id'         => 'shop_video_ratio_type',
 						'type'       => 'radio',
 						'title'      => __( 'Video Aspect Ratio', 'gallery-slider-for-woocommerce' ),
-						'title_help' => __( 'Same as Featured Image is recommended. The video wrapper ratio will be the same as the product image ratio.', 'gallery-slider-for-woocommerce' ),
+						'title_video' => '<div class="wcgs-img-tag"><video autoplay loop muted playsinline><source src="https://plugins.svn.wordpress.org/gallery-slider-for-woocommerce/assets/visuals/video-aspect-ratio.webm" type="video/webm"></video></div><div class="wcgs-info-label">Video Aspect Ratio</div>',
 						'options'    => array(
 							'as_featured' => array(
 								'option_name' => __( 'Same as Featured Image', 'gallery-slider-for-woocommerce' ),

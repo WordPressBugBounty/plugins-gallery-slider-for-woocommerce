@@ -186,6 +186,7 @@ div.sp-wcgs-help .feature-section i.sp-font{
  */
 .wcgs-metabox {
   margin: -6px -12px -12px -12px;
+
 }
 .wcgs-metabox .wcgs-section-title {
   padding: 20px;
@@ -501,11 +502,16 @@ div.sp-wcgs-help .feature-section i.sp-font{
   right: auto;
   left: 10px;
 }
+.wcgs-metabox .wcgs-admin-header .wcgs-admin-logo,
 .wcgs-settings .wcgs-admin-header .wcgs-admin-logo {
   margin-right: 20px;
   padding-right: 45px;
   direction: rtl;
   background-position-x: right;
+}
+#wcgs_metabox .wcgs-admin-header .wcgs-version{
+  left: auto;
+  right: 170px;
 }
 
 .wcgs-field-box_shadow .wcgs--color, .wcgs-field-border .wcgs--color, .wcgs-field-spacing .wcgs--color, .wcgs-field-column .wcgs--color, .wcgs-field-dimensions .wcgs--color, .wcgs-field-dimensions_res .wcgs--color,
@@ -529,4 +535,29 @@ div.sp-wcgs-help .feature-section i.sp-font{
 .wcgs-field-tabbed .wcgs-tabbed-nav a{
   /* margin-right: 5px; */
   margin-left: 0;
+}
+/* .rtl #sp-woogs-review-notice {
+  margin: 20px 0 0 20px;
+  padding: 18px 0 18px 15px;
+}
+
+.rtl #sp-woogs-review-notice .sp-woogs-plugin-icon {
+  float: right;
+  margin: 0 0 0 8px;
+} */
+.wcgs-field .wcgs-fieldset {
+  margin-left: 0;
+  margin-right: 25%;
+}
+.rtl .wcgs-tooltip:before {
+  content: '';
+  position: absolute;
+  height: 0;
+  width: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid rgba(12, 25, 36, .95);
+  border-right: 0;
+  right: -10px;
+  top: calc(50% - 7px);
 }

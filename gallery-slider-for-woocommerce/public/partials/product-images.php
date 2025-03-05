@@ -6,220 +6,639 @@
  * @subpackage Woo_Gallery_Slider/public
  */
 
-global $product;
-$gallery = array();
-$product = $product ? $product : wc_get_product( get_the_ID() );
-if ( ! is_object( $product ) ) {
-	return;
-}
-$settings     = get_option( 'wcgs_settings' );
-$product_id   = $product->get_id();
-$product_type = $product->get_type();
+if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
+	/**
+	 * WooCommerce Product Gallery Slider.
+	 */
+	class WCGS_Product_Gallery {
+		/**
+		 * Gallery settings
+		 *
+		 * @var array
+		 */
+		private $settings;
 
-$slider_dir            = ( isset( $settings['slider_dir'] ) && $settings['slider_dir'] ) ? $settings['slider_dir'] : '';
-$thumbnailnavigation   = isset( $settings['thumbnailnavigation'] ) ? $settings['thumbnailnavigation'] : false;
-$navigation            = isset( $settings['navigation'] ) ? $settings['navigation'] : true;
-$video_popup_place     = isset( $settings['video_popup_place'] ) ? $settings['video_popup_place'] : 'popup';
-$preloader             = isset( $settings['preloader'] ) ? $settings['preloader'] : true;
-$slider_dir_rtl        = $slider_dir ? 'dir=rtl' : '';
-$include_feature_image = isset( $settings['include_feature_image_to_gallery'] ) ? $settings['include_feature_image_to_gallery'] : array( 'default_gl' );
-if ( is_string( $include_feature_image ) ) {
-	$include_feature_image = array( $include_feature_image );
-}
-$slug_attr         = apply_filters( 'sp_woo_gallery_slider_use_slug_attr', true );
-$default_variation = $product->get_default_attributes();
-if ( 'variable' === $product_type && $slug_attr ) {
-	$product_attributes = $product->get_attributes();
-	$selected_keys      = array();
-	foreach ( $product_attributes as $attribute_name => $options ) {
-		$selected_key = 'attribute_' . sanitize_title( $attribute_name );
-		if ( isset( $_REQUEST[ $selected_key ] ) ) {
-			$selected_keys[ $attribute_name ] = wc_clean( wp_unslash( $_REQUEST[ $selected_key ] ) );
-		}
-	}
-	if ( ! empty( $selected_keys ) ) {
-		$default_variation = $selected_keys;
-	}
-}
-if ( ! empty( $default_variation ) ) {
-	$image_id = $product->get_image_id();
-	if ( is_array( $include_feature_image ) && in_array( 'variable_gl', $include_feature_image, true ) && $image_id ) {
-		array_push( $gallery, wcgs_image_meta( $image_id ) );
-	}
-	$_temp_variations = array();
-	foreach ( $default_variation as $key => $value ) {
-		$_temp_variations[ 'attribute_' . $key ] = $value;
-	}
-	$data_store = WC_Data_Store::load( 'product' );
-	$variations = $data_store->find_matching_product_variation( $product, $_temp_variations );
-	$image_id   = get_post_thumbnail_id( $variations );
-	array_push( $gallery, wcgs_image_meta( $image_id ) );
+		/**
+		 * Assigns data
+		 *
+		 * @var mixed
+		 */
+		private $assigns_data;
 
-	$woo_gallery_slider = get_post_meta( $variations, 'woo_gallery_slider', true );
-	$gallery_arr        = substr( $woo_gallery_slider, 1, -1 );
-	$gallery_multiple   = strpos( $gallery_arr, ',' ) ? true : false;
-	if ( $gallery_multiple ) {
-		$count         = 1;
-		$gallery_array = explode( ',', $gallery_arr );
-		foreach ( $gallery_array as $gallery_item ) {
-			if ( 2 >= $count ) {
-				array_push(
-					$gallery,
-					wcgs_image_meta( $gallery_item )
-				);
-			}
-			++$count;
+		/**
+		 * Current product
+		 *
+		 * @var WC_Product
+		 */
+		private $product;
+
+		/**
+		 * Helper functions.
+		 *
+		 * @var function
+		 */
+		private $helper;
+
+		/**
+		 * Gallery images and videos
+		 *
+		 * @var array
+		 */
+		private $gallery = array();
+
+		/**
+		 * Product id.
+		 *
+		 * @var mixed
+		 */
+		private $product_id = null;
+
+		/**
+		 * Product type.
+		 *
+		 * @var mixed
+		 */
+		private $product_type = '';
+
+		/**
+		 * Constructor
+		 */
+		public function __construct() {
+			$this->product      = $this->get_product();
+			$this->product_id   = $this->product->get_id();
+			$this->product_type = $this->product->get_type();
+			$this->helper       = new WCGS_Public_Helper();
+			$this->settings     = get_option( 'wcgs_settings', array() );
+			$this->display_gallery_output();
 		}
-	} else {
-		$gallery_array = $gallery_arr;
-		if ( $gallery_array ) {
-			array_push( $gallery, wcgs_image_meta( $gallery_array ) );
+		/**
+		 * Get lazy load attribute
+		 *
+		 * @return string
+		 */
+		private function get_lazy_load_attribute() {
+			return isset( $this->settings['wcgs_image_lazy_load'] ) && 'ondemand' === $this->settings['wcgs_image_lazy_load'] ? 'loading="lazy"' : '';
 		}
-	}
-	// if no variation image found, show the featured image.
-	if ( ! $gallery[0] ) {
-		$image_id = $product->get_image_id();
-		if ( $image_id ) {
-			array_push( $gallery, wcgs_image_meta( $image_id ) );
-		}
-	}
-} else {
-	$image_id = $product->get_image_id();
-	if ( is_array( $include_feature_image ) && in_array( 'default_gl', $include_feature_image, true ) && $image_id ) {
-		array_push( $gallery, wcgs_image_meta( $image_id ) );
-	}
-	$gallery_image_source = isset( $settings['gallery_image_source'] ) ? $settings['gallery_image_source'] : 'uploaded';
-	if ( 'attached' === $gallery_image_source ) {
-		$wgsc_post           = get_post( $product_id );
-		$wcgs_post_content   = $wgsc_post->post_content;
-		$wcgs_search_pattern = '~<img [^\>]*\ />~';
-		preg_match_all( $wcgs_search_pattern, $wcgs_post_content, $post_images );
-		$wcgs_number_of_images = count( $post_images[0] );
-		if ( $wcgs_number_of_images > 0 ) {
-			foreach ( $post_images[0] as $image ) {
-				$class_start     = substr( $image, strpos( $image, 'class="' ) + 7 );
-				$class_end       = substr( $class_start, 0, strpos( $class_start, '" ' ) );
-				$image_class_pos = strpos( $class_end, 'wp-image-' );
-				$image_class_tmp = substr( $class_end, $image_class_pos + 9 );
-				array_push(
-					$gallery,
-					wcgs_image_meta( $image_class_tmp )
-				);
+		/**
+		 * Update with Assigned Layout data.
+		 *
+		 * @return void
+		 */
+		private function assigns_layout() {
+			$assigned_layout = $this->helper->get_assigns_layout( $this->product );
+			// Apply first matching layout.
+			if ( ! empty( $assigned_layout ) ) {
+				$this->apply_assigned_layout( $assigned_layout[0] );
 			}
 		}
-	} else {
-		$attachment_ids = $product->get_gallery_image_ids();
-		foreach ( $attachment_ids as $attachment_id ) {
-			array_push(
-				$gallery,
-				wcgs_image_meta( $attachment_id )
+
+		/**
+		 * Apply the assigned layout settings.
+		 *
+		 * @param int $layout_id Layout post ID.
+		 */
+		private function apply_assigned_layout( $layout_id ) {
+			$assigned_options = get_post_meta( $layout_id, 'wcgs_metabox', true );
+			if ( ! empty( $assigned_options ) ) {
+				$this->settings = $this->helper->wp_parse_args_recursive( $assigned_options, $this->settings );
+			}
+		}
+
+		/**
+		 * Get current product
+		 *
+		 * @return WC_Product|null
+		 */
+		private function get_product() {
+			global $product;
+			$product = $product ? $product : wc_get_product( get_the_ID() );
+			return $product;
+		}
+
+		/**
+		 * Get slider configuration
+		 *
+		 * @return array
+		 */
+		public function get_slider_config() {
+			return array(
+				'slider_dir'            => $this->settings['slider_dir'] ?? '',
+				'thumbnailnavigation'   => $this->settings['thumbnailnavigation'] ?? false,
+				'navigation'            => $this->settings['navigation'] ?? true,
+				'video_popup_place'     => $this->settings['video_popup_place'] ?? 'popup',
+				'preloader'             => $this->settings['preloader'] ?? true,
+				'slider_dir_rtl'        => ! empty( $this->settings['slider_dir'] ) ? 'dir=rtl' : '',
+				'include_feature_image' => $this->get_feature_image_setting(),
 			);
 		}
-	}
-	if ( empty( $gallery ) ) {
-		array_push( $gallery, wcgs_image_meta( $image_id ) );
-	}
-}
-?>
-<div id="wpgs-gallery" <?php echo esc_attr( $slider_dir_rtl ); ?> class="wcgs-woocommerce-product-gallery wcgs-swiper-before-init horizontal" style='min-width: <?php echo esc_attr( $settings['gallery_width'] ); ?>%; overflow: hidden;' data-id="<?php echo esc_attr( $product_id ); ?>">
-	<div class="gallery-navigation-carousel-wrapper">
-		<div thumbsSlider="" class="gallery-navigation-carousel swiper horizontal always">
-			<div class="swiper-wrapper">
+
+		/**
+		 * Get feature image setting
+		 *
+		 * @return array
+		 */
+		private function get_feature_image_setting() {
+			$include_feature_image = $this->settings['include_feature_image_to_gallery'] ?? array( 'default_gl' );
+			if ( is_string( $include_feature_image ) ) {
+				return array( $include_feature_image );
+			}
+			return $include_feature_image;
+		}
+
+		/**
+		 * Process variable product gallery
+		 */
+		private function process_variable_gallery() {
+			$default_variation = $this->get_default_variation();
+			if ( empty( $default_variation ) ) {
+				return;
+			}
+			$this->add_variation_feature_image( $default_variation );
+		}
+
+		/**
+		 * Get default variation
+		 *
+		 * @return array
+		 */
+		private function get_default_variation() {
+			$default_attrs = $this->product->get_default_attributes();
+			$slug_attr     = apply_filters( 'sp_woo_gallery_slider_use_slug_attr', true );
+			if ( $slug_attr ) {
+				$selected_attrs = $this->get_selected_attributes();
+				if ( ! empty( $selected_attrs ) ) {
+					return $selected_attrs;
+				}
+			}
+
+			return $default_attrs;
+		}
+
+		/**
+		 * Get selected attributes from request
+		 *
+		 * @return array
+		 */
+		private function get_selected_attributes() {
+			$selected   = array();
+			$attributes = $this->product->get_attributes();
+			foreach ( $attributes as $attribute_name => $options ) {
+				$key = 'attribute_' . sanitize_title( $attribute_name );
+				if ( isset( $_REQUEST[ $key ] ) ) {
+					$selected[ $attribute_name ] = wc_clean( wp_unslash( $_REQUEST[ $key ] ) );
+				}
+			}
+			return $selected;
+		}
+		/**
+		 * Add variation feature image to gallery
+		 *
+		 * @param array $default_variation The default variation.
+		 */
+		private function add_variation_feature_image( $default_variation ) {
+			$image_id = $this->product->get_image_id();
+			if ( is_array( $this->get_feature_image_setting() ) &&
+			in_array( 'variable_gl', $this->get_feature_image_setting(), true ) &&
+			$image_id ) {
+				$this->gallery[] = $this->helper->wcgs_image_meta( $image_id, $this->settings );
+			}
+
+			$_temp_variations   = $this->prepare_variation_attributes( $default_variation );
+			$variation_id       = $this->find_matching_variation( $_temp_variations );
+			$variation_image_id = get_post_thumbnail_id( $variation_id );
+
+			if ( $this->validate_image_id( $variation_image_id ) ) {
+				$this->gallery[] = $this->helper->wcgs_image_meta( $variation_image_id, $this->settings );
+			}
+			$this->add_variation_gallery_images( $variation_id );
+		}
+
+		/**
+		 * Validate image ID
+		 *
+		 * @param int $image_id Image ID to validate.
+		 * @return bool
+		 */
+		private function validate_image_id( $image_id ) {
+			return ! empty( $image_id ) && wp_attachment_is_image( $image_id );
+		}
+
+		/**
+		 * Prepare variation attributes
+		 *
+		 * @param array $default_variation default variation attributes.
+		 * @return array
+		 */
+		private function prepare_variation_attributes( $default_variation ) {
+			$_temp_variations = array();
+			foreach ( $default_variation as $key => $value ) {
+				$_temp_variations[ 'attribute_' . $key ] = $value;
+			}
+			return $_temp_variations;
+		}
+
+		/**
+		 * Find matching variation ID
+		 *
+		 * @param array $attributes product attributes.
+		 * @return int
+		 */
+		private function find_matching_variation( $attributes ) {
+			$data_store = WC_Data_Store::load( 'product' );
+			return $data_store->find_matching_product_variation( $this->product, $attributes );
+		}
+
+		/**
+		 * Add variation gallery images
+		 *
+		 * @param int $variation_id variation id.
+		 */
+		private function add_variation_gallery_images( $variation_id ) {
+			$woo_gallery_slider = get_post_meta( $variation_id, 'woo_gallery_slider', true );
+			if ( empty( $woo_gallery_slider ) ) {
+				return;
+			}
+			$gallery_arr = substr( $woo_gallery_slider, 1, -1 );
+			if ( strpos( $gallery_arr, ',' ) ) {
+				$this->add_multiple_gallery_images( $gallery_arr );
+			} else {
+				$this->add_single_gallery_image( $gallery_arr );
+			}
+			$this->add_fallback_feature_image();
+		}
+
+		/**
+		 * Add multiple gallery images
+		 *
+		 * @param string $gallery_arr Gallery array string.
+		 */
+		private function add_multiple_gallery_images( $gallery_arr ) {
+			$count         = 1;
+			$gallery_array = explode( ',', $gallery_arr );
+			foreach ( $gallery_array as $gallery_item ) {
+				if ( 2 >= $count ) {
+					if ( $this->validate_image_id( $gallery_item ) ) {
+						$this->gallery[] = $this->helper->wcgs_image_meta( $gallery_item, $this->settings );
+					}
+				}
+				++$count;
+			}
+		}
+
+		/**
+		 * Add single gallery image
+		 *
+		 * @param string $gallery_arr Gallery item.
+		 */
+		private function add_single_gallery_image( $gallery_arr ) {
+			if ( $this->validate_image_id( $gallery_arr ) ) {
+				$this->gallery[] = $this->helper->wcgs_image_meta( $gallery_arr, $this->settings );
+			}
+		}
+
+		/**
+		 * Add fallback feature image if gallery is empty
+		 */
+		private function add_fallback_feature_image() {
+			if ( empty( $this->gallery[0] ) ) {
+				$image_id = $this->product->get_image_id();
+				if ( $this->validate_image_id( $image_id ) ) {
+					$this->gallery[] = $this->helper->wcgs_image_meta( $image_id, $this->settings );
+				}
+			}
+		}
+
+		/**
+		 * Process simple product gallery
+		 */
+		private function process_simple_gallery() {
+			$this->add_simple_product_feature_image();
+			$this->add_simple_product_gallery_images();
+		}
+
+		/**
+		 * Add feature image for simple product
+		 */
+		private function add_simple_product_feature_image() {
+			$image_id = $this->product->get_image_id();
+			if ( is_array( $this->get_feature_image_setting() ) &&
+			in_array( 'default_gl', $this->get_feature_image_setting(), true ) &&
+			$this->validate_image_id( $image_id ) ) {
+				$this->gallery[] = $this->helper->wcgs_image_meta( $image_id, $this->settings );
+			}
+		}
+
+		/**
+		 * Add gallery images for simple product
+		 */
+		private function add_simple_product_gallery_images() {
+			$gallery_image_source = $this->settings['gallery_image_source'] ?? 'uploaded';
+			if ( 'attached' === $gallery_image_source ) {
+				$this->add_attached_images();
+			} else {
+				$this->add_uploaded_images();
+			}
+		}
+
+		/**
+		 * Add images attached to product content
+		 */
+		private function add_attached_images() {
+			$wgsc_post           = get_post( $this->product_id );
+			$wcgs_post_content   = $wgsc_post->post_content;
+			$wcgs_search_pattern = '~<img [^\>]*\ />~';
+			preg_match_all( $wcgs_search_pattern, $wcgs_post_content, $post_images );
+			$wcgs_number_of_images = count( $post_images[0] );
+			if ( $wcgs_number_of_images > 0 ) {
+				foreach ( $post_images[0] as $image ) {
+					$image_id = $this->extract_image_id( $image );
+					if ( $image_id && $this->validate_image_id( $image_id ) ) {
+						$this->gallery[] = $this->helper->wcgs_image_meta( $image_id, $this->settings );
+					}
+				}
+			}
+		}
+
+		/**
+		 * Extract image ID from img tag
+		 *
+		 * @param string $image Image HTML tag.
+		 * @return string|null
+		 */
+		private function extract_image_id( $image ) {
+			$class_start     = substr( $image, strpos( $image, 'class="' ) + 7 );
+			$class_end       = substr( $class_start, 0, strpos( $class_start, '" ' ) );
+			$image_class_pos = strpos( $class_end, 'wp-image-' );
+			if ( $image_class_pos !== false ) {
+				return substr( $class_end, $image_class_pos + 9 );
+			}
+			return null;
+		}
+
+		/**
+		 * Add uploaded gallery images
+		 */
+		private function add_uploaded_images() {
+			$attachment_ids = $this->product->get_gallery_image_ids();
+			foreach ( $attachment_ids as $attachment_id ) {
+				if ( $this->validate_image_id( $attachment_id ) ) {
+					$this->gallery[] = $this->helper->wcgs_image_meta( $attachment_id, $this->settings );
+				}
+			}
+		}
+
+		/**
+		 * Build gallery based on product type
+		 *
+		 * @return array
+		 */
+		public function build_gallery() {
+			try {
+				if ( ! empty( $this->get_default_variation() ) ) {
+					$this->process_variable_gallery();
+				} else {
+					$this->process_simple_gallery();
+				}
+				if ( empty( $this->gallery ) ) {
+					$image_id = $this->product->get_image_id();
+					if ( $this->validate_image_id( $image_id ) ) {
+						$this->gallery[] = $this->helper->wcgs_image_meta( $image_id, $this->settings );
+					}
+				}
+			} catch ( Exception $e ) {
+				return array();
+			}
+		}
+
+		/**
+		 * Outputs custom styles for Elementor preview mode on the product gallery.
+		 */
+		public function output_elementor_preview_styles() {
+			// Check if the page is being edited in Elementor.
+			$elementor_preview = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : null;
+
+			if ( 'elementor' === $elementor_preview ) {
+				?>
+		<style>
+			#wpgs-gallery {
+				display: flex;
+				flex-direction: column;
+				position: relative;
+			}
+			#wpgs-gallery:after {
+				content: 'The Gallery will be shown perfectly on the single product page only.';
+				width: 100%;
+				height: 100%;
+				position: absolute;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				left: 0;
+				top: 0;
+				z-index: 1;
+			}
+
+			.wcgs-carousel.horizontal.spswiper {
+				text-align: center;
+				margin-bottom: 10px;
+				order: 0;
+				width: 100%;
+			}
+
+			.wcgs-carousel .spswiper-slide:not(:first-child) {
+				display: none;
+			}
+
+			.wcgs-carousel .spswiper-slide {
+				min-width: 100%;
+			}
+
+			.wcgs-carousel .spswiper-slide img {
+				visibility: visible !important;
+			}
+
+			.gallery-navigation-carousel-wrapper {
+				order: 1;
+				display: flex;
+			}
+
+			.gallery-navigation-carousel-wrapper .spswiper-wrapper {
+				display: flex;
+				gap: 10px;
+			}
+
+			.gallery-navigation-carousel-wrapper .spswiper-slide {
+				min-width: calc(25% - 7px);
+			}
+
+			.gallery-navigation-carousel-wrapper .spswiper-slide img {
+				min-width: 100%;
+			}
+		</style>
 				<?php
-				$thumb_video_showed = false;
+			}
+		}
+		/**
+		 * Display gallery output.
+		 *
+		 * @return void
+		 */
+		public function display_gallery_output() {
+			$cache_key  = 'wcgsf_woo_gallery_' . $this->product_id . WOO_GALLERY_SLIDER_VERSION;
+			$cache_data = $this->helper->spwg_get_transient( $cache_key );
+			$this->output_elementor_preview_styles();
+			// if ( false !== $cache_data ) {
+			// 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+			// echo $cache_data;
+			// } else {
+				// ob_start();
+				// $this->assigns_layout();
+				// $this->render_gallery();
+				// $gallery = $this->helper->minify_output( ob_get_clean() );
+			// $this->helper->spwg_set_transient( $cache_key, $gallery, WOO_GALLERY_SLIDER_TRANSIENT_EXPIRATION );
+				// echo $gallery;
+			// }
+
+			ob_start();
+				$this->assigns_layout();
+				$this->render_gallery();
+				$gallery = $this->helper->minify_output( ob_get_clean() );
+			echo $gallery;
+		}
+
+
+		/**
+		 * Render gallery.
+		 *
+		 * @return void
+		 */
+		public function render_gallery() {
+			$this->build_gallery();
+			$gallery              = $this->gallery;
+			$slider_config        = $this->get_slider_config();
+			$slider_dir_rtl       = $slider_config['slider_dir_rtl'];
+			$thumbnailnavigation  = $slider_config['thumbnailnavigation'];
+			$navigation           = $slider_config['navigation'];
+			$preloader            = $slider_config['preloader'];
+			$video_popup_place    = $slider_config['video_popup_place'];
+			$product_id           = $this->product_id;
+			$settings             = $this->settings;
+			$lightbox             = isset( $settings['lightbox'] ) ? $settings['lightbox'] : '';
+			$image_size           = isset( $settings['image_sizes'] ) ? $settings['image_sizes'] : 'woocommerce_single';
+			$thumb_nav_visibility = isset( $settings['thumb_nav_visibility'] ) ? $settings['thumb_nav_visibility'] : 'hover';
+			?>
+	<div id="wpgs-gallery" <?php echo $slider_dir_rtl; ?> class="wcgs-woocommerce-product-gallery wcgs-spswiper-before-init horizontal" style='min-width: <?php echo esc_attr( $settings['gallery_width'] ); ?>%; overflow: hidden;' data-id="<?php echo esc_attr( $product_id ); ?>">
+		<div class="gallery-navigation-carousel-wrapper">
+			<div thumbsSlider="" class="gallery-navigation-carousel spswiper horizontal <?php echo esc_attr( $thumb_nav_visibility ); ?>">
+				<div class="spswiper-wrapper">
+					<?php
+					$thumb_video_showed = false;
+					foreach ( $gallery as $slide ) {
+						if ( isset( $slide['full_url'] ) && ! empty( $slide['full_url'] ) ) {
+							$video_type = '';
+							$has_video  = isset( $slide['video'] ) && ! empty( $slide['video'] );
+							if ( $has_video && ! $thumb_video_showed ) {
+								$video     = $slide['video'];
+								$video_url = wp_parse_url( $video );
+								if ( isset( $video_url['host'] ) && strpos( $video_url['host'], 'youtu' ) !== false ) {
+									$video_type         = 'youtube';
+									$thumb_video_showed = true;
+								}
+							}
+							?>
+						<div class="wcgs-thumb spswiper-slide">
+							<img alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['thumb_url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" data-type="<?php echo esc_attr( $video_type ); ?>" width="<?php echo esc_attr( $slide['thumbWidth'] ); ?>" height="<?php echo esc_attr( $slide['thumbHeight'] ); ?>" <?php echo $this->get_lazy_load_attribute(); ?> />
+						</div>
+							<?php
+						}
+					}
+					?>
+				</div>
+				<?php if ( $thumbnailnavigation ) { ?>
+						<div class="wcgs-spswiper-button-next wcgs-spswiper-arrow"></div>
+						<div class="wcgs-spswiper-button-prev wcgs-spswiper-arrow"></div>
+				<?php } ?>
+			</div>
+		</div>
+		<div class="wcgs-carousel horizontal spswiper">
+			<div class="spswiper-wrapper">
+				<?php
+				$video_showed = false;
+				$index        = 1;
 				foreach ( $gallery as $slide ) {
 					if ( isset( $slide['full_url'] ) && ! empty( $slide['full_url'] ) ) {
-						$video_type = '';
-						$has_video  = isset( $slide['video'] ) && ! empty( $slide['video'] );
-						if ( $has_video && ! $thumb_video_showed ) {
+						?>
+						<div class="spswiper-slide">
+						<div class="wcgs-slider-image">
+						<?php
+						$has_video   = isset( $slide['video'] ) && ! empty( $slide['video'] );
+						$full_srcset = wp_get_attachment_image_srcset( $slide['id'], $image_size );
+						$image_sizes = wp_get_attachment_image_sizes( $slide['id'], $image_size );
+						if ( $has_video && ! $video_showed ) {
 							$video     = $slide['video'];
 							$video_url = wp_parse_url( $video );
 							if ( isset( $video_url['host'] ) && strpos( $video_url['host'], 'youtu' ) !== false ) {
-								$video_type         = 'youtube';
-								$thumb_video_showed = true;
+								// Check if it's a YouTube Shorts URL.
+								parse_str( $video, $video_query_array );
+								$video_id = array_values( $video_query_array )[0];
+								?>
+									<a  class="wcgs-slider-lightbox" href="<?php echo esc_url( $video ); ?>" data-fancybox="view" data-fancybox-type="iframe" data-fancybox-height="600" data-fancybox-width="400" aria-label="lightbox-icon"></a>
+									<?php
+									if ( 'inline' === $video_popup_place ) {
+										?>
+										<div class="wcgs-iframe-wrapper">
+										<div class="wcgs-iframe wcgs-youtube-video" data-video-id="<?php echo esc_attr( $video_id ); ?>" data-src="<?php echo esc_attr( $video ); ?>"></div><img class="wcgs-slider-image-tag" style="visibility: hidden" alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" srcset="<?php echo esc_html( $full_srcset ); ?>" sizes="<?php echo esc_html( $image_sizes ); ?>" <?php echo $this->get_lazy_load_attribute(); ?> /></div>
+										<?php
+									} else {
+										?>
+										<img class="wcgs-slider-image-tag" alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" data-type="youtube" <?php echo $this->get_lazy_load_attribute(); ?> srcset="<?php echo $full_srcset; ?>" sizes="<?php echo $image_sizes; ?>" />
+										<?php
+									}
+									$video_showed = true;
+							} else {
+								?>
+									<a class="wcgs-slider-lightbox" data-fancybox="view" href="<?php echo esc_url( $slide['full_url'] ); ?>" aria-label="lightbox"></a>
+									<img class="wcgs-slider-image-tag" <?php echo $this->get_lazy_load_attribute(); ?> alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" srcset="<?php echo esc_html( $full_srcset ); ?>" sizes="<?php echo esc_html( $image_sizes ); ?>" />
+										<?php
 							}
+						} else {
+							?>
+								<a class="wcgs-slider-lightbox" data-fancybox="view" href="<?php echo esc_url( $slide['full_url'] ); ?>" aria-label="lightbox"></a>
+								<img class="wcgs-slider-image-tag" <?php echo $index === 1 ? 'fetchpriority="high" loading="eager"' : $this->get_lazy_load_attribute(); ?>  alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" srcset="<?php echo esc_html( $full_srcset ); ?>" sizes="<?php echo esc_html( $image_sizes ); ?>" />
+									<?php
 						}
+						++$index;
 						?>
-					<div class="wcgs-thumb swiper-slide">
-						<img alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['thumb_url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" data-type="<?php echo esc_attr( $video_type ); ?>" width="<?php echo esc_attr( $slide['thumbWidth'] ); ?>" height="<?php echo esc_attr( $slide['thumbHeight'] ); ?>" />
-					</div>
-						<?php
+							</div>
+						</div>
+								<?php
 					}
 				}
 				?>
 			</div>
-			<?php if ( $thumbnailnavigation ) { ?>
-					<div class="wcgs-swiper-button-next wcgs-swiper-arrow"></div>
-					<div class="wcgs-swiper-button-prev wcgs-swiper-arrow"></div>
-				<?php } ?>
-		</div>
-	</div>
-	<div class="wcgs-carousel horizontal swiper">
-		<div class="swiper-wrapper">
+			<div class="spswiper-pagination"></div>
 			<?php
-			$video_showed = false;
-			foreach ( $gallery as $slide ) {
-				if ( isset( $slide['full_url'] ) && ! empty( $slide['full_url'] ) ) {
-					?>
-					<div class="swiper-slide">
-					<div class="wcgs-slider-image">
-					<?php
-					$has_video = isset( $slide['video'] ) && ! empty( $slide['video'] );
-					if ( $has_video && ! $video_showed ) {
-						$video     = $slide['video'];
-						$video_url = wp_parse_url( $video );
-						if ( isset( $video_url['host'] ) && strpos( $video_url['host'], 'youtu' ) !== false ) {
-							// Check if it's a YouTube Shorts URL.
-							parse_str( $video, $video_query_array );
-							$video_id = array_values( $video_query_array )[0];
-							?>
-								<a  class="wcgs-slider-lightbox" href="<?php echo esc_url( $video ); ?>" data-fancybox="view" data-fancybox-type="iframe" data-fancybox-height="600" data-fancybox-width="400" aria-label="lightbox-icon"></a>
-								<?php
-								if ( 'inline' === $video_popup_place ) {
-									?>
-									<div class="wcgs-iframe-wrapper">
-									<div class="skip-lazy wcgs-iframe wcgs-youtube-video" data-video-id="<?php echo esc_attr( $video_id ); ?>" data-src="<?php echo esc_attr( $video ); ?>"></div><img class="skip-lazy wcgs-slider-image-tag" style="visibility: hidden" alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" /></div>
-									<?php
-								} else {
-									?>
-									<img class="skip-lazy wcgs-slider-image-tag" alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" data-type="youtube" />
-									<?php
-								}
-								$video_showed = true;
-						} else {
-							?>
-								<a class="wcgs-slider-lightbox" data-fancybox="view" href="<?php echo esc_url( $slide['full_url'] ); ?>" aria-label="lightbox"></a>
-								<img class="skip-lazy wcgs-slider-image-tag" alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" />
-									<?php
-						}
-					} else {
-						?>
-								<a class="wcgs-slider-lightbox" data-fancybox="view" href="<?php echo esc_url( $slide['full_url'] ); ?>" aria-label="lightbox"></a>
-								<img class="skip-lazy wcgs-slider-image-tag" alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" />
-								<?php
-					}
-					?>
-						</div>
-					</div>
-							<?php
-				}
+			if ( $navigation ) {
+				?>
+				<div class="wcgs-spswiper-button-next wcgs-spswiper-arrow"></div>
+				<div class="wcgs-spswiper-button-prev wcgs-spswiper-arrow"></div>
+				<?php
+			}
+			?>
+			<?php if ( $lightbox ) { ?>
+			<div class="wcgs-lightbox top_right"><span class="sp_wgs-lightbox"><span class="sp_wgs-icon-search"></span></span></div>
+				<?php
 			}
 			?>
 		</div>
-		<div class="swiper-pagination"></div>
-		<?php
-		if ( $navigation ) {
-			?>
-			<div class="wcgs-swiper-button-next wcgs-swiper-arrow"></div>
-			<div class="wcgs-swiper-button-prev wcgs-swiper-arrow"></div>
+			<?php
+			if ( $preloader ) {
+				?>
+		<div class="wcgs-gallery-preloader" style="opacity: 1; z-index: 9999;"></div>
+			<?php } ?>
+	</div>
 			<?php
 		}
-		?>
-	</div>
-	<?php
-	if ( $preloader ) {
-		?>
-	<div class="wcgs-gallery-preloader" style="opacity: 1; z-index: 9999;"></div>
-	<?php } ?>
-</div>
-<?php
+	}
+}
+new WCGS_Product_Gallery();
