@@ -1022,7 +1022,6 @@
             $panel.wcgs_reload_script_retry();
             $panel.data('retry', false);
           }
-
         }
       });
 
@@ -1171,32 +1170,121 @@
 
       var $this = $(this),
         $inited = $this.parent().find('.chosen-container'),
-        is_multi = $this.attr('multiple') || false,
-        set_width = is_multi ? '100%' : 'auto',
+        is_sortable = $this.hasClass('wcgs--sortable') || false,
+        is_ajax = $this.hasClass('wcgs-chosen-ajax') || false,
+        is_multiple = $this.attr('multiple') || false,
+        set_width = is_multiple ? '100%' : 'auto',
         set_options = $.extend({
           allow_single_deselect: true,
-          disable_search_threshold: 15,
-          width: set_width
-        }, $this.data());
+          disable_search_threshold: 10,
+          width: set_width,
+          no_results_text: window.wcgs_vars.i18n.no_results_text,
+        }, $this.data('chosen-settings'));
 
       if ($inited.length) {
         $inited.remove();
       }
 
-      $this.chosen(set_options);
-      // When select multiple upgrade to pro.
-      if ($this.parents('.wcgs-field').hasClass('assign_product_terms') || $this.parents('.wcgs-field').hasClass('wcgs_specific_product')) {
-        $this.chosen().change(function () {
-          var selectedOptions = $(this).val();
-          if (selectedOptions && selectedOptions.length > 1) {
-            tb_show('', '#TB_inline?&width=440&height=225&inlineId=BuyProPopupContent');
-            selectedOptions.pop();
-            $(this).val(selectedOptions).trigger('chosen:updated');
-          }
+      // Chosen ajax
+      if (is_ajax) {
+        var set_ajax_options = $.extend({
+          data: {
+            type: 'post',
+            nonce: '',
+          },
+          allow_single_deselect: true,
+          disable_search_threshold: -1,
+          width: '100%',
+          min_length: 3,
+          type_delay: 500,
+          typing_text: window.wcgs_vars.i18n.typing_text,
+          searching_text: window.wcgs_vars.i18n.searching_text,
+          no_results_text: window.wcgs_vars.i18n.no_results_text,
+        }, $this.data('chosen-settings'));
 
+        $this.WCGSAjaxChosen(set_ajax_options);
+      } else {
+        $this.chosen(set_options);
+      }
+      // Chosen keep options order
+      if (is_multiple) {
+
+
+          var $hidden_select = $this.parent().find('.wcgs-hide-select');
+          var $hidden_value = $hidden_select.val() || [];
+          $this.on('change', function (obj, result) {
+            if (result && result.selected) {
+              if ($this.parents('.wcgs-field').hasClass('assign_product_terms') || $this.parents('.wcgs-field').hasClass('wcgs_specific_product')) {
+                  var selectedOptions = $(this).val();
+                  if (selectedOptions && selectedOptions.length > 1) {
+                    tb_show('', '#TB_inline?&width=440&height=225&inlineId=BuyProPopupContent');
+                    selectedOptions.pop();
+                    $(this).val(selectedOptions).trigger('chosen:updated');
+                    return;
+                  }
+              };
+              $hidden_select.append('<option value="' + result.selected + '" selected="selected">' + result.selected + '</option>');
+            } else if (result && result.deselected) {
+              $hidden_select.find('option[value="' + result.deselected + '"]').remove();
+            }
+
+
+
+
+            // Force customize refresh
+            // if (window.wp.customize !== undefined && $hidden_select.children().length === 0 && $hidden_select.data('customize-setting-link')) {
+            // 	window.wp.customize.control($hidden_select.data('customize-setting-link')).setting.set('');
+            // }
+
+            $hidden_select.trigger('change');
+          });
+          //  WCGS;
+          // Chosen order abstract
+          $this.WCGSChosenOrder($hidden_value, true);
+        }
+
+      // Chosen sortable
+      if (is_sortable) {
+
+        var $chosen_container = $this.parent().find('.chosen-container');
+        var $chosen_choices = $chosen_container.find('.chosen-choices');
+
+        $chosen_choices.on('mousedown', function (event) {
+          if ($(event.target).is('span')) {
+            event.stopPropagation();
+          }
+        });
+
+        $chosen_choices.sortable({
+          items: 'li:not(.search-field)',
+          helper: 'orginal',
+          cursor: 'move',
+          placeholder: 'search-choice-placeholder',
+          start: function (e, ui) {
+            ui.placeholder.width(ui.item.innerWidth());
+            ui.placeholder.height(ui.item.innerHeight());
+          },
+          update: function (e, ui) {
+
+            var select_options = '';
+            var chosen_object = $this.data('chosen');
+            var $prev_select = $this.parent().find('.wcgs-hide-select');
+
+            $chosen_choices.find('.search-choice-close').each(function () {
+              var option_array_index = $(this).data('option-array-index');
+              $.each(chosen_object.results_data, function (index, data) {
+                if (data.array_index === option_array_index) {
+                  select_options += '<option value="' + data.value + '" selected>' + data.value + '</option>';
+                }
+              });
+            });
+            $prev_select.children().remove();
+            $prev_select.append(select_options);
+            $prev_select.trigger('change');
+
+          }
         });
       }
-
     });
   };
 

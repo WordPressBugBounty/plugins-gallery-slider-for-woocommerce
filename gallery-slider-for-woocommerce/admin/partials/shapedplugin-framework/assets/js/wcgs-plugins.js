@@ -1,16 +1,356 @@
-(function() {
+/**
+*
+* jQuery Chosen AJAX Autocomplete Library
+*
+* https://github.com/meltingice/ajax-chosen
+* https://github.com/michaelperrin/ajax-chosen
+*
+* MIT License
+*
+*/
+(function ($) {
+
+  function WCGSAjaxChosen(element, options) {
+    this.element = $(element);
+    this.options = options;
+    this.init();
+  };
+
+  WCGSAjaxChosen.prototype.init = function () {
+    this.element.chosen(this.options);
+    this.container = this.element.next('.chosen-container');
+    this.search_field = this.container.find('.chosen-search-input');
+    this.is_multiple = this.container.hasClass('chosen-container-multi');
+    this.is_typing = false;
+    this.chosenXhr = null;
+    this.events();
+  };
+
+  WCGSAjaxChosen.prototype.events = function () {
+
+    var _this = this;
+
+    this.search_field.on('compositionstart', function () {
+      _this.is_typing = true;
+    });
+
+    this.search_field.on('compositionend', function () {
+      _this.is_typing = false;
+      _this.update_list();
+    });
+
+    this.search_field.on('keyup', function () {
+      _this.update_list();
+    });
+
+    this.search_field.on('focus', function () {
+      _this.search_field_focused();
+    });
+
+  };
+
+  WCGSAjaxChosen.prototype.search_field_focused = function () {
+    this.search_welcome_message();
+    if (this.options.min_length === 0 && this.search_field.val().length === 0) {
+      this.update_list();
+    }
+  };
+
+  WCGSAjaxChosen.prototype.search_welcome_message = function () {
+    var value = (this.search_field.val() || '').trim()
+    var results = this.container.find('.chosen-results');
+
+    if (results.children().length === 0 && value.length === 0) {
+      results.html('<li class="no-results">' + this.options.typing_text.replace('%s', this.options.min_length - value.length) + '</li>');
+    }
+
+  };
+
+  WCGSAjaxChosen.prototype.update_list = function () {
+
+    var _this = this;
+
+    this.search_welcome_message();
+
+    if (this.is_typing) { return; }
+
+    var value = (this.search_field.val() || '').trim()
+    var message = (value.length < this.options.min_length) ? this.options.typing_text.replace('%s', this.options.min_length - value.length) : this.options.searching_text;
+
+    this.container.find('.no-results').text(message);
+
+    if (value === this.search_field.data('prevVal')) { return; }
+
+    this.search_field.data('prevVal', value);
+
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+
+    if (value.length < this.options.min_length) { return; }
+
+    this.timer = setTimeout(function () {
+
+      if (_this.chosenXhr) {
+        _this.chosenXhr.abort();
+      }
+
+      _this.options.data['term'] = value;
+
+      _this.chosenXhr = window.wp.ajax.post('wcgs-chosen', _this.options.data).done(function (response) {
+        _this.show_results(response);
+      }).fail(function (response) {
+        _this.container.find('.no-results').text(response.error);
+      });
+
+    }, this.options.type_delay);
+
+  };
+
+  WCGSAjaxChosen.prototype.show_results = function (items) {
+
+    var _this = this;
+
+    if (this.is_typing || items === null) { return; }
+
+    if (items.length === 0) {
+      this.element.data().chosen.no_results_clear();
+      this.element.data().chosen.no_results(this.search_field.val());
+      return;
+    }
+
+    var selected_values = [];
+
+    this.element.find('option').each(function () {
+      if ($(this).is(':selected')) {
+        selected_values.push($(this).val() + "-" + $(this).text());
+      } else {
+        if ($(this).attr('value').length) {
+          $(this).remove();
+        }
+      }
+    });
+
+    $.each(items, function (i, item) {
+      if ($.inArray(item.value + "-" + item.text, selected_values) === -1) {
+        $('<option />').attr('value', item.value).html(item.text).appendTo(_this.element);
+      }
+    });
+
+    var value_before_trigger = this.search_field.val();
+    var width_before_trigger = this.search_field.innerWidth();
+
+    this.element.trigger('chosen:updated');
+
+    if (this.is_multiple) {
+
+      var $hidden_select = this.element.parent().find('.wcgs-hide-select');
+      var $hidden_value = $hidden_select.val() || [];
+
+      this.element.WCGSChosenOrder($hidden_value, true);
+      this.search_field.css('width', width_before_trigger);
+
+    }
+
+    this.search_field.val(value_before_trigger);
+
+    if (this.chosenXhr.done !== null) {
+      this.chosenXhr.done(items);
+    }
+
+  };
+
+  $.fn.WCGSAjaxChosen = function (chosenOptions) {
+    return this.each(function () {
+      new WCGSAjaxChosen(this, chosenOptions);
+    });
+  };
+
+})(jQuery);
+;// Chosen Order v1.2.1
+// This plugin allows you to handle the order of the selection for Chosen multiple <select> dropdowns
+// Full source at https://github.com/tristanjahier/chosen-order
+// Copyright (c) 2013 - Tristan Jahier, http://tristan-jahier.fr
+(function () {
+  var $, WCGSAbstractChosenOrder, _ref,
+    __indexOf = [].indexOf || function (item) { for (var i = 0, l = this.length; i < l; i++) { if (i in this && this[i] === item) return i; } return -1; },
+    __hasProp = {}.hasOwnProperty,
+    __extends = function (child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+
+  WCGSAbstractChosenOrder = (function () {
+
+    function WCGSAbstractChosenOrder() { }
+
+    WCGSAbstractChosenOrder.insertAt = function (node, index, parentNode) {
+      if (typeof parentNode.children[index] !== "undefined") {
+        return parentNode.insertBefore(node, parentNode.children[index].nextSibling);
+      }
+    };
+
+    WCGSAbstractChosenOrder.getFlattenedOptionsAndGroups = function (select) {
+      var flattened_options, opt, options, sub_opt, sub_options, _i, _j, _len, _len1;
+      options = Array.prototype.filter.call(select.childNodes, function (o) {
+        var _ref;
+        return (_ref = o.nodeName.toUpperCase()) === 'OPTION' || _ref === 'OPTGROUP';
+      });
+      flattened_options = [];
+      for (_i = 0, _len = options.length; _i < _len; _i++) {
+        opt = options[_i];
+        flattened_options.push(opt);
+        if (opt.nodeName.toUpperCase() === 'OPTGROUP') {
+          sub_options = Array.prototype.filter.call(opt.childNodes, function (o) {
+            return o.nodeName.toUpperCase() === 'OPTION';
+          });
+          for (_j = 0, _len1 = sub_options.length; _j < _len1; _j++) {
+            sub_opt = sub_options[_j];
+            flattened_options.push(sub_opt);
+          }
+        }
+      }
+      return flattened_options;
+    };
+
+    WCGSAbstractChosenOrder.isValidMultipleSelectElement = function (element) {
+      return element !== null && typeof element !== "undefined" && element.nodeName === "SELECT" && element.multiple;
+    };
+
+    WCGSAbstractChosenOrder.getChosenUIContainer = function (select) {
+      if (select.id !== "") {
+        return document.getElementById(select.id.replace(/-/g, "_") + "_chosen");
+      } else {
+        return this.searchChosenUIContainer(select);
+      }
+    };
+
+    WCGSAbstractChosenOrder.isChosenified = function (select) {
+      return this.getChosenUIContainer(select) != null;
+    };
+
+    WCGSAbstractChosenOrder.forceSelection = function (select, selection) {
+      var i, opt, options, _ref;
+      options = this.getFlattenedOptionsAndGroups(select);
+      i = 0;
+      while (i < options.length) {
+        opt = options[i];
+        if (_ref = opt.getAttribute("value"), __indexOf.call(selection, _ref) >= 0) {
+          opt.selected = true;
+          opt.setAttribute("selected", "");
+        } else {
+          opt.selected = false;
+          opt.removeAttribute("selected");
+        }
+        i++;
+      }
+      return this.triggerEvent(select, "chosen:updated");
+    };
+
+    WCGSAbstractChosenOrder.WCGSChosenOrder = function (select, order, force) {
+      var chosen_choices, chosen_options, chosen_ui, i, j, opt, opt_val, option, options, rel, relAttributeName, _i, _j, _len, _len1, _results;
+      if (this.getDOMElement != null) {
+        select = this.getDOMElement(select);
+      }
+      if (!this.isValidMultipleSelectElement(select)) {
+        return;
+      }
+      chosen_ui = this.getChosenUIContainer(select);
+      if (chosen_ui == null) {
+        return;
+      }
+      if (order instanceof Array) {
+        order = order.map(Function.prototype.call, String.prototype.trim);
+        options = this.getFlattenedOptionsAndGroups(select);
+        if ((force != null) && force === true) {
+          this.forceSelection(select, order);
+        }
+        _results = [];
+        for (i = _i = 0, _len = order.length; _i < _len; i = ++_i) {
+          opt_val = order[i];
+          rel = null;
+          for (j = _j = 0, _len1 = options.length; _j < _len1; j = ++_j) {
+            opt = options[j];
+            if (opt.value === opt_val) {
+              rel = j;
+            }
+          }
+          chosen_options = chosen_ui.querySelectorAll('.search-choice');
+          relAttributeName = this.relAttributeName;
+          option = Array.prototype.filter.call(chosen_options, function (o) {
+            return o.querySelector("a.search-choice-close[" + relAttributeName + "=\"" + rel + "\"]") != null;
+          })[0];
+          if (option == null) {
+            continue;
+          }
+          chosen_choices = chosen_ui.querySelector("ul.chosen-choices");
+          _results.push(this.insertAt(option, i, chosen_ui.querySelector('ul.chosen-choices')));
+        }
+        return _results;
+      } else {
+        return;
+      }
+    };
+    return WCGSAbstractChosenOrder;
+
+  })();
+
+  $ = jQuery;
+
+  $.fn.extend({
+    WCGSChosenOrder: function (order, force) {
+      return _WCGSChosenOrder.WCGSChosenOrder(this, order, force);
+    }
+  });
+
+  this._WCGSChosenOrder = (function (_super) {
+    __extends(_WCGSChosenOrder, _super);
+
+    function _WCGSChosenOrder() {
+      _ref = _WCGSChosenOrder.__super__.constructor.apply(this, arguments);
+      return _ref;
+    }
+
+    _WCGSChosenOrder.relAttributeName = 'data-option-array-index';
+
+    _WCGSChosenOrder.isjQueryObject = function (obj) {
+      return (typeof jQuery !== "undefined" && jQuery !== null) && obj instanceof jQuery;
+    };
+
+    _WCGSChosenOrder.getDOMElement = function (element) {
+      if (this.isjQueryObject(element)) {
+        return element.get(0);
+      } else {
+        return element;
+      }
+    };
+
+    _WCGSChosenOrder.searchChosenUIContainer = function (element) {
+      if ($(element).data("chosen") != null) {
+        return $(element).data("chosen").container[0];
+      } else {
+        return $(element).next(".chosen-container.chosen-container-multi").get(0);
+      }
+    };
+
+    _WCGSChosenOrder.triggerEvent = function (target, event_name) {
+      return $(target).trigger(event_name);
+    };
+
+    return _WCGSChosenOrder;
+
+  })(WCGSAbstractChosenOrder);
+
+}).call(this);; (function () {
   var $, AbstractChosen, Chosen, SelectParser,
-    bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; },
-    extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
+    bind = function (fn, me) { return function () { return fn.apply(me, arguments); }; },
+    extend = function (child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
-  SelectParser = (function() {
+  SelectParser = (function () {
     function SelectParser() {
       this.options_index = 0;
       this.parsed = [];
     }
 
-    SelectParser.prototype.add_node = function(child) {
+    SelectParser.prototype.add_node = function (child) {
       if (child.nodeName.toUpperCase() === "OPTGROUP") {
         return this.add_group(child);
       } else {
@@ -18,7 +358,7 @@
       }
     };
 
-    SelectParser.prototype.add_group = function(group) {
+    SelectParser.prototype.add_group = function (group) {
       var group_position, i, len, option, ref, results1;
       group_position = this.parsed.length;
       this.parsed.push({
@@ -39,7 +379,7 @@
       return results1;
     };
 
-    SelectParser.prototype.add_option = function(option, group_position, group_disabled) {
+    SelectParser.prototype.add_option = function (option, group_position, group_disabled) {
       if (option.nodeName.toUpperCase() === "OPTION") {
         if (option.text !== "") {
           if (group_position != null) {
@@ -74,7 +414,7 @@
 
   })();
 
-  SelectParser.select_to_array = function(select) {
+  SelectParser.select_to_array = function (select) {
     var child, i, len, parser, ref;
     parser = new SelectParser();
     ref = select.childNodes;
@@ -85,7 +425,7 @@
     return parser.parsed;
   };
 
-  AbstractChosen = (function() {
+  AbstractChosen = (function () {
     function AbstractChosen(form_field, options1) {
       this.form_field = form_field;
       this.options = options1 != null ? options1 : {};
@@ -102,14 +442,14 @@
       this.on_ready();
     }
 
-    AbstractChosen.prototype.set_default_values = function() {
-      this.click_test_action = (function(_this) {
-        return function(evt) {
+    AbstractChosen.prototype.set_default_values = function () {
+      this.click_test_action = (function (_this) {
+        return function (evt) {
           return _this.test_active_click(evt);
         };
       })(this);
-      this.activate_action = (function(_this) {
-        return function(evt) {
+      this.activate_action = (function (_this) {
+        return function (evt) {
           return _this.activate_field(evt);
         };
       })(this);
@@ -135,7 +475,7 @@
       return this.hide_results_on_select = this.options.hide_results_on_select != null ? this.options.hide_results_on_select : true;
     };
 
-    AbstractChosen.prototype.set_default_text = function() {
+    AbstractChosen.prototype.set_default_text = function () {
       if (this.form_field.getAttribute("data-placeholder")) {
         this.default_text = this.form_field.getAttribute("data-placeholder");
       } else if (this.is_multiple) {
@@ -147,7 +487,7 @@
       return this.results_none_found = this.form_field.getAttribute("data-no_results_text") || this.options.no_results_text || AbstractChosen.default_no_result_text;
     };
 
-    AbstractChosen.prototype.choice_label = function(item) {
+    AbstractChosen.prototype.choice_label = function (item) {
       if (this.include_group_label_in_selected && (item.group_label != null)) {
         return "<b class='group-name'>" + (this.escape_html(item.group_label)) + "</b>" + item.html;
       } else {
@@ -155,19 +495,19 @@
       }
     };
 
-    AbstractChosen.prototype.mouse_enter = function() {
+    AbstractChosen.prototype.mouse_enter = function () {
       return this.mouse_on_container = true;
     };
 
-    AbstractChosen.prototype.mouse_leave = function() {
+    AbstractChosen.prototype.mouse_leave = function () {
       return this.mouse_on_container = false;
     };
 
-    AbstractChosen.prototype.input_focus = function(evt) {
+    AbstractChosen.prototype.input_focus = function (evt) {
       if (this.is_multiple) {
         if (!this.active_field) {
-          return setTimeout(((function(_this) {
-            return function() {
+          return setTimeout(((function (_this) {
+            return function () {
               return _this.container_mousedown();
             };
           })(this)), 50);
@@ -179,18 +519,18 @@
       }
     };
 
-    AbstractChosen.prototype.input_blur = function(evt) {
+    AbstractChosen.prototype.input_blur = function (evt) {
       if (!this.mouse_on_container) {
         this.active_field = false;
-        return setTimeout(((function(_this) {
-          return function() {
+        return setTimeout(((function (_this) {
+          return function () {
             return _this.blur_test();
           };
         })(this)), 100);
       }
     };
 
-    AbstractChosen.prototype.label_click_handler = function(evt) {
+    AbstractChosen.prototype.label_click_handler = function (evt) {
       if (this.is_multiple) {
         return this.container_mousedown(evt);
       } else {
@@ -198,7 +538,7 @@
       }
     };
 
-    AbstractChosen.prototype.results_option_build = function(options) {
+    AbstractChosen.prototype.results_option_build = function (options) {
       var content, data, data_content, i, len, ref, shown_results;
       content = '';
       shown_results = 0;
@@ -229,7 +569,7 @@
       return content;
     };
 
-    AbstractChosen.prototype.result_add_option = function(option) {
+    AbstractChosen.prototype.result_add_option = function (option) {
       var classes, option_el;
       if (!option.search_match) {
         return '';
@@ -266,7 +606,7 @@
       return this.outerHTML(option_el);
     };
 
-    AbstractChosen.prototype.result_add_group = function(group) {
+    AbstractChosen.prototype.result_add_group = function (group) {
       var classes, group_el;
       if (!(group.search_match || group.group_match)) {
         return '';
@@ -288,7 +628,7 @@
       return this.outerHTML(group_el);
     };
 
-    AbstractChosen.prototype.results_update_field = function() {
+    AbstractChosen.prototype.results_update_field = function () {
       this.set_default_text();
       if (!this.is_multiple) {
         this.results_reset_cleanup();
@@ -300,7 +640,7 @@
       }
     };
 
-    AbstractChosen.prototype.reset_single_select_options = function() {
+    AbstractChosen.prototype.reset_single_select_options = function () {
       var i, len, ref, result, results1;
       ref = this.results_data;
       results1 = [];
@@ -315,7 +655,7 @@
       return results1;
     };
 
-    AbstractChosen.prototype.results_toggle = function() {
+    AbstractChosen.prototype.results_toggle = function () {
       if (this.results_showing) {
         return this.results_hide();
       } else {
@@ -323,7 +663,7 @@
       }
     };
 
-    AbstractChosen.prototype.results_search = function(evt) {
+    AbstractChosen.prototype.results_search = function (evt) {
       if (this.results_showing) {
         return this.winnow_results();
       } else {
@@ -331,7 +671,7 @@
       }
     };
 
-    AbstractChosen.prototype.winnow_results = function(options) {
+    AbstractChosen.prototype.winnow_results = function (options) {
       var escapedQuery, fix, i, len, option, prefix, query, ref, regex, results, results_group, search_match, startpos, suffix, text;
       this.no_results_clear();
       results = 0;
@@ -393,7 +733,7 @@
       }
     };
 
-    AbstractChosen.prototype.get_search_regex = function(escaped_search_string) {
+    AbstractChosen.prototype.get_search_regex = function (escaped_search_string) {
       var regex_flag, regex_string;
       regex_string = this.search_contains ? escaped_search_string : "(^|\\s|\\b)" + escaped_search_string + "[^\\s]*";
       if (!(this.enable_split_word_search || this.search_contains)) {
@@ -403,7 +743,7 @@
       return new RegExp(regex_string, regex_flag);
     };
 
-    AbstractChosen.prototype.search_string_match = function(search_string, regex) {
+    AbstractChosen.prototype.search_string_match = function (search_string, regex) {
       var match;
       match = regex.exec(search_string);
       if (!this.search_contains && (match != null ? match[1] : void 0)) {
@@ -412,7 +752,7 @@
       return match;
     };
 
-    AbstractChosen.prototype.choices_count = function() {
+    AbstractChosen.prototype.choices_count = function () {
       var i, len, option, ref;
       if (this.selected_option_count != null) {
         return this.selected_option_count;
@@ -428,7 +768,7 @@
       return this.selected_option_count;
     };
 
-    AbstractChosen.prototype.choices_click = function(evt) {
+    AbstractChosen.prototype.choices_click = function (evt) {
       evt.preventDefault();
       this.activate_field();
       if (!(this.results_showing || this.is_disabled)) {
@@ -436,7 +776,7 @@
       }
     };
 
-    AbstractChosen.prototype.keydown_checker = function(evt) {
+    AbstractChosen.prototype.keydown_checker = function (evt) {
       var ref, stroke;
       stroke = (ref = evt.which) != null ? ref : evt.keyCode;
       this.search_field_scale();
@@ -479,7 +819,7 @@
       }
     };
 
-    AbstractChosen.prototype.keyup_checker = function(evt) {
+    AbstractChosen.prototype.keyup_checker = function (evt) {
       var ref, stroke;
       stroke = (ref = evt.which) != null ? ref : evt.keyCode;
       this.search_field_scale();
@@ -517,18 +857,18 @@
       }
     };
 
-    AbstractChosen.prototype.clipboard_event_checker = function(evt) {
+    AbstractChosen.prototype.clipboard_event_checker = function (evt) {
       if (this.is_disabled) {
         return;
       }
-      return setTimeout(((function(_this) {
-        return function() {
+      return setTimeout(((function (_this) {
+        return function () {
           return _this.results_search();
         };
       })(this)), 50);
     };
 
-    AbstractChosen.prototype.container_width = function() {
+    AbstractChosen.prototype.container_width = function () {
       if (this.options.width != null) {
         return this.options.width;
       } else {
@@ -536,7 +876,7 @@
       }
     };
 
-    AbstractChosen.prototype.include_option_in_results = function(option) {
+    AbstractChosen.prototype.include_option_in_results = function (option) {
       if (this.is_multiple && (!this.display_selected_options && option.selected)) {
         return false;
       }
@@ -549,23 +889,23 @@
       return true;
     };
 
-    AbstractChosen.prototype.search_results_touchstart = function(evt) {
+    AbstractChosen.prototype.search_results_touchstart = function (evt) {
       this.touch_started = true;
       return this.search_results_mouseover(evt);
     };
 
-    AbstractChosen.prototype.search_results_touchmove = function(evt) {
+    AbstractChosen.prototype.search_results_touchmove = function (evt) {
       this.touch_started = false;
       return this.search_results_mouseout(evt);
     };
 
-    AbstractChosen.prototype.search_results_touchend = function(evt) {
+    AbstractChosen.prototype.search_results_touchend = function (evt) {
       if (this.touch_started) {
         return this.search_results_mouseup(evt);
       }
     };
 
-    AbstractChosen.prototype.outerHTML = function(element) {
+    AbstractChosen.prototype.outerHTML = function (element) {
       var tmp;
       if (element.outerHTML) {
         return element.outerHTML;
@@ -575,19 +915,19 @@
       return tmp.innerHTML;
     };
 
-    AbstractChosen.prototype.get_single_html = function() {
+    AbstractChosen.prototype.get_single_html = function () {
       return "<a class=\"chosen-single chosen-default\">\n  <span>" + this.default_text + "</span>\n  <div><b></b></div>\n</a>\n<div class=\"chosen-drop\">\n  <div class=\"chosen-search\">\n    <input class=\"chosen-search-input\" type=\"text\" autocomplete=\"off\" />\n  </div>\n  <ul class=\"chosen-results\"></ul>\n</div>";
     };
 
-    AbstractChosen.prototype.get_multi_html = function() {
+    AbstractChosen.prototype.get_multi_html = function () {
       return "<ul class=\"chosen-choices\">\n  <li class=\"search-field\">\n    <input class=\"chosen-search-input\" type=\"text\" autocomplete=\"off\" value=\"" + this.default_text + "\" />\n  </li>\n</ul>\n<div class=\"chosen-drop\">\n  <ul class=\"chosen-results\"></ul>\n</div>";
     };
 
-    AbstractChosen.prototype.get_no_results_html = function(terms) {
+    AbstractChosen.prototype.get_no_results_html = function (terms) {
       return "<li class=\"no-results\">\n  " + this.results_none_found + " <span>" + (this.escape_html(terms)) + "</span>\n</li>";
     };
 
-    AbstractChosen.browser_is_supported = function() {
+    AbstractChosen.browser_is_supported = function () {
       if ("Microsoft Internet Explorer" === window.navigator.appName) {
         return document.documentMode >= 8;
       }
@@ -610,11 +950,11 @@
   $ = jQuery;
 
   $.fn.extend({
-    chosen: function(options) {
+    chosen: function (options) {
       if (!AbstractChosen.browser_is_supported()) {
         return this;
       }
-      return this.each(function(input_field) {
+      return this.each(function (input_field) {
         var $this, chosen;
         $this = $(this);
         chosen = $this.data('chosen');
@@ -631,19 +971,19 @@
     }
   });
 
-  Chosen = (function(superClass) {
+  Chosen = (function (superClass) {
     extend(Chosen, superClass);
 
     function Chosen() {
       return Chosen.__super__.constructor.apply(this, arguments);
     }
 
-    Chosen.prototype.setup = function() {
+    Chosen.prototype.setup = function () {
       this.form_field_jq = $(this.form_field);
       return this.current_selectedIndex = this.form_field.selectedIndex;
     };
 
-    Chosen.prototype.set_up_html = function() {
+    Chosen.prototype.set_up_html = function () {
       var container_classes, container_props;
       container_classes = ["chosen-container"];
       container_classes.push("chosen-container-" + (this.is_multiple ? "multi" : "single"));
@@ -685,142 +1025,142 @@
       return this.set_label_behavior();
     };
 
-    Chosen.prototype.on_ready = function() {
+    Chosen.prototype.on_ready = function () {
       return this.form_field_jq.trigger("chosen:ready", {
         chosen: this
       });
     };
 
-    Chosen.prototype.register_observers = function() {
-      this.container.on('touchstart.chosen', (function(_this) {
-        return function(evt) {
+    Chosen.prototype.register_observers = function () {
+      this.container.on('touchstart.chosen', (function (_this) {
+        return function (evt) {
           _this.container_mousedown(evt);
         };
       })(this));
-      this.container.on('touchend.chosen', (function(_this) {
-        return function(evt) {
+      this.container.on('touchend.chosen', (function (_this) {
+        return function (evt) {
           _this.container_mouseup(evt);
         };
       })(this));
-      this.container.on('mousedown.chosen', (function(_this) {
-        return function(evt) {
+      this.container.on('mousedown.chosen', (function (_this) {
+        return function (evt) {
           _this.container_mousedown(evt);
         };
       })(this));
-      this.container.on('mouseup.chosen', (function(_this) {
-        return function(evt) {
+      this.container.on('mouseup.chosen', (function (_this) {
+        return function (evt) {
           _this.container_mouseup(evt);
         };
       })(this));
-      this.container.on('mouseenter.chosen', (function(_this) {
-        return function(evt) {
+      this.container.on('mouseenter.chosen', (function (_this) {
+        return function (evt) {
           _this.mouse_enter(evt);
         };
       })(this));
-      this.container.on('mouseleave.chosen', (function(_this) {
-        return function(evt) {
+      this.container.on('mouseleave.chosen', (function (_this) {
+        return function (evt) {
           _this.mouse_leave(evt);
         };
       })(this));
-      this.search_results.on('mouseup.chosen', (function(_this) {
-        return function(evt) {
+      this.search_results.on('mouseup.chosen', (function (_this) {
+        return function (evt) {
           _this.search_results_mouseup(evt);
         };
       })(this));
-      this.search_results.on('mouseover.chosen', (function(_this) {
-        return function(evt) {
+      this.search_results.on('mouseover.chosen', (function (_this) {
+        return function (evt) {
           _this.search_results_mouseover(evt);
         };
       })(this));
-      this.search_results.on('mouseout.chosen', (function(_this) {
-        return function(evt) {
+      this.search_results.on('mouseout.chosen', (function (_this) {
+        return function (evt) {
           _this.search_results_mouseout(evt);
         };
       })(this));
-      this.search_results.on('mousewheel.chosen DOMMouseScroll.chosen', (function(_this) {
-        return function(evt) {
+      this.search_results.on('mousewheel.chosen DOMMouseScroll.chosen', (function (_this) {
+        return function (evt) {
           _this.search_results_mousewheel(evt);
         };
       })(this));
-      this.search_results.on('touchstart.chosen', (function(_this) {
-        return function(evt) {
+      this.search_results.on('touchstart.chosen', (function (_this) {
+        return function (evt) {
           _this.search_results_touchstart(evt);
         };
       })(this));
-      this.search_results.on('touchmove.chosen', (function(_this) {
-        return function(evt) {
+      this.search_results.on('touchmove.chosen', (function (_this) {
+        return function (evt) {
           _this.search_results_touchmove(evt);
         };
       })(this));
-      this.search_results.on('touchend.chosen', (function(_this) {
-        return function(evt) {
+      this.search_results.on('touchend.chosen', (function (_this) {
+        return function (evt) {
           _this.search_results_touchend(evt);
         };
       })(this));
-      this.form_field_jq.on("chosen:updated.chosen", (function(_this) {
-        return function(evt) {
+      this.form_field_jq.on("chosen:updated.chosen", (function (_this) {
+        return function (evt) {
           _this.results_update_field(evt);
         };
       })(this));
-      this.form_field_jq.on("chosen:activate.chosen", (function(_this) {
-        return function(evt) {
+      this.form_field_jq.on("chosen:activate.chosen", (function (_this) {
+        return function (evt) {
           _this.activate_field(evt);
         };
       })(this));
-      this.form_field_jq.on("chosen:open.chosen", (function(_this) {
-        return function(evt) {
+      this.form_field_jq.on("chosen:open.chosen", (function (_this) {
+        return function (evt) {
           _this.container_mousedown(evt);
         };
       })(this));
-      this.form_field_jq.on("chosen:close.chosen", (function(_this) {
-        return function(evt) {
+      this.form_field_jq.on("chosen:close.chosen", (function (_this) {
+        return function (evt) {
           _this.close_field(evt);
         };
       })(this));
-      this.search_field.on('blur.chosen', (function(_this) {
-        return function(evt) {
+      this.search_field.on('blur.chosen', (function (_this) {
+        return function (evt) {
           _this.input_blur(evt);
         };
       })(this));
-      this.search_field.on('keyup.chosen', (function(_this) {
-        return function(evt) {
+      this.search_field.on('keyup.chosen', (function (_this) {
+        return function (evt) {
           _this.keyup_checker(evt);
         };
       })(this));
-      this.search_field.on('keydown.chosen', (function(_this) {
-        return function(evt) {
+      this.search_field.on('keydown.chosen', (function (_this) {
+        return function (evt) {
           _this.keydown_checker(evt);
         };
       })(this));
-      this.search_field.on('focus.chosen', (function(_this) {
-        return function(evt) {
+      this.search_field.on('focus.chosen', (function (_this) {
+        return function (evt) {
           _this.input_focus(evt);
         };
       })(this));
-      this.search_field.on('cut.chosen', (function(_this) {
-        return function(evt) {
+      this.search_field.on('cut.chosen', (function (_this) {
+        return function (evt) {
           _this.clipboard_event_checker(evt);
         };
       })(this));
-      this.search_field.on('paste.chosen', (function(_this) {
-        return function(evt) {
+      this.search_field.on('paste.chosen', (function (_this) {
+        return function (evt) {
           _this.clipboard_event_checker(evt);
         };
       })(this));
       if (this.is_multiple) {
-        return this.search_choices.on('click.chosen', (function(_this) {
-          return function(evt) {
+        return this.search_choices.on('click.chosen', (function (_this) {
+          return function (evt) {
             _this.choices_click(evt);
           };
         })(this));
       } else {
-        return this.container.on('click.chosen', function(evt) {
+        return this.container.on('click.chosen', function (evt) {
           evt.preventDefault();
         });
       }
     };
 
-    Chosen.prototype.destroy = function() {
+    Chosen.prototype.destroy = function () {
       $(this.container[0].ownerDocument).off('click.chosen', this.click_test_action);
       if (this.form_field_label.length > 0) {
         this.form_field_label.off('click.chosen');
@@ -833,7 +1173,7 @@
       return this.form_field_jq.show();
     };
 
-    Chosen.prototype.search_field_disabled = function() {
+    Chosen.prototype.search_field_disabled = function () {
       this.is_disabled = this.form_field.disabled || this.form_field_jq.parents('fieldset').is(':disabled');
       this.container.toggleClass('chosen-disabled', this.is_disabled);
       this.search_field[0].disabled = this.is_disabled;
@@ -847,7 +1187,7 @@
       }
     };
 
-    Chosen.prototype.container_mousedown = function(evt) {
+    Chosen.prototype.container_mousedown = function (evt) {
       var ref;
       if (this.is_disabled) {
         return;
@@ -870,13 +1210,13 @@
       }
     };
 
-    Chosen.prototype.container_mouseup = function(evt) {
+    Chosen.prototype.container_mouseup = function (evt) {
       if (evt.target.nodeName === "ABBR" && !this.is_disabled) {
         return this.results_reset(evt);
       }
     };
 
-    Chosen.prototype.search_results_mousewheel = function(evt) {
+    Chosen.prototype.search_results_mousewheel = function (evt) {
       var delta;
       if (evt.originalEvent) {
         delta = evt.originalEvent.deltaY || -evt.originalEvent.wheelDelta || evt.originalEvent.detail;
@@ -890,13 +1230,13 @@
       }
     };
 
-    Chosen.prototype.blur_test = function(evt) {
+    Chosen.prototype.blur_test = function (evt) {
       if (!this.active_field && this.container.hasClass("chosen-container-active")) {
         return this.close_field();
       }
     };
 
-    Chosen.prototype.close_field = function() {
+    Chosen.prototype.close_field = function () {
       $(this.container[0].ownerDocument).off("click.chosen", this.click_test_action);
       this.active_field = false;
       this.results_hide();
@@ -904,20 +1244,20 @@
       this.clear_backstroke();
       this.show_search_field_default();
       this.search_field_scale();
-      return this.search_field.blur();
+      return this.search_field.trigger('blur');
     };
 
-    Chosen.prototype.activate_field = function() {
+    Chosen.prototype.activate_field = function () {
       if (this.is_disabled) {
         return;
       }
       this.container.addClass("chosen-container-active");
       this.active_field = true;
       this.search_field.val(this.search_field.val());
-      return this.search_field.focus();
+      return this.search_field.trigger('focus');
     };
 
-    Chosen.prototype.test_active_click = function(evt) {
+    Chosen.prototype.test_active_click = function (evt) {
       var active_container;
       active_container = $(evt.target).closest('.chosen-container');
       if (active_container.length && this.container[0] === active_container[0]) {
@@ -927,7 +1267,7 @@
       }
     };
 
-    Chosen.prototype.results_build = function() {
+    Chosen.prototype.results_build = function () {
       this.parsing = true;
       this.selected_option_count = null;
       this.results_data = SelectParser.select_to_array(this.form_field);
@@ -952,7 +1292,7 @@
       return this.parsing = false;
     };
 
-    Chosen.prototype.result_do_highlight = function(el) {
+    Chosen.prototype.result_do_highlight = function (el) {
       var high_bottom, high_top, maxHeight, visible_bottom, visible_top;
       if (el.length) {
         this.result_clear_highlight();
@@ -971,14 +1311,14 @@
       }
     };
 
-    Chosen.prototype.result_clear_highlight = function() {
+    Chosen.prototype.result_clear_highlight = function () {
       if (this.result_highlight) {
         this.result_highlight.removeClass("highlighted");
       }
       return this.result_highlight = null;
     };
 
-    Chosen.prototype.results_show = function() {
+    Chosen.prototype.results_show = function () {
       if (this.is_multiple && this.max_selected_options <= this.choices_count()) {
         this.form_field_jq.trigger("chosen:maxselected", {
           chosen: this
@@ -987,7 +1327,7 @@
       }
       this.container.addClass("chosen-with-drop");
       this.results_showing = true;
-      this.search_field.focus();
+      this.search_field.trigger('focus');
       this.search_field.val(this.get_search_field_value());
       this.winnow_results();
       return this.form_field_jq.trigger("chosen:showing_dropdown", {
@@ -995,11 +1335,11 @@
       });
     };
 
-    Chosen.prototype.update_results_content = function(content) {
+    Chosen.prototype.update_results_content = function (content) {
       return this.search_results.html(content);
     };
 
-    Chosen.prototype.results_hide = function() {
+    Chosen.prototype.results_hide = function () {
       if (this.results_showing) {
         this.result_clear_highlight();
         this.container.removeClass("chosen-with-drop");
@@ -1010,7 +1350,7 @@
       return this.results_showing = false;
     };
 
-    Chosen.prototype.set_tab_index = function(el) {
+    Chosen.prototype.set_tab_index = function (el) {
       var ti;
       if (this.form_field.tabIndex) {
         ti = this.form_field.tabIndex;
@@ -1019,7 +1359,7 @@
       }
     };
 
-    Chosen.prototype.set_label_behavior = function() {
+    Chosen.prototype.set_label_behavior = function () {
       this.form_field_label = this.form_field_jq.parents("label");
       if (!this.form_field_label.length && this.form_field.id.length) {
         this.form_field_label = $("label[for='" + this.form_field.id + "']");
@@ -1029,7 +1369,7 @@
       }
     };
 
-    Chosen.prototype.show_search_field_default = function() {
+    Chosen.prototype.show_search_field_default = function () {
       if (this.is_multiple && this.choices_count() < 1 && !this.active_field) {
         this.search_field.val(this.default_text);
         return this.search_field.addClass("default");
@@ -1039,17 +1379,17 @@
       }
     };
 
-    Chosen.prototype.search_results_mouseup = function(evt) {
+    Chosen.prototype.search_results_mouseup = function (evt) {
       var target;
       target = $(evt.target).hasClass("active-result") ? $(evt.target) : $(evt.target).parents(".active-result").first();
       if (target.length) {
         this.result_highlight = target;
         this.result_select(evt);
-        return this.search_field.focus();
+        return this.search_field.trigger('focus');
       }
     };
 
-    Chosen.prototype.search_results_mouseover = function(evt) {
+    Chosen.prototype.search_results_mouseover = function (evt) {
       var target;
       target = $(evt.target).hasClass("active-result") ? $(evt.target) : $(evt.target).parents(".active-result").first();
       if (target) {
@@ -1057,13 +1397,13 @@
       }
     };
 
-    Chosen.prototype.search_results_mouseout = function(evt) {
+    Chosen.prototype.search_results_mouseout = function (evt) {
       if ($(evt.target).hasClass("active-result") || $(evt.target).parents('.active-result').first()) {
         return this.result_clear_highlight();
       }
     };
 
-    Chosen.prototype.choice_build = function(item) {
+    Chosen.prototype.choice_build = function (item) {
       var choice, close_link;
       choice = $('<li />', {
         "class": "search-choice"
@@ -1075,8 +1415,8 @@
           "class": 'search-choice-close',
           'data-option-array-index': item.array_index
         });
-        close_link.on('click.chosen', (function(_this) {
-          return function(evt) {
+        close_link.on('click.chosen', (function (_this) {
+          return function (evt) {
             return _this.choice_destroy_link_click(evt);
           };
         })(this));
@@ -1085,7 +1425,7 @@
       return this.search_container.before(choice);
     };
 
-    Chosen.prototype.choice_destroy_link_click = function(evt) {
+    Chosen.prototype.choice_destroy_link_click = function (evt) {
       evt.preventDefault();
       evt.stopPropagation();
       if (!this.is_disabled) {
@@ -1093,10 +1433,10 @@
       }
     };
 
-    Chosen.prototype.choice_destroy = function(link) {
+    Chosen.prototype.choice_destroy = function (link) {
       if (this.result_deselect(link[0].getAttribute("data-option-array-index"))) {
         if (this.active_field) {
-          this.search_field.focus();
+          this.search_field.trigger('focus');
         } else {
           this.show_search_field_default();
         }
@@ -1108,7 +1448,7 @@
       }
     };
 
-    Chosen.prototype.results_reset = function() {
+    Chosen.prototype.results_reset = function () {
       this.reset_single_select_options();
       this.form_field.options[0].selected = true;
       this.single_set_selected_text();
@@ -1120,12 +1460,12 @@
       }
     };
 
-    Chosen.prototype.results_reset_cleanup = function() {
+    Chosen.prototype.results_reset_cleanup = function () {
       this.current_selectedIndex = this.form_field.selectedIndex;
       return this.selected_item.find("abbr").remove();
     };
 
-    Chosen.prototype.result_select = function(evt) {
+    Chosen.prototype.result_select = function (evt) {
       var high, item;
       if (this.result_highlight) {
         high = this.result_highlight;
@@ -1175,7 +1515,7 @@
       }
     };
 
-    Chosen.prototype.single_set_selected_text = function(text) {
+    Chosen.prototype.single_set_selected_text = function (text) {
       if (text == null) {
         text = this.default_text;
       }
@@ -1188,7 +1528,7 @@
       return this.selected_item.find("span").html(text);
     };
 
-    Chosen.prototype.result_deselect = function(pos) {
+    Chosen.prototype.result_deselect = function (pos) {
       var result_data;
       result_data = this.results_data[pos];
       if (!this.form_field.options[result_data.options_index].disabled) {
@@ -1209,7 +1549,7 @@
       }
     };
 
-    Chosen.prototype.single_deselect_control_build = function() {
+    Chosen.prototype.single_deselect_control_build = function () {
       if (!this.allow_single_deselect) {
         return;
       }
@@ -1219,19 +1559,19 @@
       return this.selected_item.addClass("chosen-single-with-deselect");
     };
 
-    Chosen.prototype.get_search_field_value = function() {
+    Chosen.prototype.get_search_field_value = function () {
       return this.search_field.val();
     };
 
-    Chosen.prototype.get_search_text = function() {
-      return $.trim(this.get_search_field_value());
+    Chosen.prototype.get_search_text = function () {
+      return (this.search_field.val() || '').trim();
     };
 
-    Chosen.prototype.escape_html = function(text) {
+    Chosen.prototype.escape_html = function (text) {
       return $('<div/>').text(text).html();
     };
 
-    Chosen.prototype.winnow_results_set_highlight = function() {
+    Chosen.prototype.winnow_results_set_highlight = function () {
       var do_high, selected_results;
       selected_results = !this.is_multiple ? this.search_results.find(".result-selected.active-result") : [];
       do_high = selected_results.length ? selected_results.first() : this.search_results.find(".active-result").first();
@@ -1240,7 +1580,7 @@
       }
     };
 
-    Chosen.prototype.no_results = function(terms) {
+    Chosen.prototype.no_results = function (terms) {
       var no_results_html;
       no_results_html = this.get_no_results_html(terms);
       this.search_results.append(no_results_html);
@@ -1249,11 +1589,11 @@
       });
     };
 
-    Chosen.prototype.no_results_clear = function() {
+    Chosen.prototype.no_results_clear = function () {
       return this.search_results.find(".no-results").remove();
     };
 
-    Chosen.prototype.keydown_arrow = function() {
+    Chosen.prototype.keydown_arrow = function () {
       var next_sib;
       if (this.results_showing && this.result_highlight) {
         next_sib = this.result_highlight.nextAll("li.active-result").first();
@@ -1265,7 +1605,7 @@
       }
     };
 
-    Chosen.prototype.keyup_arrow = function() {
+    Chosen.prototype.keyup_arrow = function () {
       var prev_sibs;
       if (!this.results_showing && !this.is_multiple) {
         return this.results_show();
@@ -1282,7 +1622,7 @@
       }
     };
 
-    Chosen.prototype.keydown_backstroke = function() {
+    Chosen.prototype.keydown_backstroke = function () {
       var next_available_destroy;
       if (this.pending_backstroke) {
         this.choice_destroy(this.pending_backstroke.find("a").first());
@@ -1300,14 +1640,14 @@
       }
     };
 
-    Chosen.prototype.clear_backstroke = function() {
+    Chosen.prototype.clear_backstroke = function () {
       if (this.pending_backstroke) {
         this.pending_backstroke.removeClass("search-choice-focus");
       }
       return this.pending_backstroke = null;
     };
 
-    Chosen.prototype.search_field_scale = function() {
+    Chosen.prototype.search_field_scale = function () {
       var div, i, len, style, style_block, styles, width;
       if (!this.is_multiple) {
         return;
@@ -1335,7 +1675,7 @@
       return this.search_field.width(width);
     };
 
-    Chosen.prototype.trigger_form_field_change = function(extra) {
+    Chosen.prototype.trigger_form_field_change = function (extra) {
       this.form_field_jq.trigger("input", extra);
       return this.form_field_jq.trigger("change", extra);
     };
@@ -1351,10 +1691,8 @@
 * http://miohtama.github.com/jquery-interdependencies/
 * Copyright 2012-2013 Mikko Ohtamaa, others
 *
-* Modifyed by Shapedplugin
-*
 */
-(function($) {
+(function ($) {
 
   'use strict';
 
@@ -1364,70 +1702,70 @@
 
   $.extend(Rule.prototype, {
 
-    init: function(controller, condition, value) {
+    init: function (controller, condition, value) {
 
       this.controller = controller;
-      this.condition  = condition;
-      this.value      = value;
-      this.rules      = [];
-      this.controls   = [];
+      this.condition = condition;
+      this.value = value;
+      this.rules = [];
+      this.controls = [];
 
     },
 
-    evalCondition: function(context, control, condition, val1, val2) {
+    evalCondition: function (context, control, condition, val1, val2) {
 
-      if( condition == '==' ) {
+      if (condition == '==') {
 
         return this.checkBoolean(val1) == this.checkBoolean(val2);
 
-      } else if( condition == '!=' ) {
+      } else if (condition == '!=') {
 
         return this.checkBoolean(val1) != this.checkBoolean(val2);
 
-      } else if( condition == '>=' ) {
+      } else if (condition == '>=') {
 
         return Number(val2) >= Number(val1);
 
-      } else if( condition == '<=' ) {
+      } else if (condition == '<=') {
 
         return Number(val2) <= Number(val1);
 
-      } else if( condition == '>' ) {
+      } else if (condition == '>') {
 
         return Number(val2) > Number(val1);
 
-      } else if( condition == '<' ) {
+      } else if (condition == '<') {
 
         return Number(val2) < Number(val1);
 
-      } else if( condition == '()' ) {
+      } else if (condition == '()') {
 
         return window[val1](context, control, val2);
 
-      } else if( condition == 'any' ) {
+      } else if (condition == 'any') {
 
-        if( $.isArray( val2 ) ) {
+        if ($.isArray(val2)) {
           for (var i = val2.length - 1; i >= 0; i--) {
-            if( $.inArray( val2[i], val1.split(',') ) !== -1 ) {
+            if ($.inArray(val2[i], val1.split(',')) !== -1) {
               return true;
             }
           }
         } else {
-          if( $.inArray( val2, val1.split(',') ) !== -1 ) {
+          if ($.inArray(val2, val1.split(',')) !== -1) {
             return true;
           }
         }
 
-      } else if( condition == 'not-any' ) {
+      } else if (condition == 'not-any') {
 
-        if( $.isArray( val2 ) ) {
+        if ($.isArray(val2)) {
           for (var i = val2.length - 1; i >= 0; i--) {
-            if( $.inArray( val2[i], val1.split(',') ) == -1 ) {
+            if ($.inArray(val2[i], val1.split(',')) == -1) {
               return true;
             }
           }
         } else {
-          if( $.inArray( val2, val1.split(',') ) == -1 ) {
+          if ($.inArray(val2, val1.split(',')) == -1) {
             return true;
           }
         }
@@ -1438,16 +1776,16 @@
 
     },
 
-    checkBoolean: function(value) {
+    checkBoolean: function (value) {
 
-      switch( value ) {
+      switch (value) {
 
         case true:
         case 'true':
         case 1:
         case '1':
           value = true;
-        break;
+          break;
 
         case null:
         case false:
@@ -1455,16 +1793,16 @@
         case 0:
         case '0':
           value = false;
-        break;
+          break;
 
       }
 
       return value;
     },
 
-    checkCondition: function( context ) {
+    checkCondition: function (context) {
 
-      if( !this.condition ) {
+      if (!this.condition) {
         return true;
       }
 
@@ -1472,7 +1810,7 @@
 
       var control_value = this.getControlValue(context, control);
 
-      if( control_value === undefined ) {
+      if (control_value === undefined) {
         return false;
       }
 
@@ -1481,22 +1819,22 @@
       return this.evalCondition(context, control, this.condition, this.value, control_value);
     },
 
-    normalizeValue: function( control, baseValue, control_value ) {
+    normalizeValue: function (control, baseValue, control_value) {
 
-      if( typeof baseValue == 'number' ) {
-        return parseFloat( control_value );
+      if (typeof baseValue == 'number') {
+        return parseFloat(control_value);
       }
 
       return control_value;
     },
 
-    getControlValue: function(context, control) {
+    getControlValue: function (context, control) {
 
-      if( control.length > 1 && ( control.attr('type') == 'radio' || control.attr('type') == 'checkbox' ) ) {
+      if (control.length > 1 && (control.attr('type') == 'radio' || control.attr('type') == 'checkbox')) {
 
-        return control.filter(':checked').map(function() { return this.value; }).get();
+        return control.filter(':checked').map(function () { return this.value; }).get();
 
-      } else if ( control.attr('type') == 'checkbox' || control.attr('type') == 'radio' ) {
+      } else if (control.attr('type') == 'checkbox' || control.attr('type') == 'radio') {
 
         return control.is(':checked');
 
@@ -1506,47 +1844,47 @@
 
     },
 
-    createRule: function(controller, condition, value) {
+    createRule: function (controller, condition, value) {
       var rule = new Rule(controller, condition, value);
       this.rules.push(rule);
       return rule;
     },
 
-    include: function(input) {
+    include: function (input) {
       this.controls.push(input);
     },
 
-    applyRule: function(context, enforced) {
+    applyRule: function (context, enforced) {
 
       var result;
 
-      if( typeof( enforced ) == 'undefined' ) {
+      if (typeof (enforced) == 'undefined') {
         result = this.checkCondition(context);
       } else {
         result = enforced;
       }
 
-      var controls = $.map(this.controls, function(elem, idx) {
+      var controls = $.map(this.controls, function (elem, idx) {
         return context.find(elem);
       });
 
-      if( result ) {
+      if (result) {
 
-        $(controls).each(function() {
+        $(controls).each(function () {
           $(this).removeClass('hidden');
         });
 
-        $(this.rules).each(function() {
+        $(this.rules).each(function () {
           this.applyRule(context);
         });
 
       } else {
 
-        $(controls).each(function() {
+        $(controls).each(function () {
           $(this).addClass('hidden');
         });
 
-        $(this.rules).each(function() {
+        $(this.rules).each(function () {
           this.applyRule(context, false);
         });
 
@@ -1560,14 +1898,14 @@
 
   $.extend(Ruleset.prototype, {
 
-    createRule: function(controller, condition, value) {
+    createRule: function (controller, condition, value) {
       var rule = new Rule(controller, condition, value);
       this.rules.push(rule);
       return rule;
     },
 
-    applyRules: function(context) {
-      $(this.rules).each(function() {
+    applyRules: function (context) {
+      $(this.rules).each(function () {
         this.applyRule(context);
       });
     }
@@ -1575,17 +1913,17 @@
 
   $.wcgs_deps = {
 
-    createRuleset: function() {
+    createRuleset: function () {
       return new Ruleset();
     },
 
-    enable: function(selection, ruleset, depends) {
+    enable: function (selection, ruleset, depends) {
 
-      selection.on('change keyup', function(elem) {
+      selection.on('change keyup', function (elem) {
 
         var depend_id = elem.target.getAttribute('data-depend-id') || elem.target.getAttribute('data-sub-depend-id');
 
-        if( depends.indexOf( depend_id ) !== -1 ) {
+        if (depends.indexOf(depend_id) !== -1) {
           ruleset.applyRules(selection);
         }
 
@@ -1599,17 +1937,21 @@
 
 })(jQuery);
 ;/**
+ *
  * jQuery serializeObject
+ *
  * @copyright 2014, macek <paulmacek@gmail.com>
  * @link https://github.com/macek/jquery-serialize-object
  * @license BSD
  * @version 2.5.0
+ *
+ *
  */
-(function(root, factory) {
+(function (root, factory) {
 
   // AMD
   if (typeof define === "function" && define.amd) {
-    define(["exports", "jquery"], function(exports, $) {
+    define(["exports", "jquery"], function (exports, $) {
       return factory(exports, $);
     });
   }
@@ -1625,7 +1967,7 @@
     factory(root, (root.jQuery || root.Zepto || root.ender || root.$));
   }
 
-}(this, function(exports, $) {
+}(this, function (exports, $) {
 
   //
   // Shapedplugin: Added custom patterns for spesific validate
@@ -1641,8 +1983,8 @@
   function FormSerializer(helper, $form) {
 
     // private variables
-    var data     = {},
-        pushes   = {};
+    var data = {},
+      pushes = {};
 
     // private API
     function build(base, key, value) {
@@ -1694,7 +2036,7 @@
       if (!helper.isArray(pairs)) {
         throw new Error("formSerializer.addPairs expects an Array");
       }
-      for (var i=0, len=pairs.length; i<len; i++) {
+      for (var i = 0, len = pairs.length; i < len; i++) {
         this.addPair(pairs[i]);
       }
       return this;
@@ -1735,7 +2077,7 @@
 
   if (typeof $.fn !== "undefined") {
     $.fn.serializeObjectWCGS = FormSerializer.serializeObject;
-    $.fn.serializeJSONWCGS   = FormSerializer.serializeJSON;
+    $.fn.serializeJSONWCGS = FormSerializer.serializeJSON;
   }
 
   exports.FormSerializer = FormSerializer;

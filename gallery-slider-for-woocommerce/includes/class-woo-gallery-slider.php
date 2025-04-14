@@ -150,7 +150,8 @@ class Woo_Gallery_Slider {
 		 * side of the site.
 		 */
 		require_once plugin_dir_path( __DIR__ ) . 'public/class-woo-gallery-slider-public.php';
-
+		// Handles the import and export of custom gallery images for WooCommerce products.
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-woo-gallery-slider-import-export.php';
 		$this->loader = new Woo_Gallery_Slider_Loader();
 	}
 

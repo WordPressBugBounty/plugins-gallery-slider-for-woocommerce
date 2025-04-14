@@ -283,7 +283,7 @@
 			}
 			// Fix  the gallery width issue for page builder case.
 			if (!$('#wpgs-gallery ~ .summary').length) {
-				let gallery_width = $('#wpgs-gallery').parent('*').outerWidth();
+				let gallery_width = this.$gallery.parent('*').outerWidth();
 				if (typeof gallery_width === "number" && gallery_width > 50) {
 					gallery_w = gallery_width;
 				}
@@ -359,10 +359,13 @@
 			const navigation = this.settings.navigation === '1';
 			const thumbnails_sliders_space = this.settings.thumbnails_sliders_space ? this.settings.thumbnails_sliders_space.width : 6;
 			const slider_autoplay = this.settings.autoplay && this.settings.autoplay == '1' ? true : false;
+			let $swiperThumbContainer = this.$gallery.find('.gallery-navigation-carousel');
+			let $mainSliderContainer = this.$gallery.find(".wcgs-carousel");
 			let wcgs_img_count = this.$gallery.find('.wcgs-carousel .spswiper-slide').length;
-			this.wcgs_spswiper_thumb = this.SPSwiperSlide(".gallery-navigation-carousel", {
+			this.wcgs_spswiper_thumb = this.SPSwiperSlide($swiperThumbContainer[0], {
 				slidesPerView: parseInt(this.settings.thumbnails_item_to_show),
 				direction: 'horizontal',
+				lazyPreloadPrevNext: 1,
 				loop: this.settings.infinite_loop === '1',
 				spaceBetween: parseInt(thumbnails_sliders_space),
 				freeMode: this.settings.free_mode === '1',
@@ -371,13 +374,13 @@
 					afterInit: () => this.handleSPSwiperInit()
 				}
 			});
-			this.wcgs_spswiper_gallery = this.SPSwiperSlide(".wcgs-carousel", {
+			this.wcgs_spswiper_gallery = this.SPSwiperSlide($mainSliderContainer[0], {
 				autoHeight: this.settings.adaptive_height === '1',
 				direction: this.settings.slide_orientation,
 				loop: this.settings.infinite_loop === '1',
 				thumbs: { spswiper: this.wcgs_spswiper_thumb },
 				autoplay: slider_autoplay,
-				lazyPreloadPrevNext: 0,
+				lazyPreloadPrevNext: 1,
 				slidesPerView: 1,
 				spaceBetween: 0,
 				effect: 'slide',
@@ -409,7 +412,7 @@
 			this.wcgs_spswiper_gallery.init();
 
 			setTimeout(() => {
-				$('#wpgs-gallery').removeClass('wcgs-spswiper-before-init');
+				this.$gallery.removeClass('wcgs-spswiper-before-init');
 				this.handleAutoplayEvents();
 			}, 400);
 
@@ -679,13 +682,13 @@
 			const galleryFragment = document.createDocumentFragment();
 			const thumbnailFragment = document.createDocumentFragment();
 			var videoShowed = false;
-			items.forEach(item => {
-
-				const slide = this.createSlide(item, videoShowed);
-				const thumb = this.createThumbnail(item, videoShowed);
+			items.forEach((item, index) => {
+				const slide = this.createSlide(item, videoShowed, index);
+				const thumb = this.createThumbnail(item, videoShowed, index);
 
 				galleryFragment.appendChild($(slide)[0]);
 				thumbnailFragment.appendChild($(thumb)[0]);
+
 				videoShowed = item.video ? item.video.includes('youtu') : false;
 			});
 
@@ -704,10 +707,11 @@
 		}
 
 		// Create slide element.
-		createSlide(item, videoShowed) {
+		createSlide(item, videoShowed, index) {
 			const hasVideo = item.video && !videoShowed ? item.video.includes('youtu') : false;
+			let lazyLoad = index > 1 ?  this.lazyAttr : '';
 			const videoContent = hasVideo ? this.createVideoContent(item) : '';
-			const imageContent = hasVideo ? videoContent : `<img src="${item.url}" alt="${item.cap}" data-image="${item.full_url}" ${this.lazyAttr} >`;
+			const imageContent = hasVideo ? videoContent : `<img src="${item.url}" alt="${item.cap}" data-image="${item.full_url}" ${lazyLoad} >`;
 
 			return `<div class="spswiper-slide">
                     <div class="wcgs-slider-image">
@@ -735,10 +739,11 @@
 		}
 
 		// Create thumbnail element.
-		createThumbnail(item, videoShowed) {
+		createThumbnail(item, videoShowed, index) {
+			let lazyLoad = index > 1 ? this.lazyAttr : '';
 			return `
                 <div class="wcgs-thumb spswiper-slide">
-                    <img src="${item.thumb_url}" alt="${item.cap}" ${item.video && !videoShowed ? 'data-type="youtube"' : ''} ${this.lazyAttr} ></div>`;
+                    <img src="${item.thumb_url}" alt="${item.cap}" ${item.video && !videoShowed ? 'data-type="youtube"' : ''} ${lazyLoad} ></div>`;
 		}
 
 		// Rebuild gallery with new items.
@@ -770,8 +775,7 @@
 		hidePreloader() {
 			setTimeout(() => {
 				this.$gallery.removeClass('wcgs-transition-none');
-				this.$gallery.find('.wcgs-gallery-preloader')
-					.css({ opacity: 0, 'z-index': -99 });
+				this.$gallery.find('.wcgs-gallery-preloader').css({ opacity: 0, 'z-index': -99 });
 			}, 600);
 		}
 

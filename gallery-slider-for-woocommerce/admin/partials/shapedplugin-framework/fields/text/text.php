@@ -39,13 +39,11 @@ if ( ! class_exists( 'WCGS_Field_text' ) ) {
 		 * @return void
 		 */
 		public function render() {
-
 			$type = ( ! empty( $this->field['attributes']['type'] ) ) ? $this->field['attributes']['type'] : 'text';
 
 			echo $this->field_before(); // phpcs:ignore
 
-			$value = isset( $this->field['shortcode'] ) && ( $this->field['shortcode'] ) ? '[wcgs_gallery_slider]' : $this->value;
-
+			$value = isset( $this->field['shortcode'] ) && ( $this->field['shortcode'] ) ? '[woogallery]' : $this->value;
 			echo '<input type="' . esc_attr( $type ) . '" name="' . esc_attr( $this->field_name() ) . '" value="' . esc_attr( $value ) . '"' . $this->field_attributes() . ' />'; // phpcs:ignore
 
 			echo $this->field_after(); // phpcs:ignore

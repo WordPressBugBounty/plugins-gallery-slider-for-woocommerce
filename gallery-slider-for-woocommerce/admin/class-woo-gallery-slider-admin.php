@@ -48,11 +48,7 @@ class Woo_Gallery_Slider_Admin {
 		// Autoloading system.
 		spl_autoload_register( array( $this, 'autoload' ) );
 
-		WCGS_Settings::options( 'wcgs_settings' );
-		if ( class_exists( 'WCGS_Metaboxs' ) ) {
-			WCGS_Metaboxs::options( 'wcgs_metabox' );
-		}
-		WCGS_Assigns::options( 'wcgs_assigns' );
+		add_action( 'after_setup_theme', array( $this, 'wcgs_framework_config' ) );
 		add_filter( 'custom_menu_order', array( $this, 'reorder_submenus' ) );
 		add_filter( 'post_row_actions', array( $this, 'wcgs_remove_defaults_action' ), 10, 2 );
 		add_filter( 'manage_wcgs_layouts_posts_columns', array( $this, 'add_wcgs_layouts_column' ) );
@@ -62,6 +58,22 @@ class Woo_Gallery_Slider_Admin {
 		add_action( 'load-post-new.php', array( $this, 'check_wcgs_layouts_limit' ) );
 		add_filter( 'admin_footer_text', array( $this, 'sp_woo_review_text' ), 1, 2 );
 	}
+
+	/**
+	 * Config framework options
+	 *
+	 * @since 1.0.0
+	 *
+	 * @return void
+	 */
+	public function wcgs_framework_config() {
+		WCGS_Settings::options( 'wcgs_settings' );
+		if ( class_exists( 'WCGS_Metaboxs' ) ) {
+			WCGS_Metaboxs::options( 'wcgs_metabox' );
+		}
+		WCGS_Assigns::options( 'wcgs_assigns' );
+	}
+
 	/**
 	 * Register wcgs_layouts custom post type
 	 *
@@ -122,7 +134,8 @@ class Woo_Gallery_Slider_Admin {
 	 */
 	public function sp_woo_review_text( $text ) {
 		$current_screen = get_current_screen();
-		if ( 'wcgs_layouts' === get_post_type() || ( 'woogallery_page_wpgs-help' === $current_screen->base && is_object( $current_screen ) ) ) {
+
+		if ( is_object( $current_screen ) && 'wcgs_layouts' === $current_screen->post_type || ( 'woogallery_page_wpgs-help' === $current_screen->base ) ) {
 
 			$text = sprintf(
 					/* translators: 1: start strong tag, 2: close strong tag, 3: span tag start, 4: span tag end, 5: anchor tag start, 6: anchor tag ended. */

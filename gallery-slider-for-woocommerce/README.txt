@@ -2,10 +2,10 @@
 Contributors: shapedplugin, rubel_miah, khalilu, shamimmiashuhagh
 Tags: woocommerce product gallery carousel, woocommerce product gallery slider, product image zoom, additional variation gallery, product featured video
 Requires at least: 5.3
-Tested up to: 6.7.2
+Tested up to: 6.8
 WC requires at least: 4.5
-WC tested up to: 9.7.0
-Stable tag: 2.2.0
+WC tested up to: 9.8.1
+Stable tag: 2.2.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -410,6 +410,15 @@ Yes, the plugin is compatible with the most popular WooCommerce themes. We’re 
 
 
 == Changelog ==
+
+= Version 2.2.1 - Apr 14, 2025 =
+* New: The variation product gallery images will be exported and imported using WooCommerce's product export/import feature.
+* Improved: The [woogalleryslider] shortcode is updated by [woogallery] shortcode, and the [woogalleryslider] will be deprecated later. 
+* Fix: The translation-related warning was found with WP 6.8.
+* Fix: The help page recommended plugins logo URL not found issue.
+* Fix: The variation image change issue was found when the Elementor Pro plugin made the gallery section sticky.
+* Tested: WordPress 6.8 compatibility.
+* Tested: WooCommerce 9.8.1 compatibility.
 
 = Version 2.2.0 - Mar 05, 2025 =
 * New: The Manage Layouts feature.

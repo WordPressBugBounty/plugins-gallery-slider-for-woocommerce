@@ -85,8 +85,17 @@ class Woo_Gallery_Slider_Public {
 		add_action( 'wp_enqueue_scripts', array( $this, 'dequeue_script' ), 100 );
 		// Add specific CSS class by filter .
 		add_filter( 'body_class', array( $this, 'wcgs_body_class' ), 100 );
-		add_shortcode( 'wcgs_gallery_slider', array( $this, 'wcgs_woocommerce_show_product_images' ) );
 
+		// Register new shortcode [woogallery] since version 2.2.3.
+		add_shortcode( 'woogallery', array( $this, 'wcgs_woocommerce_show_product_images' ) );
+		// Deprecated shortcode [wcgs_gallery_slider] since version 2.2.3 (use [woogallery] instead).
+		add_shortcode(
+			'wcgs_gallery_slider',
+			function () {
+				return do_shortcode( '[woogallery]' );
+			}
+		);
+		// Remove default WooCommerce gallery lightbox,zoom,slider scripts.
 		add_action( 'wp', array( $this, 'wcgs_remove_woo_gallery' ) );
 	}
 
@@ -348,16 +357,16 @@ class Woo_Gallery_Slider_Public {
 			}
 			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/woo-gallery-slider-public.min.css', array(), $this->version, 'all' );
 			// if ( $enqueue_swiper_js ) {
-			// 	wp_enqueue_script(
-			// 		'wcgs-swiper',
-			// 		plugin_dir_url( __FILE__ ) . 'js/swiper.min.js',
-			// 		array(),
-			// 		$this->version,
-			// 		array(
-			// 			'in_footer' => true,
-			// 			'strategy'  => 'defer',
-			// 		)
-			// 	);
+			// wp_enqueue_script(
+			// 'wcgs-swiper',
+			// plugin_dir_url( __FILE__ ) . 'js/swiper.min.js',
+			// array(),
+			// $this->version,
+			// array(
+			// 'in_footer' => true,
+			// 'strategy'  => 'defer',
+			// )
+			// );
 			// }
 			// if ( $enqueue_fancybox_js ) {
 			// wp_enqueue_script(

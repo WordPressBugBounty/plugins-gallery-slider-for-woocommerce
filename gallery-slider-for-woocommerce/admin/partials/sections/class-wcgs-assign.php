@@ -62,7 +62,7 @@ class WCGS_Assign {
 									'taxonomy'  => 'product_cat',
 								),
 								'chosen'      => true,
-								'sortable'    => true,
+								// 'ajax'        => true,
 								'multiple'    => true,
 								'placeholder' => __( 'Choose term(s)', 'gallery-slider-for-woocommerce' ),
 								'attributes'  => array(
@@ -78,10 +78,11 @@ class WCGS_Assign {
 								'options'     => 'posts',
 								'query_args'  => array(
 									'post_type'      => 'product',
-									'posts_per_page' => 1000,
+									'posts_per_page' => 10,
 								),
+								'ajax'        => true,
 								'chosen'      => true,
-								'sortable'    => true,
+								'sortable'    => false,
 								'multiple'    => true,
 								'placeholder' => __( 'Choose Product', 'gallery-slider-for-woocommerce' ),
 								'dependency'  => array( 'assign_product_from', '==', 'specific_products' ),
@@ -95,7 +96,7 @@ class WCGS_Assign {
 								'options'       => 'posts',
 								'query_args'    => array(
 									'post_type'      => 'wcgs_layouts',
-									'posts_per_page' => '-1',
+									'posts_per_page' => '10',
 								),
 								'ajax'          => true,
 								'multiple'      => false,
@@ -105,7 +106,7 @@ class WCGS_Assign {
 						),
 					),
 				),
-			),
+			)
 		);
 	}
 }

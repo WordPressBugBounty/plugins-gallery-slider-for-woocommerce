@@ -60,7 +60,7 @@ class WCGS_Advance {
 										'attributes' => array(
 											'readonly' => '',
 										),
-										'default'    => '[wcgs_gallery_slider]',
+										'default'    => '[woogallery]',
 									),
 									array(
 										'type'    => 'subheading',
@@ -143,7 +143,7 @@ class WCGS_Advance {
 											'<a href="https://docs.shapedplugin.com/docs/gallery-slider-for-woocommerce-pro/configurations/how-to-speed-up-your-single-product-page" target="_blank"><b>',
 											'</b></a>',
 											'<b>',
-											'</b>',
+											'</b>'
 										),
 									),
 									array(

@@ -361,6 +361,10 @@ if ( ! class_exists( 'WCGS' ) ) {
 							'confirm'             => esc_html__( 'Are you sure?', 'gallery-slider-for-woocommerce' ),
 							'reset_notification'  => esc_html__( 'Restoring options.', 'gallery-slider-for-woocommerce' ),
 							'import_notification' => esc_html__( 'Importing options.', 'gallery-slider-for-woocommerce' ),
+							// Translators: %s represents the minimum number of characters required.
+							'typing_text'         => esc_html__( 'Please enter %s or more characters', 'gallery-slider-for-woocommerce' ),
+							'searching_text'      => esc_html__( 'Searching...', 'gallery-slider-for-woocommerce' ),
+							'no_results_text'     => esc_html__( 'No results found.', 'gallery-slider-for-woocommerce' ),
 						),
 					)
 				);

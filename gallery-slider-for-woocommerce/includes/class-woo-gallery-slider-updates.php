@@ -34,6 +34,7 @@ class Woo_Gallery_Slider_Updates {
 	private static $updates = array(
 		'1.0.0' => 'updates/update-1.0.0.php',
 		'2.0.0' => 'updates/update-2.0.0.php',
+		'2.2.1' => 'updates/update-2.2.1.php',
 	);
 
 	/**
