@@ -48,7 +48,7 @@ class WCGSP_Shoppage {
 						'type'       => 'switcher',
 						'class'      => 'pro_switcher',
 						'title'      => __( 'Show Product Video on the Shop or Archive Page', 'gallery-slider-for-woocommerce' ),
-						'title_help' => '<div class="wcgs-img-tag big-tooltip"><img src="' . plugin_dir_url( __DIR__ ) . '/shapedplugin-framework/assets/images/help-visuals/video-shop-page.svg" alt=""></div><a class="wcgs-open-docs" href="https://docs.shapedplugin.com/docs/gallery-slider-for-woocommerce-pro/configurations/how-to-show-product-video-on-the-shop-page/" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.woogallery.io/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
+						'title_help' => '<div class="wcgs-img-tag big-tooltip"><img src="' . plugin_dir_url( __DIR__ ) . '/shapedplugin-framework/assets/images/help-visuals/video-shop-page.svg" alt=""></div><a class="wcgs-open-docs" href="https://woogallery.io/docs/how-to-show-product-video-on-the-shop-archive-page/" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.woogallery.io/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
 						'text_on'    => __( 'Show', 'gallery-slider-for-woocommerce' ),
 						'text_off'   => __( 'Hide', 'gallery-slider-for-woocommerce' ),
 						'text_width' => 80,
@@ -82,19 +82,15 @@ class WCGSP_Shoppage {
 							),
 							'play-02' => array(
 								'option_name' => '<i class="sp_wgs-icon-play-02"></i>',
-								'pro_only'    => true,
 							),
 							'play-03' => array(
 								'option_name' => '<i class="sp_wgs-icon-play-03"></i>',
-								'pro_only'    => true,
 							),
 							'play-04' => array(
 								'option_name' => '<i class="sp_wgs-icon-play-04"></i>',
-								'pro_only'    => true,
 							),
 							'play-05' => array(
 								'option_name' => '<i class="sp_wgs-icon-play-05"></i>',
-								'pro_only'    => true,
 							),
 							'play-06' => array(
 								'option_name' => '<i class="sp_wgs-icon-play-06"></i>',

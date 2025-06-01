@@ -23,6 +23,12 @@ trait WCGS_Public_Default {
 	 */
 	public $navigation_icon_size = 16;
 	/**
+	 * Vertical_thumbs_width
+	 *
+	 * @var int
+	 */
+	public $vertical_thumbs_width = 20;
+	/**
 	 * Navigation icon color
 	 *
 	 * @var integer

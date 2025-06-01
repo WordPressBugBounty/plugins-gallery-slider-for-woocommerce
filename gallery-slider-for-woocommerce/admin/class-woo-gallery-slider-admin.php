@@ -9,7 +9,7 @@
  * @subpackage Woo_Gallery_Slider/admin
  * @author     ShapedPlugin <support@shapedplugin.com>
  */
-
+	use Automattic\WooCommerce\Admin\Features\ProductBlockEditor\BlockRegistry;
 /**
  * WooGallery Admin class
  */
@@ -57,7 +57,9 @@ class Woo_Gallery_Slider_Admin {
 		add_filter( 'post_updated_messages', array( $this, 'layout_updated_messages' ), 10, 2 );
 		add_action( 'load-post-new.php', array( $this, 'check_wcgs_layouts_limit' ) );
 		add_filter( 'admin_footer_text', array( $this, 'sp_woo_review_text' ), 1, 2 );
+
 	}
+
 
 	/**
 	 * Config framework options
@@ -95,7 +97,7 @@ class Woo_Gallery_Slider_Admin {
 			// 'menu_name'          => __( 'WooGallery', 'gallery-slider-for-woocommerce' ),
 		);
 		$menu_icon  = 'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiBmb2N1c2FibGU9ImZhbHNlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIgoJIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI0IDI0OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I0ZGRkZGRjt9Cjwvc3R5bGU+CjxnPgoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTAsMS45djIwLjFDMCwyMy4xLDAuOSwyNCwxLjksMjRoMjAuMWMxLjEsMCwxLjktMC45LDEuOS0xLjlWMS45QzI0LDAuOSwyMy4xLDAsMjIuMSwwSDEuOUMwLjksMCwwLDAuOSwwLDEuOQoJCXogTTIxLjQsMjIuM0gyLjZjLTAuNSwwLTEtMC40LTEtMVYyLjZjMC0wLjUsMC40LTEsMS0xaDE4LjdjMC41LDAsMSwwLjQsMSwxdjE4LjdDMjIuMywyMS45LDIxLjksMjIuMywyMS40LDIyLjN6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNy45LDE3LjR2Mi44YzAsMC4zLTAuMiwwLjUtMC41LDAuNUgzLjhjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWgzLjUKCQlDNy42LDE2LjksNy45LDE3LjEsNy45LDE3LjR6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTQuNSwxNy40djIuOGMwLDAuMy0wLjIsMC41LTAuNSwwLjVoLTRjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWg0CgkJQzE0LjIsMTYuOSwxNC41LDE3LjEsMTQuNSwxNy40eiIvPgoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTIwLjYsMTcuNHYyLjhjMCwwLjMtMC4yLDAuNS0wLjUsMC41aC0zLjVjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWgzLjUKCQlDMjAuNCwxNi45LDIwLjYsMTcuMSwyMC42LDE3LjR6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMy40LDMuOHYxMC45YzAsMC4zLDAuMiwwLjUsMC41LDAuNWgxNi4zYzAuMywwLDAuNS0wLjIsMC41LTAuNVYzLjhjMC0wLjMtMC4yLTAuNS0wLjUtMC41SDMuOAoJCUMzLjYsMy40LDMuNCwzLjYsMy40LDMuOHogTTUuNCwxMi44bDMuOC03YzAuMi0wLjMsMC43LTAuMywwLjgsMGwyLjcsNC45YzAuMiwwLjMsMC43LDAuMywwLjgsMGwwLjQtMC43YzAuMi0wLjMsMC43LTAuMywwLjgsMAoJCWwxLjUsMi43YzAuMiwwLjMtMC4xLDAuNy0wLjQsMC43aC0xMEM1LjUsMTMuNSw1LjMsMTMuMSw1LjQsMTIuOHogTTE2LjgsOS40Yy0xLjIsMC0yLjItMS0yLjItMi4yYzAtMS4yLDEtMi4xLDIuMS0yLjEKCQlDMTgsNSwxOSw2LDE5LDcuMkMxOC45LDguNCwxOCw5LjMsMTYuOCw5LjR6Ii8+CjwvZz4KPC9zdmc+';
-		$capability = apply_filters( 'wcgs_layouts_ui_permission', 'manage_options' );
+		$capability = apply_filters( 'wcgs_ui_permission', 'manage_options' );
 		$show_ui    = current_user_can( $capability ) ? true : false;
 		register_post_type(
 			'wcgs_layouts',
@@ -120,10 +122,26 @@ class Woo_Gallery_Slider_Admin {
 	 * Add menu items.
 	 */
 	public function admin_menu() {
-			// global $menu, $admin_page_hooks;
-				$menu_icon = 'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiBmb2N1c2FibGU9ImZhbHNlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIgoJIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI0IDI0OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I0ZGRkZGRjt9Cjwvc3R5bGU+CjxnPgoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTAsMS45djIwLjFDMCwyMy4xLDAuOSwyNCwxLjksMjRoMjAuMWMxLjEsMCwxLjktMC45LDEuOS0xLjlWMS45QzI0LDAuOSwyMy4xLDAsMjIuMSwwSDEuOUMwLjksMCwwLDAuOSwwLDEuOQoJCXogTTIxLjQsMjIuM0gyLjZjLTAuNSwwLTEtMC40LTEtMVYyLjZjMC0wLjUsMC40LTEsMS0xaDE4LjdjMC41LDAsMSwwLjQsMSwxdjE4LjdDMjIuMywyMS45LDIxLjksMjIuMywyMS40LDIyLjN6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNy45LDE3LjR2Mi44YzAsMC4zLTAuMiwwLjUtMC41LDAuNUgzLjhjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWgzLjUKCQlDNy42LDE2LjksNy45LDE3LjEsNy45LDE3LjR6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTQuNSwxNy40djIuOGMwLDAuMy0wLjIsMC41LTAuNSwwLjVoLTRjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWg0CgkJQzE0LjIsMTYuOSwxNC41LDE3LjEsMTQuNSwxNy40eiIvPgoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTIwLjYsMTcuNHYyLjhjMCwwLjMtMC4yLDAuNS0wLjUsMC41aC0zLjVjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWgzLjUKCQlDMjAuNCwxNi45LDIwLjYsMTcuMSwyMC42LDE3LjR6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMy40LDMuOHYxMC45YzAsMC4zLDAuMiwwLjUsMC41LDAuNWgxNi4zYzAuMywwLDAuNS0wLjIsMC41LTAuNVYzLjhjMC0wLjMtMC4yLTAuNS0wLjUtMC41SDMuOAoJCUMzLjYsMy40LDMuNCwzLjYsMy40LDMuOHogTTUuNCwxMi44bDMuOC03YzAuMi0wLjMsMC43LTAuMywwLjgsMGwyLjcsNC45YzAuMiwwLjMsMC43LDAuMywwLjgsMGwwLjQtMC43YzAuMi0wLjMsMC43LTAuMywwLjgsMAoJCWwxLjUsMi43YzAuMiwwLjMtMC4xLDAuNy0wLjQsMC43aC0xMEM1LjUsMTMuNSw1LjMsMTMuMSw1LjQsMTIuOHogTTE2LjgsOS40Yy0xLjIsMC0yLjItMS0yLjItMi4yYzAtMS4yLDEtMi4xLDIuMS0yLjEKCQlDMTgsNSwxOSw2LDE5LDcuMkMxOC45LDguNCwxOCw5LjMsMTYuOCw5LjR6Ii8+CjwvZz4KPC9zdmc+';
-				add_menu_page( __( 'WooGallery', 'gallery-slider-for-woocommerce' ), __( 'WooGallery', 'gallery-slider-for-woocommerce' ), 'manage_options', 'wpgs-settings', null, $menu_icon, '58' );
-				add_submenu_page( 'wpgs-settings', 'Help', 'Get Help', 'edit_posts', 'wpgs-help', array( $this, 'help_page_callback' ) );
+		// global $menu, $admin_page_hooks;
+		$capability = apply_filters( 'wcgs_ui_permission', 'manage_options' );
+		$menu_icon = 'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiBmb2N1c2FibGU9ImZhbHNlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIgoJIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI0IDI0OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I0ZGRkZGRjt9Cjwvc3R5bGU+CjxnPgoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTAsMS45djIwLjFDMCwyMy4xLDAuOSwyNCwxLjksMjRoMjAuMWMxLjEsMCwxLjktMC45LDEuOS0xLjlWMS45QzI0LDAuOSwyMy4xLDAsMjIuMSwwSDEuOUMwLjksMCwwLDAuOSwwLDEuOQoJCXogTTIxLjQsMjIuM0gyLjZjLTAuNSwwLTEtMC40LTEtMVYyLjZjMC0wLjUsMC40LTEsMS0xaDE4LjdjMC41LDAsMSwwLjQsMSwxdjE4LjdDMjIuMywyMS45LDIxLjksMjIuMywyMS40LDIyLjN6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNy45LDE3LjR2Mi44YzAsMC4zLTAuMiwwLjUtMC41LDAuNUgzLjhjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWgzLjUKCQlDNy42LDE2LjksNy45LDE3LjEsNy45LDE3LjR6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTQuNSwxNy40djIuOGMwLDAuMy0wLjIsMC41LTAuNSwwLjVoLTRjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWg0CgkJQzE0LjIsMTYuOSwxNC41LDE3LjEsMTQuNSwxNy40eiIvPgoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTIwLjYsMTcuNHYyLjhjMCwwLjMtMC4yLDAuNS0wLjUsMC41aC0zLjVjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWgzLjUKCQlDMjAuNCwxNi45LDIwLjYsMTcuMSwyMC42LDE3LjR6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMy40LDMuOHYxMC45YzAsMC4zLDAuMiwwLjUsMC41LDAuNWgxNi4zYzAuMywwLDAuNS0wLjIsMC41LTAuNVYzLjhjMC0wLjMtMC4yLTAuNS0wLjUtMC41SDMuOAoJCUMzLjYsMy40LDMuNCwzLjYsMy40LDMuOHogTTUuNCwxMi44bDMuOC03YzAuMi0wLjMsMC43LTAuMywwLjgsMGwyLjcsNC45YzAuMiwwLjMsMC43LDAuMywwLjgsMGwwLjQtMC43YzAuMi0wLjMsMC43LTAuMywwLjgsMAoJCWwxLjUsMi43YzAuMiwwLjMtMC4xLDAuNy0wLjQsMC43aC0xMEM1LjUsMTMuNSw1LjMsMTMuMSw1LjQsMTIuOHogTTE2LjgsOS40Yy0xLjIsMC0yLjItMS0yLjItMi4yYzAtMS4yLDEtMi4xLDIuMS0yLjEKCQlDMTgsNSwxOSw2LDE5LDcuMkMxOC45LDguNCwxOCw5LjMsMTYuOCw5LjR6Ii8+CjwvZz4KPC9zdmc+';
+		add_menu_page( __( 'WooGallery', 'gallery-slider-for-woocommerce' ), __( 'WooGallery', 'gallery-slider-for-woocommerce' ), $capability, 'wpgs-settings', null, $menu_icon, '58' );
+		add_submenu_page( 'wpgs-settings', 'Help', 'Get Help', 'edit_posts', 'wpgs-help', array( $this, 'help_page_callback' ) );
+		add_submenu_page( 'wpgs-settings', 'shop_video', __( 'Shop Video Settings', 'gallery-slider-for-woocommerce' ), $capability, 'wcgs_shop_video', '__return_null' );
+		add_submenu_page( 'wpgs-settings', 'License', __( 'License', 'gallery-slider-for-woocommerce' ), $capability, 'wcgs_license', '__return_null' );
+
+		// Override the URL of the submenu item.
+		global $submenu;
+		if ( isset( $submenu['wpgs-settings'] ) ) {
+			foreach ( $submenu['wpgs-settings'] as &$item ) {
+				if ( $item[2] === 'wcgs_license' ) {
+					$item[2] = 'admin.php?page=wpgs-settings#tab=advance&license'; // Set your custom URL.
+				}
+				if ( $item[2] === 'wcgs_shop_video' ) {
+					$item[2] = 'admin.php?page=wpgs-settings#tab=shop_page_video'; // Set your custom URL.
+				}
+			}
+		}
 	}
 	/**
 	 * Review Text
@@ -360,7 +378,7 @@ class Woo_Gallery_Slider_Admin {
 	 * @since    0.0.1
 	 */
 	public function wcgs_remove_defaults_action( $actions, $post ) {
-		$capability = apply_filters( 'wcgs_layouts_ui_permission', 'manage_options' );
+		$capability = apply_filters( 'wcgs_ui_permission', 'manage_options' );
 		$show_ui    = current_user_can( $capability ) ? true : false;
 		if ( $show_ui && 'wcgs_layouts' === $post->post_type ) {
 			if ( isset( $actions['edit'] ) ) {
@@ -407,7 +425,9 @@ class Woo_Gallery_Slider_Admin {
 			'wpgs-settings'                   => 1,
 			'edit.php?post_type=wcgs_layouts' => 2,
 			'assign_layout'                   => 3,
-			'wpgs-help'                       => 4,
+			'admin.php?page=wpgs-settings#tab=shop_page_video' => 4,
+			'admin.php?page=wpgs-settings#tab=advance&license' => 5,
+			'wpgs-help'                       => 6,
 		);
 		$priority_a     = isset( $priority_order[ $a[2] ] ) ? $priority_order[ $a[2] ] : 99;
 		$priority_b     = isset( $priority_order[ $b[2] ] ) ? $priority_order[ $b[2] ] : 99;
@@ -438,7 +458,6 @@ class Woo_Gallery_Slider_Admin {
 
 	/**
 	 * Implementaion of yield for better performance.
-	 * https://medium.com/tech-tajawal/use-memory-gently-with-yield-in-php-7e62e2480b8d
 	 * wcgs_reduce_processor_use
 	 *
 	 * @param array $array array.
@@ -504,12 +523,11 @@ class Woo_Gallery_Slider_Admin {
 	public function woocommerce_add_gallery_product_variation( $loop, $variation_data, $variation ) {
 		?>
 		<div class="wcgs-variation-gallery form-row form-row-full">
-		<h4><?php esc_html_e( 'Variation Image Gallery', 'gallery-slider-for-woocommerce' ); ?><h4>
+		<h4><?php esc_html_e( 'Variation Image Gallery by WooGallery', 'gallery-slider-for-woocommerce' ); ?><h4>
 		<div class="wcgs-gallery-items" id="<?php echo esc_attr( $variation->ID ); ?>">
 		<?php
-
 		$variation_gallery     = get_post_meta( $variation->ID, 'woo_gallery_slider', true );
-		$variation_gallery_arr = substr( $variation_gallery, 1, -1 );
+		$variation_gallery_arr = strpos( $variation_gallery, ']' ) !== false ? substr( $variation_gallery, 1, -1 ) : $variation_gallery;
 		if ( ! empty( $variation_gallery_arr ) ) {
 			$image_ids = explode( ',', $variation_gallery_arr );
 
@@ -533,7 +551,6 @@ class Woo_Gallery_Slider_Admin {
 						</div>
 						<?php
 				}
-
 				++$count;
 			}
 		}

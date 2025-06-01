@@ -258,7 +258,7 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 			if ( empty( $woo_gallery_slider ) ) {
 				return;
 			}
-			$gallery_arr = substr( $woo_gallery_slider, 1, -1 );
+			$gallery_arr = strpos( $woo_gallery_slider, ']' ) !== false ? substr( $woo_gallery_slider, 1, -1 ) : $woo_gallery_slider;
 			if ( strpos( $gallery_arr, ',' ) ) {
 				$this->add_multiple_gallery_images( $gallery_arr );
 			} else {
@@ -411,74 +411,6 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 		}
 
 		/**
-		 * Outputs custom styles for Elementor preview mode on the product gallery.
-		 */
-		public function output_elementor_preview_styles() {
-			// Check if the page is being edited in Elementor.
-			$elementor_preview = isset( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : null;
-
-			if ( 'elementor' === $elementor_preview ) {
-				?>
-		<style>
-			#wpgs-gallery {
-				display: flex;
-				flex-direction: column;
-				position: relative;
-			}
-			#wpgs-gallery:after {
-				content: 'The Gallery will be shown perfectly on the single product page only.';
-				width: 100%;
-				height: 100%;
-				position: absolute;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				left: 0;
-				top: 0;
-				z-index: 1;
-			}
-
-			.wcgs-carousel.horizontal.spswiper {
-				text-align: center;
-				margin-bottom: 10px;
-				order: 0;
-				width: 100%;
-			}
-
-			.wcgs-carousel .spswiper-slide:not(:first-child) {
-				display: none;
-			}
-
-			.wcgs-carousel .spswiper-slide {
-				min-width: 100%;
-			}
-
-			.wcgs-carousel .spswiper-slide img {
-				visibility: visible !important;
-			}
-
-			.gallery-navigation-carousel-wrapper {
-				order: 1;
-				display: flex;
-			}
-
-			.gallery-navigation-carousel-wrapper .spswiper-wrapper {
-				display: flex;
-				gap: 10px;
-			}
-
-			.gallery-navigation-carousel-wrapper .spswiper-slide {
-				min-width: calc(25% - 7px);
-			}
-
-			.gallery-navigation-carousel-wrapper .spswiper-slide img {
-				min-width: 100%;
-			}
-		</style>
-				<?php
-			}
-		}
-		/**
 		 * Display gallery output.
 		 *
 		 * @return void
@@ -486,7 +418,6 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 		public function display_gallery_output() {
 			$cache_key  = 'wcgsf_woo_gallery_' . $this->product_id . WOO_GALLERY_SLIDER_VERSION;
 			$cache_data = $this->helper->spwg_get_transient( $cache_key );
-			$this->output_elementor_preview_styles();
 			// if ( false !== $cache_data ) {
 			// 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 			// echo $cache_data;
@@ -526,10 +457,25 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 			$lightbox             = isset( $settings['lightbox'] ) ? $settings['lightbox'] : '';
 			$image_size           = isset( $settings['image_sizes'] ) ? $settings['image_sizes'] : 'woocommerce_single';
 			$thumb_nav_visibility = isset( $settings['thumb_nav_visibility'] ) ? $settings['thumb_nav_visibility'] : 'hover';
+			$layout_class         = '';
+			if ( isset( $this->settings['gallery_layout'] ) && 'vertical_right' === $this->settings['gallery_layout'] ) {
+				$layout_class .= 'vertical wcgs-vertical-right';
+				if ( isset( $this->settings['slider_height_type'] ) && 'fix_height' === $this->settings['slider_height_type'] ) {
+						$layout_class .= ' wcgs-fixed-height';
+				}
+			} else {
+				$layout_class .= 'horizontal';
+			}
+			$preloader_style = ! empty( $this->settings['preloader_style'] ) ? $this->settings['preloader_style'] : 'normal';
+			if ( $preloader ) {
+				$layout_class .= ' wcgs_preloader_' . $preloader_style;
+			}
+			$lightbox_icon_position = ! empty( $this->settings['lightbox_icon_position'] ) ? $this->settings['lightbox_icon_position'] : 'top-right';
+			$gallery_width          = ! empty( $settings['gallery_width'] ) ? $settings['gallery_width'] : 0;
 			?>
-	<div id="wpgs-gallery" <?php echo $slider_dir_rtl; ?> class="wcgs-woocommerce-product-gallery wcgs-spswiper-before-init horizontal" style='min-width: <?php echo esc_attr( $settings['gallery_width'] ); ?>%; overflow: hidden;' data-id="<?php echo esc_attr( $product_id ); ?>">
+	<div id="wpgs-gallery" <?php echo $slider_dir_rtl; ?> class="wcgs-woocommerce-product-gallery wcgs-spswiper-before-init <?php echo esc_html( $layout_class ); ?>" style='min-width: <?php echo esc_attr( $gallery_width ); ?>%; overflow: hidden;' data-id="<?php echo esc_attr( $product_id ); ?>">
 		<div class="gallery-navigation-carousel-wrapper">
-			<div thumbsSlider="" class="gallery-navigation-carousel spswiper horizontal <?php echo esc_attr( $thumb_nav_visibility ); ?>">
+			<div thumbsSlider="" class="gallery-navigation-carousel spswiper <?php echo esc_html( $layout_class ); ?> <?php echo esc_attr( $thumb_nav_visibility ); ?>">
 				<div class="spswiper-wrapper">
 					<?php
 					$thumb_video_showed = false;
@@ -560,7 +506,7 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 				<?php } ?>
 			</div>
 		</div>
-		<div class="wcgs-carousel horizontal spswiper">
+		<div class="wcgs-carousel <?php echo esc_html( $layout_class ); ?> spswiper">
 			<div class="spswiper-wrapper">
 				<?php
 				$video_showed = false;
@@ -587,18 +533,18 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 									if ( 'inline' === $video_popup_place ) {
 										?>
 										<div class="wcgs-iframe-wrapper">
-										<div class="wcgs-iframe wcgs-youtube-video" data-video-id="<?php echo esc_attr( $video_id ); ?>" data-src="<?php echo esc_attr( $video ); ?>"></div><img class="wcgs-slider-image-tag" style="visibility: hidden" alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" srcset="<?php echo esc_html( $full_srcset ); ?>" sizes="<?php echo esc_html( $image_sizes ); ?>" <?php echo $this->get_lazy_load_attribute(); ?> /></div>
+										<div class="wcgs-iframe wcgs-youtube-video" data-video-id="<?php echo esc_attr( $video_id ); ?>" data-src="<?php echo esc_attr( $video ); ?>"></div><img class="wcgs-slider-image-tag" style="visibility: hidden" alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" srcset="<?php echo esc_html( $full_srcset ); ?>" sizes="<?php echo esc_html( $image_sizes ); ?>"  <?php echo $index === 1 ? 'fetchpriority="high" loading="eager"' : $this->get_lazy_load_attribute(); ?> /></div>
 										<?php
 									} else {
 										?>
-										<img class="wcgs-slider-image-tag" alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" data-type="youtube" <?php echo $this->get_lazy_load_attribute(); ?> srcset="<?php echo $full_srcset; ?>" sizes="<?php echo $image_sizes; ?>" />
+										<img class="wcgs-slider-image-tag" alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" data-type="youtube"  <?php echo $index === 1 ? 'fetchpriority="high" loading="eager"' : $this->get_lazy_load_attribute(); ?>  srcset="<?php echo $full_srcset; ?>" sizes="<?php echo $image_sizes; ?>" />
 										<?php
 									}
 									$video_showed = true;
 							} else {
 								?>
 									<a class="wcgs-slider-lightbox" data-fancybox="view" href="<?php echo esc_url( $slide['full_url'] ); ?>" aria-label="lightbox"></a>
-									<img class="wcgs-slider-image-tag" <?php echo $this->get_lazy_load_attribute(); ?> alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" srcset="<?php echo esc_html( $full_srcset ); ?>" sizes="<?php echo esc_html( $image_sizes ); ?>" />
+									<img class="wcgs-slider-image-tag" <?php echo $index == 1 ? 'fetchpriority="high" loading="eager"' : $this->get_lazy_load_attribute(); ?>  alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" srcset="<?php echo esc_html( $full_srcset ); ?>" sizes="<?php echo esc_html( $image_sizes ); ?>" />
 										<?php
 							}
 						} else {
@@ -626,7 +572,7 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 			}
 			?>
 			<?php if ( $lightbox ) { ?>
-			<div class="wcgs-lightbox top_right"><span class="sp_wgs-lightbox"><span class="sp_wgs-icon-search"></span></span></div>
+			<div class="wcgs-lightbox <?php echo esc_html( $lightbox_icon_position ); ?>"><span class="sp_wgs-lightbox"><span class="sp_wgs-icon-search"></span></span></div>
 				<?php
 			}
 			?>
@@ -634,9 +580,9 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 			<?php
 			if ( $preloader ) {
 				?>
-		<div class="wcgs-gallery-preloader" style="opacity: 1; z-index: 9999;"></div>
+				<div class="wcgs-gallery-preloader" style="opacity: 1; z-index: 9999;"></div>
 			<?php } ?>
-	</div>
+		</div>
 			<?php
 		}
 	}

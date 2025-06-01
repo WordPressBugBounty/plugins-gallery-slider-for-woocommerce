@@ -60,11 +60,11 @@ if ( ! function_exists( 'wcgs_chosen_ajax' ) ) {
 			wp_send_json_error( array( 'error' => esc_html__( 'Error: Invalid term ID.', 'gallery-slider-for-woocommerce' ) ) );
 		}
 
-		// $capability = apply_filters( 'sp_wp_carousel_ui_permission', 'manage_options' );
+		$capability = apply_filters( 'wcgs_ui_permission', 'manage_options' );
 
-		// if ( ! current_user_can( $capability ) ) {
-		// wp_send_json_error( array( 'error' => esc_html__( 'Error: You do not have permission to do that.', 'gallery-slider-for-woocommerce') ) );
-		// }
+		if ( ! current_user_can( $capability ) ) {
+			wp_send_json_error( array( 'error' => esc_html__( 'Error: You do not have permission to do that.', 'gallery-slider-for-woocommerce' ) ) );
+		}
 
 		// Success.
 		$options = WCGS_Fields::field_data( $type, $term, $query );

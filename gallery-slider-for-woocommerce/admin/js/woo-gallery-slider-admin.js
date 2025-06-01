@@ -6,7 +6,7 @@ jQuery(document).ready(function( $ ) {
 	/*
 	* Upload image(s) event
 	*/
-	$(document).on('click', '.wcgs-upload-image', function(e){
+	$(document).on('click', '.wcgs-variation-gallery .wcgs-upload-image', function(e){
 		e.preventDefault();
 		var wcgsAttachment = $(this).parents('.woocommerce_variable_attributes').find('.wcgs-gallery').val();
 		if( wcgsAttachment === '' ) {
@@ -53,7 +53,7 @@ jQuery(document).ready(function( $ ) {
 	/*
 	* Add more image event
 	*/
-	$(document).on('click', '.wcgs-upload-more-image', function(e) {
+	$(document).on('click', '.wcgs-variation-gallery .wcgs-upload-more-image', function(e) {
 		e.preventDefault();
 		var variationID = $(this).parents('.woocommerce_variation').find('.variable_post_id').val();
 		variationID = '#' + variationID;
@@ -87,7 +87,7 @@ jQuery(document).ready(function( $ ) {
 	/*
 	 * Remove image event
 	 */
-	$(document).on('click', '.wcgs-remove-all-images', function(e){
+	$(document).on('click', '.wcgs-variation-gallery .wcgs-remove-all-images', function(e){
 		e.preventDefault();
 		var variationID = $(this).parents('.woocommerce_variation').find('.variable_post_id').val();
 		variationID = '#' + variationID;
@@ -102,7 +102,7 @@ jQuery(document).ready(function( $ ) {
 	});
 
 	// Single remover
-	$(document).on('click', '.wcgs-image-remover', function(e) {
+	$(document).on('click', '.wcgs-variation-gallery .wcgs-image-remover', function(e) {
 		e.preventDefault();
 		var variationID = $(this).parents('.woocommerce_variation').find('.variable_post_id').val();
 		variationID = '#' + variationID;
@@ -165,7 +165,7 @@ jQuery(document).ready(function( $ ) {
 	/*
 	* Edit gallery event
 	*/
-	$(document).on('click', '.wcgs-edit', function(e) {
+	$(document).on('click', '.wcgs-variation-gallery .wcgs-edit', function(e) {
 		e.preventDefault();
 		var variationID = $(this).parents('.woocommerce_variation').find('.variable_post_id').val();
 		variationID = '#' + variationID;
@@ -244,5 +244,25 @@ jQuery(document).ready(function( $ ) {
 	// Active layout.
 	if ($('body').hasClass('post-type-wcgs_layouts')) {
 		$('a[href="edit.php?post_type=wcgs_layouts"]').parent().addClass('current').siblings().removeClass('current');
+	}
+	// $('.toplevel_page_wpgs-settings li').on('click', function () {
+	// 	setTimeout(() => {
+	// 		if ($('.toplevel_page_wpgs-settings').hasClass('wp-has-current-submenu')) {
+	// 			if (window.location.href.indexOf('admin.php?page=wpgs-settings#tab=shop_page_video') > -1) {
+	// 				$('a[href="admin.php?page=wpgs-settings#tab=shop_page_video"]').parent().addClass('current').siblings().removeClass('current');
+	// 			}
+	// 			if (window.location.href.indexOf('admin.php?page=wpgs-settings#tab=advance&license') > -1) {
+	// 				$('a[href="admin.php?page=wpgs-settings#tab=advance&license"]').parent().addClass('current').siblings().removeClass('current');
+	// 			}
+	// 		}
+	// 	}, 300);
+	// });
+	if ($('.toplevel_page_wpgs-settings').hasClass('wp-has-current-submenu')) {
+		if (window.location.href.indexOf('admin.php?page=wpgs-settings#tab=shop_page_video') > -1) {
+			$('a[href="admin.php?page=wpgs-settings#tab=shop_page_video"]').parent().addClass('current wcgs-active').siblings().removeClass('current wcgs-active');
+		}
+		if (window.location.href.indexOf('admin.php?page=wpgs-settings#tab=advance&license') > -1) {
+			$('a[href="admin.php?page=wpgs-settings#tab=advance&license"]').parent().addClass('current wcgs-active').siblings().removeClass('current wcgs-active');
+		}
 	}
 });

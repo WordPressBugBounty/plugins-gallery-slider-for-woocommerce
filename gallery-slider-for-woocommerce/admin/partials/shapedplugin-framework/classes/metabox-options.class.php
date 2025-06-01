@@ -278,7 +278,7 @@ if ( ! class_exists( 'WCGS_Metabox' ) ) {
 			echo '<div class="wcgs wcgs-metabox' . esc_attr( $theme ) . '">';
 
 			echo '<div class="wcgs-wrapper' . esc_attr( $show_all ) . '">';
-			if ( 'wcgs_layouts' === $post_type ) {
+			if ( 'wcgs_layouts' === $post_type && $has_nav ) {
 				// Header start.
 				echo '<div class="wcgs-header">';
 				echo '<div class="wcgs-header-inner">';
@@ -287,7 +287,7 @@ if ( ! class_exists( 'WCGS_Metabox' ) ) {
 							// echo '<a href="" class="support_button wcgs-help-text"><i class="sp_wgs-icon-help-tab"></i> Support</a>';
 							echo ' <div class="wcgs-support-area">
 							<span class="support_button"><i class="sp_wgs-icon-help-tab"></i>Support</span>
-							<div class="wcgs-help-text wcgs-help-text wcgs-support"><div class="wcgs-info-label">Documentation</div>Check out our documentation and more information about what you can do with the WooGallery.<a class="wcgs-open-docs browser-docs" href="https://docs.shapedplugin.com/docs/gallery-slider-for-woocommerce-pro/overview/" target="_blank">Browse Docs</a><div class="wcgs-info-label">Need Help or Missing a Feature?</div>Feel free to get help from our friendly support team or request a new feature if needed. We appreciate your suggestions to make the plugin better.<a class="wcgs-open-docs support" href="https://shapedplugin.com/create-new-ticket/" target="_blank">Get Help</a><a class="wcgs-open-docs feature-request" href="https://shapedplugin.com/contact-us/" target="_blank">Request a Feature</a></div></span></div>';
+							<div class="wcgs-help-text wcgs-help-text wcgs-support"><div class="wcgs-info-label">Documentation</div>Check out our documentation and more information about what you can do with the WooGallery.<a class="wcgs-open-docs browser-docs" href="https://woogallery.io/docs/" target="_blank">Browse Docs</a><div class="wcgs-info-label">Need Help or Missing a Feature?</div>Feel free to get help from our friendly support team or request a new feature if needed. We appreciate your suggestions to make the plugin better.<a class="wcgs-open-docs support" href="https://shapedplugin.com/create-new-ticket/" target="_blank">Get Help</a><a class="wcgs-open-docs feature-request" href="https://shapedplugin.com/contact-us/" target="_blank">Request a Feature</a></div></span></div>';
 						echo '</div>';
 					echo '</div>';
 				echo '</div>';

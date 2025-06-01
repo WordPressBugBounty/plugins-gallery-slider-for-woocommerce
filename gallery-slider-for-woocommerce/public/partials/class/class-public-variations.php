@@ -94,11 +94,14 @@ class WCGS_Public_Variations {
 						array_push( $gallery, $this->helper->wcgs_image_meta( $image_id, $settings ) );
 					}
 					$woo_gallery_slider = get_post_meta( $variation, 'woo_gallery_slider', true );
-					$gallery_arr        = substr( $woo_gallery_slider, 1, -1 );
-					$gallery_multiple   = strpos( $gallery_arr, ',' ) ? true : false;
+					$gallery_arr        = ! empty( $woo_gallery_slider ) && ! is_array( $woo_gallery_slider ) && strpos( $woo_gallery_slider, ']' ) !== false ? substr( $woo_gallery_slider, 1, -1 ) : $woo_gallery_slider;
+					// ! empty( $woo_gallery_slider ) && ! is_array( ! $woo_gallery_slider ) && ? substr( $woo_gallery_slider, 1, -1 ) : '';
+
+					$gallery_multiple = ! is_array( $woo_gallery_slider ) && strpos( $gallery_arr, ',' ) ? true : false;
+					$gallery_multiple = ! $gallery_multiple && is_array( $woo_gallery_slider ) && count( $woo_gallery_slider ) > 0 ? true : $gallery_multiple;
 					if ( $gallery_multiple ) {
 						$count         = 1;
-						$gallery_array = explode( ',', $gallery_arr );
+						$gallery_array = ! is_array( $gallery_arr ) ? explode( ',', $gallery_arr ) : $gallery_arr;
 						foreach ( $gallery_array as $gallery_item ) {
 							if ( 2 >= $count ) {
 								array_push( $gallery, $this->helper->wcgs_image_meta( $gallery_item, $settings ) );

@@ -158,14 +158,13 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 			add_action( 'admin_menu', array( &$this, 'add_admin_menu' ) );
 			add_action( 'admin_bar_menu', array( &$this, 'add_admin_bar_menu' ), $this->args['admin_bar_menu_priority'] );
 			add_action( 'wp_ajax_wcgs_' . $this->unique . '_ajax_save', array( &$this, 'ajax_save' ) );
-
+			add_action( 'wp_ajax_wcgs_run_migration', array( $this, 'wcgs_run_migration_callback' ) );
 			if ( ! empty( $this->args['show_network_menu'] ) ) {
 				add_action( 'network_admin_menu', array( &$this, 'add_admin_menu' ) );
 			}
 
 			// wp enqeueu for typography and output css.
 			parent::__construct();
-
 		}
 
 		/**
@@ -198,7 +197,7 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 					$parents[ $section['parent'] ][] = $section;
 					unset( $sections[ $key ] );
 				}
-				$count++;
+				++$count;
 			}
 
 			foreach ( $sections as $key => $section ) {
@@ -207,7 +206,7 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 					$section['subs'] = wp_list_sort( $parents[ $section['id'] ], array( 'priority' => 'ASC' ), 'ASC', true );
 				}
 				$result[] = $section;
-				$count++;
+				++$count;
 			}
 			return wp_list_sort( $result, array( 'priority' => 'ASC' ), 'ASC', true );
 		}
@@ -304,9 +303,114 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 					);
 				}
 			}
-
 		}
+		/**
+		 * Run_migration_callback
+		 *
+		 * @return void
+		 */
+		public function wcgs_run_migration_callback() {
+			$capability = apply_filters( 'wcgs_ui_permission', 'manage_options' );
+			if ( ! current_user_can( $capability ) ) {
+				wp_send_json_error(
+					array(
+						'message' => __( 'You do not have permission to perform this action.', 'gallery-slider-for-woocommerce' ),
+					)
+				);
+			}
+			$nonce = ( ! empty( $_POST['nonce'] ) ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+			if ( ! wp_verify_nonce( $nonce, 'wcgs_options_nonce' ) ) {
+				wp_send_json_error(
+					array(
+						'message' => __( 'Nonce verification failed.', 'gallery-slider-for-woocommerce' ),
+					)
+				);
+			}
+			$offset         = isset( $_POST['offset'] ) ? intval( $_POST['offset'] ) : 0;
+			$limit          = isset( $_POST['limit'] ) ? intval( $_POST['limit'] ) : 50;
+			$plugin         = isset( $_POST['plugin'] ) ? sanitize_text_field( wp_unslash( $_POST['plugin'] ) ) : '';
+			$migrated_count = 0;
+			$args           = array(
+				'post_type'      => 'product',
+				'post_status'    => 'publish',
+				'fields'         => 'ids',
+				'posts_per_page' => $limit,
+				'offset'         => $offset,
+				'tax_query'      => array(
+					array(
+						'taxonomy' => 'product_type',
+						'field'    => 'slug',
+						'terms'    => 'variable',
+					),
+				),
+			);
 
+			$product_ids   = get_posts( $args );
+			$total_fetched = count( $product_ids );
+
+			foreach ( $product_ids as $product_id ) {
+				$variations = get_posts(
+					array(
+						'post_type'      => 'product_variation',
+						'post_status'    => array( 'private', 'publish' ),
+						'posts_per_page' => -1,
+						'post_parent'    => $product_id,
+					)
+				);
+
+				foreach ( $variations as $variation ) {
+					$variation_id = $variation->ID;
+
+					if ( 'woocommerce-additional-variation-images' === $plugin ) { // WooCommerce.
+						$old_gallery = get_post_meta( $variation_id, '_wc_additional_variation_images', true );
+					}
+					if ( 'iconic-woothumbs' === $plugin ) { // Iconic .
+						$old_gallery = get_post_meta( $variation->ID, '_product_image_gallery', true );
+					}
+					if ( 'woo-product-variation-gallery' === $plugin ) {  // Radius theme.
+						$old_gallery = get_post_meta( $variation_id, 'rtwpvg_images', true );
+					}
+					if ( 'woo-product-gallery-slider' === $plugin ) { // codeixer.
+						$old_gallery = get_post_meta( $variation_id, 'wavi_value', true );
+					}
+					if ( 'woo-variation-gallery' === $plugin ) { // Emran Ahmed.
+						$old_gallery = get_post_meta( $variation_id, 'woo_variation_gallery_images', true );
+					}
+					$current_gallery = get_post_meta( $variation_id, 'woo_gallery_slider', true );
+					if ( empty( $current_gallery ) || '[]' === $current_gallery ) {
+						$current_gallery = array();
+					}
+					if ( empty( $old_gallery ) ) {
+						continue; // No old gallery data to migrate.
+					}
+
+					// Normalize both values to arrays.
+					$old_ids     = is_array( $old_gallery ) ? $old_gallery : explode( ',', $old_gallery );
+					$current_ids = is_array( $current_gallery ) ? $current_gallery : explode( ',', $current_gallery );
+
+					// Merge and remove duplicates.
+					$merged_ids = array_unique( array_filter( array_map( 'intval', array_merge( $current_ids, $old_ids ) ) ) );
+
+					if ( ! empty( $merged_ids ) ) {
+						update_post_meta( $variation_id, 'woo_gallery_slider', json_encode( array_values( $merged_ids ) ) );
+						++$migrated_count;
+					}
+				}
+			}
+			// If we fetched less than the limit, it means we reached the end of the products.
+			if ( $total_fetched !== $limit ) {
+				// Delete cache on save option.
+				$this->delete_products_variation_json_cache();
+			}
+			$response = array(
+				// translators: %d is the number of variations migrated in the current batch.
+				'batch_migrated' => $migrated_count,
+				'message'        => sprintf( __( 'Migrated %d variation(s) in this batch.', 'gallery-slider-for-woocommerce' ), $migrated_count ),
+				'continue'       => ( $total_fetched === $limit ), // More left to process?
+			);
+
+			wp_send_json_success( $response );
+		}
 		/**
 		 * Ajax_save
 		 *
@@ -337,7 +441,6 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 					)
 				);
 			}
-
 		}
 
 		/**
@@ -372,7 +475,6 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 			$default = ( isset( $field['default'] ) ) ? $field['default'] : $default;
 			$default = ( isset( $options[ $field['id'] ] ) ) ? $options[ $field['id'] ] : $default;
 			return $default;
-
 		}
 
 		/**
@@ -393,7 +495,6 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 			if ( $this->args['save_defaults'] && empty( $tmp_options ) ) {
 				$this->save_options( $this->options );
 			}
-
 		}
 
 		/**
@@ -451,10 +552,8 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 												}
 											}
 										}
-									} else {
-										if ( ! empty( $field['id'] ) ) {
+									} elseif ( ! empty( $field['id'] ) ) {
 											$data[ $field['id'] ] = $this->get_default( $field );
-										}
 									}
 								}
 							}
@@ -554,7 +653,6 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 			}
 
 			return false;
-
 		}
 
 		/**
@@ -576,7 +674,6 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 			}
 
 			do_action( "wcgs_{$this->unique}_saved", $request, $this );
-
 		}
 
 		/**
@@ -601,7 +698,6 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 			}
 
 			return $this->options;
-
 		}
 
 		/**
@@ -630,7 +726,7 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 							$tab_key += ( count( $section['subs'] ) - 1 );
 						}
 
-						$tab_key++;
+						++$tab_key;
 
 					}
 
@@ -644,7 +740,6 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 			}
 
 			add_action( 'load-' . $menu_page, array( &$this, 'add_page_on_load' ) );
-
 		}
 
 		/**
@@ -668,7 +763,6 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 			}
 
 			add_filter( 'admin_footer_text', array( &$this, 'add_admin_footer_text' ) );
-
 		}
 
 		/**
@@ -828,7 +922,7 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 
 							echo '<li class="wcgs-tab-depth-1"><a id="wcgs-tab-link-' . esc_attr( $tab_key ) . '" href="#tab=' . esc_attr( $tab_key ) . '">' . wp_kses( $sub_icon . $sub['title'] . $sub_error, $allowed_tags ) . '</a></li>';
 
-							$tab_key++;
+							++$tab_key;
 						}
 
 						echo '</ul>';
@@ -839,7 +933,7 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 						$tb_id_text = $tab['name'];
 						echo '<li class="wcgs-tab-depth-0"><a id="wcgs-tab-link-' . esc_attr( $tb_id_text ) . '" href="#tab=' . esc_attr( $tb_id_text ) . '">' . wp_kses( $tab_icon . $tab['title'] . $tab_error, $allowed_tags ) . '</a></li>';
 
-						$tab_key++;
+						++$tab_key;
 					}
 				}
 
@@ -886,7 +980,7 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 
 				echo '</div>';
 
-				$section_key++;
+				++$section_key;
 			}
 
 			echo '</div>';
@@ -925,7 +1019,6 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 			echo ( ! empty( $this->args['footer_after'] ) ) ? wp_kses_post( $this->args['footer_after'] ) : '';
 
 			echo '</div>';
-
 		}
 	}
 }

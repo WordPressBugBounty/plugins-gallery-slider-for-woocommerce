@@ -63,7 +63,7 @@ class Woo_Gallery_Slider {
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = 'woo-gallery-slider';
+		$this->plugin_name = 'gallery-slider-for-woocommerce';
 
 		$this->load_dependencies();
 		$this->set_locale();
@@ -134,6 +134,7 @@ class Woo_Gallery_Slider {
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
 		require_once plugin_dir_path( __DIR__ ) . 'admin/class-woo-gallery-slider-admin.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-woo-gallery-slider-import-export.php';
 
 		/**
 		 * ShapedPlugin framework
@@ -151,7 +152,9 @@ class Woo_Gallery_Slider {
 		 */
 		require_once plugin_dir_path( __DIR__ ) . 'public/class-woo-gallery-slider-public.php';
 		// Handles the import and export of custom gallery images for WooCommerce products.
-		require_once plugin_dir_path( __DIR__ ) . 'includes/class-woo-gallery-slider-import-export.php';
+		require_once plugin_dir_path( __DIR__ ) . 'includes/class-woo-gallery-slider-variation-image-import.php';
+		// WC block for adding variation images in Product editor beta.
+		require_once plugin_dir_path( __DIR__ ) . 'block/variation-images/variation-images.php';
 		$this->loader = new Woo_Gallery_Slider_Loader();
 	}
 
@@ -190,6 +193,10 @@ class Woo_Gallery_Slider {
 		$this->loader->add_filter( 'attachment_fields_to_edit', $plugin_admin, 'wcgs_add_media_custom_field', 99, 2 );
 		$this->loader->add_filter( 'update_footer', $plugin_admin, 'wcgs_footer_version', 11 );
 		$this->loader->add_filter( 'edit_attachment', $plugin_admin, 'wcgs_add_media_custom_field_save' );
+		// Export Import Ajax call.
+		$import_export = new Woo_Gallery_Slider_Import_Export( $this->get_plugin_name(), $this->get_version() );
+		add_action( 'wp_ajax_wcgs_export_layouts', array( $import_export, 'export_shortcode' ) );
+		add_action( 'wp_ajax_wcgs_import_layouts', array( $import_export, 'import_shortcode' ) );
 	}
 
 	/**

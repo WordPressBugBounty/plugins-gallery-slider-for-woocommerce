@@ -28,7 +28,7 @@ class WCGS_Assign {
 				'fields' => array(
 					array(
 						'type'    => 'submessage',
-						'content' => 'Assign product gallery layout based on category or product. <a href="https://docs.shapedplugin.com/docs/gallery-slider-for-woocommerce-pro/assign-layout/how-to-set-up-product-gallery-layouts-based-on-categories-or-products/" target="_blank">See Docs</a>',
+						'content' => 'Assign product gallery layout based on category or product. <a href="https://woogallery.io/docs/assign-layout-2/" target="_blank">See Docs</a>',
 					),
 					array(
 						'id'                     => 'assign_layout_data',
@@ -62,7 +62,7 @@ class WCGS_Assign {
 									'taxonomy'  => 'product_cat',
 								),
 								'chosen'      => true,
-								// 'ajax'        => true,
+								'ajax'        => true,
 								'multiple'    => true,
 								'placeholder' => __( 'Choose term(s)', 'gallery-slider-for-woocommerce' ),
 								'attributes'  => array(

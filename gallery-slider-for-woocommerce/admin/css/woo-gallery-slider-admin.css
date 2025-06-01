@@ -690,6 +690,16 @@ span.tooltip-icon {
   pointer-events: none;
   opacity: 0.6;
 }
+.wcgs-field-radio input[type=radio]:disabled,
+.pro_checkbox input{
+  border-color: rgba(220, 220, 222, 1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, .04);
+    color: rgba(44, 51, 56, .5);
+    opacity: 1 !important;
+}
+.wcgs-field-radio .disabled{
+  opacity: 1;
+}
 
 .wcgs-field-button_set.shop_video_icon .wcgs--button {
   min-width: 15px;
@@ -1080,15 +1090,6 @@ a.thickbox.wcgs_pro_popup {
   align-items: center;
 } */
 
-.spwg_shortcode .wcgs-fieldset input {
-  color: #333;
-  border-color: #8c8f94;
-  cursor: pointer;
-  text-align: center;
-  padding: 2px 10px;
-  margin-right: 10px;
-}
-
 .wcgs-field-select select option span {
   font-size: 0;
 }
@@ -1214,7 +1215,10 @@ a.thickbox.wcgs_pro_popup {
 }
 
 #wcgs-section-shop_page_video .wcgs-field.wcgs-field-notice.wcgs-light-notice {
-  margin-top: 20px;
+  margin-top: 0px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 20px;
 }
 
 /* .wcgs-field.wcgs-field-switcher.pro_switcher .wcgs-fieldset {
@@ -1251,4 +1255,19 @@ a.thickbox.wcgs_pro_popup {
 }
 .support_button i.sp_wgs-icon-help-tab {
   margin-right: 3px;
+}
+#adminmenu .toplevel_page_wpgs-settings .wp-submenu li.current a[href*="wpgs-settings"],
+#adminmenu .toplevel_page_wpgs-settings .wp-submenu a[href*="wpgs-settings"] {
+  color: #c3c4c7;
+  color: rgba(240, 246, 252, 0.7);
+  font-weight: 400;
+}
+#adminmenu .toplevel_page_wpgs-settings .wp-submenu li.current.wcgs-active a[href*="wpgs-settings"],
+#adminmenu .toplevel_page_wpgs-settings .wp-submenu li.current.wcgs-active{
+  color: #fff;
+  font-weight: 600;
+}
+#adminmenu .toplevel_page_wpgs-settings .wp-submenu a[href*="wpgs-settings"]:hover,
+#adminmenu .toplevel_page_wpgs-settings .wp-submenu a[href*="wpgs-settings"]:focus {
+  color: #72aee6;
 }

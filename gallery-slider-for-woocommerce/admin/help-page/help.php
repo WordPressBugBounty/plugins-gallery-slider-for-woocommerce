@@ -381,7 +381,7 @@ class Woo_Gallery_Slider_Help {
 									<h4><i class="wcgs-icon-doc-icon"></i> Documentation</h4>
 								</div>
 								<span class='wcgs-normal-paragraph'>Explore WooGallery plugin capabilities in our enriched documentation.</span>
-								<a target="_blank" class='wcgs-small-btn' href="https://docs.shapedplugin.com/docs/gallery-slider-for-woocommerce/overview/">Browse Now</a>
+								<a target="_blank" class='wcgs-small-btn' href="https://woogallery.io/docs/">Browse Now</a>
 							</div>
 							<div class="wcgs-start-page-sidebar-info-box">
 								<div class="wcgs-info-box-title">
@@ -626,7 +626,7 @@ class Woo_Gallery_Slider_Help {
 						</div>
 						<div class="wcgs-upgrade-to-pro">
 							<h2 class='wcgs-section-title-help'>Upgrade To PRO & Enjoy Advanced Features!</h2>
-							<span class='wcgs-section-subtitle'>Already, <b>10000+</b> people are using WooGallery on their websites to create beautiful carousels, sliders, and galleries; why won’t you!</span>
+							<span class='wcgs-section-subtitle'>Already, <b>20000+</b> people are using WooGallery on their websites to create beautiful carousels, sliders, and galleries; why won’t you!</span>
 							<div class="wcgs-upgrade-to-pro-btn">
 								<div class="wcgs-action-btn">
 									<a target="_blank" href="https://woogallery.io/pricing/?ref=143" class='wcgs-big-btn'>Upgrade to Pro Now!</a>

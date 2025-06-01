@@ -62,4 +62,9 @@
 .sp_wgs-icon-left-open:before { content: '\e800'; } /* '' */
 .sp_wgs-icon-right-open:before { content: '\e801'; } /* '' */
 .sp_wgs-icon-search:before { content: '\e802'; } /* '' */
-.sp_wgs-icon-play-circled2:before { content: '\e803'; } /* '' */
+.sp_wgs-icon-play-circled2:before { content: '\e823'; } /* '' */
+.sp_wgs-icon-play-01:before { content: '\e823'; } /* '' */
+.sp_wgs-icon-play-02:before { content: '\e837'; } /* '' */
+.sp_wgs-icon-play-03:before { content: '\e838'; } /* '' */
+.sp_wgs-icon-play-04:before { content: '\e839'; } /* '' */
+.sp_wgs-icon-lay-05:before { content: '\e83a'; } /* '' */

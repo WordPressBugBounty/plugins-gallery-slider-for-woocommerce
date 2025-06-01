@@ -1,400 +1,283 @@
 <?php
 /**
- * WooGallery Custom variation images import/export functionality.
+ * Custom import export.
  *
- * This class handles the import and export of custom gallery images for WooCommerce products.
- * It integrates with WooCommerce's native CSV import/export system to include gallery images.
+ * @link http://shapedplugin.com
+ * @since 3.0.0
  *
- * @since      2.2.1
- * @package    Woo_Gallery_Slide
- * @subpackage Woo_Gallery_Slide/includes
- * @author     ShapedPlugin <support@shapedplugin.com>
+ * @package Woo_Gallery_Slider
+ * @subpackage Woo_Gallery_Slider/includes
  */
 
-// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+	exit; // Exit if accessed directly.
 }
 
-if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
+/**
+ * Custom import export.
+ */
+class Woo_Gallery_Slider_Import_Export {
 	/**
-	 * Woo_Gallery_Slide_Export_Import Class
+	 * Export
 	 *
-	 * Handles the import and export of custom gallery images for WooCommerce products.
-	 *
-	 * @since 2.2.1
+	 * @param  mixed $layout_ids Export shortcode ids.
+	 * @return object
 	 */
-	class Woo_Gallery_Slide_Export_Import {
-
-		/**
-		 * Export type for WooCommerce product export.
-		 *
-		 * @since 2.2.1
-		 * @var string
-		 */
-		private $export_type = 'product';
-
-		/**
-		 * Column identifier for WooCommerce product export/import.
-		 *
-		 * @since 2.2.1
-		 * @var string
-		 */
-		private $column_id = 'woo_gallery_slider';
-
-		/**
-		 * Singleton instance of the class.
-		 *
-		 * @since 2.2.1
-		 * @var Woo_Gallery_Slide_Export_Import
-		 */
-		protected static $_instance = null;
-
-		/**
-		 * Constructor for the class.
-		 *
-		 * Sets up the necessary hooks and initializes the class.
-		 *
-		 * @since 2.2.1
-		 * @return void
-		 */
-		protected function __construct() {
-			$this->import_export_hooks();
-		}
-
-		/**
-		 * Get the singleton instance of the class.
-		 *
-		 * @since 2.2.1
-		 * @return Woo_Gallery_Slide_Export_Import The singleton instance.
-		 */
-		public static function instance() {
-			if ( is_null( self::$_instance ) ) {
-				self::$_instance = new self();
-			}
-			return self::$_instance;
-		}
-
-		/**
-		 * This function will be override the hook `woocommerce_product_export_skip_meta_keys`
-		 *
-		 * @param string $meta_keys meta keys to skip.
-		 * @return array
-		 */
-		public function skip_woo_gallery_slider_meta_in_export( $meta_keys ) {
-			$meta_keys[] = 'woo_gallery_slider';
-			return $meta_keys;
-		}
-		/**
-		 * Set up the necessary hooks for the class.
-		 *
-		 * @since 2.2.1
-		 * @return void
-		 */
-		public function import_export_hooks() {
-			// Export hooks.
-			add_filter(
-				"woocommerce_product_export_{$this->export_type}_default_columns",
-				array( $this, 'export_column_name' )
+	public function export( $layout_ids ) {
+		$export = array();
+		if ( 'global_settings' === $layout_ids ) {
+			$export['global_settings'] = get_option( 'wcgs_settings' );
+			$export['metadata']        = array(
+				'version' => WOO_GALLERY_SLIDER_VERSION,
+				'date'    => gmdate( 'Y/m/d' ),
 			);
-			// Remove the column.
-			add_filter( 'woocommerce_product_export_skip_meta_keys', array( $this, 'skip_woo_gallery_slider_meta_in_export' ), 10, 1 );
-			add_filter(
-				"woocommerce_product_export_{$this->export_type}_column_{$this->column_id}",
-				array( $this, 'export_column_data' ),
-				10,
-				3
+			return $export;
+		} elseif ( ! empty( $layout_ids ) ) {
+			$post_in    = 'all_layouts' === $layout_ids ? '' : $layout_ids;
+			$args       = array(
+				'post_type'        => 'wcgs_layouts',
+				'post_status'      => array( 'inherit', 'publish' ),
+				'orderby'          => 'modified',
+				'suppress_filters' => 1, // wpml, ignore language filter.
+				'posts_per_page'   => -1,
+				'post__in'         => $post_in,
 			);
-			// Import hooks.
-			add_filter(
-				'woocommerce_csv_product_import_mapping_options',
-				array( $this, 'import_column_name' )
-			);
-
-			add_filter(
-				'woocommerce_csv_product_import_mapping_default_columns',
-				array( $this, 'default_import_column_name' )
-			);
-
-			add_action(
-				'woocommerce_product_import_inserted_product_object',
-				array( $this, 'process_product_gallery_image_import' ),
-				10,
-				2
-			);
-			/**
-			 * Action hook that fires after the export/import class is loaded.
-			 *
-			 * @since 2.2.1
-			 * @param Woo_Gallery_Slide_Export_Import $this The class instance.
-			 */
-			do_action( 'woo_gallery_export_import_loaded', $this );
-		}
-
-		/**
-		 * Add the gallery images column to the WooCommerce product export.
-		 *
-		 * @since 2.2.1
-		 * @param array $columns The existing columns.
-		 * @return array The modified columns.
-		 */
-		public function export_column_name( $columns ) {
-			// Add our custom column to the export columns.
-			$columns[ $this->column_id ] = esc_html__( 'WooGallery Variation Images', 'gallery-slider-for-woocommerce' );
-			return $columns;
-		}
-
-		/**
-		 * Provide the data for the gallery images column in the export.
-		 *
-		 * @since 2.2.1
-		 * @param string     $value      The column value.
-		 * @param WC_Product $product    The product being exported.
-		 * @param string     $column_id  The column identifier.
-		 * @return string The formatted gallery images data.
-		 */
-		public function export_column_data( $value, $product, $column_id ) {
-			$product_id = $product->get_id();
-			// Get the gallery images for this product.
-			$gallery_images = get_post_meta( $product_id, 'woo_gallery_slider', true );
-
-			// If there are no gallery images, return an empty string.
-			if ( empty( $gallery_images ) ) {
-				return '';
-			}
-
-			// Decode the gallery images if they are stored as JSON.
-			if ( is_string( $gallery_images ) && is_array( json_decode( $gallery_images, true ) ) ) {
-				$gallery_images = json_decode( $gallery_images );
-			}
-
-			// Ensure we have an array of image IDs.
-			if ( is_array( $gallery_images ) ) {
-				/**
-				 * Filter the raw gallery images before processing.
-				 *
-				 * @since 2.2.1
-				 * @param array     $gallery_images  The gallery image IDs.
-				 * @param WC_Product $product        The product being exported.
-				 */
-				$gallery_images = (array) apply_filters( 'sp_woo_gallery_raw_exported_images', $gallery_images, $product );
-
-				// Remove any empty values and reset array keys.
-				$gallery_images = array_values( array_filter( $gallery_images ) );
-			} else {
-				// If we don't have an array, initialize an empty one.
-				$gallery_images = array();
-			}
-			// Convert attachment IDs to URLs.
-			$images = array();
-			foreach ( $gallery_images as $image_id ) {
-				$image = wp_get_attachment_image_src( $image_id, 'full' );
-				if ( $image ) {
-					$images[] = $image[0]; // Get the URL from the image data.
-				}
-			}
-			/**
-			 * Filter the gallery image URLs before exporting.
-			 *
-			 * @since 2.2.1
-			 * @param array $images     The gallery image URLs.
-			 * @param int   $product_id The product ID.
-			 */
-			$images = apply_filters( 'sp_woo_gallery_exported_images', $images, $product_id );
-
-			// Join the image URLs with commas.
-			return implode( ',', array_values( array_filter( $images ) ) );
-		}
-
-		/**
-		 * Add the gallery images column to the import mapping options.
-		 *
-		 * @since 2.2.1
-		 * @param array $columns The existing columns.
-		 * @return array The modified columns.
-		 */
-		public function import_column_name( $columns ) {
-			// Add our custom column to the import mapping options.
-			$columns[ $this->column_id ] = esc_html__( 'WooGallery Variation Images', 'gallery-slider-for-woocommerce' );
-			return $columns;
-		}
-
-		/**
-		 * Define the default column name for import mapping.
-		 *
-		 * @since 2.2.1
-		 * @param array $columns The existing default columns.
-		 * @return array The modified default columns.
-		 */
-		public function default_import_column_name( $columns ) {
-			// Map the human-readable column name to our column ID.
-			$columns[ esc_html__( 'WooGallery Variation Images', 'gallery-slider-for-woocommerce' ) ] = $this->column_id;
-			return $columns;
-		}
-
-		/**
-		 * Process the import data for a product.
-		 *
-		 * @since 2.2.1
-		 * @param WC_Product $product The product being imported.
-		 * @param array      $data    The import data.
-		 * @return void
-		 */
-		public function process_product_gallery_image_import( $product, $data ) {
-			$product_id = $product->get_id();
-			// Check if our column exists in the import data.
-			if ( isset( $data[ $this->column_id ] ) && ! empty( $data[ $this->column_id ] ) ) {
-				$woo_variation_images = array();
-				// Split the comma-separated list of image URLs.
-				$raw_gallery_images = (array) explode( ',', $data[ $this->column_id ] );
-				// Remove any empty values and reset array keys.
-				$raw_gallery_images = array_values( array_filter( $raw_gallery_images ) );
-
-				/**
-				 * Filter the raw gallery image URLs before processing.
-				 *
-				 * @since 2.2.1
-				 * @param array $raw_gallery_images The raw gallery image URLs.
-				 * @param int   $product_id        The product ID.
-				 * @param array $data              The import data.
-				 * @param string $column_id        The column identifier.
-				 */
-				$raw_gallery_images = (array) apply_filters(
-					'sp_woo_gallery_raw_imported_images',
-					$raw_gallery_images,
-					$product_id,
-					$data,
-					$this->column_id
-				);
-
-				// Convert URLs to attachment IDs.
-				foreach ( $raw_gallery_images as $url ) {
-					$attachment_id = $this->get_attachment_id_from_url( trim( $url ), $product_id );
-					if ( $attachment_id ) {
-						$woo_variation_images[] = $attachment_id;
+			$shortcodes = get_posts( $args );
+			if ( ! empty( $shortcodes ) ) {
+				foreach ( $shortcodes as $shortcode ) {
+					$accordion_export = array(
+						'title'       => $shortcode->post_title,
+						'original_id' => $shortcode->ID,
+						'meta'        => array(),
+					);
+					foreach ( get_post_meta( $shortcode->ID ) as $metakey => $value ) {
+						$accordion_export['meta'][ $metakey ] = $value[0];
 					}
+					$export['layout'][] = $accordion_export;
+
+					unset( $accordion_export );
 				}
-
-				// Save the gallery images to the product.
-				update_post_meta( $product_id, 'woo_gallery_slider', json_encode( array_values( array_filter( $woo_variation_images ) ) ) );
-			}
-		}
-
-		/**
-		 * Get the attachment ID from a URL.
-		 *
-		 * If the URL doesn't correspond to an existing attachment, the image will be downloaded and created.
-		 *
-		 * @since 2.2.1
-		 * @param string $url        The image URL.
-		 * @param int    $product_id The product ID.
-		 * @return int The attachment ID or 0 on failure.
-		 * @throws Exception If there's an error processing the image.
-		 */
-		public function get_attachment_id_from_url( $url, $product_id ) {
-			// If the URL is empty, return 0.
-			if ( empty( $url ) ) {
-				return 0;
-			}
-
-			$id         = 0;
-			$upload_dir = wp_upload_dir( null, false );
-			$base_url   = $upload_dir['baseurl'] . '/';
-
-			// Check if the image is already in the WordPress uploads directory.
-			if ( false !== strpos( $url, $base_url ) || false === strpos( $url, '://' ) ) {
-				// Get the file path relative to the uploads directory.
-				$file = str_replace( $base_url, '', $url );
-
-				// Search for the attachment by meta data.
-				$args = array(
-					'post_type'   => 'attachment',
-					'post_status' => 'any',
-					'fields'      => 'ids',
-					'meta_query'  => array(
-						'relation' => 'OR',
-						array(
-							'key'     => '_wp_attached_file',
-							'value'   => '^' . $file,
-							'compare' => 'REGEXP',
-						),
-						array(
-							'key'     => '_wp_attached_file',
-							'value'   => '/' . $file,
-							'compare' => 'LIKE',
-						),
-						array(
-							'key'     => '_wc_attachment_source',
-							'value'   => '/' . $file,
-							'compare' => 'LIKE',
-						),
-					),
-				);
-			} else {
-				// This is an external URL, so search by source.
-				$args = array(
-					'post_type'   => 'attachment',
-					'post_status' => 'any',
-					'fields'      => 'ids',
-					'meta_query'  => array(
-						array(
-							'value' => $url,
-							'key'   => '_wc_attachment_source',
-						),
-					),
+				$export['metadata'] = array(
+					'version' => WOO_GALLERY_SLIDER_VERSION,
+					'date'    => gmdate( 'Y/m/d' ),
 				);
 			}
-
-			// Get the matching attachment IDs.
-			$ids = get_posts( $args );
-
-			// If there are matches, use the first one.
-			if ( $ids ) {
-				$id = current( $ids );
-			}
-
-			// If no matching attachment was found and this is a remote URL, download it.
-			if ( ! $id && stristr( $url, '://' ) ) {
-				try {
-					// Download the image using WooCommerce's helper function.
-					$upload = wc_rest_upload_image_from_url( $url );
-
-					if ( is_wp_error( $upload ) ) {
-						throw new Exception( $upload->get_error_message(), 400 );
-					}
-
-					// Create an attachment from the uploaded image.
-					$id = wc_rest_set_uploaded_image_as_attachment( $upload, $product_id );
-
-					// Verify that the attachment is an image.
-					if ( ! wp_attachment_is_image( $id ) ) {
-						throw new Exception(
-							sprintf(
-							/* translators: %s: image URL */
-								__( 'Not able to attach "%s".', 'gallery-slider-for-woocommerce' ),
-								$url
-							),
-							400
-						);
-					}
-
-					// Save the source URL for future reference.
-					update_post_meta( $id, '_wc_attachment_source', $url );
-				} catch ( Exception $e ) {
-					// Log the error but continue with the import.
-					error_log( 'WooGallery Import Error: ' . $e->getMessage() );
-					return 0;
-				}
-			}
-			// If we still don't have an ID, report the error.
-			if ( ! $id ) {
-				/* translators: %s: image URL */
-				throw new Exception( sprintf( __( 'Unable to use image "%s".', 'gallery-slider-for-woocommerce' ), $url ), 400 );
-			}
-			return $id;
+			return $export;
 		}
 	}
+	/**
+	 * Retrieve all field IDs and their sanitize callbacks from a given metabox.
+	 *
+	 * @param string $metabox_id The ID of the metabox.
+	 * @return array List of field ID and sanitize callback pairs.
+	 */
+	public function sp_get_metabox_field_ids_with_sanitizers( $metabox_id ) {
+		if ( ! class_exists( 'WCGS' ) ) {
+			return array();
+		}
+		$sections = WCGS::$args['sections'][ $metabox_id ] ?? null;
+		if ( empty( $sections ) || ! is_array( $sections ) ) {
+			return array();
+		}
+		$field_data = array();
+		foreach ( $sections as $section ) {
+			if ( empty( $section['fields'] ) || ! is_array( $section['fields'] ) ) {
+				continue;
+			}
+			foreach ( $section['fields'] as $field ) {
+				if ( isset( $field['id'] ) ) {
+					$field_data[] = array(
+						'id'       => $field['id'],
+						'sanitize' => $field['sanitize'] ?? null,
+					);
+				}
+			}
+		}
+		return $field_data;
+	}
+	/**
+	 * Export tabs by ajax.
+	 *
+	 * @return void
+	 */
+	public function export_shortcode() {
+		$nonce = ( ! empty( $_POST['nonce'] ) ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'wcgs_options_nonce' ) ) {
+			die();
+		}
 
-	// Initialize the class.
-	Woo_Gallery_Slide_Export_Import::instance();
+		$layout_ids = '';
+		if ( isset( $_POST['wcgs_ids'] ) ) {
+			$layout_ids = is_array( $_POST['wcgs_ids'] ) ? wp_unslash( array_map( 'absint', $_POST['wcgs_ids'] ) ) : sanitize_text_field( wp_unslash( $_POST['wcgs_ids'] ) );
+		}
+		$export = $this->export( $layout_ids );
+
+		if ( is_wp_error( $export ) ) {
+			wp_send_json_error(
+				array(
+					'message' => $export->get_error_message(),
+				),
+				400
+			);
+		}
+		if ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) {
+			echo wp_json_encode( $export, JSON_PRETTY_PRINT );
+			die;
+		}
+		wp_send_json( $export, 200 );
+	}
+
+	/**
+	 * Import
+	 *
+	 * @param  array $shortcodes Import shortcode array.
+	 * @throws \Exception Error massage.
+	 * @return object
+	 */
+	public function import( $shortcodes ) {
+		$layouts = get_posts(
+			array(
+				'post_type'      => 'wcgs_layouts',
+				'posts_per_page' => -1,
+				'post_status'    => 'any',
+				'fields'         => 'ids', // Only return post IDs.
+			)
+		);
+		$errors  = array();
+		if ( empty( $layouts ) ) {
+			$shortcode        = $shortcodes[0];
+			$errors[ $index ] = array();
+			$new_tabs_id      = 0;
+			try {
+				$new_tabs_id = wp_insert_post(
+					array(
+						'post_title'  => isset( $shortcode['title'] ) ? $shortcode['title'] : '',
+						'post_status' => 'publish',
+						'post_type'   => 'wcgs_layouts',
+					),
+					true
+				);
+
+				if ( is_wp_error( $new_tabs_id ) ) {
+					throw new Exception( $new_tabs_id->get_error_message() );
+				}
+
+				if ( isset( $shortcode['meta'] ) && is_array( $shortcode['meta'] ) ) {
+					foreach ( $shortcode['meta'] as $key => $value ) {
+						if ( 'wcgs_metabox' === $key ) {
+							$sanitize_value = $this->sanitize_and_collect_metabox_data( $key, maybe_unserialize( str_replace( '{#ID#}', $new_tabs_id, $value ) ) );
+
+							update_post_meta(
+								$new_tabs_id,
+								$key,
+								$sanitize_value
+							);
+
+						}
+					}
+				}
+			} catch ( Exception $e ) {
+				array_push( $errors[ $index ], $e->getMessage() );
+				// If there was a failure somewhere, clean up.
+				wp_trash_post( $new_tabs_id );
+			}
+			// If no errors, remove the index.
+			if ( ! count( $errors[ $index ] ) ) {
+				unset( $errors[ $index ] );
+			}
+
+			// External modules manipulate data here.
+			do_action( 'sp_wcgs_imported', $new_tabs_id );
+		}
+		$errors = reset( $errors );
+		return isset( $errors[0] ) ? new WP_Error( 'import_wcgs_error', $errors[0] ) : $shortcodes;
+	}
+
+	/**
+	 * Sanitize and process metabox form data.
+	 *
+	 * @param  string $metabox_key Unique metabox identifier.
+	 * @param  array  $request_data Data submitted via the form ($_POST or similar).
+	 * @return array Sanitized metabox data.
+	 */
+	public function sanitize_and_collect_metabox_data( $metabox_key, $request_data ) {
+		$sanitized_data = array();
+
+		// Retrieve the list of fields with their respective sanitization callbacks.
+		$metabox_fields = $this->sp_get_metabox_field_ids_with_sanitizers( $metabox_key );
+
+		foreach ( $metabox_fields as $field ) {
+			// Ensure the field has a valid ID.
+			if ( empty( $field['id'] ) ) {
+				continue;
+			}
+
+			$field_id    = sanitize_key( $field['id'] );
+			$field_value = isset( $request_data[ $field_id ] ) ? $request_data[ $field_id ] : '';
+
+			// If a custom sanitizer function is provided, use it.
+			if ( ! empty( $field['sanitize'] ) && is_callable( $field['sanitize'] ) ) {
+				$sanitized_data[ $field_id ] = call_user_func( $field['sanitize'], $field_value );
+			} elseif ( is_array( $field_value ) ) {
+				$sanitized_data[ $field_id ] = wp_kses_post_deep( $field_value );
+			} else {
+				$sanitized_data[ $field_id ] = $field_value ? wp_kses_post( $field_value ) : null;
+			}
+		}
+
+		return $sanitized_data;
+	}
+
+	/**
+	 * Import Tabs by ajax.
+	 *
+	 * @return void
+	 */
+	public function import_shortcode() {
+		$nonce = ( ! empty( $_POST['nonce'] ) ) ? sanitize_text_field( wp_unslash( $_POST['nonce'] ) ) : '';
+		if ( ! wp_verify_nonce( $nonce, 'wcgs_options_nonce' ) ) {
+			wp_send_json_error( array( 'message' => esc_html__( 'Error: Nonce verification has failed. Please try again.', 'gallery-slider-for-woocommerce' ) ), 401 );
+		}
+		// $allow_tags = isset( $_POST['unSanitize'] ) ? sanitize_text_field( wp_unslash( $_POST['unSanitize'] ) ) : '';
+		// Don't worry sanitize after JSON decode below.
+		$data         = isset( $_POST['layout'] ) ? wp_unslash( $_POST['layout'] ) : '';//phpcs:ignore
+		$data       = json_decode( $data );
+		$data       = json_decode( $data, true );
+		$shortcodes = isset( $data['layout'] ) ? $data['layout'] : array();
+
+		if ( ! $data ) {
+			wp_send_json_error(
+				array(
+					'message' => __( 'Nothing to import.', 'gallery-slider-for-woocommerce' ),
+				),
+				400
+			);
+		}
+		$status = array(
+			'message' => __( 'Nothing to import.', 'gallery-slider-for-woocommerce' ),
+		);
+		if ( empty( $shortcodes ) ) {
+			$global_settings = isset( $data['global_settings'] ) ? $data['global_settings'] : array();
+			if ( ! empty( $global_settings ) ) {
+				update_option( 'wcgs_settings', $global_settings );
+			}
+			$status = array(
+				'message' => __( 'Global settings imported successfully.', 'gallery-slider-for-woocommerce' ),
+				'import'  => 'global_settings',
+			);
+		} else {
+			$status = $this->import( $shortcodes );
+
+			if ( is_wp_error( $status ) ) {
+				wp_send_json_error(
+					array(
+						'message' => $status->get_error_message(),
+					),
+					400
+				);
+			}
+		}
+
+		wp_send_json_success( $status, 200 );
+	}
 }

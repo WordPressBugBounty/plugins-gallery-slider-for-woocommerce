@@ -54,7 +54,7 @@ class WCGS_Advance {
 											),
 											'<b>',
 											'</b>',
-											'<a href="https://docs.shapedplugin.com/docs/gallery-slider-for-woocommerce-pro/troubleshooting/how-to-fix-gallery-slider-display-issues-in-different-page-builders/" target="_blank"><b>',
+											'<a href="https://woogallery.io/docs/woogallery-displays-issues-in-different-page-builders/" target="_blank"><b>',
 											'</b></a>'
 										),
 										'attributes' => array(
@@ -64,7 +64,7 @@ class WCGS_Advance {
 									),
 									array(
 										'type'    => 'subheading',
-										'content' => __( 'Assets (Styles and Scripts)', 'gallery-slider-for-woocommerce' ),
+										'content' => __( 'Assets (Styles & Scripts)', 'gallery-slider-for-woocommerce' ),
 									),
 									array(
 										'id'         => 'enqueue_fancybox_css',
@@ -105,30 +105,6 @@ class WCGS_Advance {
 								),
 							),
 							array(
-								'title'  => __( 'Additional CSS & JS', 'gallery-slider-for-woocommerce' ),
-								'icon'   => 'dashicons dashicons-editor-code',
-								'fields' => array(
-									array(
-										'id'       => 'wcgs_additional_css',
-										'type'     => 'code_editor',
-										'title'    => __( 'Additional CSS', 'gallery-slider-for-woocommerce' ),
-										'settings' => array(
-											'theme' => 'mbo',
-											'mode'  => 'css',
-										),
-									),
-									array(
-										'id'       => 'wcgs_additional_js',
-										'type'     => 'code_editor',
-										'title'    => __( 'Additional JS', 'gallery-slider-for-woocommerce' ),
-										'settings' => array(
-											'theme' => 'mbo',
-											'mode'  => 'js',
-										),
-									),
-								),
-							),
-							array(
 								'title'  => __( 'Speed Optimization', 'gallery-slider-for-woocommerce' ),
 								'icon'   => 'sp_wgs-icon-gauge',
 								'fields' => array(
@@ -140,7 +116,7 @@ class WCGS_Advance {
 										'content' => sprintf(
 											// translators: 1: start bold tag, 2: close bold tag, 3: start link tag, 4: close link tag.
 											__( 'To improve the loading speed of your single product page with %3$sWooGallery%4$s, please follow these %1$sguidelines%2$s. Additionally, you may refer to your caching plugin\'s recommendations for further optimization.', 'gallery-slider-for-woocommerce' ),
-											'<a href="https://docs.shapedplugin.com/docs/gallery-slider-for-woocommerce-pro/configurations/how-to-speed-up-your-single-product-page" target="_blank"><b>',
+											'<a href="https://woogallery.io/docs/docs/how-to-speed-up-your-single-product-page-with-woogallery/" target="_blank"><b>',
 											'</b></a>',
 											'<b>',
 											'</b>'
@@ -184,6 +160,146 @@ class WCGS_Advance {
 								),
 							),
 							array(
+								'title'  => __( 'Migration', 'gallery-slider-for-woocommerce' ),
+								'icon'   => 'sp_wgs-icon-tools_migration',
+								'fields' => array(
+									array(
+										'id'      => 'optimize_notice',
+										'type'    => 'notice',
+										'style'   => 'normal',
+										'class'   => 'wcgs-light-notice',
+										'content' => __( 'Migrate galleries from the following plugins to <b>WooGallery</b>. The migration process will run in the background.', 'gallery-slider-for-woocommerce' ),
+									),
+									array(
+										'id'      => 'woo-variation-gallery',
+										'class'   => ' wcgs_migration_button woo-variation-gallery',
+										'type'    => 'button_set',
+										'title'   => 'Additional Variation Images Gallery for WooCommerce by Emran Ahmed',
+										'desc'    => ' ',
+										'options' => array(
+											'' => __( 'Migrate Now', 'gallery-slider-for-woocommerce' ),
+										),
+									),
+									array(
+										'id'      => 'woo-product-gallery-slider',
+										'class'   => ' wcgs_migration_button woo-product-gallery-slider',
+										'type'    => 'button_set',
+										'title'   => 'Product Gallery Slider for WooCommerce by Niloy - Codeixer',
+										'desc'    => ' ',
+										'options' => array(
+											'' => __( 'Migrate Now', 'gallery-slider-for-woocommerce' ),
+										),
+									),
+									array(
+										'id'      => 'woo-product-variation-gallery',
+										'class'   => ' wcgs_migration_button woo-product-variation-gallery',
+										'type'    => 'button_set',
+										'title'   => 'Variation Images Gallery for WooCommerce by RadiusTheme',
+										'desc'    => ' ',
+										'options' => array(
+											'' => __( 'Migrate Now', 'gallery-slider-for-woocommerce' ),
+										),
+									),
+									array(
+										'id'      => 'iconic-woothumbs',
+										'class'   => ' wcgs_migration_button iconic-woothumbs',
+										'type'    => 'button_set',
+										'title'   => 'WooThumbs for WooCommerce by IconicWP',
+										'desc'    => ' ',
+										'options' => array(
+											'' => __( 'Migrate Now', 'gallery-slider-for-woocommerce' ),
+										),
+									),
+									array(
+										'id'      => 'woocommerce-additional-variation-images',
+										'class'   => ' wcgs_migration_button woocommerce-additional-variation-images',
+										'type'    => 'button_set',
+										'title'   => 'WooCommerce Additional Variation Images by WooCommerce',
+										'desc'    => ' ',
+										'options' => array(
+											'' => __( 'Migrate Now', 'gallery-slider-for-woocommerce' ),
+										),
+									),
+								),
+							),
+							array(
+								'title'  => __( 'Import & Export', 'gallery-slider-for-woocommerce' ),
+								'icon'   => 'sp_wgs-icon-tools_imp-exp',
+								'fields' => array(
+									array(
+										'id'       => 'wcgs_what_export',
+										'type'     => 'radio',
+										'class'    => 'wcgs_what_export',
+										'title'    => __( 'Choose What to Export', 'gallery-slider-for-woocommerce' ),
+										'multiple' => false,
+										'options'  => array(
+											'global_setting' => __( 'Global Settings', 'gallery-slider-for-woocommerce' ),
+											'all_layouts' => __( 'All Layout(s)', 'gallery-slider-for-woocommerce' ),
+											'selected_layouts' => __( 'Selected Layout(s)', 'gallery-slider-for-woocommerce' ),
+										),
+										'default'  => 'all_layouts',
+									),
+									array(
+										'id'          => 'wcgs_post',
+										'class'       => 'wcgs_post_ids',
+										'type'        => 'select',
+										'title'       => ' ',
+										'options'     => 'post',
+										'chosen'      => true,
+										'sortable'    => false,
+										'multiple'    => true,
+										'placeholder' => __( 'Choose Layout(s)', 'gallery-slider-for-woocommerce' ),
+										'query_args'  => array(
+											'post_type' => 'wcgs_layouts',
+											'posts_per_page' => -1,
+										),
+										'dependency'  => array( 'wcgs_what_export', '==', 'selected_layouts', true ),
+
+									),
+									array(
+										'id'       => 'export',
+										'class'    => 'wcgs_export',
+										'type'     => 'button_set',
+										'title'    => ' ',
+										'subtitle' => ' ',
+										'options'  => array(
+											'' => __( 'Export', 'gallery-slider-for-woocommerce' ),
+										),
+									),
+
+									array(
+										'class'    => 'wcgs_import',
+										'type'     => 'custom_import',
+										'title'    => __( 'Import JSON File to Upload', 'gallery-slider-for-woocommerce' ),
+										'subtitle' => ' ',
+									),
+								),
+							),
+							array(
+								'title'  => __( 'Additional CSS & JS', 'gallery-slider-for-woocommerce' ),
+								'icon'   => 'sp_wgs-icon-tools_add-css',
+								'fields' => array(
+									array(
+										'id'       => 'wcgs_additional_css',
+										'type'     => 'code_editor',
+										'title'    => __( 'Additional CSS', 'gallery-slider-for-woocommerce' ),
+										'settings' => array(
+											'theme' => 'mbo',
+											'mode'  => 'css',
+										),
+									),
+									array(
+										'id'       => 'wcgs_additional_js',
+										'type'     => 'code_editor',
+										'title'    => __( 'Additional JS', 'gallery-slider-for-woocommerce' ),
+										'settings' => array(
+											'theme' => 'mbo',
+											'mode'  => 'js',
+										),
+									),
+								),
+							),
+							array(
 								'title'  => __( 'License Key', 'gallery-slider-for-woocommerce' ),
 								'icon'   => 'sp_wgs-icon-license-tab',
 								'fields' => array(
@@ -192,7 +308,7 @@ class WCGS_Advance {
 										'type'    => 'notice',
 										'style'   => 'normal',
 										'class'   => 'wcgs-light-notice align-center',
-										'content' => __( 'Premium license key provides you access to regular updates and expert support 👨🏻‍💻', 'gallery-slider-for-woocommerce' ),
+										'content' => __( 'Pro License Key provides Priority Support, Regular Updates, and Boosts Your Sales! 🚀', 'gallery-slider-for-woocommerce' ),
 									),
 									array(
 										'id'   => 'license_key',

@@ -13,7 +13,7 @@
 			this.publicUrl = wcgs_object.wcgs_public_url;
 			this.fancyLoaded = false;
 			this.spswiperLoaded = false;
-			this.lazyAttr = this.settings.wcgs_image_lazy_load && this.settings.wcgs_image_lazy_load == 'ondemand' ? 'loading = "lazy"': '';
+			this.lazyAttr = this.settings.wcgs_image_lazy_load && this.settings.wcgs_image_lazy_load == 'ondemand' ? 'loading = "lazy"' : '';
 			this.$gallery = $('#wpgs-gallery');
 			this.$summary = this.$gallery.next('.summary');
 			// Bind event handlers to preserve context.
@@ -41,15 +41,15 @@
 				this.hidePreloader();
 			});
 		}
-		getMaxImageHeight() {
-			let maxHeight = 0;
-			this.$gallery.find('.wcgs-carousel img').each(function () {
-				if ($(this).innerHeight() > maxHeight) {
-					maxHeight = $(this).innerHeight();
-				}
-			});
-			return maxHeight;
-		}
+		// getMaxImageHeight() {
+		// 	let maxHeight = 0;
+		// 	this.$gallery.find('.wcgs-carousel img').each(function () {
+		// 		if ($(this).innerHeight() > maxHeight) {
+		// 			maxHeight = $(this).innerHeight();
+		// 		}
+		// 	});
+		// 	return maxHeight;
+		// }
 		// Initialize SPSwiper instance
 		SPSwiperSlide(selector, options) {
 			if (typeof SPSwiper !== 'undefined') {
@@ -131,7 +131,7 @@
 			// Check if fancybox js script is already added
 			if (!document.getElementById(fancyboxScriptId)) {
 				const jsTag = document.createElement('script');
-				jsTag.src = this.publicUrl + 'js/jquery.fancybox.min.js';
+				jsTag.src = this.publicUrl + 'js/fancybox-bundle.min.js';
 				jsTag.id = fancyboxScriptId;
 				jsTag.defer = true;
 				// Append to document.
@@ -178,14 +178,15 @@
 			}, 10000);
 		}
 		checkFancyboxReady() {
-			if (typeof $.fancybox !== 'undefined') {
+			if (typeof Fancybox != 'undefined') {
 				this.fancyLoaded = true;
 				this.initializeLightbox();
 				return;
 			}
 			const checkInterval = setInterval(() => {
 				this.initializeFancyboxScript()
-				if (typeof $.fancybox === 'undefined') {
+
+				if (typeof Fancybox != 'undefined') {
 					clearInterval(checkInterval);
 					this.fancyLoaded = true;
 					this.initializeLightbox();
@@ -311,20 +312,56 @@
 				maxWidth: `${gallery_w}${widthUnit}`
 			});
 			this.updateSummaryWidth(gallery_w);
+			if (this.settings.gallery_layout == 'vertical' ||
+				this.settings.gallery_layout == 'vertical_right') {
+				let maxHeight = this.getMaxImageHeight();
+				this.$gallery.find('.gallery-navigation-carousel-wrapper').css({ 'maxHeight': maxHeight });
+			}
 			setTimeout(() => {
 
 				if (this.settings.slide_orientation == 'vertical') {
-					var maxHeight = this.getMaxImageHeight();
-					this.$gallery.find('.wcgs-carousel .spswiper-slide, .wcgs-carousel').css({ 'maxHeight': maxHeight });
+					let maxHeight = this.getMaxImageHeight();
+					this.$gallery.find('.wcgs-carousel .spswiper-slide, .wcgs-carousel').css({ 'height': maxHeight });
+				}
+				if (this.settings.gallery_layout == 'vertical' ||
+					this.settings.gallery_layout == 'vertical_right') {
+					let maxHeight = this.getMaxImageHeight();
+					this.$gallery.find('.gallery-navigation-carousel-wrapper').css({ 'maxHeight': maxHeight });
 				}
 				// this.$gallery.find('.wcgs-carousel .spswiper-slide').css({
 				// 	"display": "flex",
 				// 	"justify-content": "center",
 				// 	"align-items": "center",
 				// });
-			}, 400)
+			}, 1000)
 		}
-
+		getMaxImageHeight() {
+			let maxHeight = 0;
+			const thumbnails_sliders_space = this.settings.thumbnails_sliders_space ? this.settings.thumbnails_sliders_space.width : 6;
+			let gallery = this.$gallery;
+			const actualWidth = gallery.find('.wcgs-carousel').width();
+			// Get the maximum height of images in the gallery.
+			this.$gallery.find('.wcgs-carousel img').each(function () {
+				// Check if height is set in attributes.
+				if ($(this).attr('height') && $(this).attr('width')) {
+					const attrWidth = parseInt($(this).attr('width'), 10);
+					const attrHeight = parseInt($(this).attr('height'), 10);
+					if (attrWidth && attrHeight) {
+						const ratio = attrHeight / attrWidth;
+						// Rendered width on screen.
+						const estimatedHeight = actualWidth * ratio;
+						if (estimatedHeight > maxHeight) {
+							maxHeight = estimatedHeight;
+						}
+					}
+				} else {
+					if ($(this).innerHeight() > maxHeight) {
+						maxHeight = $(this).innerHeight();
+					}
+				}
+			});
+			return maxHeight;
+		}
 		// Get width unit for gallery.
 		getWidthUnit() {
 			return window.innerWidth < 768 ? this.settings.gallery_responsive_width.unit : '%';
@@ -335,7 +372,13 @@
 			const summaryWidth = 100 - galleryWidth;
 			this.$summary.css('maxWidth', summaryWidth > 20 ? `calc(${summaryWidth}% - 30px)` : '');
 		}
-
+		getThumbAutoplaySettings() {
+			if (this.settings.autoplay != '1') return false;
+			return {
+				delay: parseInt(this.settings.autoplay_interval) || 3000,
+				pauseOnMouseEnter: false
+			};
+		}
 		handleAutoplayEvents() {
 			// Remove event listeners
 			if (this.settings.autoplay && this.settings.autoplay == '1') {
@@ -346,7 +389,7 @@
 						}
 					},
 					mouseleave: () => {
-						if (this.wcgs_spswiper_gallery &&  this.wcgs_spswiper_gallery.autoplay) {
+						if (this.wcgs_spswiper_gallery && this.wcgs_spswiper_gallery.autoplay) {
 							this.wcgs_spswiper_gallery.autoplay.start();
 						}
 					}
@@ -358,13 +401,20 @@
 			const thumbnail_nav = this.settings.thumbnailnavigation === '1';
 			const navigation = this.settings.navigation === '1';
 			const thumbnails_sliders_space = this.settings.thumbnails_sliders_space ? this.settings.thumbnails_sliders_space.width : 6;
-			const slider_autoplay = this.settings.autoplay && this.settings.autoplay == '1' ? true : false;
+			const slider_autoplay = this.settings.autoplay && this.settings.autoplay == '1' ? this.getThumbAutoplaySettings() : false;
 			let $swiperThumbContainer = this.$gallery.find('.gallery-navigation-carousel');
 			let $mainSliderContainer = this.$gallery.find(".wcgs-carousel");
 			let wcgs_img_count = this.$gallery.find('.wcgs-carousel .spswiper-slide').length;
+			const galleryLayout = (this.settings.gallery_layout == 'vertical' ||
+				this.settings.gallery_layout == 'vertical_right') ? 'vertical' : 'horizontal';
+			const thumbnails_item_to_show = (this.settings.gallery_layout == 'vertical' || this.settings.gallery_layout == 'vertical_right') ? 'auto' : parseInt(this.settings.thumbnails_item_to_show);
 			this.wcgs_spswiper_thumb = this.SPSwiperSlide($swiperThumbContainer[0], {
-				slidesPerView: parseInt(this.settings.thumbnails_item_to_show),
-				direction: 'horizontal',
+				slidesPerView: thumbnails_item_to_show,
+				direction: galleryLayout,
+				watchSlidesVisibility: true,
+				watchSlidesProgress: true,
+				autoHeight: false,
+				watchOverflow: true,
 				lazyPreloadPrevNext: 1,
 				loop: this.settings.infinite_loop === '1',
 				spaceBetween: parseInt(thumbnails_sliders_space),
@@ -374,17 +424,18 @@
 					afterInit: () => this.handleSPSwiperInit()
 				}
 			});
+			let adaptive_height = (this.settings.slider_height_type && this.settings.slider_height_type == 'adaptive') ? true : false;
 			this.wcgs_spswiper_gallery = this.SPSwiperSlide($mainSliderContainer[0], {
-				autoHeight: this.settings.adaptive_height === '1',
-				direction: this.settings.slide_orientation,
+				autoHeight: adaptive_height,
+				direction: this.settings.slide_orientation || 'horizontal',
 				loop: this.settings.infinite_loop === '1',
 				thumbs: { spswiper: this.wcgs_spswiper_thumb },
 				autoplay: slider_autoplay,
 				lazyPreloadPrevNext: 1,
 				slidesPerView: 1,
-				spaceBetween: 0,
-				effect: 'slide',
-				speed: 300,
+				spaceBetween: 1,
+				effect: this.settings.fade_slide,
+				speed: parseInt(this.settings.autoplay_speed) || 300,
 				observer: true,
 				watchOverflow: true,
 				observeParents: true,
@@ -418,12 +469,14 @@
 
 			this.checkArrowsVisibility();
 			// hide nav carousel if item is one!
-			if (wcgs_img_count <= 1) {
-				this.$gallery.find('.gallery-navigation-carousel-wrapper').hide();
-				this.$gallery.find(".wcgs-spswiper-arrow").hide()
-			} else {
-				this.$gallery.find('.gallery-navigation-carousel-wrapper').show();
-				this.$gallery.find('.wcgs-spswiper-arrow:not(.swiper-button-lock)').show();
+			if (this.settings.gallery_layout !== 'hide_thumb') {
+				if (wcgs_img_count <= 1) {
+					this.$gallery.find('.gallery-navigation-carousel-wrapper').addClass('wcgs-hidden').hide();
+					this.$gallery.find(".wcgs-spswiper-arrow").hide()
+				} else {
+					this.$gallery.find('.gallery-navigation-carousel-wrapper').removeClass('wcgs-hidden').show();
+					this.$gallery.find('.wcgs-spswiper-arrow:not(.swiper-button-lock)').show();
+				}
 			}
 		}
 
@@ -502,12 +555,14 @@
 
 		// Pause the previous video
 		pausePreviousVideo() {
-			const prevIndex = this.wcgs_spswiper_gallery.previousIndex;
-			const $prevSlide = $(`.wcgs-carousel .spswiper-slide:eq(${prevIndex})`);
-			const videoId = $prevSlide.find('.wcgs-youtube-video').data('video-id');
+			if (this.wcgs_spswiper_gallery && this.wcgs_spswiper_gallery.previousIndex !== undefined) {
+				const prevIndex = this.wcgs_spswiper_gallery.previousIndex;
+				const $prevSlide = $(`.wcgs-carousel .spswiper-slide:eq(${prevIndex})`);
+				const videoId = $prevSlide.find('.wcgs-youtube-video').data('video-id');
 
-			if (videoId && this.players[videoId]) {
-				this.players[videoId].pauseVideo();
+				if (videoId && this.players[videoId]) {
+					this.players[videoId].pauseVideo();
+				}
 			}
 		}
 
@@ -518,7 +573,7 @@
 			const $target = $(e.currentTarget);
 			const scale = e.type === 'mouseenter' || e.type === 'mousemove' ? 1.5 : 1;
 			this.initializeZoomElement($target)
-		//	$('.wcgs-slider-image').each((i, el) => );
+			//	$('.wcgs-slider-image').each((i, el) => );
 			$target.find('.wcgs-photo').css({
 				transform: `scale(${scale})`,
 				transformOrigin: this.getTransformOrigin(e)
@@ -544,21 +599,21 @@
 		}
 
 		// Initialize lightbox functionality.
-		initializeLightbox() {
-			if (typeof $.fancybox === 'undefined' || this.settings.lightbox !== '1') return;
-			$.fancybox.defaults.buttons = this.getLightboxButtons();
-			this.$gallery.find('.wcgs-carousel').fancybox({
-				 selector: '.wcgs-slider-lightbox',
-				infobar: this.settings.l_img_counter === '1',
-				caption: (_, current) => {
-					var caption = '';
-					if (this.settings.lightbox_caption == '1') {
-						caption = current.opts.$orig.parent().find('img').data('cap') || '';
-					}
-					return caption;
-				}
-			});
-		}
+		// initializeLightbox() {
+		// 	if (typeof $.fancybox === 'undefined' || this.settings.lightbox !== '1') return;
+		// 	$.fancybox.defaults.buttons = this.getLightboxButtons();
+		// 	this.$gallery.find('.wcgs-carousel').fancybox({
+		// 		 selector: '.wcgs-slider-lightbox',
+		// 		infobar: this.settings.l_img_counter === '1',
+		// 		caption: (_, current) => {
+		// 			var caption = '';
+		// 			if (this.settings.lightbox_caption == '1') {
+		// 				caption = current.opts.$orig.parent().find('img').data('cap') || '';
+		// 			}
+		// 			return caption;
+		// 		}
+		// 	});
+		// }
 
 		// Get lightbox buttons configuration
 		getLightboxButtons() {
@@ -566,6 +621,93 @@
 			if (this.settings.gallery_fs_btn === '1') buttons.push('fullScreen');
 			if (this.settings.gallery_share === '1') buttons.push('share');
 			return buttons;
+		}
+
+
+
+		initializeLightbox() {
+			if (typeof Fancybox == 'undefined') return;
+			let lightbox_thumb_style = 'classic';
+			let gallery_middle_btn = '1';
+
+			Fancybox.bind("[data-fancybox]", {
+				// General options
+				backdropClick: "close",         // ['close'|'iterate'|false] Close on backdrop click.
+				mainClass: "wcgs-fancybox-wrapper",
+				// Animation options.
+				animated: true,                 // [true|false] Enable/disable animations
+				// hideClass: "f-fadeOut",         // Hide animation class
+				// showClass: "f-fadeIn",          // Show animation class
+				animationDuration: 1000,         // Animation duration in ms
+				// Toolbar options.
+				Toolbar: {
+					display: {
+						left: this.settings.l_img_counter == '1' ? ["infobar"] : '',
+						middle: [],
+						right: this.getLightboxButtons(),
+					}
+				},
+				Thumbs: false,
+				// Thumbnails component.
+				// Thumbs: this.settings.thumb_gallery_show == '1' ? {
+				// 	type: lightbox_thumb_style,            // ['classic'|'modern'] Thumbnails style
+				// 	autoStart: true,        // [true|false] Show thumbs on start
+				// 	hideOnClose: true,          // [true|false] Hide when closing
+				// } : false,
+
+				// Carousel options
+				Carousel: {
+					Panzoom: {
+						decelFriction: 0.5,
+					},
+					// infinite: true,            // [true|false] Infinite navigation
+					transition: this.settings.lightbox_sliding_effect || 'slide',     // ['slide'|'fade'|'crossfade'|'classic']['no_animation']
+					transitionDuration: 1000,    // Transition duration in ms
+				},
+				// Image options
+				Image: {
+					zoom: true,                 // [true|false] Enable image zoom
+					preload: 3,                 // Number of images to preload
+					click: "toggleZoom",        // ['close'|'toggleZoom'|'next'|false]
+					wheel: "zoom",              // ['zoom'|'slide'|'close'|false]
+					imageProtection: true,      // [true|false] Disable right-click
+				},
+				Video: {
+					autoplay: true,             // [true|false] Autoplay videos
+					loop: true,                 // [true|false] Loop videos
+					mute: true,                 // [true|false] Mute videos
+					ratio: 16 / 9,              // Video aspect ratio
+				},
+				// Other options
+				caption: (fancybox, slide) => {
+					if (this.settings.lightbox_caption == '1') {
+						const caption = slide.caption || '';
+						return caption;
+					}
+					return '';
+				},
+				// ClickAction: "close",
+				dragToClose: true, // [true|false] Enable drag-to-close
+				// Events
+				on: {
+					// init: (fancybox) => console.log("🔥 FancyBox Initialized", fancybox),
+					reveal: (fancybox, slide) => {
+						$(document).find('.wcgs-carousel .wcgs-slider-image img').each((i, img) => {
+							const imageUrl = $(img).attr('data-lazy');
+							const thumbnailSelector = $('.wcgs-fancybox-wrapper .fancybox-thumbs__list a:nth(' + i + ')');
+							const thumbnailUrl = thumbnailSelector.attr('style');
+							if (imageUrl && thumbnailSelector.length > 0 && thumbnailUrl.indexOf('spinner.svg') >= 0) {
+								thumbnailSelector.css("background-image", "url(" + imageUrl + ")");
+							}
+						});
+						$(".wcgs-fancybox-wrapper ~ .elementor-lightbox").remove();
+					},
+					// done: (fancybox, slide) => console.log("✅ Slide Loaded", slide),
+					// close: (fancybox) => console.log("❌ Closing FancyBox"),
+					// destroy: (fancybox) => console.log("🚀 FancyBox Destroyed"),
+				}
+			});
+
 		}
 
 		// Handle window resize event
@@ -579,17 +721,40 @@
 		handleLightboxClick(e) {
 			e.preventDefault();
 			if ($(e.currentTarget).hasClass('wcgs-video-icon')) {
-				$(e.currentTarget).parents('.wcgs-carousel')
-					.find('.spswiper-slide-active a.wcgs-slider-lightbox').trigger('click');
+				let current_selector = $(e.currentTarget).parents('.wcgs-carousel')
+					.find('.spswiper-slide-active a.wcgs-slider-lightbox');
+				if (current_selector.length > 0) {
+					current_selector[0].click();
+				}
 				return;
 			}
 			if (this.settings.lightbox !== '1') {
 				return;
 			}
-			$(e.currentTarget).parents('.wcgs-carousel')
-				.find('.spswiper-slide-active a.wcgs-slider-lightbox').trigger('click');
+			let current_selector = $(e.currentTarget).parents('.wcgs-carousel')
+				.find('.spswiper-slide-active a.wcgs-slider-lightbox');
+			if (current_selector.length > 0) {
+				current_selector[0].click();
+			}
 		}
 
+		setupGridLightbox() {
+			if (!this.settings.lightbox) return;
+			let is_only_popup = this.state.videoOnlyPopup;
+			$(document).off('click.wcgsLb');
+			$(document).on(
+				`click${this.namespace}`,
+				'.wcgs-carousel .wcgs-lightbox, .wcgs-carousel .wcgs-video-icon, .wcgs-carousel .wcgs-photo', function (e) {
+					e.preventDefault();
+					if ($(e.target).hasClass('wcgs-video-icon') && !is_only_popup) {
+						return;
+					}
+					let current_selector = $(this).parents('.wcgs-slider-image').find('a.wcgs-slider-lightbox');
+					if (current_selector.length > 0) {
+						current_selector[0].click();
+					}
+				});
+		}
 		// Add video icon to slides with video.
 		videoIcon() {
 			$('.wcgs-slider-image, .wcgs-thumb').each((i, el) => {
@@ -598,7 +763,7 @@
 				}
 			});
 		}
-		// Handle variation change event
+		// Handle variation change event.
 		handleVariationChange(e) {
 			const data = wcgs_object.wcgs_data || [];
 			const $variations_table = $(e.target).closest('.variations')
@@ -611,7 +776,7 @@
 				this.rebuildGallery(matchingItems);
 			}
 		}
-		// Get selected variations
+		// Get selected variations.
 		getSelectedVariations($variations_table) {
 			let variationsArray = {};
 			$variations_table.find('tr').each((index, element) => {
@@ -668,7 +833,7 @@
 			return this.uniqueItems(matching);
 		};
 
-		// Get unique items from the list
+		// Get unique items from the list.
 		uniqueItems(items) {
 			const seen = new Set();
 			return items.filter(item => {
@@ -709,13 +874,13 @@
 		// Create slide element.
 		createSlide(item, videoShowed, index) {
 			const hasVideo = item.video && !videoShowed ? item.video.includes('youtu') : false;
-			let lazyLoad = index > 1 ?  this.lazyAttr : '';
+			let lazyLoad = index > 1 ? this.lazyAttr : '';
 			const videoContent = hasVideo ? this.createVideoContent(item) : '';
-			const imageContent = hasVideo ? videoContent : `<img src="${item.url}" alt="${item.cap}" data-image="${item.full_url}" ${lazyLoad} >`;
+			const imageContent = hasVideo ? videoContent : `<img src="${item.url}" alt="${item.cap}" data-image="${item.full_url}" height="${item.imageHeight}" width="${item.imageWidth}" ${lazyLoad} >`;
 
 			return `<div class="spswiper-slide">
                     <div class="wcgs-slider-image">
-                        <a class="wcgs-slider-lightbox" href="${hasVideo ? item.video : item.full_url}" data-fancybox  data-caption="${item.cap || ''}"> </a>
+                        <a class="wcgs-slider-lightbox" href="${hasVideo ? item.video : item.full_url}" data-fancybox="view"  data-caption="${item.cap || ''}"> </a>
                         ${imageContent}
                     </div>
                 </div>
@@ -727,9 +892,9 @@
 			return this.settings.video_popup_place === 'inline'
 				? `<div class="wcgs-iframe-wrapper">
                      <div class="wcgs-youtube-video" data-video-id="${this.getYouTubeId(item.video)}"> </div>
-					 <img src="${item.url}" alt="${item.cap}" data-image="${item.full_url}" data-type="youtube" ${this.lazyAttr}>
+					 <img src="${item.url}" alt="${item.cap}" data-image="${item.full_url}" height="${item.imageHeight}" width="${item.imageWidth}" data-type="youtube" ${this.lazyAttr}>
 					</div>`
-				: `<img src="${item.url}" alt="${item.cap}" data-image="${item.full_url}" data-type="youtube" ${this.lazyAttr}>`;
+				: `<img src="${item.url}" alt="${item.cap}" data-image="${item.full_url}" height="${item.imageHeight}" width="${item.imageWidth}" data-type="youtube" ${this.lazyAttr}>`;
 		}
 
 		// Get YouTube video ID from URL.
@@ -861,7 +1026,7 @@
 				// Your script here
 				observer.disconnect();
 			}
-		}, { threshold: 0.5 });
+		}, { threshold: 0.1 });
 		// Add observer to the gallery element only if not running in Lighthouse or GTMetrix.
 		if (!is_wcgs_pagespeed()) {
 			observer.observe(document.querySelector("#wpgs-gallery"));

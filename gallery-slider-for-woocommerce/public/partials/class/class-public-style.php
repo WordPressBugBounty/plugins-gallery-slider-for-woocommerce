@@ -54,6 +54,7 @@ class WCGS_Public_Style extends WCGS_Public_Settings {
 		$thumbnails_space                  = isset( $settings['thumbnails_space'] ) ? $settings['thumbnails_space'] / 2 : 3;
 		$thumbnails_top                    = isset( $settings['thumbnails_space'] ) ? $settings['thumbnails_space'] : 6;
 		$border_normal_width_for_thumbnail = isset( $settings['border_normal_width_for_thumbnail'] ) ? $settings['border_normal_width_for_thumbnail'] : '';
+		$vertical_thumbs_width             = isset( $settings['vertical_thumbs_width'] ) ? $settings['vertical_thumbs_width'] : '20';
 		$navigation_visibility             = isset( $settings['navigation_visibility'] ) ? $settings['navigation_visibility'] : '';
 		$normal_thumbnail_border_color     = isset( $border_normal_width_for_thumbnail['color'] ) ? $border_normal_width_for_thumbnail['color'] : '';
 		$normal_thumbnail_border_size      = isset( $border_normal_width_for_thumbnail['all'] ) ? $border_normal_width_for_thumbnail['all'] : '2';
@@ -68,17 +69,42 @@ class WCGS_Public_Style extends WCGS_Public_Settings {
 		$active_thumbnail_border_color2 = isset( $thumbnail_border['color2'] ) ? $thumbnail_border['color2'] : '#0085BA';
 		$active_thumbnail_border_size   = isset( $thumbnail_border['all'] ) ? $thumbnail_border['all'] : '0';
 		$thumb_position                 = '2';
-
-		$thumbnails_top      = $this->thumbnails_sliders_height;
-		$thumb_slider_margin = "margin-top: {$thumbnails_top}px;";
-		$vr_slide_padding    = 0;
+		$video_icon_type                = isset( $settings['video_icon'] ) ? $settings['video_icon'] : 'play-01';
+		$thumbnails_top                 = $this->thumbnails_sliders_height;
+		$thumbnails_left                = $this->thumbnails_sliders_width;
+		$thumb_slider_margin            = "margin-top: {$thumbnails_top}px;";
+		$vr_slide_padding               = 0;
 		if ( $normal_thumbnail_border_size > 0 ) {
 			$vr_slide_padding = $normal_thumbnail_border_size + 2;
 		}
+		$vide_play_icon = '\e823';
+		switch ( $video_icon_type ) {
+			case 'play-01':
+				$vide_play_icon = '\e823';
+				break;
+			case 'play-02':
+				$vide_play_icon = '\e837';
+				break;
+			case 'play-03':
+					$vide_play_icon = '\e838';
+				break;
+			case 'play-04':
+				$vide_play_icon = '\e839';
+				break;
 
+			case 'play-05':
+				$vide_play_icon = '\e83a';
+				break;
+			default:
+				$vide_play_icon = '\e823';
+				break;
+		}
 		if ( ( 'horizontal_top' === $this->gallery_layout ) ) {
 			$thumb_position      = '-1';
 			$thumb_slider_margin = "margin-bottom: {$thumbnails_top}px;";
+		}
+		if ( ( 'vertical_right' === $this->gallery_layout ) ) {
+			$thumb_slider_margin = "margin-left: {$thumbnails_left}px;";
 		}
 		$gallery_width = isset( $settings['gallery_width'] ) ? $settings['gallery_width'] : 50;
 		$dynamic_css   = '';
@@ -96,10 +122,17 @@ class WCGS_Public_Style extends WCGS_Public_Settings {
                 }
             }';
 		}
-		$dynamic_css .= '#wpgs-gallery .gallery-navigation-carousel-wrapper {
+		$dynamic_css .= '#wpgs-gallery .wcgs-video-icon:after {
+				content: "' . $vide_play_icon . '";
+		}
+		#wpgs-gallery .gallery-navigation-carousel-wrapper {
 			-ms-flex-order: ' . $thumb_position . ' !important;
 			order: ' . $thumb_position . ' !important;
 			' . $thumb_slider_margin . ';
+		}
+		.rtl  #wpgs-gallery.wcgs-vertical-right .gallery-navigation-carousel-wrapper {
+			margin-right: ' . $thumbnails_left . 'px;
+			margin-left: 0;
 		}
 		#wpgs-gallery .wcgs-carousel .wcgs-spswiper-arrow {
 			font-size: ' . $this->navigation_icon_size . 'px;
@@ -168,9 +201,6 @@ class WCGS_Public_Style extends WCGS_Public_Settings {
 			margin-bottom: ' . $gallery_bottom_gap . 'px;
 			max-width: 50%;
 		}
-		#wpgs-gallery .gallery-navigation-carousel.vertical .wcgs-thumb {
-			padding: 0 ' . $vr_slide_padding . 'px;
-		}
 		.fancybox-caption__body {
 			color: ' . $caption_color . ';
 			font-size: ' . $this->lightbox_caption_size . 'px;
@@ -181,6 +211,18 @@ class WCGS_Public_Style extends WCGS_Public_Settings {
 		if ( 'hover' === $navigation_visibility ) {
 			$dynamic_css .= '#wpgs-gallery .wcgs-carousel .wcgs-spswiper-arrow, #wpgs-gallery .wcgs-carousel .wcgs-spswiper-arrow {
 				opacity: 0;
+			}';
+		}
+		if ( ( 'hide_thumb' === $this->gallery_layout ) ) {
+			$dynamic_css .= '#wpgs-gallery .gallery-navigation-carousel-wrapper {
+				display: none;
+			}';
+		}
+		if ( ( 'vertical_right' === $this->gallery_layout ) ) {
+			$dynamic_css .= '#wpgs-gallery.vertical .gallery-navigation-carousel-wrapper:not(.wcgs-hidden) {
+				width: ' . $vertical_thumbs_width . '%;
+			}#wpgs-gallery.vertical.wcgs-woocommerce-product-gallery .wcgs-carousel{
+				width: calc(100% - ' . $vertical_thumbs_width . '%);
 			}';
 		}
 
