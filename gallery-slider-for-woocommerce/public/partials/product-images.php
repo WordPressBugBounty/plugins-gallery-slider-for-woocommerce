@@ -543,13 +543,13 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 									$video_showed = true;
 							} else {
 								?>
-									<a class="wcgs-slider-lightbox" data-fancybox="view" href="<?php echo esc_url( $slide['full_url'] ); ?>" aria-label="lightbox"></a>
+									<a class="wcgs-slider-lightbox" data-fancybox="view" href="<?php echo esc_url( $slide['full_url'] ); ?>" aria-label="lightbox" data-caption="<?php echo esc_attr( $slide['cap'] ); ?>"></a>
 									<img class="wcgs-slider-image-tag" <?php echo $index == 1 ? 'fetchpriority="high" loading="eager"' : $this->get_lazy_load_attribute(); ?>  alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" srcset="<?php echo esc_html( $full_srcset ); ?>" sizes="<?php echo esc_html( $image_sizes ); ?>" />
 										<?php
 							}
 						} else {
 							?>
-								<a class="wcgs-slider-lightbox" data-fancybox="view" href="<?php echo esc_url( $slide['full_url'] ); ?>" aria-label="lightbox"></a>
+								<a class="wcgs-slider-lightbox" data-fancybox="view" href="<?php echo esc_url( $slide['full_url'] ); ?>" aria-label="lightbox" data-caption="<?php echo esc_attr( $slide['cap'] ); ?>"></a>
 								<img class="wcgs-slider-image-tag" <?php echo $index === 1 ? 'fetchpriority="high" loading="eager"' : $this->get_lazy_load_attribute(); ?>  alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" srcset="<?php echo esc_html( $full_srcset ); ?>" sizes="<?php echo esc_html( $image_sizes ); ?>" />
 									<?php
 						}

@@ -185,7 +185,7 @@ class WCGS_Public_Helper {
 					'url'         => $sized_image[0],
 					'full_url'    => $image_url,
 					'thumb_url'   => ! empty( $sized_thumb[0] ) && $sized_thumb[0] ? $sized_thumb[0] : '',
-					'cap'         => isset( $image_caption ) && ! empty( $image_caption ) ? $image_caption : '',
+					'cap'         => isset( $image_caption ) && ! empty( $image_caption ) ? esc_attr( $image_caption ) : '',
 					'thumbWidth'  => $sized_thumb[1],
 					'thumbHeight' => $sized_thumb[2],
 					'imageWidth'  => $sized_image[1],

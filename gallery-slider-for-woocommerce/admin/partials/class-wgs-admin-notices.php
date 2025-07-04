@@ -24,7 +24,7 @@ class Woo_Gallery_Slider_Admin_Notices {
 	public function __construct() {
 		add_action( 'admin_notices', array( $this, 'all_admin_notice' ) );
 		add_action( 'wp_ajax_sp-woogs-never-show-review-notice', array( $this, 'dismiss_review_notice' ) );
-		add_action( 'wp_ajax_sp_wgs-hide-offer-banner', array( $this, 'dismiss_offer_banner' ) );
+		add_action( 'wp_ajax_spwoog-hide-offer-banner', array( $this, 'dismiss_offer_banner' ) );
 		add_action( 'wp_ajax_dismiss_smart_swatches_notice', array( $this, 'dismiss_smart_swatches_notice' ) );
 	}
 
@@ -307,79 +307,55 @@ class Woo_Gallery_Slider_Admin_Notices {
 		// Retrieve offer banner data.
 		$api_url = 'https://shapedplugin.com/offer/wp-json/shapedplugin/v1/woogallery';
 		$offer   = $this->get_cached_offers_data( $api_url );
-		// Ensure the array is not empty and includes 'org' as a valid value.
-		$enable_for_org = ( ! empty( $offer['offer_enable'][0] ) && in_array( 'org', $offer['offer_enable'], true ) );
 
 		// Return an empty string if the offer is empty, not an array, or not enabled for the org.
-		if ( empty( $offer ) || ! is_array( $offer ) || ! $enable_for_org ) {
+		if ( empty( $offer ) || ! is_array( $offer ) ) {
 			return '';
 		}
 
 		$offer_key             = isset( $offer['key'] ) ? esc_attr( $offer['key'] ) : ''; // Uniq identifier of the offer banner.
-		$start_date            = isset( $offer['start_date'] ) ? esc_html( $offer['start_date'] ) : ''; // Offer starting date.
-		$banner_unique_id      = $offer_key . strtotime( $offer['start_date'] ); // Generate banner unique ID by the offer key and starting date.
-		$banner_dismiss_status = get_option( 'sp_wgs_offer_banner_dismiss_status_' . $banner_unique_id ); // Banner closing or dismissing status.
+		$start_date            = isset( $offer['org_start_date'] ) ? esc_html( $offer['org_start_date'] ) : ''; // Offer starting date.
+		$banner_unique_id      = $offer_key . strtotime( $offer['org_start_date'] ); // Generate banner unique ID by the offer key and starting date.
+		$banner_dismiss_status = get_transient( 'sp_woog_offer_banner_dismiss_status_' . $banner_unique_id ); // Banner closing or dismissing status.
 		// Only display the banner if the dismissal status of the banner is not hide.
 		if ( isset( $banner_dismiss_status ) && 'hide' === $banner_dismiss_status ) {
 			return;
 		}
 
 		// Declare admin banner related variables.
-		$end_date         = isset( $offer['end_date'] ) ? esc_html( $offer['end_date'] ) : ''; // Offer ending date.
-		$plugin_logo      = isset( $offer['plugin_logo'] ) ? $offer['plugin_logo'] : ''; // Plugin logo URL.
-		$offer_name       = isset( $offer['offer_name'] ) ? $offer['offer_name'] : ''; // Offer name.
-		$offer_percentage = isset( $offer['offer_percentage'] ) ? $offer['offer_percentage'] : ''; // Offer discount percentage.
-		$action_url       = isset( $offer['action_url'] ) ? $offer['action_url'] : ''; // Action button URL.
-		$action_title     = isset( $offer['action_title'] ) ? $offer['action_title'] : 'Grab the Deals!'; // Action button title.
+		$end_date = isset( $offer['org_end_date'] ) ? esc_html( $offer['org_end_date'] ) : ''; // Offer ending date.
 		// Banner starting date & ending date according to EST timezone.
 		$start_date   = strtotime( $start_date . ' 00:00:00 EST' ); // Convert start date to timestamp.
 		$end_date     = strtotime( $end_date . ' 23:59:59 EST' ); // Convert end date to timestamp.
 		$current_date = time(); // Get the current timestamp.
+		$offer_banner = isset( $offer['org_offer_banner'] ) ? esc_html( $offer['org_offer_banner'] ) : '';
+		$offer_url    = isset( $offer['org_offer_url'] ) ? esc_html( $offer['org_offer_url'] ) : '';
 
 		// Only display the banner if the current date is within the specified range.
 		if ( $current_date >= $start_date && $current_date <= $end_date ) {
 			// Start Banner HTML markup.
 			?>
-			<div class="sp_wgs-admin-offer-banner-section">
-			<?php if ( ! empty( $plugin_logo ) ) { ?>
-				<div class="sp_wgs-offer-banner-image">
-					<img src="<?php echo esc_url( $plugin_logo ); ?>" alt="Plugin Logo" class="sp_wgs-plugin-logo">
-				</div>
-			<?php } if ( ! empty( $offer_name ) ) { ?>
-				<div class="sp_wgs-offer-banner-image">
-					<img src="<?php echo esc_url( $offer_name ); ?>" alt="Offer Name" class="sp_wgs-offer-name">
-				</div>
-			<?php } if ( ! empty( $offer_percentage ) ) { ?>
-				<div class="sp_wgs-offer-banner-image">
-					<img src="<?php echo esc_url( $offer_percentage ); ?>" alt="Offer Percentage" class="sp_wgs-offer-percentage">
-				</div>
-			<?php } ?>
-			<div class="sp_wgs-offer-additional-text">
-				<span class="sp_wgs-clock-icon">⏱</span><p><?php esc_html_e( 'Limited Time Offer, Upgrade Now!', 'gallery-slider-for-woocommerce' ); ?></p>
-			</div>
-			<?php if ( ! empty( $action_url ) ) { ?>
-				<div class="sp_wgs-banner-action-button">
-					<a href="<?php echo esc_url( $action_url ); ?>" class="sp_wgs-get-offer-button" target="_blank">
-						<?php echo esc_html( $action_title ); ?>
-					</a>
-				</div>
-			<?php } ?>
-			<div class="sp_wgs-close-offer-banner" data-unique_id="<?php echo esc_attr( $banner_unique_id ); ?>"></div>
+			<div class="spwoog-notice-wrapper notice"">
+				<a href="<?php echo esc_url( $offer_url ); ?>" target="_blank">
+					<img loading="lazy" src="<?php echo esc_url( $offer_banner ); ?>" alt="Offer Banner">
+				</a>
+				
+				<div class="spwoog-close-offer-banner" data-unique_id="<?php echo esc_attr( $banner_unique_id ); ?>"></div>
 			</div>
 			<script type='text/javascript'>
 			jQuery(document).ready( function($) {
-				$('.sp_wgs-close-offer-banner').on('click', function(event) {
+				$('.spwoog-close-offer-banner').on('click', function(event) {
 					var unique_id = $(this).data('unique_id');
-						event.preventDefault();
-						$.post(ajaxurl, {
-							action: 'sp_wgs-hide-offer-banner',
-							sp_offer_banner: 'hide',
-							unique_id,
-							nonce: '<?php echo esc_attr( wp_create_nonce( 'sp_wgs_banner_notice_nonce' ) ); ?>'
-						})
-						$(this).parents('.sp_wgs-admin-offer-banner-section').fadeOut('slow');
-					});
+					event.preventDefault();
+					$.post(ajaxurl, {
+						action: 'spwoog-hide-offer-banner',
+						sp_offer_banner: 'hide',
+						unique_id,
+						nonce: '<?php echo esc_attr( wp_create_nonce( 'spwoog_banner_notice_nonce' ) ); ?>'
+					})
+					$(this).parents('.spwoog-notice-wrapper').fadeOut('slow');
 				});
+			});
 			</script>
 			<?php
 		}
@@ -394,7 +370,7 @@ class Woo_Gallery_Slider_Admin_Notices {
 	 **/
 	public function dismiss_offer_banner() {
 		$post_data = wp_unslash( $_POST );
-		if ( ! isset( $post_data['nonce'] ) || ! wp_verify_nonce( sanitize_key( $post_data['nonce'] ), 'sp_wgs_banner_notice_nonce' ) ) {
+		if ( ! isset( $post_data['nonce'] ) || ! wp_verify_nonce( sanitize_key( $post_data['nonce'] ), 'spwoog_banner_notice_nonce' ) ) {
 			return;
 		}
 		// Banner unique ID generated by offer key and offer starting date.
@@ -404,7 +380,8 @@ class Woo_Gallery_Slider_Admin_Notices {
 		 */
 		if ( 'hide' === $post_data['sp_offer_banner'] && isset( $post_data['sp_offer_banner'] ) ) {
 			$offer = 'hide';
-			update_option( 'sp_wgs_offer_banner_dismiss_status_' . $unique_id, $offer );
+			// Set transient for 30 days.
+			set_transient( 'sp_woog_offer_banner_dismiss_status_' . $unique_id, $offer, 30 * DAY_IN_SECONDS );
 		}
 		die;
 	}

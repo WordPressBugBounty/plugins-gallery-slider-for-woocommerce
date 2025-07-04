@@ -149,162 +149,47 @@
 }
 
 /* Offer Banner Styles  */
-.sp_wgs-admin-offer-banner-section {
+.spwoog-notice-wrapper.notice {
+    padding: 4px;
+    border-radius: 4px;
+    border: 0;
+    line-height: 0;
     position: relative;
-    border-radius: 5px;
-    color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    font-size: 16px;
-    height: auto;
-    border-left: 0;
-    margin-top: 40px;
-    margin-right: 20px;
-    padding-left: 40px;
-    padding-right: 40px;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 5px 40px;
-    background: linear-gradient(90deg, #000717 0%, #002068 50.5%, #451223 100%);
-    clear: both;
+    margin-left: 0;
 }
-
-.sp_wgs-admin-offer-banner-section .sp_wgs-offer-additional-text {
-    display: flex;
-    align-items: center;
+.spwoog-notice-wrapper.notice img {
+    max-width: 100%;
+    margin-right: 0;
 }
-
-.sp_wgs-admin-offer-banner-section span.sp_wgs-clock-icon {
-    font-size: 24px;
-    margin-right: 6px;
-}
-
-.sp_wgs-admin-offer-banner-section img.sp_wgs-plugin-logo,
-.sp_wgs-admin-offer-banner-section img.sp_wgs-offer-name,
-.sp_wgs-admin-offer-banner-section img.sp_wgs-offer-percentage {
-    max-width: 250px;
-}
-
-.sp_wgs-admin-offer-banner-section img.sp_wgs-plugin-logo {
-    width: 150px;
-}
-
-.sp_wgs-admin-offer-banner-section img.sp_wgs-offer-percentage {
-    width: 210px;
-    vertical-align: middle;
-}
-
-.sp_wgs-admin-offer-banner-section .sp_wgs-offer-additional-text p {
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: .5px;
-}
-
-.sp_wgs-admin-offer-banner-section a.sp_wgs-get-offer-button {
-    width: 100px;
-    display: inline-block;
-    font-size: 13px;
-    background: pink;
-    border-radius: 50px;
-    text-align: center;
-    text-decoration: none;
-    color: #fff;
-    padding: 12px 15px;
-    font-weight: 600;
-    transition: .8s ease;
-    background: linear-gradient(98.42deg, #A900BF 8.48%, #E100FF 80.32%);
-}
-
-.sp_wgs-admin-offer-banner-section a.sp_wgs-get-offer-button:hover {
-    background: linear-gradient(0deg, #A900BF 8.48%, #E100FF 80.32%);
-}
-
-.sp_wgs-admin-offer-banner-section .sp_wgs-close-offer-banner {
+.spwoog-notice-wrapper .spwoog-close-offer-banner {
     position: absolute;
-    top: 50%;
-    right: 6px;
-    top: 6px;
-    cursor: pointer;
-}
-
-.sp_wgs-admin-offer-banner-section i.sp_wgs-icon-banner-close {
-    transition: 0.15s ease;
-}
-
-.sp_wgs-admin-offer-banner-section i.sp_wgs-icon-banner-close:hover {
-    color: #df3939b5;
-}
-
-.sp_wgs-admin-offer-banner-section .sp_wgs-banner-action-button {
-    line-height: 22px;
-}
-
-/* Offer Banner Responsiveness */
-@media only screen and (max-width: 1360px) {
-    .sp_wgs-admin-offer-banner-section {
-        padding-bottom: 20px;
-    }
-}
-
-@media only screen and (max-width: 800px) {
-    .sp_wgs-admin-offer-banner-section {
-        padding-top: 20px;
-    }
-
-    #screen-meta-links+.sp_wgs-admin-offer-banner-section {
-        margin-top: 50px !important;
-    }
-}
-
-.sp_wgs-admin-offer-banner-section .sp_wgs-close-offer-banner {
-    position: absolute;
-    top: 50%;
     right: 4px;
     top: 4px;
     cursor: pointer;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 22px;
+    background: #000000;
 }
 
-.sp_wgs-admin-offer-banner-section .sp_wgs-close-offer-banner:before,
-.sp_wgs-admin-offer-banner-section .sp_wgs-close-offer-banner:after {
+.spwoog-notice-wrapper .spwoog-close-offer-banner:before,
+.spwoog-notice-wrapper .spwoog-close-offer-banner:after {
     content: '';
     width: 16px;
     height: 1.3px;
     background: #ffffff;
-    top: 9px;
-    left: 3px;
+    top: 10px;
+    left: 5px;
     display: block !important;
     transform: rotate(45deg);
     position: absolute;
 }
-
-.sp_wgs-admin-offer-banner-section .sp_wgs-close-offer-banner:after {
+.spwoog-notice-wrapper .spwoog-close-offer-banner:after {
     transform: rotate(135deg);
 }
 
-.sp_wgs-admin-offer-banner-section .sp_wgs-close-offer-banner:hover:before,
-.sp_wgs-admin-offer-banner-section .sp_wgs-close-offer-banner:hover:after {
-    background-color: #df3939b5;
-}
-.smart-swatches-notice:has(+.sp-woo-gallery-slider-help) {
-    margin-bottom: 10px !important;
-}
-
-/* RTL style for the offer banner. */
-.rtl .sp_wgs-admin-offer-banner-section {
-    margin: 40px 0 0 20px;
-}
-
-.rtl .sp_wgs-admin-offer-banner-section .sp_wgs-close-offer-banner {
-    right: auto;
-    left: 4px;
-}
-
-.rtl .sp_wgs-admin-offer-banner-section span.sp_wgs-clock-icon {
-    margin-left: 6px;
-    margin-right: 0;
+.spwoog-notice-wrapper .spwoog-close-offer-banner:hover:before,
+.spwoog-notice-wrapper .spwoog-close-offer-banner:hover:after {
+    background-color: #ff0000;
 }
 
 .rtl #sp-woogs-review-notice {

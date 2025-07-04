@@ -4,8 +4,8 @@ Tags: woocommerce product gallery carousel, woocommerce product gallery slider, 
 Requires at least: 5.3
 Tested up to: 6.8.1
 WC requires at least: 4.5
-WC tested up to: 9.8.5
-Stable tag: 3.0.0
+WC tested up to: 9.9.5
+Stable tag: 3.0.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -410,6 +410,11 @@ Yes, the plugin is compatible with the most popular WooCommerce themes. We’re 
 
 
 == Changelog ==
+
+= Version 3.0.1 - Jul 04, 2025 =
+* Fix: The Lightbox Caption option did not working after fancybox asset updating.
+* Fix: The Lightbox Caption Color and Font Size option issue.
+* Tested: WooCommerce 9.9.5 compatibility.
 
 = Version 3.0.0 - Jun 01, 2025 =
 * New: The Slider Layout feature.

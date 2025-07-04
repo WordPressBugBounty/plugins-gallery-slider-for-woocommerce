@@ -201,7 +201,7 @@ class WCGS_Public_Style extends WCGS_Public_Settings {
 			margin-bottom: ' . $gallery_bottom_gap . 'px;
 			max-width: 50%;
 		}
-		.fancybox-caption__body {
+		.wcgs-fancybox-wrapper .fancybox__caption {
 			color: ' . $caption_color . ';
 			font-size: ' . $this->lightbox_caption_size . 'px;
 		}
