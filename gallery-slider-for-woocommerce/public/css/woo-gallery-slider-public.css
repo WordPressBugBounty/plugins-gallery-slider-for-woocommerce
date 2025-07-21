@@ -106,7 +106,7 @@ div.product div.product-description {
   padding-left: 0;
   text-align: center;
   width: 100%;
-  bottom: 0;
+  bottom: 8px;
   cursor: pointer;
   -webkit-animation: bulletAnimation .5s;
   animation: bulletAnimation .5s
@@ -652,8 +652,8 @@ div.product div.product-description {
 }
 
 .wcgs-carousel .wcgs-spswiper-arrow {
-  font-family: "spwgfontello";
-  font-size: 12px;
+	font-family: "spwgfontello";
+	font-size: 12px;
 }
 
 .wcgs-carousel .wcgs-spswiper-arrow.wcgs-spswiper-button-prev:not(.spswiper-button-lock),
@@ -811,7 +811,7 @@ div.product div.product-description {
 }
 
 .gallery-navigation-carousel.vertical .wcgs-spswiper-arrow::before {
-  transform: rotate(90deg);
+  transform: rotate(-90deg);
   display: inline-block;
 }
 .wcgs-woocommerce-product-gallery.wcgs-spswiper-before-init .gallery-navigation-carousel-wrapper.wcgs_preloader_fade,

@@ -424,7 +424,7 @@ class Woo_Gallery_Slider_Help {
 								</li>
 								<li class='wcgs-body'>
 									<span class='wcgs-title'>Amazing Product Gallery Layouts (Thumbs Bottom & Top, Thumbs Left & Right, Grid, Modern Grid, Vertival Scroll,Multi-row Thumbs, Hierarchy Grid, Anchor Navigation, and Slider)</span>
-									<span class='wcgs-free'><b>2</b></span>
+									<span class='wcgs-free'><b>4</b></span>
 									<span class='wcgs-pro'><b>16</b></span>
 								</li>
 								<li class='wcgs-body'>
@@ -473,9 +473,9 @@ class Woo_Gallery_Slider_Help {
 									<span class='wcgs-pro wcgs-check-icon'></span>
 								</li>
 								<li class='wcgs-body'>
-									<span class='wcgs-title'>Support YouTube, Vimeo, Dailymotion, Facebook, and Self-Hosted video source (YouTube/All)</span>
-									<span class='wcgs-free wcgs-close-icon'></span>
-									<span class='wcgs-pro wcgs-check-icon'></span>
+									<span class='wcgs-title'>Support YouTube, Vimeo, Dailymotion, Facebook, and Self-Hosted video source</span>
+									<span class='wcgs-free'>YouTube</span>
+									<span class='wcgs-pro'>All</span>
 								</li>
 								<li class='wcgs-body'>
 									<span class='wcgs-title'>Number of Videos Per Product</span>
@@ -534,7 +534,7 @@ class Woo_Gallery_Slider_Help {
 								</li>
 								<li class='wcgs-body'>
 									<span class='wcgs-title'>Gallery Slider AutoPlay, AutoPlay Interval, Speed, Horizontal and Vertical Orientation</span>
-									<span class='wcgs-free wcgs-close-icon'></span>
+									<span class='wcgs-free wcgs-check-icon'></span>
 									<span class='wcgs-pro wcgs-check-icon'></span>
 								</li>
 								<li class='wcgs-body'>
@@ -544,8 +544,13 @@ class Woo_Gallery_Slider_Help {
 								</li>
 								<li class='wcgs-body'>
 									<span class='wcgs-title'>Product Gallery Sliding Effects (Fade, Slide, Flip, and Cube)</span>
-									<span class='wcgs-free'><b>1</b></span>
+									<span class='wcgs-free'><b>3</b></span>
 									<span class='wcgs-pro'><b>4</b></span>
+								</li>
+								<li class='wcgs-body'>
+									<span class='wcgs-title'>Gallery Pagination Style</span>
+									<span class='wcgs-free'><b>2</b></span>
+									<span class='wcgs-pro'><b>8</b></span>
 								</li>
 								<li class='wcgs-body'>
 									<span class='wcgs-title'>Thumbnails Navigation Styles (Outer, Inner, and Custom) <i class="wcgs-hot">Hot</i></span>

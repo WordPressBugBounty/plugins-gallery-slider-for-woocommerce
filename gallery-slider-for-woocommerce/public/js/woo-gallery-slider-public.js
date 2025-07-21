@@ -453,6 +453,7 @@
 				pagination: this.settings.pagination === '1' ? {
 					el: '.wcgs-carousel .spswiper-pagination',
 					type: 'bullets',
+					dynamicBullets: this.settings.pagination_type === 'dynamic' ? true : false,
 					clickable: true,
 				} : false,
 				on: {
@@ -617,9 +618,9 @@
 
 		// Get lightbox buttons configuration
 		getLightboxButtons() {
-			const buttons = ['zoom', 'close'];
-			if (this.settings.gallery_fs_btn === '1') buttons.push('fullScreen');
-			if (this.settings.gallery_share === '1') buttons.push('share');
+			const buttons = ['zoom'];
+			if (this.settings.gallery_fs_btn === '1') buttons.push('fullscreen');
+			buttons.push("close");
 			return buttons;
 		}
 

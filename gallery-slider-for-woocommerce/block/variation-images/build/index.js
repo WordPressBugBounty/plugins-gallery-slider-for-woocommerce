@@ -6883,7 +6883,7 @@ function Edit({
           style: {
             fontStyle: 'italic'
           },
-          children: "Upgrade To Pro!"
+          children: "Upgrade to Pro!"
         })]
       })]
     })]

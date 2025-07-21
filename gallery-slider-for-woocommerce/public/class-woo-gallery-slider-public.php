@@ -361,6 +361,7 @@ class Woo_Gallery_Slider_Public {
 			$custom_js            = isset( $settings['wcgs_additional_js'] ) ? $settings['wcgs_additional_js'] : '';
 
 			wp_enqueue_style( 'sp_wcgs-fontello-fontende-icons', plugin_dir_url( __FILE__ ) . 'css/fontello.min.css', array(), $this->version, 'all' );
+
 			if ( $enqueue_swiper_css ) {
 				wp_enqueue_style( 'wcgs-swiper', plugin_dir_url( __FILE__ ) . 'css/swiper.min.css', array(), $this->version, 'all' );
 			}
@@ -368,6 +369,7 @@ class Woo_Gallery_Slider_Public {
 				wp_enqueue_style( 'wcgs-fancybox', plugin_dir_url( __FILE__ ) . 'css/fancybox.min.css', array(), $this->version, 'all' );
 			}
 			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/woo-gallery-slider-public.min.css', array(), $this->version, 'all' );
+			wp_enqueue_style( 'sp_wcgs-fontello-icons', WOO_GALLERY_SLIDER_URL . 'admin/css/fontello.min.css', array(), WOO_GALLERY_SLIDER_VERSION, 'all' );
 			// if ( $enqueue_swiper_js ) {
 			// wp_enqueue_script(
 			// 'wcgs-swiper',

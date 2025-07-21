@@ -57,7 +57,6 @@ class Woo_Gallery_Slider_Admin {
 		add_filter( 'post_updated_messages', array( $this, 'layout_updated_messages' ), 10, 2 );
 		add_action( 'load-post-new.php', array( $this, 'check_wcgs_layouts_limit' ) );
 		add_filter( 'admin_footer_text', array( $this, 'sp_woo_review_text' ), 1, 2 );
-
 	}
 
 
@@ -124,24 +123,9 @@ class Woo_Gallery_Slider_Admin {
 	public function admin_menu() {
 		// global $menu, $admin_page_hooks;
 		$capability = apply_filters( 'wcgs_ui_permission', 'manage_options' );
-		$menu_icon = 'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiBmb2N1c2FibGU9ImZhbHNlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIgoJIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI0IDI0OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I0ZGRkZGRjt9Cjwvc3R5bGU+CjxnPgoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTAsMS45djIwLjFDMCwyMy4xLDAuOSwyNCwxLjksMjRoMjAuMWMxLjEsMCwxLjktMC45LDEuOS0xLjlWMS45QzI0LDAuOSwyMy4xLDAsMjIuMSwwSDEuOUMwLjksMCwwLDAuOSwwLDEuOQoJCXogTTIxLjQsMjIuM0gyLjZjLTAuNSwwLTEtMC40LTEtMVYyLjZjMC0wLjUsMC40LTEsMS0xaDE4LjdjMC41LDAsMSwwLjQsMSwxdjE4LjdDMjIuMywyMS45LDIxLjksMjIuMywyMS40LDIyLjN6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNy45LDE3LjR2Mi44YzAsMC4zLTAuMiwwLjUtMC41LDAuNUgzLjhjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWgzLjUKCQlDNy42LDE2LjksNy45LDE3LjEsNy45LDE3LjR6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTQuNSwxNy40djIuOGMwLDAuMy0wLjIsMC41LTAuNSwwLjVoLTRjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWg0CgkJQzE0LjIsMTYuOSwxNC41LDE3LjEsMTQuNSwxNy40eiIvPgoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTIwLjYsMTcuNHYyLjhjMCwwLjMtMC4yLDAuNS0wLjUsMC41aC0zLjVjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWgzLjUKCQlDMjAuNCwxNi45LDIwLjYsMTcuMSwyMC42LDE3LjR6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMy40LDMuOHYxMC45YzAsMC4zLDAuMiwwLjUsMC41LDAuNWgxNi4zYzAuMywwLDAuNS0wLjIsMC41LTAuNVYzLjhjMC0wLjMtMC4yLTAuNS0wLjUtMC41SDMuOAoJCUMzLjYsMy40LDMuNCwzLjYsMy40LDMuOHogTTUuNCwxMi44bDMuOC03YzAuMi0wLjMsMC43LTAuMywwLjgsMGwyLjcsNC45YzAuMiwwLjMsMC43LDAuMywwLjgsMGwwLjQtMC43YzAuMi0wLjMsMC43LTAuMywwLjgsMAoJCWwxLjUsMi43YzAuMiwwLjMtMC4xLDAuNy0wLjQsMC43aC0xMEM1LjUsMTMuNSw1LjMsMTMuMSw1LjQsMTIuOHogTTE2LjgsOS40Yy0xLjIsMC0yLjItMS0yLjItMi4yYzAtMS4yLDEtMi4xLDIuMS0yLjEKCQlDMTgsNSwxOSw2LDE5LDcuMkMxOC45LDguNCwxOCw5LjMsMTYuOCw5LjR6Ii8+CjwvZz4KPC9zdmc+';
+		$menu_icon  = 'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiBmb2N1c2FibGU9ImZhbHNlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIgoJIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI0IDI0OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I0ZGRkZGRjt9Cjwvc3R5bGU+CjxnPgoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTAsMS45djIwLjFDMCwyMy4xLDAuOSwyNCwxLjksMjRoMjAuMWMxLjEsMCwxLjktMC45LDEuOS0xLjlWMS45QzI0LDAuOSwyMy4xLDAsMjIuMSwwSDEuOUMwLjksMCwwLDAuOSwwLDEuOQoJCXogTTIxLjQsMjIuM0gyLjZjLTAuNSwwLTEtMC40LTEtMVYyLjZjMC0wLjUsMC40LTEsMS0xaDE4LjdjMC41LDAsMSwwLjQsMSwxdjE4LjdDMjIuMywyMS45LDIxLjksMjIuMywyMS40LDIyLjN6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNy45LDE3LjR2Mi44YzAsMC4zLTAuMiwwLjUtMC41LDAuNUgzLjhjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWgzLjUKCQlDNy42LDE2LjksNy45LDE3LjEsNy45LDE3LjR6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTQuNSwxNy40djIuOGMwLDAuMy0wLjIsMC41LTAuNSwwLjVoLTRjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWg0CgkJQzE0LjIsMTYuOSwxNC41LDE3LjEsMTQuNSwxNy40eiIvPgoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTIwLjYsMTcuNHYyLjhjMCwwLjMtMC4yLDAuNS0wLjUsMC41aC0zLjVjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWgzLjUKCQlDMjAuNCwxNi45LDIwLjYsMTcuMSwyMC42LDE3LjR6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMy40LDMuOHYxMC45YzAsMC4zLDAuMiwwLjUsMC41LDAuNWgxNi4zYzAuMywwLDAuNS0wLjIsMC41LTAuNVYzLjhjMC0wLjMtMC4yLTAuNS0wLjUtMC41SDMuOAoJCUMzLjYsMy40LDMuNCwzLjYsMy40LDMuOHogTTUuNCwxMi44bDMuOC03YzAuMi0wLjMsMC43LTAuMywwLjgsMGwyLjcsNC45YzAuMiwwLjMsMC43LDAuMywwLjgsMGwwLjQtMC43YzAuMi0wLjMsMC43LTAuMywwLjgsMAoJCWwxLjUsMi43YzAuMiwwLjMtMC4xLDAuNy0wLjQsMC43aC0xMEM1LjUsMTMuNSw1LjMsMTMuMSw1LjQsMTIuOHogTTE2LjgsOS40Yy0xLjIsMC0yLjItMS0yLjItMi4yYzAtMS4yLDEtMi4xLDIuMS0yLjEKCQlDMTgsNSwxOSw2LDE5LDcuMkMxOC45LDguNCwxOCw5LjMsMTYuOCw5LjR6Ii8+CjwvZz4KPC9zdmc+';
 		add_menu_page( __( 'WooGallery', 'gallery-slider-for-woocommerce' ), __( 'WooGallery', 'gallery-slider-for-woocommerce' ), $capability, 'wpgs-settings', null, $menu_icon, '58' );
 		add_submenu_page( 'wpgs-settings', 'Help', 'Get Help', 'edit_posts', 'wpgs-help', array( $this, 'help_page_callback' ) );
-		add_submenu_page( 'wpgs-settings', 'shop_video', __( 'Shop Video Settings', 'gallery-slider-for-woocommerce' ), $capability, 'wcgs_shop_video', '__return_null' );
-		add_submenu_page( 'wpgs-settings', 'License', __( 'License', 'gallery-slider-for-woocommerce' ), $capability, 'wcgs_license', '__return_null' );
-
-		// Override the URL of the submenu item.
-		global $submenu;
-		if ( isset( $submenu['wpgs-settings'] ) ) {
-			foreach ( $submenu['wpgs-settings'] as &$item ) {
-				if ( $item[2] === 'wcgs_license' ) {
-					$item[2] = 'admin.php?page=wpgs-settings#tab=advance&license'; // Set your custom URL.
-				}
-				if ( $item[2] === 'wcgs_shop_video' ) {
-					$item[2] = 'admin.php?page=wpgs-settings#tab=shop_page_video'; // Set your custom URL.
-				}
-			}
-		}
 	}
 	/**
 	 * Review Text
@@ -255,27 +239,19 @@ class Woo_Gallery_Slider_Admin {
 				$grid_orientation      = isset( $wcgs_layouts_meta['grid_orientation'] ) ? $wcgs_layouts_meta['grid_orientation'] : '';
 				$grid_orientation_name = '';
 				$pro_popup_content     = sprintf(
-					'<div id="BuyProPopupContent" style="display: none;"> <div class="wcgs-popup-content">  <div class="pro-image-tag"> <span class="pro-icon">
-                    <img src="%1$sadmin/img/go-pro-icon.svg" alt="%2$s"></span></div> <h2>%3$s</h2><h3>%4$s</h3>
-					<p class="wcgs-popup-p">%5$s 🚀</p>
-					<p> <a href="%6$s" target="_blank" class="btn">%7$s</a> </p> </div> </div>',
-					esc_url( plugin_dir_url( __DIR__ ) ), // %1$s - Plugin directory URL
-					esc_attr__( 'Go Pro Icon', 'gallery-slider-for-woocommerce' ), // %2$s - Image alt text
+					'<div id="BuyProPopupContent" style="display: none;"> <div class="wcgs-popup-content"><h3>%1$s</h3>
+					<p class="wcgs-popup-p">%2$s 🚀</p>
+					<p> <a href="%3$s" target="_blank" class="btn">%4$s</a> </p> </div> </div>',
+					__( 'Create unlimited custom product gallery layouts and assign them to specific products and categories.', 'gallery-slider-for-woocommerce' ), // %4$s - H3 Subheading
 					sprintf(
 					/* translators: 1: strong open tag, 2: strong close tag. */
-						__( 'Upgrade to %1$sWooGallery Pro%2$s', 'gallery-slider-for-woocommerce' ),
+						__( 'Take your online shop\'s product page experience to the next level with many premium features and %1$sBoost Sales!%2$s %3$s', 'gallery-slider-for-woocommerce' ),
 						'<strong>',
-						'</strong>'
-					), // %3$s - H2 Heading
-					__( 'To unlock this feature, simply upgrade to Pro!', 'gallery-slider-for-woocommerce' ), // %4$s - H3 Subheading
-					sprintf(
-					/* translators: 1: strong open tag, 2: strong close tag. */
-						__( 'Take your online shop\'s product page experience to the next level with many premium features and %1$sBoost Sales!%2$s', 'gallery-slider-for-woocommerce' ),
-						'<strong>',
-						'</strong>'
+						'</strong>',
+						'<span class="pro-boost-icon">🚀</span>'
 					), // %5$s - Paragraph text
 					esc_url( WOO_GALLERY_SLIDER_PRO_LINK ), // %6$s - Pro upgrade link
-					__( 'Upgrade To Pro Now', 'gallery-slider-for-woocommerce' ) // %7$s - Button text
+					__( 'Upgrade to Pro Now', 'gallery-slider-for-woocommerce' ) // %7$s - Button text
 				);
 
 				echo wp_kses_post( $pro_popup_content );
@@ -425,9 +401,7 @@ class Woo_Gallery_Slider_Admin {
 			'wpgs-settings'                   => 1,
 			'edit.php?post_type=wcgs_layouts' => 2,
 			'assign_layout'                   => 3,
-			'admin.php?page=wpgs-settings#tab=shop_page_video' => 4,
-			'admin.php?page=wpgs-settings#tab=advance&license' => 5,
-			'wpgs-help'                       => 6,
+			'wpgs-help'                       => 4,
 		);
 		$priority_a     = isset( $priority_order[ $a[2] ] ) ? $priority_order[ $a[2] ] : 99;
 		$priority_b     = isset( $priority_order[ $b[2] ] ) ? $priority_order[ $b[2] ] : 99;
@@ -490,7 +464,7 @@ class Woo_Gallery_Slider_Admin {
 			'input' => 'text',
 			'helps' => sprintf(
 				/* translators: 1: start link and strong tag, 2: close link and strong tag. 3: start link and strong tag, 4: close link and strong tag. */
-				__( 'To show this video on the %1$sShop page%2$s, %3$s Upgrade To Pro!%2$s', 'gallery-slider-for-woocommerce' ),
+				__( 'To show this video on the %1$sShop page%2$s, %3$s Upgrade to Pro!%2$s', 'gallery-slider-for-woocommerce' ),
 				'<a href="https://demo.woogallery.io/" target="_blank" class="btn"><strong>',
 				'</strong></a>',
 				'<a href="https://woogallery.io/pricing/?ref=143" target="_blank" class="btn"><strong>'
@@ -577,7 +551,7 @@ class Woo_Gallery_Slider_Admin {
 				echo 'hidden';
 			}
 			?>
-			" style="color:red;">To add more images & videos, <a href="https://woogallery.io/pricing/?ref=143" target="_blank" style="font-style: italic;">Upgrade To Pro!</a></span>
+			" style="color:red;">To add more images & videos, <a href="https://woogallery.io/pricing/?ref=143" target="_blank" style="font-style: italic;">Upgrade to Pro!</a></span>
 
 		</p>
 		<script type="text/javascript">

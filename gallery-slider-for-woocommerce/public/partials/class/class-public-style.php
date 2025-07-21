@@ -173,6 +173,14 @@ class WCGS_Public_Style extends WCGS_Public_Settings {
 			color: ' . $this->lightbox_icon_hover_color . ';
 			background-color: ' . $this->lightbox_icon_hover_bg_color . ';
 		}
+		#wpgs-gallery .gallery-navigation-carousel.vertical  .wcgs-spswiper-button-next.wcgs-spswiper-arrow::before,
+		#wpgs-gallery .gallery-navigation-carousel .wcgs-spswiper-button-prev.wcgs-spswiper-arrow::before {
+			content: "' . $this->thumbnailnavigation_left_icon . '";
+		}
+		#wpgs-gallery .gallery-navigation-carousel.vertical  .wcgs-spswiper-button-prev.wcgs-spswiper-arrow::before,
+		#wpgs-gallery .gallery-navigation-carousel  .wcgs-spswiper-button-next.wcgs-spswiper-arrow::before {
+			content: "' . $this->thumbnailnavigation_right_icon . '";
+		}
 		#wpgs-gallery .gallery-navigation-carousel .wcgs-spswiper-arrow {
 			background-color: ' . $this->thumbnailnavigation_icon_bg_color . ';
 		}
@@ -182,6 +190,12 @@ class WCGS_Public_Style extends WCGS_Public_Settings {
 		}
 		#wpgs-gallery .gallery-navigation-carousel .wcgs-spswiper-arrow:hover {
 			background-color: ' . $this->thumbnailnavigation_icon_hover_bg_color . ';
+		}
+		#wpgs-gallery .wcgs-carousel .wcgs-spswiper-button-prev.wcgs-spswiper-arrow::before {
+			content: "' . $this->navigation_left_icon . '";
+		}
+		#wpgs-gallery .wcgs-carousel .wcgs-spswiper-button-next.wcgs-spswiper-arrow::before {
+			content: "' . $this->navigation_right_icon . '";
 		}
 		#wpgs-gallery .gallery-navigation-carousel .wcgs-spswiper-arrow:hover::before{
 			color: ' . $this->thumbnailnavigation_icon_hover_color . ';

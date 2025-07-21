@@ -48,17 +48,15 @@ class WCGS_Assigns {
 					'</a>'
 				),
 				'footer_after'       => "<div id='BuyProPopupContent' style='display: none;'>
-				<div class='wcgs-popup-content'><div class='pro-image-tag'><span class='pro-icon'><img src='" . plugin_dir_url( __DIR__ ) . 'img/go-pro-icon.svg' . "'></span></div><h2> " . sprintf(
+				<div class='wcgs-popup-content'>
+				<h3>" . __( 'Create unlimited custom product gallery layouts and assign them to specific products and categories.', 'gallery-slider-for-woocommerce' ) . "</h3>
+				<p class='wcgs-popup-p'>" . sprintf(
 					/* translators: 1: start strong tag, 2: close strong tag. */
-					__( 'Upgrade to %1$sWooGallery Pro%2$s', 'gallery-slider-for-woocommerce' ),
+					__( 'Take your online shop\'s product page experience to the next level with many premium features and %1$sBoost Sales!%2$ss%3$s', 'gallery-slider-for-woocommerce' ),
 					'<strong>',
-					'</strong>'
-				) . '</h2><h3>' . __( 'To unlock this feature, simply upgrade to Pro!', 'gallery-slider-for-woocommerce' ) . "</h3><p class='wcgs-popup-p'>" . sprintf(
-					/* translators: 1: start strong tag, 2: close strong tag. */
-					__( 'Take your online shop\'s product page experience to the next level with many premium features and %1$sBoost Sales!%2$s', 'gallery-slider-for-woocommerce' ),
-					'<strong>',
-					'</strong>'
-				) . " 🚀</p><p><a href='" . esc_url( WOO_GALLERY_SLIDER_PRO_LINK ) . "' target='_blank' class='btn'>" . __( 'Upgrade To Pro Now', 'gallery-slider-for-woocommerce' ) . '</a></p></div></div>',
+					'</strong>',
+					'<span class="pro-boost-icon">🚀</span>'
+				) . " 🚀</p><p><a href='" . esc_url( WOO_GALLERY_SLIDER_PRO_LINK ) . "' target='_blank' class='btn'>" . __( 'Upgrade to Pro Now', 'gallery-slider-for-woocommerce' ) . '</a></p></div></div>',
 			)
 		);
 		WCGS_Assign::section( $prefix );

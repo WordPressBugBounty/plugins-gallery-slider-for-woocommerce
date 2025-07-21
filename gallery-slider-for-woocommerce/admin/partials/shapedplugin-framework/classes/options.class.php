@@ -403,8 +403,7 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 				$this->delete_products_variation_json_cache();
 			}
 			$response = array(
-				// translators: %d is the number of variations migrated in the current batch.
-				'batch_migrated' => $migrated_count,
+				'batch_migrated' => $migrated_count, // translators: %d is the number of variations migrated in the current batch.
 				'message'        => sprintf( __( 'Migrated %d variation(s) in this batch.', 'gallery-slider-for-woocommerce' ), $migrated_count ),
 				'continue'       => ( $total_fetched === $limit ), // More left to process?
 			);
@@ -569,7 +568,11 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 							foreach ( $tabs as $fields ) {
 								$fields = $fields['fields'];
 								foreach ( $fields as $field ) {
-									$field_id    = isset( $field['id'] ) ? $field['id'] : '';
+									$field_id = isset( $field['id'] ) ? $field['id'] : '';
+									// If field is ignored, skip it.
+									if ( ! empty( $field['ignore_db'] ) ) {
+										continue;
+									}
 									$field_value = isset( $options[ $field_id ] ) ? $options[ $field_id ] : '';
 									// Ajax and Importing doing wp_unslash already.
 									if ( ! $ajax && ! $importing ) {
@@ -599,7 +602,11 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 								}
 							}
 						} elseif ( ! empty( $field['id'] ) ) {
-							$field_id    = $field['id'];
+							$field_id = $field['id'];
+							// If field is ignored, skip it.
+							if ( ! empty( $field['ignore_db'] ) ) {
+								continue;
+							}
 							$field_value = isset( $options[ $field_id ] ) ? $options[ $field_id ] : '';
 							// Ajax and Importing doing wp_unslash already.
 							if ( ! $ajax && ! $importing ) {

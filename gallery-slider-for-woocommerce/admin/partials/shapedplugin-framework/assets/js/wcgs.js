@@ -235,24 +235,8 @@
 
           $last_section = $section;
           if ($('.toplevel_page_wpgs-settings').hasClass('wp-has-current-submenu')) {
-            if (window.location.href.indexOf('admin.php?page=wpgs-settings#tab=shop_page_video') > -1 || window.location.href.indexOf('admin.php?page=wpgs-settings#tab=advance&license') > -1) {
-              if (window.location.href.indexOf('admin.php?page=wpgs-settings#tab=shop_page_video') > -1) {
-                $('a[href="admin.php?page=wpgs-settings#tab=shop_page_video"]').parent().addClass('current wcgs-active').siblings().removeClass('current wcgs-active');
-              }
-              if (window.location.href.indexOf('admin.php?page=wpgs-settings#tab=advance&license') > -1) {
-                $('a[href="admin.php?page=wpgs-settings#tab=advance&license"]').parent().addClass('current wcgs-active').siblings().removeClass('current wcgs-active');
-              }
-            } else {
               $('a[href="admin.php?page=wpgs-settings"]').parent().addClass('current wcgs-active').siblings().removeClass('current wcgs-active');
-            }
-            var nested_match = window.location.hash.match(/&([^&]+)/)
-            var nested_tab = nested_match ? nested_match[1] : '';
-            if (nested_tab.length > 0) {
-              nested_tab = nested_tab == 'license' ? 'license-key' : nested_tab;
-              $(document).find('#' + nested_tab).trigger('click')
-            }
           }
-
         }
       }).trigger('hashchange');
     });
@@ -260,14 +244,7 @@
   $(document).on('click', '.wcgs-tabbed-nav a', function (event) {
     var gallery_last_open_tab = $(this).attr('id');
     let hash = window.location.hash;
-    // Remove existing '&license' from hash if present
-    hash = hash.replace(/&license\b/, '');
 
-    if (gallery_last_open_tab === 'license-key') {
-      if (!hash.includes('&license')) {
-        hash += '&license';
-      }
-    }
     // Update the hash without reloading.
     window.location.hash = hash;
     WCGS.helper.set_cookie('wcgs-gallery-last-open-tab', gallery_last_open_tab);
@@ -788,9 +765,8 @@
     return this.each(function () {
 
       var $this = $(this),
-        $siblings = $this.find('.wcgs--sibling:not(.wcgs-pro-only)'),
+        $siblings = $this.find('.wcgs--sibling'),
         multiple = $this.data('multiple') || false;
-      $this.find('.wcgs--sibling.wcgs-pro-only').find('input').prop('disable', true)
       $siblings.on('click', function () {
 
         var $sibling = $(this);
@@ -1080,7 +1056,6 @@
         var count = $wrapper.children('.wcgs-cloneable-item').length;
 
         $min.hide();
-
         if (max && (count + 1) > max) {
           //  $max.show();
           tb_show('', '#TB_inline?&width=440&height=225&inlineId=BuyProPopupContent');
@@ -1605,14 +1580,10 @@
         } else {
           $('#thumbnails-navigation').removeClass('wcgs-hide');
         }
-     }, 100);
+      }, 100);
     });
   });
 
-  jQuery('.pro_only_field .wcgs-fieldset, .wcgs-field-switcher.pro_switcher .wcgs--switcher, .pro_only_slider .wcgs-table-cell, .pro_only_color .wcgs-fieldset,.wcgs-field-radio label.disabled, .pro_color_group .wcgs-field-color, .pro_slider  .wcgs-table, .pro_checkbox .wcgs-checkbox, .pro_only_field .wcgs--inputs, .pro_only_field input,.pro_only_field .wcgs--spin, .pro_only_field select, .pro_spinner .wcgs--spin, .pro_color .wcgs-field-color, .pro_border .wcgs-fieldset, .pro_dimensions .wcgs--inputs').on('click', function (e) {
-    e.preventDefault();
-    tb_show('', '#TB_inline?&width=440&height=225&inlineId=BuyProPopupContent');
-  });
   /* Custom js */
   $("label:contains((Pro))").css({ 'pointer-events': 'none' });
   $("label:contains((Pro)) input, .pro_spinner input, .pro_checkbox input,.pro_dimensions option").attr('disabled', true);
@@ -1658,6 +1629,7 @@
   } else {
     $('.slider_height_type').find('.wcgs-text-desc').css('opacity', 1);
   }
+
   $('.slider_height_type').on('change', function () {
     var _this = $(this);
     setTimeout(() => {
@@ -1670,6 +1642,44 @@
     }, 100);
   });
 
+  /**
+   * Function to handle the visibility of pro text based on selected values.
+   * @param {string} containerSelector - The selector for the container where the inputs are located.
+   * @param {Array} hiddenValues - An array of values that should hide the pro text description.
+   * @returns {void}
+   */
+  function handleProTextVisibility(containerSelector, hiddenValues = []) {
+    const $container = $(containerSelector);
+
+    function toggleVisibility() {
+      const selectedVal = $container.find('input:checked').val();
+      const $desc = $container.find('.wcgs-text-desc');
+
+      if (hiddenValues.includes(selectedVal)) {
+        $desc.css('opacity', 0);
+      } else {
+        $desc.css('opacity', 1);
+      }
+    }
+    // Initial check
+    toggleVisibility();
+
+    // On change event
+    $container.on('change', () => {
+      setTimeout(toggleVisibility, 100); // Delay to ensure correct input is selected
+    });
+  }
+
+  /*
+  * Apply the pro text visibility function to the relevant containers.
+  */
+  handleProTextVisibility('.shop_video_icon_position', 'center_center');
+  handleProTextVisibility('.pagination_type', ['bullets', 'dynamic']);
+  handleProTextVisibility('.thumb_active_on', 'click');
+  handleProTextVisibility('.thumbnailnavigation_style', 'custom');
+  handleProTextVisibility('.thumbnail_style', 'border_around');
+  handleProTextVisibility('.video_icon_style_pro', ['play-01', 'play-02', 'play-03', 'play-04', 'play-05']);
+  handleProTextVisibility('.wcgs_lightbox_icon', 'search');
 
 
   $(document).on('keyup change', '#wcgs-form', function (e) {
@@ -1881,5 +1891,58 @@
     }
   });
 
+
+  /**
+   * Handles tracking and restoring the last valid (non-disabled) selection
+   * for given input groups (settings + metabox).
+   *
+   * @param {string} baseName - The base input name without the prefix, e.g., "slider_height_type"
+   */
+  function handleLastValidInputSelection(baseName) {
+    const nameSettings = `wcgs_settings[${baseName}]`;
+    const nameMetabox = `wcgs_metabox[${baseName}]`;
+
+    const $settingsInputs = $(`input[name="${nameSettings}"]`);
+    const $metaboxInputs = $(`input[name="${nameMetabox}"]`);
+    const $allInputs = $settingsInputs.add($metaboxInputs);
+    const $submitTriggers = $('#publishing-action #publish, .wcgs-buttons .wcgs-save-ajax');
+
+    let lastValidSettingsValue = $settingsInputs.filter(':checked').val();
+    let lastValidMetaboxValue = $metaboxInputs.filter(':checked').val();
+
+    function updateLastValidSelection($input) {
+      if (!$input.is(':disabled')) {
+        const value = $input.val();
+        if ($input.is(`[name="${nameSettings}"]`)) {
+          lastValidSettingsValue = value;
+        }
+        if ($input.is(`[name="${nameMetabox}"]`)) {
+          lastValidMetaboxValue = value;
+        }
+      }
+    }
+
+    function revertInvalidSelection() {
+      if ($settingsInputs.filter(':checked:disabled').length) {
+        $settingsInputs.filter(`[value="${lastValidSettingsValue}"]`).prop('checked', true);
+      }
+
+      if ($metaboxInputs.filter(':checked:disabled').length) {
+        $metaboxInputs.filter(`[value="${lastValidMetaboxValue}"]`).prop('checked', true);
+      }
+    }
+
+    // Bind listeners
+    $allInputs.on('change', function () {
+      updateLastValidSelection($(this));
+    });
+
+    $submitTriggers.on('click', revertInvalidSelection);
+  }
+
+  handleLastValidInputSelection('video_icon');
+  handleLastValidInputSelection('slider_height_type');
+  handleLastValidInputSelection('pagination_type');
+  // handleLastValidInputSelection('another_field'); // Add as needed
 
 })(jQuery, window, document);

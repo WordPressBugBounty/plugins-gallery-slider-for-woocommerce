@@ -259,11 +259,6 @@
   content: '\e829';
 }
 
-/* '' */
-.sp_wgs-icon-license-tab:before {
-  content: '\e82a';
-}
-
 /* '' */
 .sp_wgs-icon-advanced-tab:before {
   content: '\e82b';

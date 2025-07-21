@@ -34,99 +34,37 @@ class WCGS_General {
 						'title'   => __( 'Gallery Layout', 'gallery-slider-for-woocommerce' ),
 						'desc'    => sprintf(
 							/* translators: 1: start strong tag, 2: close strong tag, 3: start link and strong tag, 4: close link and strong tag. */
-							__( 'Want to %1$s boost your sales %2$s by enhancing your product page layout and design? %3$sUpgrade To Pro!%4$s', 'gallery-slider-for-woocommerce' ),
-							'<strong>',
-							'</strong>',
+							__( 'Boost sales with %1$s16+ premium gallery layouts%2$s — %3$sUpgrade to Pro!%4$s', 'gallery-slider-for-woocommerce' ),
+							'<a href="https://woogallery.io/#layout-tab" target="_blank"><strong>',
+							'</strong></a>',
 							'<a href="' . WOO_GALLERY_SLIDER_PRO_LINK . '" target="_blank"><strong>',
 							'</strong></a>'
 						),
 						'options' => array(
-							'horizontal'        => array(
+							'horizontal'     => array(
 								'image'           => plugin_dir_url( __DIR__ ) . '../img/layout/horizontal_bottom.svg',
 								'option_name'     => __( 'Thumbs Bottom', 'gallery-slider-for-woocommerce' ),
 								'option_demo_url' => 'https://demo.woogallery.io/product/air-max-plus/',
 							),
-							'horizontal_top'    => array(
+							'vertical_right' => array(
+								'image'           => plugin_dir_url( __DIR__ ) . '../img/layout/vertical_right.svg',
+								'option_name'     => __( 'Thumbs Right', 'gallery-slider-for-woocommerce' ),
+								'option_demo_url' => 'https://demo.woogallery.io/product/custom-dunk-low/',
+								// 'pro_only'        => true,
+							),
+							'horizontal_top' => array(
 								'image'           => plugin_dir_url( __DIR__ ) . '../img/layout/horizontal_top.svg',
 								'option_name'     => __( 'Thumbs Top', 'gallery-slider-for-woocommerce' ),
 								'option_demo_url' => 'https://demo.woogallery.io/product/elemental-backpack/',
 							),
-							'vertical_right'    => array(
-								'image'           => plugin_dir_url( __DIR__ ) . '../img/layout/vertical_right.svg',
-								'option_name'     => __( 'Thumbs Right', 'gallery-slider-for-woocommerce' ),
-								'option_demo_url' => 'https://demo.woogallery.io/product/custom-dunk-low/',
-								//'pro_only'        => true,
-							),
-							'hide_thumb'        => array(
+							'hide_thumb'     => array(
 								'image'           => plugin_dir_url( __DIR__ ) . '../img/layout/hide_thumbnails.svg',
 								'option_name'     => __( 'Slider', 'gallery-slider-for-woocommerce' ),
 								'option_demo_url' => 'https://demo.woogallery.io/product/duffel-bag/',
 								// 'pro_only'        => true,
 							),
-							'vertical'          => array(
-								'image'           => plugin_dir_url( __DIR__ ) . '../img/layout/vertical_left.svg',
-								'option_name'     => __( 'Thumbs Left', 'gallery-slider-for-woocommerce' ),
-								'option_demo_url' => 'https://demo.woogallery.io/product/featherlight-cap/',
-								'pro_only'        => true,
-							),
-							'grid'              => array(
-								'image'           => plugin_dir_url( __DIR__ ) . '../img/layout/grid.svg',
-								'option_name'     => __( 'Tiles', 'gallery-slider-for-woocommerce' ),
-								'option_demo_url' => 'https://demo.woogallery.io/product/sports-wear/',
-								'pro_only'        => true,
-							),
-							'modern'            => array(
-								'image'           => plugin_dir_url( __DIR__ ) . '../img/layout/modern.svg',
-								'option_name'     => __( 'Hierarchy Grid', 'gallery-slider-for-woocommerce' ),
-								'option_demo_url' => 'https://demo.woogallery.io/product/cozy-pullover/',
-								'pro_only'        => true,
-							),
-							'modern_grid'       => array(
-								'image'           => plugin_dir_url( __DIR__ ) . '../img/layout/new-grid.svg',
-								'option_name'     => __( 'Modern Grid', 'gallery-slider-for-woocommerce' ),
-								'option_demo_url' => 'https://demo.woogallery.io/product/nike-golf-club/',
-								'pro_only'        => true,
-							),
-							'anchor_navigation' => array(
-								'image'           => plugin_dir_url( __DIR__ ) . '../img/layout/anchor_navigation.svg',
-								'option_name'     => __( 'Anchor Nav', 'gallery-slider-for-woocommerce' ),
-								'option_demo_url' => 'https://demo.woogallery.io/product/jersey-sweat-shirt/',
-								'pro_only'        => true,
-							),
-							'vertical_scroll'   => array(
-								'image'           => plugin_dir_url( __DIR__ ) . '../img/layout/vertical_scroll.svg',
-								'option_name'     => __( 'Vertical Scroll', 'gallery-slider-for-woocommerce' ),
-								'option_demo_url' => 'https://demo.woogallery.io/product/cotton-polo-shirt/',
-								'pro_only'        => true,
-							),
-
-
-							'multi_row_thumb'   => array(
-								'image'           => plugin_dir_url( __DIR__ ) . '../img/layout/multi_row_thumbs.svg',
-								'option_name'     => __( 'Multi-row Thumbs', 'gallery-slider-for-woocommerce' ),
-								'option_demo_url' => 'https://demo.woogallery.io/product/bubblecomfy-shoes-kids/',
-								'pro_only'        => true,
-							),
-
 						),
 						'default' => 'horizontal',
-					),
-					array(
-						'id'         => 'thumbnails_item_show_type',
-						'class'      => 'thumbnails_item_show_type',
-						'type'       => 'button_set',
-						'title'      => __( 'Thumbnail Items Display Type', 'gallery-slider-for-woocommerce' ),
-						'title_help' => __( 'We recommend using the Auto option if you use different-sized product images for Vertical Layout.', 'gallery-slider-for-woocommerce' ),
-						'options'    => array(
-							'auto'   => __( 'Auto', 'gallery-slider-for-woocommerce' ),
-							'custom' => array(
-								'option_name' => __( 'Custom', 'gallery-slider-for-woocommerce' ),
-								'pro_only'    => true,
-							),
-						),
-						'radio'      => true,
-						'default'    => 'auto',
-						'dependency' => array( 'gallery_layout', 'any', 'vertical,vertical_right' ),
 					),
 					array(
 						'id'         => 'thumbnails_item_to_show',
@@ -182,8 +120,8 @@ class WCGS_General {
 						'class'      => 'pro_only_field',
 						'title'      => __( 'Custom Size', 'gallery-slider-for-woocommerce' ),
 						'units'      => array(
-							'Soft-crop',
-							'Hard-crop',
+							'Soft-crop (Pro)',
+							'Hard-crop (Pro)',
 						),
 						'default'    => array(
 							'width'  => '100',
@@ -198,13 +136,13 @@ class WCGS_General {
 					array(
 						'id'         => 'thumbnails_load_2x_image',
 						'type'       => 'switcher',
-						'class'      => 'pro_switcher',
+						'class'      => 'pro_switcher wcgs_show_hide',
 						'title'      => __( 'Load 2x Resolution Image in Retina Display', 'gallery-slider-for-woocommerce' ),
 						'text_on'    => __( 'Enabled', 'gallery-slider-for-woocommerce' ),
 						'text_off'   => __( 'Disabled', 'gallery-slider-for-woocommerce' ),
 						'text_width' => 96,
 						'default'    => false,
-						'dependency' => array( 'thumbnails_sizes', '==', 'custom' ),
+						'dependency' => array( 'thumbnails_sizes|gallery_layout', '==|!=', 'custom|hide_thumb' ),
 					),
 					array(
 						'id'         => 'border_normal_width_for_thumbnail',
@@ -243,24 +181,37 @@ class WCGS_General {
 					array(
 						'id'          => 'thumb_active_on',
 						'type'        => 'radio',
+						'ignore_db'   => true,
+						'class'       => 'thumb_active_on pro_desc',
 						'title'       => __( 'Thumbnails Activate On', 'gallery-slider-for-woocommerce' ),
-
 						'title_video' => '<div class="wcgs-img-tag"><video autoplay loop muted playsinline><source src="https://plugins.svn.wordpress.org/gallery-slider-for-woocommerce/assets/visuals/thumbnails-activate-on.webm" type="video/webm"></video></div><div class="wcgs-info-label">' . __( 'Thumbnails Activate on', 'gallery-slider-for-woocommerce' ) . '</div>',
+						'desc'        => sprintf(
+							/* translators: 1: opening anchor tag with Pro link, 2: closing anchor tag. */
+							__( 'This feature is %1$savailable in Pro!%2$s', 'gallery-slider-for-woocommerce' ),
+							'<a href="' . WOO_GALLERY_SLIDER_PRO_LINK . '" target="_blank"><strong>',
+							'</strong></a>'
+						),
 						'options'     => array(
 							'click'     => __( 'Click', 'gallery-slider-for-woocommerce' ),
 							'mouseover' => array(
 								'option_name' => __( 'Mouseover', 'gallery-slider-for-woocommerce' ),
-								'pro_only'    => true,
 							),
 						),
 						'default'     => 'click',
 					),
 					array(
 						'id'          => 'thumbnail_style',
-						'class'       => 'thumbnail_style',
+						'class'       => 'thumbnail_style pro_desc',
 						'type'        => 'image_select',
+						'ignore_db'   => true,
 						'title'       => __( 'Active Thumbnail Style', 'gallery-slider-for-woocommerce' ),
 						'title_video' => '<div class="wcgs-img-tag"><video autoplay loop muted playsinline><source src="https://plugins.svn.wordpress.org/gallery-slider-for-woocommerce/assets/visuals/active-thumbnails-style.webm" type="video/webm"></video></div><div class="wcgs-info-label">Active Thumbnail Style</div>',
+						'desc'        => sprintf(
+							/* translators: 1: opening anchor tag with Pro link, 2: closing anchor tag. */
+							__( 'This feature is %1$savailable in Pro!%2$s', 'gallery-slider-for-woocommerce' ),
+							'<a href="' . WOO_GALLERY_SLIDER_PRO_LINK . '" target="_blank"><strong>',
+							'</strong></a>'
+						),
 						'options'     => array(
 							'border_around' => array(
 								'image'       => plugin_dir_url( __DIR__ ) . '../img/border-around.svg',
@@ -269,17 +220,14 @@ class WCGS_General {
 							'bottom_line'   => array(
 								'image'       => plugin_dir_url( __DIR__ ) . '../img/bottom-line.svg',
 								'option_name' => __( 'Bottom Line', 'gallery-slider-for-woocommerce' ),
-								'pro_only'    => true,
 							),
 							'zoom_out'      => array(
 								'image'       => plugin_dir_url( __DIR__ ) . '../img/zoom-out.svg',
 								'option_name' => __( 'Zoom Out', 'gallery-slider-for-woocommerce' ),
-								'pro_only'    => true,
 							),
 							'opacity'       => array(
 								'image'       => plugin_dir_url( __DIR__ ) . '../img/opacity.svg',
 								'option_name' => __( 'Opacity', 'gallery-slider-for-woocommerce' ),
-								'pro_only'    => true,
 							),
 						),
 						'default'     => 'border_around',
@@ -305,6 +253,7 @@ class WCGS_General {
 					array(
 						'id'         => 'inactive_thumbnails_effect',
 						'type'       => 'select',
+						'ignore_db'  => true,
 						'title'      => __( 'Inactive Thumbnails Effect', 'gallery-slider-for-woocommerce' ),
 						'title_help' => '<div class="wcgs-info-label">' . __( 'Inactive Thumbnails Effect', 'gallery-slider-for-woocommerce' ) . '</div><div class="wcgs-short-content">' . __( 'Refers to the visual treatment of thumbnails that are not currently selected or in focus.', 'gallery-slider-for-woocommerce' ) . '</div><a class="wcgs-open-docs" href="https://woogallery.io/docs/how-to-set-inactive-thumbnails-effect/" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.woogallery.io/inactive-thumbnails-effect/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
 						'options'    => array(
@@ -319,7 +268,6 @@ class WCGS_General {
 						'id'          => 'gallery_width',
 						'type'        => 'slider',
 						'title'       => __( 'Gallery Width', 'gallery-slider-for-woocommerce' ),
-
 
 						'title_video' => '<div class="wcgs-img-tag"><video autoplay loop muted playsinline><source src="https://plugins.svn.wordpress.org/gallery-slider-for-woocommerce/assets/visuals/gallery-width.webm" type="video/webm"></video></div><div class="wcgs-info-label">Gallery Width</div>',
 						'default'     => 50,
@@ -382,15 +330,6 @@ class WCGS_General {
 							'variable_gl' => __( 'To Variation Gallery', 'gallery-slider-for-woocommerce' ),
 						),
 					),
-					array(
-						'id'          => 'include_variation_and_default_gallery',
-						'type'        => 'checkbox',
-						'class'       => 'pro_checkbox',
-						'title'       => esc_html__( 'Show Default Gallery with Variation Images', 'gallery-slider-for-woocommerce' ),
-						'title_video' => '<div class="wcgs-img-tag"><video autoplay loop muted playsinline><source src="https://plugins.svn.wordpress.org/gallery-slider-for-woocommerce/assets/visuals/include-default-gallery-to-variation-images.webm" type="video/webm"></video></div><div class="wcgs-info-label">Include Feature Image</div>',
-						'default'     => false,
-
-					),
 					// array(
 					// 'id'         => 'single_combination',
 					// 'type'       => 'radio',
@@ -402,18 +341,6 @@ class WCGS_General {
 					// 'all'    => __( 'All Attributes', 'gallery-slider-for-woocommerce' ),
 					// ),
 					// ),
-					array(
-						'id'         => 'show_caption',
-						'type'       => 'switcher',
-						'class'      => 'pro_switcher',
-						'title'      => __( 'Gallery Image Caption', 'gallery-slider-for-woocommerce' ),
-						'title_help' => '<div class="wcgs-img-tag"><img src="' . plugin_dir_url( __DIR__ ) . '/shapedplugin-framework/assets/images/help-visuals/gallery_image_caption.svg" alt=""></div><div class="wcgs-info-label">' . __( 'Gallery Bottom Gap', 'gallery-slider-for-woocommerce' ) . '</div>',
-						'text_on'    => __( 'Show', 'gallery-slider-for-woocommerce' ),
-						'text_off'   => __( 'Hide', 'gallery-slider-for-woocommerce' ),
-						'text_width' => 80,
-						'default'    => false,
-					),
-
 				),
 			)
 		);

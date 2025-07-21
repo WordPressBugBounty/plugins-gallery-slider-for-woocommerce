@@ -66,15 +66,14 @@ if ( ! class_exists( 'WCGS_Field_image_select' ) ) {
 					$active         = ( in_array( $key, $value ) ) ? ' wcgs--active' : '';
 					$checked        = ( in_array( $key, $value ) ) ? ' checked' : '';
 					$pro_only_class = isset( $option['pro_only'] ) ? ' wcgs-pro-only' : '';
+					$disable_field  = ( isset( $option['pro_only'] ) && $option['pro_only'] ) ? ' disabled' : '';
+
 					echo '<div class="wcgs--sibling wcgs--image' . esc_attr( $active . $pro_only_class ) . '">';
 					echo '<div class="wcgs--image-select">';
 					echo '<img src="' . esc_url( $option['image'] ) . '" alt="img-' . esc_attr( $num++ ) . '" />';
-					echo '<input type="' . esc_attr( $type ) . '" name="' . esc_attr( $this->field_name( $extra ) ) . '" value="' . esc_attr( $key ) . '"' . $this->field_attributes() . esc_attr( $checked ) . '/>'; // phpcs:ignore
-					if ( isset( $option['pro_only'] ) && $option['pro_only'] ) {
-						echo "<a href='#TB_inline?&width=440&height=220&inlineId=BuyProPopupContent' class='thickbox wcgs_pro_popup'></a>";
-					}
+					echo '<input ' . $disable_field . ' type="' . esc_attr( $type ) . '" name="' . esc_attr( $this->field_name( $extra ) ) . '" value="' . esc_attr( $key ) . '"' . $this->field_attributes() . esc_attr( $checked ) . '/>'; // phpcs:ignore
 					echo '</div>';
-					//	echo '<p><b>' . esc_html( $option['option_name'] ) . '</b></p>';
+					// echo '<p><b>' . esc_html( $option['option_name'] ) . '</b></p>';
 					if ( isset( $option['option_name'] ) && ! isset( $option['option_demo_url'] ) ) {
 						echo '<p><b>' . esc_html( $option['option_name'] ) . '</b></p>';
 					}
@@ -89,7 +88,6 @@ if ( ! class_exists( 'WCGS_Field_image_select' ) ) {
 			echo '<div class="clear"></div>';
 
 			echo wp_kses_post( $this->field_after() );
-
 		}
 
 		/**
@@ -111,8 +109,6 @@ if ( ! class_exists( 'WCGS_Field_image_select' ) ) {
 			$this->parent->output_css .= $output;
 
 			return $output;
-
 		}
-
 	}
 }

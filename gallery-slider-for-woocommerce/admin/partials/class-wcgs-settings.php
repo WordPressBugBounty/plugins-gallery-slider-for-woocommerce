@@ -58,7 +58,7 @@ class WCGS_Settings {
 					__( 'Take your online shop\'s product page experience to the next level with many premium features and %1$sBoost Sales!%2$s', 'gallery-slider-for-woocommerce' ),
 					'<strong>',
 					'</strong>'
-				) . " 🚀</p><p><a href='" . esc_url( WOO_GALLERY_SLIDER_PRO_LINK ) . "' target='_blank' class='btn'>" . __( 'Upgrade To Pro Now', 'gallery-slider-for-woocommerce' ) . '</a></p></div></div>',
+				) . " 🚀</p><p><a href='" . esc_url( WOO_GALLERY_SLIDER_PRO_LINK ) . "' target='_blank' class='btn'>" . __( 'Upgrade to Pro Now', 'gallery-slider-for-woocommerce' ) . '</a></p></div></div>',
 			)
 		);
 

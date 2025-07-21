@@ -329,7 +329,9 @@
     clear: both;
     position: relative;
 }
-
+.smart-swatches-notice-content img.emoji {
+    float: none;
+}
 @media screen and (max-width: 1445px) {
     .smart-swatches-notice-content{
         line-height: 1.6;

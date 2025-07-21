@@ -670,6 +670,7 @@ span.tooltip-icon {
 .wcgs-field-spinner.pro_only_field .wcgs--spin {
   border-color: #cbcfd0 !important;
   opacity: 0.8;
+  pointer-events: none;
 }
 
 .pro_only_color button {
@@ -729,11 +730,11 @@ opacity: 0.75;
   font-style: italic;
 }
 
-.wcgs-field-button_set .wcgs--button.wcgs-pro-only {
+/* .wcgs-field-button_set .wcgs--button.wcgs-pro-only {
   background-color: rgba(247, 247, 247, 0.4) !important;
   pointer-events: none;
   opacity: 0.7;
-}
+} */
 
 .wcgs-field-color.pro_only_color button.button.wp-color-result {
   position: relative;
@@ -764,9 +765,9 @@ opacity: 0.75;
   text-align: center;
 }
 
-.wcgs-field-button_set.btn_icon .wcgs--button.wcgs-pro-only:after {
+/* .wcgs-field-button_set.btn_icon .wcgs--button.wcgs-pro-only:after {
   content: none;
-}
+} */
 
 /* .wcgs-field-button_set.btn_icon .wcgs--button:last-child.wcgs-pro-only:after {
   content: "PRO";
@@ -808,6 +809,7 @@ opacity: 0.75;
 
 .wcgs-field-switcher.pro_switcher .wcgs--switcher {
   background-color: #99AAB2;
+  pointer-events: none;
 }
 
 .wcgs-field.pro_only_color .wp-picker-container {
@@ -908,12 +910,16 @@ a.thickbox.wcgs_pro_popup {
   padding-top: 0;
 }
 
+.wcgs-popup-content .pro-boost-icon {
+  display: none;
+}
+
 .woogallery_page_assign_layout .wcgs-popup-content,
 .toplevel_page_wpgs-settings .wcgs-popup-content,
 .post-type-wcgs_layouts .wcgs-popup-content {
   text-align: center;
   color: #444;
-  padding: 0px 25px 16px;
+  padding: 6px 25px 16px;
   text-align: center;
 }
 
@@ -1003,13 +1009,13 @@ a.thickbox.wcgs_pro_popup {
   text-transform: none;
   margin-left: 0.2em;
   -webkit-font-smoothing: antialiased;
-  font-size: 24px;
+  font-size: 18px;
 }
 
 .woogallery_page_assign_layout .tb-close-icon,
 .toplevel_page_wpgs-settings .tb-close-icon,
 .post-type-wcgs_layouts .tb-close-icon {
-  line-height: 41px;
+  line-height: 32px;
   width: 40px;
   height: 40px;
   font-size: 22px;
@@ -1114,101 +1120,6 @@ a.thickbox.wcgs_pro_popup {
   font-size: 19px;
 }
 
-.woo-gallery-slider-pro-license {
-  padding: 80px 0
-}
-
-.woo-gallery-slider-pro-license .woo-gallery-slider-pro-license-area {
-  display: inline-block
-}
-
-.woo-gallery-slider-pro-license h3 {
-  font-size: 24px;
-  font-weight: 500;
-  margin-top: 0;
-  margin-bottom: 10px
-}
-
-.woo-gallery-slider-pro-license p {
-  font-size: 16px;
-  margin-top: 0;
-  margin-bottom: 24px;
-  color: #666
-}
-
-.woo-gallery-slider-pro-license .woo-gallery-slider-pro-license-key {
-  display: inline-block;
-  position: relative;
-  margin-right: 5px
-}
-
-.woo-gallery-slider-pro-license .woo-gallery-slider-pro-license-key-input.license-key-active {
-  border: 1px solid #28a745;
-  pointer-events: none;
-  padding-right: 68px;
-  color: #a9a9a9
-}
-
-.woo-gallery-slider-pro-license .woo-gallery-slider-pro-license-key-input.license-key-active:focus {
-  border-color: #28a745
-}
-
-.woo-gallery-slider-pro-license .woo-gallery-slider-pro-license-key span {
-  position: absolute;
-  top: 7px;
-  right: 7px;
-  background: #28a745;
-  color: #fff;
-  padding: 4px 10px;
-  border-radius: 3px;
-  line-height: 20px
-}
-
-.woo-gallery-slider-pro-license .woo-gallery-slider-pro-license-key-input {
-  padding: 6px 14px;
-  min-width: 400px
-}
-
-.woo-gallery-slider-pro-license .button-secondary {
-  min-height: 42px;
-  text-transform: uppercase;
-  padding: 6px 16px
-}
-
-/* .woo-gallery-slider-pro-license .button-secondary:focus,.woo-gallery-slider-pro-license .woo-gallery-slider-pro-license-key-input:focus {
-  outline: 0;
-  box-shadow: 0 0 0
-} */
-
-.woo-gallery-slider-pro-license .btn-license-save-activate {
-  color: #fff;
-  border-color: #1689de;
-  background: #1689de;
-  cursor: default;
-}
-
-.woo-gallery-slider-pro-license .btn-license-save-activate:focus,
-.woo-gallery-slider-pro-license .btn-license-save-activate:hover {
-  background: #0b7acc;
-  border-color: #0b7acc;
-  color: #fff
-}
-
-.woo-gallery-slider-pro-license .woo-gallery-slider-pro-license-error-notices {
-  color: #dc3545;
-  text-align: left;
-  margin-top: 7px;
-  font-size: 14px;
-  font-style: italic;
-  -webkit-animation: seconds 1s forwards;
-  -webkit-animation-iteration-count: 1;
-  -webkit-animation-delay: 3s;
-  animation: seconds 1s forwards;
-  animation-iteration-count: 1;
-  animation-delay: 3s;
-  position: relative
-}
-
 .wcgs-field.wcgs-field-notice.wcgs-light-notice.align-center .wcgs-notice {
   font-size: 18px;
   text-align: center;
@@ -1219,6 +1130,7 @@ a.thickbox.wcgs_pro_popup {
   padding-top: 20px;
   padding-bottom: 20px;
   padding-left: 20px;
+  height: 300px;
 }
 
 /* .wcgs-field.wcgs-field-switcher.pro_switcher .wcgs-fieldset {

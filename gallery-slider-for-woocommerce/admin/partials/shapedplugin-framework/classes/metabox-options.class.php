@@ -381,7 +381,7 @@ if ( ! class_exists( 'WCGS_Metabox' ) ) {
 
 			echo '</div>';
 
-			echo ( $has_nav && $nav_type === 'normal' ) ? '<div class="wcgs-nav-background"></div>' : '';
+			echo ( $has_nav && 'normal' === $nav_type ) ? '<div class="wcgs-nav-background"></div>' : '';
 			echo '<div class="clear"></div>';
 
 			echo '</div>';
@@ -389,34 +389,23 @@ if ( ! class_exists( 'WCGS_Metabox' ) ) {
 			echo '</div>';
 			// Popup content.
 			echo "<div id='BuyProPopupContent' style='display: none;'>
-        <div class='wcgs-popup-content'>
-            <div class='pro-image-tag'>
-                <span class='pro-icon'>
-                    <img src='" . esc_url( WOO_GALLERY_SLIDER_URL . 'admin/img/go-pro-icon.svg' ) . "' alt='" . esc_attr__( 'Go Pro Icon', 'gallery-slider-for-woocommerce' ) . "'>
-                </span>
-            </div>
-            <h2>";
-				printf(
-					/* translators: 1: start strong tag, 2: close strong tag. */
-					esc_html__( 'Upgrade to %1$sWooGallery Pro%2$s', 'gallery-slider-for-woocommerce' ),
-					'<strong>',
-					'</strong>'
-				);
-			echo '</h2>
-            <h3>' . esc_html__( 'To unlock this feature, simply upgrade to Pro!', 'gallery-slider-for-woocommerce' ) . "</h3>
-            <p class='wcgs-popup-p'>";
-				printf(
-					/* translators: 1: start strong tag, 2: close strong tag. */
-					esc_html__( 'Take your online shop\'s product page experience to the next level with many premium features and %1$sBoost Sales!%2$s', 'gallery-slider-for-woocommerce' ),
-					'<strong>',
-					'</strong>'
-				);
-			echo " 🚀</p>
-            <p>
-                <a href='" . esc_url( WOO_GALLERY_SLIDER_PRO_LINK ) . "' target='_blank' class='btn'>" . esc_html__( 'Upgrade To Pro Now', 'gallery-slider-for-woocommerce' ) . '</a>
-            </p>
-        </div>
-    </div>';
+			<div class='wcgs-popup-content'>";
+				echo '
+				<h3>' . esc_html__( 'Create unlimited custom product gallery layouts and assign them to specific products and categories.', 'gallery-slider-for-woocommerce' ) . "</h3>
+				<p class='wcgs-popup-p'>";
+					printf(
+						/* translators: 1: start strong tag, 2: close strong tag. */
+						esc_html__( 'Take your online shop\'s product page experience to the next level with many premium features and %1$sBoost Sales!%2$s%3$s', 'gallery-slider-for-woocommerce' ),
+						'<strong>',
+						'</strong>',
+						'<span class="pro-boost-icon">🚀</span>'
+					);
+				echo " 🚀</p>
+				<p>
+					<a href='" . esc_url( WOO_GALLERY_SLIDER_PRO_LINK ) . "' target='_blank' class='btn'>" . esc_html__( 'Upgrade to Pro Now', 'gallery-slider-for-woocommerce' ) . '</a>
+				</p>
+			</div>
+			</div>';
 		}
 
 		/**
@@ -467,7 +456,10 @@ if ( ! class_exists( 'WCGS_Metabox' ) ) {
 								foreach ( $tabs as $fields ) {
 									$fields = $fields['fields'];
 									foreach ( $fields as $field ) {
-										$field_id    = isset( $field['id'] ) ? $field['id'] : '';
+										$field_id = isset( $field['id'] ) ? $field['id'] : '';
+										if ( ! empty( $field['ignore_db'] ) ) {
+											continue;
+										}
 										$field_value = isset( $request[ $field_id ] ) ? $request[ $field_id ] : '';
 
 										// Sanitize "post" request of field.
@@ -499,7 +491,10 @@ if ( ! class_exists( 'WCGS_Metabox' ) ) {
 								}
 							} elseif ( ! empty( $field['id'] ) ) {
 
-								$field_id    = $field['id'];
+								$field_id = $field['id'];
+								if ( ! empty( $field['ignore_db'] ) ) {
+									continue;
+								}
 								$field_value = isset( $request[ $field_id ] ) ? $request[ $field_id ] : '';
 
 								// Sanitize "post" request of field.

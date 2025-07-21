@@ -63,15 +63,14 @@ if ( ! class_exists( 'WCGS_Field_button_set' ) ) {
 					$active         = ( in_array( $key, $value, true ) ) ? ' wcgs--active' : '';
 					$checked        = ( in_array( $key, $value, true ) ) ? ' checked' : '';
 					$pro_only_class = ( isset( $option['pro_only'] ) && $option['pro_only'] ) ? ' wcgs-pro-only' : '';
+					$disable_field  = ( isset( $option['pro_only'] ) && $option['pro_only'] ) ? ' disabled' : '';
+
 					echo '<div class="wcgs--sibling wcgs--button' . esc_attr( $active . $pro_only_class ) . '">';
-					echo '<input type="' . esc_attr( $type ) . '" name="' . esc_attr( $this->field_name( $extra ) ) . '" value="' . esc_attr( $key ) . '"' . $this->field_attributes() . esc_attr( $checked ) . '/>';// phpcs:ignore
+					echo '<input ' . $disable_field . ' type="' . esc_attr( $type ) . '" name="' . esc_attr( $this->field_name( $extra ) ) . '" value="' . esc_attr( $key ) . '"' . $this->field_attributes() . esc_attr( $checked ) . '/>';// phpcs:ignore
 					if ( ! empty( $option['option_name'] ) ) {
 						echo wp_kses_post( $option['option_name'] );
 					} else {
 						echo wp_kses_post( $option );
-					}
-					if ( isset( $option['pro_only'] ) && $option['pro_only'] ) {
-						echo "<a href='#TB_inline?&width=440&height=210&inlineId=BuyProPopupContent' class='thickbox wcgs_pro_popup'></a>";
 					}
 					echo '</div>';
 				}
@@ -81,8 +80,6 @@ if ( ! class_exists( 'WCGS_Field_button_set' ) ) {
 			echo '<div class="clear"></div>';
 
 			echo wp_kses_post( $this->field_after() );
-
 		}
-
 	}
 }

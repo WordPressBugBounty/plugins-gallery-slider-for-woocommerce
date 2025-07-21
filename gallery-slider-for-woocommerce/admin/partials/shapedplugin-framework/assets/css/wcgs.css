@@ -169,7 +169,7 @@
   box-shadow: none;
 }
 
-.wcgs-nav ul li .wcgs-section-active:after {
+/* .wcgs-nav ul li .wcgs-section-active:after {
   content: " ";
   position: absolute;
   right: 0;
@@ -181,7 +181,7 @@
   border-right-color: #fff;
   border-width: 4px;
   margin-top: -4px;
-}
+} */
 
 .wcgs-nav ul li .wcgs-arrow:after {
   content: "\f054";
@@ -1510,6 +1510,16 @@
 
 .wcgs-field-tabbed .wcgs-tabbed-section>.wcgs-field {
   padding: 20px;
+}
+
+.wcgs-metabox .wcgs-field.pro_desc,
+.wcgs-settings .wcgs-container .wcgs-field.pro_desc {
+  padding-bottom: 0;
+}
+
+.wcgs-metabox .wcgs-field.pro_desc:not(.slider_height_type, .wcgs_lightbox_icon, .video_icon_style_pro) .wcgs-text-desc,
+.wcgs-settings .wcgs-container .wcgs-field.pro_desc:not(.slider_height_type, .wcgs_lightbox_icon, .video_icon_style_pro) .wcgs-text-desc {
+  margin-top: 0;
 }
 
 .wcgs-field-tabbed .wcgs-tabbed-nav .wcgs--icon {
@@ -3055,7 +3065,7 @@ div.sp-wcgs-plugin-section .three-col .col .sp-wcgs-plugin img {
 .spwg_shortcode .wcgs-fieldset .wcgs-alert {
   position: absolute;
   top: 8px;
-  left: 185px;
+  left: 134px;
 }
 
 .spwg_shortcode .wcgs-text-desc {
@@ -3137,6 +3147,25 @@ a.wcgs-live-demo-icon:focus {
 .wcgs-field.wcgs-field-image_select.gallery_layout .wcgs--image.wcgs--active .wcgs-live-demo-icon {
   /* display: inline-block; */
   opacity: 1;
+}
+
+.wcgs-pro-notice-wrapper ul li .wcgs-feature-link {
+  text-decoration: none;
+}
+
+.wcgs-pro-notice-wrapper ul li .wcgs-feature-link i {
+  opacity: 0;
+  color: inherit;
+}
+
+.wcgs-pro-notice-wrapper ul li .wcgs-feature-link:hover i {
+  opacity: 1;
+}
+
+.wcgs-pro-notice-wrapper ul li a.wcgs-feature-link:focus {
+  outline: 0;
+  border: 0;
+  box-shadow: none;
 }
 
 /* Metabox Header */
@@ -3270,6 +3299,7 @@ div#wcgs_metabox {
   line-height: 1.6;
   margin-top: 10px;
 }
+
 .wcgs-field-tabbed .wcgs-tabbed-section .wcgs-field.wcgs-field-migration.wcgs_migration.woo-variation-gallery {
   padding-top: 0;
 }
@@ -3542,4 +3572,46 @@ div:is(#wcgs_builder_option) .postbox-header .handle-actions .handle-order-highe
   100% {
     transform: rotate(360deg);
   }
+}
+
+/* Pro (disable) switcher button style */
+.wcgs-field-switcher.wcgs_show_hide .wcgs--ball::after {
+  content: "PRO";
+  position: relative;
+  text-align: center;
+  width: 24px;
+  float: right;
+  font-weight: 600;
+  font-size: 8px;
+  color: #8796A1;
+  opacity: 1;
+  line-height: 18px;
+}
+
+/* "Pro" text for disable fields. */
+.wcgs-field.wcgs_pro_field .wcgs--input {
+  position: relative;
+  pointer-events: none;
+  opacity: .7;
+}
+
+.wcgs-field.wcgs_pro_field .wcgs--input:last-child:after {
+  position: absolute;
+  top: 0;
+  right: 6px;
+  background-color: #cbd6df;
+  font-weight: 600;
+  padding: 0 4px;
+  content: "PRO";
+  text-align: center;
+  font-size: 8px;
+  line-height: 11px;
+  opacity: 1;
+  color: #7b8898;
+  border-bottom-left-radius: 1px;
+  border-top-right-radius: 2px;
+}
+
+span.spwpcp-footer-text-star {
+  color: #2271b1;
 }

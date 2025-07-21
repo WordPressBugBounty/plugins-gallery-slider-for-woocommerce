@@ -382,7 +382,6 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 					update_post_meta( $id, '_wc_attachment_source', $url );
 				} catch ( Exception $e ) {
 					// Log the error but continue with the import.
-					error_log( 'WooGallery Import Error: ' . $e->getMessage() );
 					return 0;
 				}
 			}

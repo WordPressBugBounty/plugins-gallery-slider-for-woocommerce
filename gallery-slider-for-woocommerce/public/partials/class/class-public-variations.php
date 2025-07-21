@@ -75,7 +75,7 @@ class WCGS_Public_Variations {
 			$feature_image_id              = $product->get_image_id();
 			$settings                      = $this->settings;
 			$include_feature_image         = isset( $settings['include_feature_image_to_gallery'] ) ? $settings['include_feature_image_to_gallery'] : array( 'default_gl' );
-			$include_variation_and_default = isset( $settings['include_variation_and_default_gallery'] ) ? $settings['include_variation_and_default_gallery'] : false;
+			$include_variation_and_default = false;
 			$video_order                   = isset( $settings['video_order'] ) ? $settings['video_order'] : 'usual';
 			if ( empty( $include_feature_image ) ) {
 				$include_feature_image = array();

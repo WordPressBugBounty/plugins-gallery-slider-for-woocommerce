@@ -299,24 +299,6 @@ class WCGS_Advance {
 									),
 								),
 							),
-							array(
-								'title'  => __( 'License Key', 'gallery-slider-for-woocommerce' ),
-								'icon'   => 'sp_wgs-icon-license-tab',
-								'fields' => array(
-									array(
-										'id'      => 'license_notice',
-										'type'    => 'notice',
-										'style'   => 'normal',
-										'class'   => 'wcgs-light-notice align-center',
-										'content' => __( 'Pro License Key provides Priority Support, Regular Updates, and Boosts Your Sales! 🚀', 'gallery-slider-for-woocommerce' ),
-									),
-									array(
-										'id'   => 'license_key',
-										'type' => 'license',
-									),
-								),
-							),
-
 						),
 					),
 

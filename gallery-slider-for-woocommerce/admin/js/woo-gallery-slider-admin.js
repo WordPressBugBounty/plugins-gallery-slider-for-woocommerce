@@ -245,24 +245,4 @@ jQuery(document).ready(function( $ ) {
 	if ($('body').hasClass('post-type-wcgs_layouts')) {
 		$('a[href="edit.php?post_type=wcgs_layouts"]').parent().addClass('current').siblings().removeClass('current');
 	}
-	// $('.toplevel_page_wpgs-settings li').on('click', function () {
-	// 	setTimeout(() => {
-	// 		if ($('.toplevel_page_wpgs-settings').hasClass('wp-has-current-submenu')) {
-	// 			if (window.location.href.indexOf('admin.php?page=wpgs-settings#tab=shop_page_video') > -1) {
-	// 				$('a[href="admin.php?page=wpgs-settings#tab=shop_page_video"]').parent().addClass('current').siblings().removeClass('current');
-	// 			}
-	// 			if (window.location.href.indexOf('admin.php?page=wpgs-settings#tab=advance&license') > -1) {
-	// 				$('a[href="admin.php?page=wpgs-settings#tab=advance&license"]').parent().addClass('current').siblings().removeClass('current');
-	// 			}
-	// 		}
-	// 	}, 300);
-	// });
-	if ($('.toplevel_page_wpgs-settings').hasClass('wp-has-current-submenu')) {
-		if (window.location.href.indexOf('admin.php?page=wpgs-settings#tab=shop_page_video') > -1) {
-			$('a[href="admin.php?page=wpgs-settings#tab=shop_page_video"]').parent().addClass('current wcgs-active').siblings().removeClass('current wcgs-active');
-		}
-		if (window.location.href.indexOf('admin.php?page=wpgs-settings#tab=advance&license') > -1) {
-			$('a[href="admin.php?page=wpgs-settings#tab=advance&license"]').parent().addClass('current wcgs-active').siblings().removeClass('current wcgs-active');
-		}
-	}
 });
