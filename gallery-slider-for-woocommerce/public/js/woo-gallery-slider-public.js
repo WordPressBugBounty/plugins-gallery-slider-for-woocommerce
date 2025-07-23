@@ -877,7 +877,8 @@
 			const hasVideo = item.video && !videoShowed ? item.video.includes('youtu') : false;
 			let lazyLoad = index > 1 ? this.lazyAttr : '';
 			const videoContent = hasVideo ? this.createVideoContent(item) : '';
-			const imageContent = hasVideo ? videoContent : `<img src="${item.url}" alt="${item.cap}" data-image="${item.full_url}" height="${item.imageHeight}" width="${item.imageWidth}" ${lazyLoad} >`;
+			const altText = item.alt_text || '';
+			const imageContent = hasVideo ? videoContent : `<img src="${item.url}" alt="${altText}" data-image="${item.full_url}" height="${item.imageHeight}" width="${item.imageWidth}" ${lazyLoad} >`;
 
 			return `<div class="spswiper-slide">
                     <div class="wcgs-slider-image">
@@ -890,12 +891,13 @@
 
 		// Create video content for slide.
 		createVideoContent(item) {
+			const altText = item.alt_text || '';
 			return this.settings.video_popup_place === 'inline'
 				? `<div class="wcgs-iframe-wrapper">
                      <div class="wcgs-youtube-video" data-video-id="${this.getYouTubeId(item.video)}"> </div>
-					 <img src="${item.url}" alt="${item.cap}" data-image="${item.full_url}" height="${item.imageHeight}" width="${item.imageWidth}" data-type="youtube" ${this.lazyAttr}>
+					 <img src="${item.url}" alt="${altText}" data-image="${item.full_url}" height="${item.imageHeight}" width="${item.imageWidth}" data-type="youtube" ${this.lazyAttr}>
 					</div>`
-				: `<img src="${item.url}" alt="${item.cap}" data-image="${item.full_url}" height="${item.imageHeight}" width="${item.imageWidth}" data-type="youtube" ${this.lazyAttr}>`;
+				: `<img src="${item.url}" alt="${altText}" data-image="${item.full_url}" height="${item.imageHeight}" width="${item.imageWidth}" data-type="youtube" ${this.lazyAttr}>`;
 		}
 
 		// Get YouTube video ID from URL.
@@ -907,9 +909,10 @@
 		// Create thumbnail element.
 		createThumbnail(item, videoShowed, index) {
 			let lazyLoad = index > 1 ? this.lazyAttr : '';
+			const altText = item.alt_text || '';
 			return `
                 <div class="wcgs-thumb spswiper-slide">
-                    <img src="${item.thumb_url}" alt="${item.cap}" ${item.video && !videoShowed ? 'data-type="youtube"' : ''} ${lazyLoad} ></div>`;
+                    <img src="${item.thumb_url}" alt="${altText}" ${item.video && !videoShowed ? 'data-type="youtube"' : ''} ${lazyLoad} ></div>`;
 		}
 
 		// Rebuild gallery with new items.

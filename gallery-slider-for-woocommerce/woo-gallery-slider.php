@@ -9,7 +9,7 @@
  * Plugin Name:       WooGallery
  * Plugin URI:        https://woogallery.io/?ref=143
  * Description:       WooGallery plugin allows you to insert additional images for each variation to let visitors see different images when product variations are switched. Increase your sales by transforming the WooCommerce default product gallery instantly to a beautiful thumbnails gallery slider on a single product page.
- * Version:           3.0.2
+ * Version:           3.0.3
  * Author:            WooGallery Team, ShapedPlugin LLC
  * Author URI:        https://woogallery.io/
  * License: GPLv3
@@ -32,7 +32,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'WOO_GALLERY_SLIDER_VERSION', '3.0.2' );
+define( 'WOO_GALLERY_SLIDER_VERSION', '3.0.3' );
 define( 'WOO_GALLERY_SLIDER_FILE', __FILE__ );
 define( 'WOO_GALLERY_SLIDER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WOO_GALLERY_SLIDER_URL', plugin_dir_url( __FILE__ ) );
