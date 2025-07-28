@@ -1125,6 +1125,10 @@ a.thickbox.wcgs_pro_popup {
   text-align: center;
 }
 
+.wcgs-field.wcgs-field-notice.wcgs-light-notice.wcgs-bottom-notice {
+  padding-bottom: 0;
+}
+
 #wcgs-section-shop_page_video .wcgs-field.wcgs-field-notice.wcgs-light-notice {
   margin-top: 0px;
   padding-top: 20px;

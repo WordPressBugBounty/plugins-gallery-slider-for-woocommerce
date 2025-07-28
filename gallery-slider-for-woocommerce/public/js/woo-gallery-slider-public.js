@@ -847,15 +847,12 @@
 		updateGallery(items) {
 			const galleryFragment = document.createDocumentFragment();
 			const thumbnailFragment = document.createDocumentFragment();
-			var videoShowed = false;
 			items.forEach((item, index) => {
-				const slide = this.createSlide(item, videoShowed, index);
-				const thumb = this.createThumbnail(item, videoShowed, index);
+				const slide = this.createSlide(item, index);
+				const thumb = this.createThumbnail(item, index);
 
 				galleryFragment.appendChild($(slide)[0]);
 				thumbnailFragment.appendChild($(thumb)[0]);
-
-				videoShowed = item.video ? item.video.includes('youtu') : false;
 			});
 
 			if (this.wcgs_spswiper_thumb) {
@@ -873,8 +870,8 @@
 		}
 
 		// Create slide element.
-		createSlide(item, videoShowed, index) {
-			const hasVideo = item.video && !videoShowed ? item.video.includes('youtu') : false;
+		createSlide(item, index) {
+			const hasVideo = item.video ? item.video.includes('youtu') : false;
 			let lazyLoad = index > 1 ? this.lazyAttr : '';
 			const videoContent = hasVideo ? this.createVideoContent(item) : '';
 			const altText = item.alt_text || '';
@@ -907,12 +904,12 @@
 		}
 
 		// Create thumbnail element.
-		createThumbnail(item, videoShowed, index) {
+		createThumbnail(item, index) {
 			let lazyLoad = index > 1 ? this.lazyAttr : '';
 			const altText = item.alt_text || '';
 			return `
                 <div class="wcgs-thumb spswiper-slide">
-                    <img src="${item.thumb_url}" alt="${altText}" ${item.video && !videoShowed ? 'data-type="youtube"' : ''} ${lazyLoad} ></div>`;
+                    <img src="${item.thumb_url}" alt="${altText}" ${item.video && item.video.includes('youtu') ? 'data-type="youtube"' : ''} ${lazyLoad} ></div>`;
 		}
 
 		// Rebuild gallery with new items.

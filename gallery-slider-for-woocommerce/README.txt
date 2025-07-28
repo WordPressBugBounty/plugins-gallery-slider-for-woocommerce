@@ -5,7 +5,7 @@ Requires at least: 5.3
 Tested up to: 6.8.2
 WC requires at least: 4.5
 WC tested up to: 10.0.2
-Stable tag: 3.0.3
+Stable tag: 3.0.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -415,6 +415,9 @@ Yes, the plugin is compatible with the most popular WooCommerce themes. We’re 
 
 
 == Changelog ==
+
+= Version 3.0.4 - Jul 28, 2025 =
+* New: The unlimited YouTube video support for the product gallery.
 
 = Version 3.0.3 - Jul 23, 2025 =
 * Fix: The image alt attribute displays an empty value after the variation is changed.

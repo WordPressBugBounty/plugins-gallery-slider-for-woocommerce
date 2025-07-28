@@ -914,7 +914,7 @@ class WCGS_Gallery {
 										'id'      => 'zoom_notice',
 										'type'    => 'notice',
 										'style'   => 'normal',
-										'class'   => 'wcgs-light-notice',
+										'class'   => 'wcgs-light-notice wcgs-bottom-notice',
 										'content' => sprintf(
 											/* translators: 1: start link and strong tag, 2: close link and strong tag, 3: start strong tag, 4: close strong tag. 5: start link and strong tag, 6: close link and strong tag. */
 											__( 'Looking to provide your customers with %1$sa more product-detailed view%2$s and %3$sboost sales%4$s? %5$sUpgrade to Pro!%2$s', 'gallery-slider-for-woocommerce' ),
@@ -931,23 +931,6 @@ class WCGS_Gallery {
 								'title'  => __( 'Product Video Gallery', 'gallery-slider-for-woocommerce' ),
 								'icon'   => 'sp_wgs-icon-video-gallery-01',
 								'fields' => array(
-									array(
-										'id'      => 'video_notice',
-										'type'    => 'notice',
-										'style'   => 'normal',
-										'class'   => 'wcgs-light-notice',
-										'content' => sprintf(
-											/* translators: 1: start strong tag, 2: close strong tag, 3: start strong tag, 4: close strong tag, 5: start link and blod tag, 6: close link and bold tag. 7: start link and strong tag, 8: close link and strong tag. 9: start link and strong tag, 10: close link and strong tag. */
-											__( '%1$sWooGallery%2$s (lite version) allows you to add a %1$sYouTube%2$s video to the Product Gallery; See %3$sInstructions%4$s. To add unlimited of various types, such as %1$sSelf-Hosted videos, Vimeo, Dailymotion, and Facebook%2$s videos, and enable excellent %5$sProduct Video%6$s options, %7$s Upgrade to Pro!%6$s', 'gallery-slider-for-woocommerce' ),
-											'<strong>',
-											'</strong>',
-											'<a href="https://woogallery.io/docs/2-how-to-add-different-types-of-videos-to-product-gallery/" target="_blank"><b>',
-											'</b></a>',
-											'<a class="wcgs-open-live-demo" href="https://demo.woogallery.io/play-modes/" target="_blank"><strong>',
-											'</strong></a>',
-											'<a href="https://woogallery.io/pricing/?ref=143" target="_blank" class="btn"><strong>'
-										),
-									),
 									array(
 										'id'         => 'video_popup_place',
 										'type'       => 'button_set',
@@ -1037,6 +1020,18 @@ class WCGS_Gallery {
 										),
 										'radio'      => true,
 										'default'    => 'usual',
+									),
+									array(
+										'id'      => 'video_notice',
+										'type'    => 'notice',
+										'style'   => 'normal',
+										'class'   => 'wcgs-light-notice wcgs-bottom-notice',
+										'content' => sprintf(
+											/* translators: 1: start link and strong tag, 2: close link and strong tag. */
+											__( 'To add additional video platforms, e.g., Self-Hosted, Vimeo, Dailymotion, Wistia, SproutVideo, and Facebook videos with advanced Product Video options %1$sUpgrade to Pro!%2$s', 'gallery-slider-for-woocommerce' ),
+											'<a href="https://woogallery.io/pricing/?ref=143" target="_blank" class="btn"><strong>',
+											'</strong></a>',
+										),
 									),
 								),
 							),
