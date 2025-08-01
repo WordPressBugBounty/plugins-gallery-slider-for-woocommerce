@@ -472,8 +472,7 @@ if ( ! class_exists( 'WCGS' ) ) {
 							self::include_plugin_url( 'assets/images/' . $icon_type )
 						);
 					}
-					// $title_help = ( ! empty( $field['title_help'] ) ) ? '<span class="wcgs-help wcgs-title-help"><span class="wcgs-help-text">' . $field['title_help'] . '</span> <span class="tooltip-icon"><img src="' . self::include_plugin_url( 'assets/images/info.svg' ) . '"></span></span>' : '';
-					echo '<div class="wcgs-title"><h4>' . $field['title'] . $title_help . '</h4>' . $subtitle . '</div>';
+					echo '<div class="wcgs-title"><h4>' . $field['title'] . $title_help . '</h4>' . wp_kses_post( $subtitle ) . '</div>'; // phpcs:ignore -- no need to escape title, since we don't take any user input for title.
 				}
 
 				echo ( ! empty( $field['title'] ) ) ? '<div class="wcgs-fieldset">' : '';

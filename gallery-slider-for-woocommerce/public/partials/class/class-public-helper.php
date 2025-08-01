@@ -122,6 +122,25 @@ class WCGS_Public_Helper {
 		return $parsed_args;
 	}
 
+	/**
+	 * Comparison function to sort based on any other key's presence within the inner arrays.
+	 *
+	 * @param  array $a array.
+	 * @param  array $b array.
+	 * @return array
+	 */
+	public function wcgs_sort_by_has_key_add_last( $a, $b ) {
+		$has_key_a = array_key_exists( 'video', $a );
+		$has_key_b = array_key_exists( 'video', $b );
+
+		if ( $has_key_a && ! $has_key_b ) {
+			return 1; // $a comes after $b
+		} elseif ( ! $has_key_a && $has_key_b ) {
+			return -1; // $a comes before $b
+		} else {
+			return 0; // $a and $b are equal
+		}
+	}
 
 	/**
 	 * Custom set transient

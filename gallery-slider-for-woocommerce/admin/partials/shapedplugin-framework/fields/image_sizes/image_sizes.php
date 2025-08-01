@@ -78,7 +78,7 @@ if ( ! class_exists( 'WCGS_Field_image_sizes' ) ) {
 					$sizes,
 					array(
 						'full'   => __( 'Original uploaded image', 'gallery-slider-for-woocommerce' ),
-						'custom' => __( 'Set custom size', 'gallery-slider-for-woocommerce' ),
+						'custom' => __( 'Set custom size (Pro)', 'gallery-slider-for-woocommerce' ),
 					)
 				);
 

@@ -43,10 +43,10 @@ class WCGS_Lightbox {
 						'title'      => __( 'Lightbox Sliding Effect', 'gallery-slider-for-woocommerce' ),
 						'options'    => array(
 							'slide'        => __( 'Slide', 'gallery-slider-for-woocommerce' ),
-							'fade'         => __( 'Fade (Pro)', 'gallery-slider-for-woocommerce' ),
 							'classic'      => __( 'Classic', 'gallery-slider-for-woocommerce' ),
 							'crossfade'    => __( 'Crossfade', 'gallery-slider-for-woocommerce' ),
 							'no_animation' => __( 'No Animation', 'gallery-slider-for-woocommerce' ),
+							'fade'         => __( 'Fade (Pro)', 'gallery-slider-for-woocommerce' ),
 						),
 						'default'    => 'slide',
 						'dependency' => array( 'lightbox', '==', true ),
@@ -86,15 +86,8 @@ class WCGS_Lightbox {
 					array(
 						'id'         => 'lightbox_icon',
 						'type'       => 'button_set',
-						'class'      => 'btn_icon wcgs_lightbox_icon pro_desc',
-						'ignore_db'  => true,
+						'class'      => 'btn_icon wcgs_lightbox_icon specific_pro_button_set',
 						'title'      => esc_html__( 'Lightbox Icon Style', 'gallery-slider-for-woocommerce' ),
-						'desc'       => sprintf(
-							/* translators: 1: opening anchor tag with Pro link, 2: closing anchor tag. */
-							__( 'This icon is %1$savailable in Pro!%2$s', 'gallery-slider-for-woocommerce' ),
-							'<a href="' . WOO_GALLERY_SLIDER_PRO_LINK . '" target="_blank"><strong>',
-							'</strong></a>'
-						),
 						'options'    => array(
 							'search'          => array(
 								'option_name' => '<i class="sp_wgs-icon-search"></i>',
@@ -102,38 +95,47 @@ class WCGS_Lightbox {
 							'search-plus'     => array(
 								'option_name' => '<i class="sp_wgs-icon-zoom-in-1"></i>',
 							),
-							'zoom-in'         => array(
-								'option_name' => '<i class="sp_wgs-icon-zoom-in"></i>',
-							),
-							'expand'          => array(
-								'option_name' => '<i class="sp_wgs-icon-resize-full"></i>',
-							),
-							'arrows-alt'      => array(
-								'option_name' => '<i class="sp_wgs-icon-resize-full-2"></i>',
-							),
-							'resize-full-1'   => array(
-								'option_name' => '<i class="sp_wgs-icon-resize-full-1"></i>',
-							),
-							'resize-full-alt' => array(
-								'option_name' => '<i class="sp_wgs-icon-resize-full-alt"></i>',
-							),
-							'eye'             => array(
-								'option_name' => '<i class="sp_wgs-icon-eye"></i>',
-							),
-							'eye-1'           => array(
-								'option_name' => '<i class="sp_wgs-icon-eye-1"></i>',
-							),
 							'plus'            => array(
 								'option_name' => '<i class="sp_wgs-icon-plus"></i>',
-							),
-							'plus-1'          => array(
-								'option_name' => '<i class="sp_wgs-icon-plus-1"></i>',
 							),
 							'info'            => array(
 								'option_name' => '<i class="sp_wgs-icon-info"></i>',
 							),
+							'zoom-in'         => array(
+								'option_name' => '<i class="sp_wgs-icon-zoom-in"></i>',
+								'pro_only'    => true,
+							),
+							'expand'          => array(
+								'option_name' => '<i class="sp_wgs-icon-resize-full"></i>',
+								'pro_only'    => true,
+							),
+							'arrows-alt'      => array(
+								'option_name' => '<i class="sp_wgs-icon-resize-full-2"></i>',
+								'pro_only'    => true,
+							),
+							'resize-full-1'   => array(
+								'option_name' => '<i class="sp_wgs-icon-resize-full-1"></i>',
+								'pro_only'    => true,
+							),
+							'resize-full-alt' => array(
+								'option_name' => '<i class="sp_wgs-icon-resize-full-alt"></i>',
+								'pro_only'    => true,
+							),
+							'eye'             => array(
+								'option_name' => '<i class="sp_wgs-icon-eye"></i>',
+								'pro_only'    => true,
+							),
+							'eye-1'           => array(
+								'option_name' => '<i class="sp_wgs-icon-eye-1"></i>',
+								'pro_only'    => true,
+							),
+							'plus-1'          => array(
+								'option_name' => '<i class="sp_wgs-icon-plus-1"></i>',
+								'pro_only'    => true,
+							),
 							'lightbox-open'   => array(
 								'option_name' => '<i class="sp_wgs-icon-lightbox-open"></i>',
+								'pro_only'    => true,
 							),
 						),
 						'default'    => 'search',
@@ -220,7 +222,7 @@ class WCGS_Lightbox {
 						'content'    => sprintf(
 							/* translators: 1: start link and strong tag, 2: close link and strong tag, 3: start strong tag, 4: close strong tag. 5: start link and strong tag, 6: close link and strong tag. */
 							__( 'Want to unlock the full potential of %1$s Advanced Lightbox%2$s features and %3$sSkyrocket%4$s conversions? %5$sUpgrade to Pro!%6$s', 'gallery-slider-for-woocommerce' ),
-							'<a href="https://demo.woogallery.io/lightbox-sliding-effects/" target="_blank" class="btn"> <strong>',
+							'<a href="https://woogallery.io/product-image-lightbox/" target="_blank" class="btn"> <strong>',
 							'</strong></a>',
 							'<strong>',
 							'</strong>',

@@ -387,8 +387,8 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 			}
 			// If we still don't have an ID, report the error.
 			if ( ! $id ) {
-				/* translators: %s: image URL */
-				throw new Exception( sprintf( __( 'Unable to use image "%s".', 'gallery-slider-for-woocommerce' ), $url ), 400 );
+				// translators: %s: URL of the image that could not be used.
+				throw new Exception( sprintf( __( 'Unable to use image "%s".', 'gallery-slider-for-woocommerce' ), $url ), 400 ); // phpcs:ignore -- WordPress.Security.EscapeOutput.OutputNotEscaped
 			}
 			return $id;
 		}

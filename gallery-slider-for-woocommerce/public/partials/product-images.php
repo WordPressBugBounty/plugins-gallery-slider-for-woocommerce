@@ -341,6 +341,27 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 		}
 
 		/**
+		 * Sort gallery items.
+		 */
+		private function sort_gallery_items() {
+			// Sort videos first or last based on settings.
+			if ( 'video_come_last' === $this->settings['video_order'] ) {
+				usort( $this->gallery, array( $this, 'sort_videos_last' ) );
+			}
+		}
+
+		/**
+		 * Sort callback to put videos last.
+		 *
+		 * @param  array $a List.
+		 * @param  array $b List.
+		 * @return array
+		 */
+		private function sort_videos_last( $a, $b ) {
+			return ( isset( $a['video'] ) ? 1 : 0 ) - ( isset( $b['video'] ) ? 1 : 0 );
+		}
+
+		/**
 		 * Add images attached to product content
 		 */
 		private function add_attached_images() {
@@ -399,12 +420,15 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 				} else {
 					$this->process_simple_gallery();
 				}
+
 				if ( empty( $this->gallery ) ) {
 					$image_id = $this->product->get_image_id();
 					if ( $this->validate_image_id( $image_id ) ) {
 						$this->gallery[] = $this->helper->wcgs_image_meta( $image_id, $this->settings );
 					}
 				}
+
+				$this->sort_gallery_items();
 			} catch ( Exception $e ) {
 				return array();
 			}
@@ -457,8 +481,11 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 			$lightbox             = isset( $settings['lightbox'] ) ? $settings['lightbox'] : '';
 			$image_size           = isset( $settings['image_sizes'] ) ? $settings['image_sizes'] : 'woocommerce_single';
 			$thumb_nav_visibility = isset( $settings['thumb_nav_visibility'] ) ? $settings['thumb_nav_visibility'] : 'hover';
-			$layout_class         = '';
-			if ( isset( $this->settings['gallery_layout'] ) && 'vertical_right' === $this->settings['gallery_layout'] ) {
+			$_navigation_position = isset( $settings['navigation_position'] ) ? $settings['navigation_position'] : 'center_center';
+			$lightbox_icon        = isset( $settings['lightbox_icon'] ) ? $settings['lightbox_icon'] : 'search';
+
+			$layout_class = '';
+			if ( isset( $this->settings['gallery_layout'] ) && ( ( 'vertical_right' === $this->settings['gallery_layout'] ) || ( ( 'vertical' === $this->settings['gallery_layout'] ) ) ) ) {
 				$layout_class .= 'vertical wcgs-vertical-right';
 				if ( isset( $this->settings['slider_height_type'] ) && 'fix_height' === $this->settings['slider_height_type'] ) {
 						$layout_class .= ' wcgs-fixed-height';
@@ -466,7 +493,14 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 			} else {
 				$layout_class .= 'horizontal';
 			}
-			$preloader_style = ! empty( $this->settings['preloader_style'] ) ? $this->settings['preloader_style'] : 'normal';
+
+			if ( 'bottom_left' === $_navigation_position ) {
+				$layout_class .= ' wcgs-nav-bottom-left';
+			}
+
+			$preloader_style                 = ! empty( $this->settings['preloader_style'] ) ? $this->settings['preloader_style'] : 'normal';
+			$thumbnailnavigation_style       = ! empty( $this->settings['thumbnailnavigation_style'] ) ? $this->settings['thumbnailnavigation_style'] : 'custom';
+			$thumbnailnavigation_style_class = ' thumbnailnavigation-' . $thumbnailnavigation_style;
 			if ( $preloader ) {
 				$layout_class .= ' wcgs_preloader_' . $preloader_style;
 			}
@@ -474,8 +508,8 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 			$gallery_width          = ! empty( $settings['gallery_width'] ) ? $settings['gallery_width'] : 0;
 			?>
 	<div id="wpgs-gallery" <?php echo $slider_dir_rtl; ?> class="wcgs-woocommerce-product-gallery wcgs-spswiper-before-init <?php echo esc_html( $layout_class ); ?>" style='min-width: <?php echo esc_attr( $gallery_width ); ?>%; overflow: hidden;' data-id="<?php echo esc_attr( $product_id ); ?>">
-		<div class="gallery-navigation-carousel-wrapper">
-			<div thumbsSlider="" class="gallery-navigation-carousel spswiper <?php echo esc_html( $layout_class ); ?> <?php echo esc_attr( $thumb_nav_visibility ); ?>">
+		<div class="gallery-navigation-carousel-wrapper <?php echo esc_html( $layout_class ); ?>">
+			<div thumbsSlider="" class="gallery-navigation-carousel spswiper <?php echo esc_html( $layout_class . $thumbnailnavigation_style_class ); ?> <?php echo esc_attr( $thumb_nav_visibility ); ?>">
 				<div class="spswiper-wrapper">
 					<?php
 					foreach ( $gallery as $slide ) {
@@ -503,6 +537,7 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 						<div class="wcgs-spswiper-button-prev wcgs-spswiper-arrow"></div>
 				<?php } ?>
 			</div>
+			<div class="wcgs-border-bottom"></div>
 		</div>
 		<div class="wcgs-carousel <?php echo esc_html( $layout_class ); ?> spswiper">
 			<div class="spswiper-wrapper">
@@ -567,8 +602,26 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 				<?php
 			}
 			?>
-			<?php if ( $lightbox ) { ?>
-			<div class="wcgs-lightbox <?php echo esc_html( $lightbox_icon_position ); ?>"><span class="sp_wgs-lightbox"><span class="sp_wgs-icon-search"></span></span></div>
+			<?php
+			if ( $lightbox ) {
+
+				$lightbox_icon_attr = '';
+				switch ( $lightbox_icon ) {
+					case 'search':
+						$lightbox_icon_attr = 'sp_wgs-icon-search';
+						break;
+					case 'search-plus':
+						$lightbox_icon_attr = 'sp_wgs-icon-zoom-in-1';
+						break;
+					case 'plus':
+						$lightbox_icon_attr = 'sp_wgs-icon-plus';
+						break;
+					case 'info':
+						$lightbox_icon_attr = 'sp_wgs-icon-info';
+						break;
+				}
+				?>
+			<div class="wcgs-lightbox <?php echo esc_html( $lightbox_icon_position ); ?>"><span class="sp_wgs-lightbox"><span class="<?php echo esc_attr( $lightbox_icon_attr ); ?>"></span></span></div>
 				<?php
 			}
 			?>

@@ -75,10 +75,10 @@ if ( ! class_exists( 'WCGS_Field_radio' ) ) {
 						if ( is_array( $option_value ) && ! empty( $option_value ) ) {
 							$disabled = isset( $option_value['pro_only'] ) && $option_value['pro_only'] ? 'disabled' : '';
 							$checked  = ( $option_key === $this->value ) ? ' checked' : '';
-							echo '<li><label class="' . esc_attr( $disabled  ) . '" ><input type="radio" ' . esc_attr( $disabled  ) . ' name="' . esc_attr( $this->field_name() ) . '" value="' . esc_attr( $option_key ) . '"' . $this->field_attributes() . esc_attr( $checked ) . '/> ' . esc_html( isset( $option_value['option_name'] ) ? $option_value['option_name'] : '' ) . '</label></li>'; // phpcs:ignore
+							echo '<li><label class="' . esc_attr( $disabled  ) . '" ><input type="radio" ' . esc_attr( $disabled  ) . ' name="' . esc_attr( $this->field_name() ) . '" value="' . esc_attr( $option_key ) . '"' . $this->field_attributes() . esc_attr( $checked ) . '/> <span>' . esc_html( isset( $option_value['option_name'] ) ? $option_value['option_name'] : '' ) . '</span></label></li>'; // phpcs:ignore
 						} else {
 							$checked  = ( $option_key === $this->value ) ? ' checked' : '';
-							echo '<li><label><input type="radio" name="' . esc_attr( $this->field_name() ) . '" value="' . esc_attr( $option_key ) . '"' . $this->field_attributes() . esc_attr( $checked ) . '/> ' . esc_html( $option_value ) . '</label></li>'; // phpcs:ignore
+							echo '<li><label><input type="radio" name="' . esc_attr( $this->field_name() ) . '" value="' . esc_attr( $option_key ) . '"' . $this->field_attributes() . esc_attr( $checked ) . '/> <span>' . esc_html( $option_value ) . '<span></label></li>'; // phpcs:ignore
 						}
 
 						// }

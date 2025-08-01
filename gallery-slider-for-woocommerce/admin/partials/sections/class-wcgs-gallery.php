@@ -106,30 +106,18 @@ class WCGS_Gallery {
 											'slide' => __( 'Slide', 'gallery-slider-for-woocommerce' ),
 											'flip'  => __( 'Flip', 'gallery-slider-for-woocommerce' ),
 											'cube'  => __( 'Cube', 'gallery-slider-for-woocommerce' ),
-											'fade'  => __( 'Fade(Pro)', 'gallery-slider-for-woocommerce' ),
+											'fade'  => __( 'Fade (Pro)', 'gallery-slider-for-woocommerce' ),
 										),
 										'default' => 'slide',
 									),
 									array(
 										'id'         => 'slider_height_type',
-										'class'      => 'slider_height_type pro_desc',
+										'class'      => 'slider_height_type',
 										'type'       => 'button_set',
 										'title'      => __( 'Gallery Height', 'gallery-slider-for-woocommerce' ),
-										'desc'       => sprintf(
-											/* translators: 1: start span tag, 2: close span tag, 3: start link tag, 4: close link tag. */
-											__( 'Want access to %1$sFixed Height%2$s options? %3$sUpgrade to Pro!%4$s', 'gallery-slider-for-woocommerce' ),
-											'<b>',
-											'</b>',
-											'<a href="' . WOO_GALLERY_SLIDER_PRO_LINK . '" target="_blank"><strong>',
-											'</strong></a>'
-										),
 										'options'    => array(
-											'adaptive'   => __( 'Adaptive', 'gallery-slider-for-woocommerce' ),
-											'max_image'  => __( 'Max Image Height', 'gallery-slider-for-woocommerce' ),
-											'fix_height' => array(
-												'option_name' => __( 'Fixed Height', 'gallery-slider-for-woocommerce' ),
-												'pro_only' => true,
-											),
+											'adaptive'  => __( 'Adaptive', 'gallery-slider-for-woocommerce' ),
+											'max_image' => __( 'Max Image Height', 'gallery-slider-for-woocommerce' ),
 										),
 										'default'    => 'max_image',
 										'dependency' => array( 'gallery_layout', '!=', 'grid', true ),
@@ -263,16 +251,9 @@ class WCGS_Gallery {
 									),
 									array(
 										'id'         => 'navigation_position',
-										'class'      => 'shop_video_icon_position pro_desc',
+										'class'      => 'shop_video_icon_position',
 										'type'       => 'image_select',
-										'ignore_db'  => true,
 										'title'      => __( 'Navigation Position', 'gallery-slider-for-woocommerce' ),
-										'desc'       => sprintf(
-											/* translators: 1: opening anchor tag with Pro link, 2: closing anchor tag. */
-											__( 'This feature is %1$savailable in Pro!%2$s', 'gallery-slider-for-woocommerce' ),
-											'<a href="' . WOO_GALLERY_SLIDER_PRO_LINK . '" target="_blank"><strong>',
-											'</strong></a>'
-										),
 										'options'    => array(
 											'center_center' => array(
 												'image' => plugin_dir_url( __DIR__ ) . '../img/arrow-position/center-center.svg',
@@ -283,12 +264,14 @@ class WCGS_Gallery {
 												'option_name' => __( 'Bottom Left', 'gallery-slider-for-woocommerce' ),
 											),
 											'bottom_right' => array(
-												'image' => plugin_dir_url( __DIR__ ) . '../img/arrow-position/bottom-right.svg',
+												'image'    => plugin_dir_url( __DIR__ ) . '../img/arrow-position/bottom-right.svg',
 												'option_name' => __( 'Bottom Right', 'gallery-slider-for-woocommerce' ),
+												'pro_only' => true,
 											),
 											'bottom_center' => array(
-												'image' => plugin_dir_url( __DIR__ ) . '../img/arrow-position/bottom-center.svg',
+												'image'    => plugin_dir_url( __DIR__ ) . '../img/arrow-position/bottom-center.svg',
 												'option_name' => __( 'Bottom Center', 'gallery-slider-for-woocommerce' ),
+												'pro_only' => true,
 											),
 										),
 										'default'    => 'center_center',
@@ -341,6 +324,10 @@ class WCGS_Gallery {
 										'dependency' => array( 'navigation', '==', true ),
 									),
 									array(
+										'type'    => 'subheading',
+										'content' => __( 'Pagination', 'gallery-slider-for-woocommerce' ),
+									),
+									array(
 										'id'         => 'pagination',
 										'type'       => 'switcher',
 										'title'      => esc_html__( 'Slider Pagination', 'gallery-slider-for-woocommerce' ),
@@ -355,12 +342,6 @@ class WCGS_Gallery {
 										'class'      => 'pagination_type pro_desc',
 										'type'       => 'image_select',
 										'title'      => __( 'Pagination Style', 'gallery-slider-for-woocommerce' ),
-										'desc'       => sprintf(
-										/* translators: 1: opening anchor tag with Pro link, 2: closing anchor tag. */
-											__( 'This feature is %1$savailable in Pro!%2$s', 'gallery-slider-for-woocommerce' ),
-											'<a href="' . WOO_GALLERY_SLIDER_PRO_LINK . '" target="_blank"><strong>',
-											'</strong></a>'
-										),
 										'options'    => array(
 											'bullets'     => array(
 												'image' => plugin_dir_url( __DIR__ ) . '../img/bullets.svg',
@@ -371,9 +352,8 @@ class WCGS_Gallery {
 												'option_name' => __( 'Dynamic', 'gallery-slider-for-woocommerce' ),
 											),
 											'strokes'     => array(
-												'image'    => plugin_dir_url( __DIR__ ) . '../img/strokes.svg',
+												'image' => plugin_dir_url( __DIR__ ) . '../img/strokes.svg',
 												'option_name' => __( 'Strokes', 'gallery-slider-for-woocommerce' ),
-												'pro_only' => true,
 											),
 											'numbers'     => array(
 												'image'    => plugin_dir_url( __DIR__ ) . '../img/numbers.svg',
@@ -458,29 +438,28 @@ class WCGS_Gallery {
 									),
 									array(
 										'id'         => 'thumbnailnavigation_style',
-										'class'      => 'thumbnailnavigation_style pro_desc',
+										'class'      => 'thumbnailnavigation_style',
 										'type'       => 'image_select',
-										'ignore_db'  => true,
 										'title_help' => '<div class="wcgs-info-label">' . __( 'Thumbnails Navigation Style', 'gallery-slider-for-woocommerce' ) . '</div><div class="wcgs-short-content">' . __( 'Stylize your thumbnail navigation using Inner, Outer, and Custom design.', 'gallery-slider-for-woocommerce' ) . '</div><a class="wcgs-open-docs" href="https://woogallery.io/docs/how-to-customize-thumbnails-navigation-styles/" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.woogallery.io/thumbnails-navigation-styles/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
 										'title'      => __( 'Thumbnails Navigation Style', 'gallery-slider-for-woocommerce' ),
-										'desc'       => sprintf(
-										/* translators: 1: opening anchor tag with Pro link, 2: closing anchor tag. */
-											__( 'This feature is %1$savailable in Pro!%2$s', 'gallery-slider-for-woocommerce' ),
-											'<a href="' . WOO_GALLERY_SLIDER_PRO_LINK . '" target="_blank"><strong>',
-											'</strong></a>'
-										),
 										'options'    => array(
-											'custom' => array(
+											'custom'      => array(
 												'image' => plugin_dir_url( __DIR__ ) . '../img/custom.svg',
 												'option_name' => __( 'Custom', 'gallery-slider-for-woocommerce' ),
 											),
-											'outer'  => array(
-												'image' => plugin_dir_url( __DIR__ ) . '../img/outer.svg',
-												'option_name' => __( 'Outer', 'gallery-slider-for-woocommerce' ),
+											'inner_right' => array(
+												'image' => plugin_dir_url( __DIR__ ) . '../img/thumbs_navigation_right.svg',
+												'option_name' => __( 'Inner Right', 'gallery-slider-for-woocommerce' ),
 											),
-											'inner'  => array(
-												'image' => plugin_dir_url( __DIR__ ) . '../img/inner.svg',
+											'outer'       => array(
+												'image'    => plugin_dir_url( __DIR__ ) . '../img/outer.svg',
+												'option_name' => __( 'Outer', 'gallery-slider-for-woocommerce' ),
+												'pro_only' => true,
+											),
+											'inner'       => array(
+												'image'    => plugin_dir_url( __DIR__ ) . '../img/inner.svg',
 												'option_name' => __( 'Inner', 'gallery-slider-for-woocommerce' ),
+												'pro_only' => true,
 											),
 
 										),
@@ -565,36 +544,36 @@ class WCGS_Gallery {
 										'title'   => esc_html__( 'Image Size', 'gallery-slider-for-woocommerce' ),
 										'default' => 'woocommerce_single',
 									),
-									array(
-										'id'         => 'product_img_crop_size',
-										'type'       => 'dimensions',
-										'class'      => 'pro_only_field',
-										'title'      => __( 'Custom Size', 'gallery-slider-for-woocommerce' ),
-										'units'      => array(
-											'Soft-crop (Pro)',
-											'Hard-crop (Pro)',
-										),
-										'default'    => array(
-											'width'  => '600',
-											'height' => '400',
-											'unit'   => 'Soft-crop',
-										),
-										'attributes' => array(
-											'min' => 0,
-										),
-										'dependency' => array( 'image_sizes', '==', 'custom' ),
-									),
-									array(
-										'id'         => 'product_image_load_2x',
-										'type'       => 'switcher',
-										'class'      => 'pro_switcher wcgs_show_hide',
-										'title'      => __( 'Load 2x Resolution Image in Retina Display', 'gallery-slider-for-woocommerce' ),
-										'text_on'    => __( 'Enabled', 'gallery-slider-for-woocommerce' ),
-										'text_off'   => __( 'Disabled', 'gallery-slider-for-woocommerce' ),
-										'text_width' => 96,
-										'default'    => false,
-										'dependency' => array( 'image_sizes', '==', 'custom' ),
-									),
+									// array(
+									// 'id'         => 'product_img_crop_size',
+									// 'type'       => 'dimensions',
+									// 'class'      => 'pro_only_field',
+									// 'title'      => __( 'Custom Size', 'gallery-slider-for-woocommerce' ),
+									// 'units'      => array(
+									// 'Soft-crop (Pro)',
+									// 'Hard-crop (Pro)',
+									// ),
+									// 'default'    => array(
+									// 'width'  => '600',
+									// 'height' => '400',
+									// 'unit'   => 'Soft-crop',
+									// ),
+									// 'attributes' => array(
+									// 'min' => 0,
+									// ),
+									// 'dependency' => array( 'image_sizes', '==', 'custom' ),
+									// ),
+									// array(
+									// 'id'         => 'product_image_load_2x',
+									// 'type'       => 'switcher',
+									// 'class'      => 'pro_switcher wcgs_show_hide',
+									// 'title'      => __( 'Load 2x Resolution Image in Retina Display', 'gallery-slider-for-woocommerce' ),
+									// 'text_on'    => __( 'Enabled', 'gallery-slider-for-woocommerce' ),
+									// 'text_off'   => __( 'Disabled', 'gallery-slider-for-woocommerce' ),
+									// 'text_width' => 96,
+									// 'default'    => false,
+									// 'dependency' => array( 'image_sizes', '==', 'custom' ),
+									// ),
 									array(
 										'id'      => 'wcgs_image_lazy_load',
 										'type'    => 'button_set',
@@ -641,10 +620,8 @@ class WCGS_Gallery {
 										'title'   => esc_html__( 'Image Mode', 'gallery-slider-for-woocommerce' ),
 										'options' => array(
 											'gray_off'     => esc_html__( 'Original', 'gallery-slider-for-woocommerce' ),
-											'gray_always'  => esc_html__( 'Grayscale(Pro)', 'gallery-slider-for-woocommerce' ),
-											'gray_onhover' => esc_html__( 'Grayscale on hover(Pro)', 'gallery-slider-for-woocommerce' ),
-											'gray_active_normal' => esc_html__( 'Grayscale with active normal(Pro)', 'gallery-slider-for-woocommerce' ),
-											'active_gray_normal' => esc_html__( 'Active grayscale with normal(Pro)', 'gallery-slider-for-woocommerce' ),
+											'gray_always'  => esc_html__( 'Grayscale', 'gallery-slider-for-woocommerce' ),
+											'gray_onhover' => esc_html__( 'Grayscale on hover', 'gallery-slider-for-woocommerce' ),
 										),
 										'default' => 'gray_off',
 									),
@@ -667,30 +644,25 @@ class WCGS_Gallery {
 										'id'         => 'zoom_type',
 										'class'      => 'zoom_type',
 										'type'       => 'image_select',
-										'ignore_db'  => true,
 										'title'      => __( 'Zoom Style', 'gallery-slider-for-woocommerce' ),
-										'desc'       => sprintf(
-											/* translators: 1: start span tag, 2: close span tag, 3: start link tag, 4: close link tag. */
-											__( 'Want access to %1$sAdvanced Zoom%2$s options? %3$sUpgrade to Pro!%4$s', 'gallery-slider-for-woocommerce' ),
-											'<a href="https://demo.woogallery.io/zoom-styles/" target="_blank">',
-											'</a>',
-											'<a href="' . WOO_GALLERY_SLIDER_PRO_LINK . '" target="_blank">',
-											'</a>'
-										),
 										'options'    => array(
 											'in_side'    => array(
+												'image' => plugin_dir_url( __DIR__ ) . '/shapedplugin-framework/assets/images/help-visuals/zoom_default.svg',
+												'option_name' => __( 'Default', 'gallery-slider-for-woocommerce' ),
+											),
+											'zoom_2x'    => array(
 												'image' => plugin_dir_url( __DIR__ ) . '/shapedplugin-framework/assets/images/help-visuals/zoom_style_inside.svg',
-												'option_name' => __( 'Inside', 'gallery-slider-for-woocommerce' ),
+												'option_name' => __( 'Inside (2x)', 'gallery-slider-for-woocommerce' ),
 											),
 											'right_side' => array(
-												'image' => plugin_dir_url( __DIR__ ) . '/shapedplugin-framework/assets/images/help-visuals/zoom_style_right_side.svg',
+												'image'    => plugin_dir_url( __DIR__ ) . '/shapedplugin-framework/assets/images/help-visuals/zoom_style_right_side.svg',
 												'option_name' => __( 'Right Side', 'gallery-slider-for-woocommerce' ),
-												// 'pro_only' => true,
+												'pro_only' => true,
 											),
 											'lens'       => array(
-												'image' => plugin_dir_url( __DIR__ ) . '/shapedplugin-framework/assets/images/help-visuals/zoom_style_magnify.svg',
+												'image'    => plugin_dir_url( __DIR__ ) . '/shapedplugin-framework/assets/images/help-visuals/zoom_style_magnify.svg',
 												'option_name' => __( 'Magnific', 'gallery-slider-for-woocommerce' ),
-												// 'pro_only' => true,
+												'pro_only' => true,
 											),
 										),
 										'title_help' => '<div class="wcgs-info-label">' . __( 'Zoom Style', 'gallery-slider-for-woocommerce' ) . '</div><div class="wcgs-short-content">' . __( 'This option indicates the visual or interactive approach used to magnify or enlarge product thumbnails.', 'gallery-slider-for-woocommerce' ) . '</div><a class="wcgs-open-docs" href="https://woogallery.io/docs/how-to-apply-zoom-styles-for-product-images/" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.woogallery.io/zoom-styles/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
@@ -875,30 +847,17 @@ class WCGS_Gallery {
 										'default'    => false,
 										'dependency' => array( 'zoom', '==', true ),
 									),
-									array(
-										'id'         => 'exclude_zoom_by_products_type',
-										'type'       => 'select',
-										'ignore_db'  => true,
-										'title'      => __( 'Exclude Zoom', 'gallery-slider-for-woocommerce' ),
-										'options'    => array(
-											'from_product' => __( 'Product(s)', 'gallery-slider-for-woocommerce' ),
-											'from_category' => __( 'Category(s)', 'gallery-slider-for-woocommerce' ),
-											'none'         => __( 'None', 'gallery-slider-for-woocommerce' ),
-										),
-										'default'    => 'none',
-										'dependency' => array( 'zoom', '==', true ),
-									),
-									array(
-										'id'          => 'exclude_zoom_by_products',
-										'class'       => 'exclude_zoom pro_only_field',
-										'type'        => 'select',
-										'title'       => __( 'Exclude Zoom by Product(s)', 'gallery-slider-for-woocommerce' ),
-										'placeholder' => __( 'Select Products (Pro)', 'gallery-slider-for-woocommerce' ),
-										'options'     => array(
-											'' => '',
-										),
-										'dependency'  => array( 'zoom|exclude_zoom_by_products_type', '==|==', 'true|from_product' ),
-									),
+									// array(
+									// 'id'          => 'exclude_zoom_by_products',
+									// 'class'       => 'exclude_zoom pro_only_field',
+									// 'type'        => 'select',
+									// 'title'       => __( 'Exclude Zoom by Product(s)', 'gallery-slider-for-woocommerce' ),
+									// 'placeholder' => __( 'Select Products (Pro)', 'gallery-slider-for-woocommerce' ),
+									// 'options'     => array(
+									// '' => '',
+									// ),
+									// 'dependency'  => array( 'zoom|exclude_zoom_by_products_type', '==|==', 'true|from_product' ),
+									// ),
 									array(
 										'id'          => 'exclude_zoom_by_category',
 										'class'       => 'exclude_zoom pro_only_field',
@@ -917,12 +876,11 @@ class WCGS_Gallery {
 										'class'   => 'wcgs-light-notice wcgs-bottom-notice',
 										'content' => sprintf(
 											/* translators: 1: start link and strong tag, 2: close link and strong tag, 3: start strong tag, 4: close strong tag. 5: start link and strong tag, 6: close link and strong tag. */
-											__( 'Looking to provide your customers with %1$sa more product-detailed view%2$s and %3$sboost sales%4$s? %5$sUpgrade to Pro!%2$s', 'gallery-slider-for-woocommerce' ),
-											'<a class="wcgs-open-live-demo" href="https://demo.woogallery.io/zoom-styles/" target="_blank"><strong>',
+											__( 'Get additional %1$sAdvanced Image Zoom%2$s options for detailed product views and boost sales — %3$sUpgrade to Pro!%4$s', 'gallery-slider-for-woocommerce' ),
+											'<a class="wcgs-open-live-demo" href="https://woogallery.io/product-image-zoom/" target="_blank"><strong>',
 											'</strong></a>',
-											'<strong>',
-											'</strong>',
-											'<a href="https://woogallery.io/pricing/?ref=143" target="_blank" class="btn"><strong>'
+											'<a href="https://woogallery.io/pricing/?ref=143" target="_blank" class="btn"><strong>',
+											'</strong></a>',
 										),
 									),
 								),
@@ -945,15 +903,9 @@ class WCGS_Gallery {
 									),
 									array(
 										'id'      => 'video_icon',
-										'class'   => 'shop_video_icon video_icon_style_pro pro_desc',
+										'class'   => 'shop_video_icon',
 										'type'    => 'button_set',
 										'title'   => __( 'Video Icon Style', 'gallery-slider-for-woocommerce' ),
-										'desc'    => sprintf(
-										/* translators: 1: opening anchor tag with Pro link, 2: closing anchor tag. */
-											__( 'This icon is %1$savailable in Pro!%2$s', 'gallery-slider-for-woocommerce' ),
-											'<a href="' . WOO_GALLERY_SLIDER_PRO_LINK . '" target="_blank"><strong>',
-											'</strong></a>'
-										),
 										'options' => array(
 											'play-01' => array(
 												'option_name' => '<i class="sp_wgs-icon-play-01"></i>',
@@ -972,27 +924,15 @@ class WCGS_Gallery {
 											),
 											'play-06' => array(
 												'option_name' => '<i class="sp_wgs-icon-play-06"></i>',
-												'pro_only' => true,
 											),
 											'play-07' => array(
 												'option_name' => '<i class="sp_wgs-icon-play-07"></i>',
-												'pro_only' => true,
 											),
 											'play-08' => array(
 												'option_name' => '<i class="sp_wgs-icon-play-08"></i>',
-												'pro_only' => true,
 											),
 											'play-09' => array(
 												'option_name' => '<i class="sp_wgs-icon-play-09"></i>',
-												'pro_only' => true,
-											),
-											'native'  => array(
-												'option_name' => __( 'Native', 'gallery-slider-for-woocommerce' ),
-												'pro_only' => true,
-											),
-											'custom'  => array(
-												'option_name' => __( 'Custom', 'gallery-slider-for-woocommerce' ),
-												'pro_only' => true,
 											),
 										),
 										'default' => 'play-01',
@@ -1014,9 +954,9 @@ class WCGS_Gallery {
 										'title'      => __( 'Place of the Videos in Gallery Slider', 'gallery-slider-for-woocommerce' ),
 										'title_help' => '<div class="wcgs-info-label">' . __( 'Place of the Videos in Gallery Slider', 'gallery-slider-for-woocommerce' ) . '</div><div class="wcgs-short-content">' . __( 'Determine where and when you want to display the video.', 'gallery-slider-for-woocommerce' ) . '</div><a class="wcgs-open-docs" href="https://woogallery.io/docs/how-to-place-the-videos-in-woogallery/" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.woogallery.io/video-placement/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
 										'options'    => array(
-											'usual' => __( 'Place the Videos as Usual', 'gallery-slider-for-woocommerce' ),
-											'video_come_first' => __( 'At Starting of the Slider  (Pro)', 'gallery-slider-for-woocommerce' ),
-											'video_come_last' => __( 'End of the Slider (Pro)', 'gallery-slider-for-woocommerce' ),
+											'usual' => __( 'Keep Videos in Default Position', 'gallery-slider-for-woocommerce' ),
+											'video_come_last' => __( 'End of the Slider', 'gallery-slider-for-woocommerce' ),
+											'video_come_first' => __( 'At Starting of the Slider (Pro)', 'gallery-slider-for-woocommerce' ),
 										),
 										'radio'      => true,
 										'default'    => 'usual',
@@ -1028,7 +968,9 @@ class WCGS_Gallery {
 										'class'   => 'wcgs-light-notice wcgs-bottom-notice',
 										'content' => sprintf(
 											/* translators: 1: start link and strong tag, 2: close link and strong tag. */
-											__( 'To add additional video platforms, e.g., Self-Hosted, Vimeo, Dailymotion, Wistia, SproutVideo, and Facebook videos with advanced Product Video options %1$sUpgrade to Pro!%2$s', 'gallery-slider-for-woocommerce' ),
+											__( 'Enhance %1$sProduct Video Gallery%2$s with Self-hosted, Vimeo, Wistia, SproutVideo, Facebook & Dailymotion - %3$sUpgrade to Pro!%4$s', 'gallery-slider-for-woocommerce' ),
+											'<a href="https://woogallery.io/product-video-gallery/" target="_blank" class="btn"><strong>',
+											'</strong></a>',
 											'<a href="https://woogallery.io/pricing/?ref=143" target="_blank" class="btn"><strong>',
 											'</strong></a>',
 										),

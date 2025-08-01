@@ -11,6 +11,12 @@
  */
 trait WCGS_Public_Default {
 	/**
+	 * Inactive Image effect
+	 *
+	 * @var string
+	 */
+	public $inactive_thumbnails_effect = 'none';
+	/**
 	 * Navigation icon
 	 *
 	 * @var string
@@ -89,6 +95,12 @@ trait WCGS_Public_Default {
 	 */
 	public $thumbnails_sliders_width = 6;
 	/**
+	 * Thumbnail_style
+	 *
+	 * @var string
+	 */
+	public $thumbnail_style = 'border_around';
+	/**
 	 * Thumbnails_sliders_height
 	 *
 	 * @var int
@@ -119,6 +131,12 @@ trait WCGS_Public_Default {
 	 */
 	public $thumbnailnavigation_icon_size = 12;
 	/**
+	 * Thumbnail hover effect
+	 *
+	 * @var int
+	 */
+	public $thumbnails_hover_effect = 'none';
+	/**
 	 * Thumbnail navigation icon color
 	 *
 	 * @var integer
@@ -130,6 +148,13 @@ trait WCGS_Public_Default {
 	 * @var integer
 	 */
 	public $thumbnailnavigation_icon_hover_color = '#fff';
+	/**
+	 * Pagination type
+	 *
+	 * @var string
+	 */
+	public $pagination_type = 'bullets';
+
 	/**
 	 * Thumbnail navigation icon background color
 	 *

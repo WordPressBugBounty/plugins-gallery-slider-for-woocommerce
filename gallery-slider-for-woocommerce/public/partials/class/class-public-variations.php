@@ -123,6 +123,10 @@ class WCGS_Public_Variations {
 						}
 					}
 					if ( $gallery ) {
+						if ( 'video_come_last' === $video_order ) {
+							usort( $gallery, array( $this->helper, 'wcgs_sort_by_has_key_add_last' ) );
+						}
+
 						array_push( $gallery_arrays, array( $variation_array['attributes'], $gallery ) );
 					}
 				}
@@ -140,6 +144,10 @@ class WCGS_Public_Variations {
 					array_push( $gallery, $this->helper->wcgs_image_meta( $image_id, $settings ) );
 				}
 				if ( $gallery ) {
+					if ( 'video_come_last' === $video_order ) {
+						usort( $gallery, array( $this->helper, 'wcgs_sort_by_has_key_add_last' ) );
+					}
+
 					array_push( $gallery_arrays, array( $variation_array, $gallery ) );
 				}
 			}

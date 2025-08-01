@@ -42,6 +42,31 @@ class WCGS_Public_Style extends WCGS_Public_Settings {
 		$this->wcgs_custom_css();
 	}
 
+
+	/**
+	 * Lighten Color for hover
+	 *
+	 * @param  string $hex hex color.
+	 * @param  int    $percent lighten percentage.
+	 * @return string
+	 */
+	public function lightenColor( $hex, $percent = 10 ) {
+		// Remove the hash from the beginning, if present.
+		$hex = ltrim( $hex, '#' );
+
+		// Convert the hex value to RGB.
+		list($r, $g, $b) = sscanf( $hex, '%02x%02x%02x' );
+
+		// Calculate the new color values.
+		$r = round( $r + ( $percent / 100 ) * ( 255 - $r ) );
+		$g = round( $g + ( $percent / 100 ) * ( 255 - $g ) );
+		$b = round( $b + ( $percent / 100 ) * ( 255 - $b ) );
+
+		// Convert back to hex.
+		$new_hex = sprintf( '#%02x%02x%02x', $r, $g, $b );
+		return $new_hex;
+	}
+
 	/**
 	 * Wcgs css.
 	 *
@@ -72,42 +97,92 @@ class WCGS_Public_Style extends WCGS_Public_Settings {
 		$video_icon_type                = isset( $settings['video_icon'] ) ? $settings['video_icon'] : 'play-01';
 		$thumbnails_top                 = $this->thumbnails_sliders_height;
 		$thumbnails_left                = $this->thumbnails_sliders_width;
-		$thumb_slider_margin            = "margin-top: {$thumbnails_top}px;";
-		$vr_slide_padding               = 0;
+
+		$thumb_slider_margin = "margin-top: {$thumbnails_top}px;";
+		$vr_slide_padding    = 0;
 		if ( $normal_thumbnail_border_size > 0 ) {
 			$vr_slide_padding = $normal_thumbnail_border_size + 2;
 		}
-		$vide_play_icon = '\e823';
+		$video_play_icon = '\e823';
 		switch ( $video_icon_type ) {
 			case 'play-01':
-				$vide_play_icon = '\e823';
+				$video_play_icon = '\e823';
 				break;
 			case 'play-02':
-				$vide_play_icon = '\e837';
+				$video_play_icon = '\e837';
 				break;
 			case 'play-03':
-					$vide_play_icon = '\e838';
+				$video_play_icon = '\e838';
 				break;
 			case 'play-04':
-				$vide_play_icon = '\e839';
+				$video_play_icon = '\e839';
 				break;
-
 			case 'play-05':
-				$vide_play_icon = '\e83a';
+				$video_play_icon = '\e83a';
+				break;
+			case 'play-06':
+				$video_play_icon = '\e83c';
+				break;
+			case 'play-07':
+				$video_play_icon = '\e83d';
+				break;
+			case 'play-08':
+				$video_play_icon = '\e83e';
+				break;
+			case 'play-09':
+				$video_play_icon = '\e83f';
 				break;
 			default:
-				$vide_play_icon = '\e823';
+				$video_play_icon = '\e823';
 				break;
 		}
-		if ( ( 'horizontal_top' === $this->gallery_layout ) ) {
+
+		if ( 'horizontal_top' === $this->gallery_layout ) {
 			$thumb_position      = '-1';
 			$thumb_slider_margin = "margin-bottom: {$thumbnails_top}px;";
 		}
-		if ( ( 'vertical_right' === $this->gallery_layout ) ) {
+
+		if ( 'vertical' === $this->gallery_layout ) {
+			$thumb_position      = '-1';
+			$thumb_slider_margin = "margin-right: {$thumbnails_left}px;";
+		}
+
+		if ( 'vertical_right' === $this->gallery_layout ) {
 			$thumb_slider_margin = "margin-left: {$thumbnails_left}px;";
 		}
+
 		$gallery_width = isset( $settings['gallery_width'] ) ? $settings['gallery_width'] : 50;
 		$dynamic_css   = '';
+
+		switch ( $this->thumbnails_hover_effect ) {
+			case 'none':
+				break;
+			case 'zoom_out':
+				$dynamic_css .= '
+				.gallery-navigation-carousel .wcgs-thumb {
+				    overflow: hidden;
+				}
+				.gallery-navigation-carousel .wcgs-thumb img{
+					transform: scale(1.2);
+				}
+				.gallery-navigation-carousel .wcgs-thumb:hover img {
+					transform: scale(1);
+				}';
+				break;
+			case 'slide_down':
+				$dynamic_css .= '
+				.gallery-navigation-carousel .wcgs-thumb {
+    				transition: .3s ease;
+				}
+				.gallery-navigation-carousel .wcgs-thumb:hover {
+					transform: translateY(5px);
+				}
+				.gallery-navigation-carousel .wcgs-thumb {
+					margin-bottom: 5px;
+				}';
+				break;
+		}
+
 		if ( $gallery_width < 100 ) {
 			$summary_width_with_unit = 'calc(' . ( 100 - $gallery_width ) . '% - 50px)';
 			$dynamic_css            .= '@media screen and (min-width:992px ){
@@ -122,8 +197,134 @@ class WCGS_Public_Style extends WCGS_Public_Settings {
                 }
             }';
 		}
+		if ( 'strokes' === $this->pagination_type ) {
+			$dynamic_css .= '
+			.wcgs-carousel .spswiper-pagination .spswiper-pagination-bullet span {
+				display: none;
+			}
+			.wcgs-carousel .spswiper-pagination .spswiper-pagination-bullet {
+				border-radius: 0;
+				border-radius: 2px;
+				height: 5px !important;
+				min-height: 5px !important;
+				width: 20px !important;
+				margin-right: 5px !important;
+			}';
+		}
+
+		if ( 'top_line' === $this->thumbnail_style ) {
+			if ( 'horizontal_top' === $this->gallery_layout ) {
+				$dynamic_css .= '#wpgs-gallery .wcgs-thumb {
+					padding-top: 0;
+					padding-bottom: 10px;
+					transition: border-color 0.33s;
+					border-bottom: ' . $active_thumbnail_border_size . 'px solid transparent;
+				}';
+			}
+			if ( 'horizontal' === $this->gallery_layout ) {
+				$dynamic_css .= '#wpgs-gallery .wcgs-thumb {
+					padding-top: 10px;
+					transition: border-color 0.33s;
+					border-top: ' . $active_thumbnail_border_size . 'px solid transparent;
+				}';
+			}
+			if ( 'vertical' === $this->gallery_layout ) {
+				$dynamic_css .= '	#wpgs-gallery .gallery-navigation-carousel-wrapper.vertical .wcgs-thumb{
+					padding-left: 0px;
+					padding-right: 10px;
+					border-right: 2px solid transparent;
+				}
+				#wpgs-gallery .gallery-navigation-carousel-wrapper.vertical .wcgs-border-bottom {
+					right: 0;
+				}';
+			}
+			if ( 'vertical_right' === $this->gallery_layout ) {
+				$dynamic_css .= '	#wpgs-gallery .gallery-navigation-carousel-wrapper.vertical .wcgs-thumb{
+				padding-right: 0px;
+				padding-left: 10px;
+				border-left: 2px solid transparent;
+			}#wpgs-gallery .gallery-navigation-carousel-wrapper.vertical .wcgs-border-bottom {
+					right: auto;
+					left: 0;
+				}';
+			}
+			// if ( 'horizontal' === $this->gallery_layout ) {
+			// $dynamic_css .= '// wpgs-gallery .wcgs-thumb {
+			// padding-top: 10px;
+			// transition: border-color 0.33s;
+			// border-top: ' . $active_thumbnail_border_size . 'px solid transparent;
+			// }';
+			// }
+			// #wpgs-gallery .gallery-navigation-carousel-wrapper.vertical .wcgs-thumb {
+			// padding-right: 10px;
+			// transition: border-color 0.33s;
+			// border-top: none;
+			// }
+			$dynamic_css .= '
+			#wpgs-gallery .gallery-navigation-carousel-wrapper {
+				position: relative;
+			}
+
+			#wpgs-gallery .wcgs-thumb img {
+				border: 1px solid #dddddd;
+				border-radius: 0px;
+			}
+			.gallery-navigation-carousel-wrapper .wcgs-border-bottom {
+				position: absolute;
+				content: "";
+				z-index: 999;
+				transition: left 400ms ease 0s;
+				border-bottom: ' . $active_thumbnail_border_size . 'px solid ' . $active_thumbnail_border_color2 . ';
+				bottom: 0;
+				left: 0;
+			}
+			#wpgs-gallery .gallery-navigation-carousel-wrapper.vertical .wcgs-border-bottom {
+				border-right: ' . $active_thumbnail_border_size . 'px solid ' . $active_thumbnail_border_color2 . ';
+				border-bottom: none;
+				bottom: auto;
+				transition: top 400ms ease 0s;
+			}
+
+			#wpgs-gallery.wcgs_vertical_scroll_nav .anchor_navigation_wrapper .wcgs-anchor-link.active .wcgs-thumb,
+			#wpgs-gallery  .wcgs_vertical_scroll_nav .anchor_navigation_wrapper .wcgs-thumb:hover{
+				border-color: ' . $this->lightenColor( $active_thumbnail_border_color2, 45 ) . ';
+			}#wpgs-gallery .wcgs-thumb.wcgs-thumb:hover{
+				border-color: ' . $this->lightenColor( $active_thumbnail_border_color2, 45 ) . ';
+			}';
+		}
+
+		if ( 'border_around' === $this->thumbnail_style ) {
+			$dynamic_css .= '
+
+			#wpgs-gallery .wcgs-thumb.spswiper-slide-thumb-active.wcgs-thumb img {
+				border: ' . $active_thumbnail_border_size . 'px solid ' . $active_thumbnail_border_color2 . ';
+			}
+
+			#wpgs-gallery .wcgs-thumb.spswiper-slide:hover img,
+			#wpgs-gallery .wcgs-thumb.spswiper-slide-thumb-active.wcgs-thumb:hover img {
+				border-color: ' . $hover_thumbnail_border_color . ';
+			}
+
+
+			#wpgs-gallery .wcgs-thumb.spswiper-slide img {
+				border: ' . $normal_thumbnail_border_size . 'px solid ' . $normal_thumbnail_border_color . ';
+				border-radius: ' . $normal_thumbnail_border_radius . 'px;
+			}';
+		}
+
+		// Grayscale effect for inactive thumbnails.
+		if ( 'grayscale' === $this->inactive_thumbnails_effect ) {
+			$dynamic_css .= '#wpgs-gallery .wcgs-thumb img {
+				opacity: 1;
+				filter: grayscale(100%);
+			}#wpgs-gallery .wcgs-anchor-link.active .wcgs-thumb img,
+			#wpgs-gallery .wcgs-thumb.spswiper-slide-thumb-active.wcgs-thumb img{
+				opacity: 1;
+				filter: grayscale(0);
+			}';
+		}
 		$dynamic_css .= '#wpgs-gallery .wcgs-video-icon:after {
-				content: "' . $vide_play_icon . '";
+				content: "' . $video_play_icon . '";
 		}
 		#wpgs-gallery .gallery-navigation-carousel-wrapper {
 			-ms-flex-order: ' . $thumb_position . ' !important;
@@ -200,17 +401,8 @@ class WCGS_Public_Style extends WCGS_Public_Settings {
 		#wpgs-gallery .gallery-navigation-carousel .wcgs-spswiper-arrow:hover::before{
 			color: ' . $this->thumbnailnavigation_icon_hover_color . ';
 		}
-		#wpgs-gallery .wcgs-thumb.spswiper-slide-thumb-active.wcgs-thumb img {
-			border: ' . $active_thumbnail_border_size . 'px solid ' . $active_thumbnail_border_color2 . ';
-		}
-		#wpgs-gallery .wcgs-thumb.spswiper-slide:hover img,
-		#wpgs-gallery .wcgs-thumb.spswiper-slide-thumb-active.wcgs-thumb:hover img {
-			border-color: ' . $hover_thumbnail_border_color . ';
-		}
-		#wpgs-gallery .wcgs-thumb.spswiper-slide img {
-			border: ' . $normal_thumbnail_border_size . 'px solid ' . $normal_thumbnail_border_color . ';
-			border-radius: ' . $normal_thumbnail_border_radius . 'px;
-		}
+
+
 		#wpgs-gallery {
 			margin-bottom: ' . $gallery_bottom_gap . 'px;
 			max-width: 50%;
@@ -232,7 +424,7 @@ class WCGS_Public_Style extends WCGS_Public_Settings {
 				display: none;
 			}';
 		}
-		if ( ( 'vertical_right' === $this->gallery_layout ) ) {
+		if ( ( 'vertical_right' === $this->gallery_layout ) || ( 'vertical' === $this->gallery_layout ) ) {
 			$dynamic_css .= '#wpgs-gallery.vertical .gallery-navigation-carousel-wrapper:not(.wcgs-hidden) {
 				width: ' . $vertical_thumbs_width . '%;
 			}#wpgs-gallery.vertical.wcgs-woocommerce-product-gallery .wcgs-carousel{

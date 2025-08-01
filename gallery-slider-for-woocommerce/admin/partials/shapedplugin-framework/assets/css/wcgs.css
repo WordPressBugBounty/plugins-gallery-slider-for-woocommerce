@@ -1032,7 +1032,7 @@
   position: absolute;
   top: 16px;
   text-transform: capitalize;
-  color: #999;
+  color: #666666;
   margin-left: 2px;
 }
 
@@ -1517,7 +1517,7 @@
   padding-bottom: 0;
 }
 
-.wcgs-metabox .wcgs-field.pro_desc:not(.slider_height_type, .wcgs_lightbox_icon, .video_icon_style_pro) .wcgs-text-desc,
+.wcgs-metabox .wcgs-field.pro_desc:not(.slider_height_type, .wcgs_lightbox_icon) .wcgs-text-desc,
 .wcgs-settings .wcgs-container .wcgs-field.pro_desc:not(.slider_height_type, .wcgs_lightbox_icon, .video_icon_style_pro) .wcgs-text-desc {
   margin-top: 0;
 }
@@ -3444,7 +3444,7 @@ div#wcgs_metabox {
   background: linear-gradient(90deg, #8555c1 -17.64%, #67439b 116.75%);
   z-index: -1;
   opacity: 0;
-  transition: opacity 0.6s ease;
+  transition: opacity 0.2s ease;
 }
 
 .wcgs-pro-notice-wrapper .wcgs-pro-notice-button:hover::before,
@@ -3467,6 +3467,11 @@ div#wcgs_metabox {
 
 .wcgs-pro-notice-button i {
   font-size: 16px;
+}
+
+.wcgs-pro-notice-button i.sp_wgs-icon-external_link {
+  font-size: 13px;
+  margin-left: 6px;
 }
 
 .wcgs-pro-notice-wrapper ul li i {
@@ -3574,18 +3579,62 @@ div:is(#wcgs_builder_option) .postbox-header .handle-actions .handle-order-highe
   }
 }
 
+.wcgs-metabox .wcgs-field-image_select .wcgs--image.wcgs-pro-only::after,
+.wcgs-settings .wcgs-field-image_select .wcgs--image.wcgs-pro-only::after {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: #ffffff;
+  background-color: #12A10D;
+  font-weight: 600;
+  padding: 0 4px;
+  content: 'PRO';
+  text-align: center;
+  font-size: 9px;
+  cursor: default;
+  border-top-right-radius: 2px;
+  line-height: 14px;
+}
+
+.wcgs-settings .wcgs-field-image_select .wcgs--image.wcgs-pro-only:last-child::after {
+  right: 2px;
+}
+
 /* Pro (disable) switcher button style */
+.wcgs-metabox .wcgs-field-button_set.specific_pro_button_set .wcgs--sibling.wcgs-pro-only,
+.wcgs-settings .wcgs-field-button_set.specific_pro_button_set .wcgs--sibling.wcgs-pro-only {
+  opacity: .4;
+  pointer-events: none;
+}
+
+
+.wcgs-metabox .wcgs-tabbed-nav #shop-page-video::after,
+.wcgs-settings .wcgs-tabbed-nav #shop-page-video::after,
+.wcgs-metabox .wcgs-field-button_set.specific_pro_button_set .wcgs--button-group::after,
+.wcgs-settings .wcgs-field-button_set.specific_pro_button_set .wcgs--button-group::after,
+.wcgs-field-radio .wcgs-fieldset li label.disabled::after,
 .wcgs-field-switcher.wcgs_show_hide .wcgs--ball::after {
   content: "PRO";
   position: relative;
   text-align: center;
-  width: 24px;
-  float: right;
   font-weight: 600;
-  font-size: 8px;
-  color: #8796A1;
+  font-size: 9px;
+  color: #fff;
+  background-color: #12a10d;
   opacity: 1;
-  line-height: 18px;
+  padding: 2px 5px;
+  border-radius: 2px;
+  left: 6px;
+}
+
+.wcgs-metabox .wcgs-tabbed-nav #shop-page-video {
+  border-bottom: 0;
+}
+
+.wcgs-metabox .wcgs-tabbed-nav #shop-page-video::after,
+.wcgs-settings .wcgs-tabbed-nav #shop-page-video::after {
+  left: 8px;
+  top: -2px;
 }
 
 /* "Pro" text for disable fields. */

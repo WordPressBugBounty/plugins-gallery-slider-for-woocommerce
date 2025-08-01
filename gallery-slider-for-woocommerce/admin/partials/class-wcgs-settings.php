@@ -70,7 +70,7 @@ class WCGS_Settings {
 		WCGS_General::section( $prefix );
 		WCGS_Gallery::section( $prefix );
 		WCGS_Lightbox::section( $prefix );
-		WCGSP_Shoppage::section( $prefix );
+		// WCGSP_Shoppage::section( $prefix );
 		WCGS_Advance::section( $prefix );
 		// WCGS_Help::section( $prefix );
 	}

@@ -1642,46 +1642,6 @@
     }, 100);
   });
 
-  /**
-   * Function to handle the visibility of pro text based on selected values.
-   * @param {string} containerSelector - The selector for the container where the inputs are located.
-   * @param {Array} hiddenValues - An array of values that should hide the pro text description.
-   * @returns {void}
-   */
-  function handleProTextVisibility(containerSelector, hiddenValues = []) {
-    const $container = $(containerSelector);
-
-    function toggleVisibility() {
-      const selectedVal = $container.find('input:checked').val();
-      const $desc = $container.find('.wcgs-text-desc');
-
-      if (hiddenValues.includes(selectedVal)) {
-        $desc.css('opacity', 0);
-      } else {
-        $desc.css('opacity', 1);
-      }
-    }
-    // Initial check
-    toggleVisibility();
-
-    // On change event
-    $container.on('change', () => {
-      setTimeout(toggleVisibility, 100); // Delay to ensure correct input is selected
-    });
-  }
-
-  /*
-  * Apply the pro text visibility function to the relevant containers.
-  */
-  handleProTextVisibility('.shop_video_icon_position', 'center_center');
-  handleProTextVisibility('.pagination_type', ['bullets', 'dynamic']);
-  handleProTextVisibility('.thumb_active_on', 'click');
-  handleProTextVisibility('.thumbnailnavigation_style', 'custom');
-  handleProTextVisibility('.thumbnail_style', 'border_around');
-  handleProTextVisibility('.video_icon_style_pro', ['play-01', 'play-02', 'play-03', 'play-04', 'play-05']);
-  handleProTextVisibility('.wcgs_lightbox_icon', 'search');
-
-
   $(document).on('keyup change', '#wcgs-form', function (e) {
     e.preventDefault();
     var $button = $(this).find('.wcgs-save.wcgs-save-ajax');

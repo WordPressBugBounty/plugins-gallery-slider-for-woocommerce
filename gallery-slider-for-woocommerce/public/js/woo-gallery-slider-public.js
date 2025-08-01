@@ -40,6 +40,7 @@
 			this.$gallery.wpgspimagesLoaded().then(() => {
 				this.hidePreloader();
 			});
+			this.addGrayscale();
 		}
 		// getMaxImageHeight() {
 		// 	let maxHeight = 0;
@@ -424,6 +425,11 @@
 					afterInit: () => this.handleSPSwiperInit()
 				}
 			});
+
+			if (this.settings.thumbnail_style == 'top_line') {
+				this.setupThumbnailBottomLine();
+			}
+
 			let adaptive_height = (this.settings.slider_height_type && this.settings.slider_height_type == 'adaptive') ? true : false;
 			this.wcgs_spswiper_gallery = this.SPSwiperSlide($mainSliderContainer[0], {
 				autoHeight: adaptive_height,
@@ -569,10 +575,12 @@
 
 		// Handle zoom events
 		handleZoom(e) {
+			var scale_level = this.settings.zoom_type && (this.settings.zoom_type == 'zoom_2x') ? 2 : 1.5;
+
 			if (this.settings.zoom != '1') return;
 			if ($(window).width() < 480 && this.settings.mobile_zoom != '1') return;
 			const $target = $(e.currentTarget);
-			const scale = e.type === 'mouseenter' || e.type === 'mousemove' ? 1.5 : 1;
+			const scale = e.type === 'mouseenter' || e.type === 'mousemove' ? scale_level : 1;
 			this.initializeZoomElement($target)
 			//	$('.wcgs-slider-image').each((i, el) => );
 			$target.find('.wcgs-photo').css({
@@ -624,7 +632,13 @@
 			return buttons;
 		}
 
-
+		// Grayscale.
+		addGrayscale() {
+			if (this.settings.grayscale !== 'gray_off') {
+				let grayClass = this.settings.grayscale;
+				$('.wcgs-slider-image img').addClass('' + grayClass + '');
+			}
+		}
 
 		initializeLightbox() {
 			if (typeof Fancybox == 'undefined') return;
@@ -867,8 +881,67 @@
 			this.players = {};
 			this.$gallery.find('.wcgs-carousel .spswiper-wrapper').empty().append(galleryFragment);
 			this.$gallery.find('.gallery-navigation-carousel .spswiper-wrapper').empty().append(thumbnailFragment);
+
+
+		}
+		setupThumbnailBottomLine() {
+			// if (this.settings.gallery_layout == 'hide_thumb') {
+			// 	return;
+			// }
+
+			setTimeout(() => {
+				this.wcgs_spswiper_thumb.on('sliderMove', () => {
+
+					this.setThumbnailBorderPosition();
+				});
+				this.wcgs_spswiper_gallery.on('slideChange', () => {
+					setTimeout(() => {
+						this.setThumbnailBorderPosition();
+					}, 50);
+				});
+			}, 100);
+			// Set initial bottom line dimensions.
+			setTimeout(() => {
+				this.setThumbnailBorderPosition();
+
+			}, 1000);
 		}
 
+		setThumbnailBorderPosition() {
+			const isVertical = this.settings.gallery_layout == 'vertical' || this.settings.gallery_layout == 'vertical_right';
+			const activeThumb = this.$gallery.find('.gallery-navigation-carousel-wrapper .wcgs-thumb.spswiper-slide-thumb-active');
+			const activeThumbHeight = activeThumb.height();
+			const activeThumbHeightTop = activeThumb.position().top !== undefined ? 10 + activeThumbHeight + activeThumb.position().top : 'auto';
+			let activePosition = isVertical
+				? (activeThumb.position() && activeThumb.position().top !== undefined ? activeThumb.position().top
+					: -162) + this.wcgs_spswiper_thumb.translate
+				: (activeThumb.position() && activeThumb.position().left !== undefined ? activeThumb.position().left
+					: -162) + this.wcgs_spswiper_thumb.translate;
+			const dimension = isVertical ? activeThumb.height() : activeThumb.width();
+
+			this.$gallery.find('.gallery-navigation-carousel-wrapper .wcgs-border-bottom').css(
+				isVertical ?
+					{ height: dimension, top: activePosition } :
+					this.settings.gallery_layout == 'horizontal_top' ?
+						{ width: dimension, left: activePosition, bottom: 0, top: 'auto' } : { width: dimension, left: activePosition, bottom: activeThumbHeightTop, top: 'auto' }
+			);
+		}
+
+		setThumbnaidlBorderPosition() {
+			const isVertical = this.settings.gallery_layout == 'vertical' || this.settings.gallery_layout == 'vertical_right';
+			const activeThumb = this.$gallery.find('.gallery-navigation-carousel-wrapper .wcgs-thumb.spswiper-slide-thumb-active');
+			const activeThumbHeight = activeThumb.height();
+			const activeThumbHeightTop = activeThumb.position().top !== undefined ? 10 + activeThumbHeight + activeThumb.position().top : 'auto';
+			let activePosition = isVertical
+				? (activeThumb.position() && activeThumb.position().top !== undefined ? activeThumb.position().top
+					: -162) + this.spswiper.thumb.translate
+				: (activeThumb.position() && activeThumb.position().left !== undefined ? activeThumb.position().left
+					: -162) + this.spswiper.thumb.translate;
+			const dimension = isVertical ? activeThumb.height() : activeThumb.width();
+			this.$gallery.find('.gallery-navigation-carousel-wrapper .wcgs-border-bottom').css(
+				isVertical ? { height: dimension, top: activePosition } : { width: dimension, left: activePosition, top: activeThumbHeightTop, bottom: 'auto' }
+			);
+		}
 		// Create slide element.
 		createSlide(item, index) {
 			const hasVideo = item.video ? item.video.includes('youtu') : false;

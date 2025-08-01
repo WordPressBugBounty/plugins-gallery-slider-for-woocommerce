@@ -4,8 +4,8 @@ Tags: woocommerce product gallery carousel, woocommerce product gallery slider, 
 Requires at least: 5.3
 Tested up to: 6.8.2
 WC requires at least: 4.5
-WC tested up to: 10.0.2
-Stable tag: 3.0.4
+WC tested up to: 10.0.4
+Stable tag: 3.1.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -52,54 +52,38 @@ Are you looking to improve your customers' shopping experience by allowing them 
 
 This plugin lets your customers get a closer and more detailed look at your products, which can significantly increase customer engagement and generate more sales for your business.
 
-✅ **Advanced Product Image Lightbox**
+✅ **Powerful Product Image Lightbox**
 
 Do you want your customers to open the larger product image in a full-screen window to look closely at the product details and skyrocket conversions?
 
 The plugin offers exclusively powerful lightbox functionality to open the full-size image in a modal window, allowing your customers to look closely and efficiently at the product details and boost sales.
 
-✅ **Product Featured Video on Shop/Archive/Listing Page (PRO)**
-
-Do you want to show multiple types of product-featured videos on your Shop or Listing Pages to help customers make faster decisions?
-
-The plugin allows you to replace the featured product images with a video and display them on your Shop or Archive Pages. The featured videos can be played in a popup or from the same page. You can easily add a WooCommerce product-featured video from the product edit page at the back office.
-
-Moreover, you can upload or embed various types of videos from YouTube, Vimeo, Dailymotion, Facebook, and self-hosted sources. This way, you can provide your customers with a better understanding of your products and help them make a quicker decision.
 
 
 ## 👉 Key Features List: ##
 
-✅ **16+ Amazing Product Gallery Layouts to Display**
+✅ **Beautiful Product Gallery Layouts**
 
-Choose from 16+ modern layouts to go beyond the WooCommerce typical product page layout, creating modern product pages like world’s top brands.
+Use beautiful, functional, ready layouts to deliver better product display.
 
+* Thumbnails Left [Live Demo](https://demo.woogallery.io/product/featherlight-cap/)
 * Thumbnails Bottom [Live Demo](https://demo.woogallery.io/product/air-max-plus/)
-* Thumbnails Left (Pro) [Live Demo](https://demo.woogallery.io/product/featherlight-cap/)
-* Tiles (Pro) [Live Demo](https://demo.woogallery.io/product/sports-wear/)
-* Hierarchy Grid (New) (Pro) [Live Demo](https://demo.woogallery.io/product/cozy-pullover/)
-* Modern Grid - Style 1 (New) (Pro) [Live Demo](https://demo.woogallery.io/product/nike-golf-club/)
-* Modern Grid - Style 2 (New) (Pro) [Live Demo](https://demo.woogallery.io/product/hooded-track-jacket/)
-* Modern Grid - Style 3 (New) (Pro) [Live Demo](https://demo.woogallery.io/product/training-suit/)
-* Modern Grid - Style 4 (New) (Pro) [Live Demo](https://demo.woogallery.io/product/ultimate-anorak/)
-* Modern Grid - Style 5 (New) (Pro) [Live Demo](https://demo.woogallery.io/product/zip-pullover/)
-* Anchor Navigation (New) (Pro) [Live Demo](https://demo.woogallery.io/product/jersey-sweat-shirt/)
-* Vertical Scroll (New) (Pro) [Live Demo](https://demo.woogallery.io/product/jersey-sweat-shirt/)
 * Thumbnails Top [Live Demo](https://demo.woogallery.io/product/elemental-backpack/)
 * Thumbnails Right [Live Demo](https://demo.woogallery.io/product/custom-dunk-low/)
-* Multi-row Thumbs (New) (Pro) [Live Demo](https://demo.woogallery.io/product/jersey-sweat-shirt/)
 * Slider [Live Demo](https://demo.woogallery.io/product/duffel-bag/)
 
-[Documentation](https://woogallery.io/docs/how-to-choose-a-gallery-layout/)
+
+ [See more modern layouts](https://woogallery.io/#layout-tab) | [Documentation](https://woogallery.io/docs/how-to-choose-a-gallery-layout/)
 
 ✅ **Display Multiple Images Per Product Variation**
 
-By default, WooCommerce allows adding only one image per product variation. With the plugin, you can add and display unlimited product images for each product variation. It is essential to show additional product images to boost sales.
+By default, WooCommerce allows adding only one image per product variation. With the plugin, you can add and display multiple product images for each product variation. It is essential to show additional product images to boost sales.
 
 [Live Demo](https://demo.woogallery.io/product/featherlight-cap/) | [Documentation](https://woogallery.io/docs/how-to-add-images-in-variation-gallery/)
 
-✅ **Drag & Drop Custom Sorting for Product and Variation  Images & Videos**
+✅ **Drag & Drop Custom Sorting for Product Variation Images & Videos**
 
-The plugin enables you to rearrange product and additional variation images through an intuitive drag-and-drop interface, facilitating custom sorting based on individual preferences.
+The plugin enables you to rearrange product additional variation images through an intuitive drag-and-drop interface, facilitating custom sorting based on individual preferences.
 
 ✅ **Adjust Variation Gallery Width for Desktop, Tablet, and Mobile**
 
@@ -109,58 +93,22 @@ By specifying a gallery width value, you can ensure that product images are disp
 
 The plugin allows you to add unlimited videos to the product images, which can significantly impact customer engagement, trust, conversions, and brand perception, ultimately driving sales and business growth.
 
-Here are the supported video platforms:
-
-* YouTube [Live Demo](https://demo.woogallery.io/product/hooded-fitness-pullover/)
-* Vimeo (PRO) [Live Demo](https://demo.woogallery.io/product/baseball-cleats/)
-* Dailymotion (PRO) [Live Demo](https://demo.woogallery.io/product/golf-bag/)
-* Facebook (PRO) [Live Demo ](https://demo.woogallery.io/product/skate-shoes/)
-* Self-hosted (PRO) [Live Demo](https://demo.woogallery.io/product/custom-dunk-low/)
-
 [Documentation](https://woogallery.io/docs/2-how-to-add-different-types-of-videos-to-product-gallery/)
 
 ✅ **Add Videos to Simple, Group, External/Affiliate, and Variable Product Images**
 
-If you want to show YouTube, Vimeo, Dailymotion, Facebook, and Self-hosted videos in the Simple, Group, External/Affiliate, and Variable Product, The plugin would be an excellent option.
+If you want to show YouTube videos in the Simple, Group, External/Affiliate, and Variable Product, the plugin would be an excellent option.
 
-✅ **Show Product Featured Video on the Shop or Listing Page (PRO)** 🔥
-
-The plugin allows you to replace the featured product images with a video and display them on your Shop or Archive Pages. The featured videos can be played in a popup or from the same page.
-
-[Live Demo](https://demo.woogallery.io/) | [Documentation](https://woogallery.io/docs/how-to-show-product-video-on-the-shop-archive-page/)
-
-✅ **Desired Video Placement in The Product Gallery Slider**
-
-Make your product video slider more engaging and dynamic by choosing a video placement. When creating a slider for a product, it's essential to consider where to place the product video. The plugin has 3 options for setting the video:
-
-* At Starting of the Slider (PRO)
-* End of the Slider (PRO)
-* Place of the videos as Usual
-
-[Live Demo](https://demo.woogallery.io/video-placement/) | [Documentation](https://woogallery.io/docs/how-to-place-the-videos-in-woogallery/)
-
-✅ **Stylize YouTube and Self-hosted Video Player Controls (PRO)** 🔥🔥🔥
-
-Customize the appearance and design of the playback buttons, progress bar, volume controls, and other interactive elements within the video player to match the overall aesthetic or branding of the shop.
-
-* Main Font Color
-* Control Background Color
-* Video Play Progress Color
-* Video Play Progress Background
-* YouTube Video Player Controls
-* Show/Hide YouTube Related Videos
-* Video Volume
-* Video Icon Color, etc.
 
 ✅ **Multiple Video Play Modes: Inline or Popup Window**
 
-Enhance your customers' video viewing experience with our customizable video play options, including inline and popup window modes. You can choose how your customers watch the product video by selecting either inline or popup window mode.
+Enhance your customers' video viewing experience with our customizable video play options, including inline and pop-up window modes. You can choose how your customers watch the product video by selecting either inline or pop-up window mode.
 
 [Live Demo](https://demo.woogallery.io/play-modes/) | [Documentation](https://woogallery.io/docs/how-to-set-a-video-play-mode/)
 
 ✅ **Enable the Thumbnails Gallery Slider for the Product Images**
 
-You can enable a slider if you have many images in your product and want to avoid the WooCommerce default gallery display method. This plugin will allow you to set the number of images to show on each slide, enable autoplay, and set the slider to infinite.
+You can enable a slider if you have many images in your product and want to avoid the default gallery display method in WooCommerce. This plugin will allow you to set the number of images to show on each slide, enable autoplay, and set the slider to infinite.
 
 It provides a convenient way for customers to view and select different product images or variations.
 
@@ -170,13 +118,9 @@ This plugin allows customers to navigate different product images or variations 
 
 [Live Demo](https://demo.woogallery.io/navigation-pagination-styles/)
 
-✅ **Control Product Image AutoPlay and Slider Speed (PRO)**
-
-Adjusting the slider speed allows customers to view product images properly. This feature will enable you to increase or decrease the sliding duration and direction based on your needs.
-
 ✅ **Set Product Slider Orientation**
 
-The orientation of the slider refers to the direction in which the product images move or are displayed. It's typically horizontal or vertical, each with advantages and considerations.
+The orientation of the slider refers to the direction in which the product images move or are displayed. It’s typically horizontal or vertical, each with advantages and considerations.
 
 [Live Demo](https://demo.woogallery.io/slider-orientations/) | [Documentation](https://woogallery.io/docs/how-to-change-slide-orientation/)
 
@@ -198,56 +142,12 @@ The plugin provides a comprehensive navigational arrow control for product image
 
 * Show/Hide thumbnails navigation
 * Thumbnails navigation visibility
-* Thumbnails navigation styles (Custom, Outer, Inner)
+* Thumbnails navigation styles (Custom, Inner Right)
 * Thumbnails navigation icon set
 * Thumbnail navigation icon size
 * Thumbnail navigation color
-* Thumbnails navigation border (PRO)
-* Thumbnails navigation box size (PRO)
 
 [Live Demo](https://demo.woogallery.io/thumbnails-navigation-styles/) | [Documentation](https://woogallery.io/docs/how-to-customize-thumbnails-navigation-styles/)
-
-✅ **Advanced Image Zoom to View Products in More Detail** 🔥🔥🔥
-
-Advanced image zoom functionality allows customers to view products in more detail by zooming in on specific areas. This feature enhances a super customer shopping experience by providing a closer look at the product.
-
-Here are key zoom features you'll love:
-
-* 3 Amazing zoom styles: Inside, Right Side (Pro), Magnific (Pro)
-* 4 Zooming cursor types
-* Zoom lens shape: Circle and Box (PRO)
-* Lens Color, Border (PRO)
-* On hover product image overlay style: Blur, Custom Color (PRO)
-* Custom image overlay color (PRO)
-* Image overlay opacity (PRO)
-* Auto and custom zoom window size (PRO)
-* Zoom window distance (PRO)
-* MouseWheel Zoom (PRO)
-* Enable Zoom for mobile devices.
-
-[Live Demo](https://demo.woogallery.io/zoom-styles/) | [Documentation](https://woogallery.io/docs/how-to-apply-zoom-styles-for-product-images/)
-
-✅ **Full-featured Advanced Lightbox for Product Images** 🔥🔥🔥
-
-The plugin offers exclusively powerful lightbox functionality to open the full-size image in a modal window, allowing your customers to look closely and efficiently at the product details and boost sales. Here are the key lightbox features for the product viewing experience to the next level:
-
-* 5 Lightbox sliding effect: Slide, Fade (Pro), Rotate (Pro),
-Circular (Pro), Tube (Pro)
-* Lightbox overlay background (PRO)
-* 5 Lightbox icon display positions
-* 10+ Lightbox icon styles
-* Configure lightbox icon color
-* Configure lightbox icon size (PRO)
-* Lightbox caption, caption size, and caption color
-* Show/Hide image counter
-* Show/Hide slideshow play button (PRO)
-* Show/Hide thumbnails button (PRO)
-* Show/Hide thumbnails visibility (PRO)
-* Show/Hide social share button (PRO)
-* Show/Hide full-screen button (PRO)
-* Show/Hide product image download button (PRO)
-
-[Live Demo](https://demo.woogallery.io/lightbox-sliding-effects/) | [Documentation](https://woogallery.io/docs/how-to-customize-the-lightbox-icon-display-position/)
 
 ✅ **Control Thumbnail Items Number & Gap**
 
@@ -259,87 +159,36 @@ Initially, the product images slider displays four thumbnails. However, you can 
 
 ✅ **Product Variation Images Sorting**
 
-The plugin is built in mind to save time on development. You can reorder your variation uploaded images according to your needs.
+The plugin is built with the idea of saving time on development. You can reorder the images of your uploaded variations according to your needs.
 
-This feature allows you to arrange variation images in a specific sequence, potentially influencing purchase decisions and improving user experience.
+This feature allows you to arrange variation images in a specific sequence, which can influence purchase decisions and improve user experience.
 
-✅ **Thumbnails Custom Dimensions (PRO)**
+✅ **Control Product Image AutoPlay and Slider Speed**
 
-Set specific dimensions for the thumbnails displayed in product. This feature allows you to control the height and width of the product thumbnails.
+Adjusting the slider speed allows customers to view product images properly. This feature will enable you to increase or decrease the sliding duration and direction based on your needs.
 
-[Live Demo](https://demo.woogallery.io/thumbnails-space-padding-size-border/) | [Documentation](https://woogallery.io/docs/how-to-set-thumbnails-size/)
-
-✅ **Retina Ready Product Image Supported (PRO)**
-
-Enhance your online store's best product image viewing experience and attract more customers. Your customers will be amazed by the crystal-clear quality of your product images, making them more likely to purchase.
-
-✅ **Essential Thumbnails Hover Effects** 🔥🔥🔥
-
-Thumbnail hover effects refer to interactive visual changes when customers hover their cursor over thumbnail images. Choose a hover effect from-
-
-* Normal
-* Zoom In (PRO)
-* Zoom Out (PRO)
-* Slide In (PRO)
-* Slide Out (PRO)
-
-[Live Demo](https://demo.woogallery.io/thumbnails-hover-effects/) | [Documentation](https://woogallery.io/docs/how-to-set-thumbnails-hover-effects/)
-
-✅ **Excellent Active Thumbnail Styles** 🔥
-
-Enhance the look of your product's active thumbnail style by customizing it easily. You can customize the appearance of thumbnails when they are actively selected or hovered over by your customers. This styling distinguishes the currently selected or focused thumbnail from others by applying specific visual cues like-
-
-* Border Around
-* Bottom Line (PRO) 🔥🔥🔥 It's like a product images page of **Apple**
-* Zoom Out (PRO)
-* Opacity (PRO)
-
-[Live Demo](https://demo.woogallery.io/active-thumbnail-styles/) | [Documentation](https://woogallery.io/docs/how-to-set-active-thumbnails-style/)
-
-✅ **Inactive Thumbnails Effects** 🔥🔥🔥
-
-Inactive thumbnail effects are visual changes applied to inactive thumbnails to distinguish them from active ones. These effects include adjustments to opacity or grayscale appearance.
-
-* Normal
-* Opacity (PRO)
-* Grayscale (PRO)
-
-[Live Demo](https://demo.woogallery.io/inactive-thumbnails-effect/) | [Documentation](https://woogallery.io/docs/how-to-set-inactive-thumbnails-effect/)
-
-✅ **Change the Main Image on Click or Mouseover for Product Thumbnails** 🔥
-
-The plugin offers an engaging feature that allows you to change the main image by hovering over one of the product thumbnails. This feature was inspired by the top e-commerce stores such as Amazon, Nike, Adidas, Puma, etc. It is designed to enhance usability and save customers from making extra clicks.
-
-* On Click
-* Mouseover (PRO) 🔥 🔥 🔥 It's like the product images pages of **Amazon, Nike, AliExpress,** etc.
-
-[Live Demo](https://demo.woogallery.io/thumbnails-activation/) | [Documentation](https://woogallery.io/docs/how-do-you-want-to-activate-thumbnails/)
-
-✅ **Gallery Active Main Image Caption (PRO)** 🔥
-
-When you have a product thumbnails slider, it's essential to have an active main image with a caption that provides additional context or information about the product and the variation images.
-
-[Live Demo](https://demo.woogallery.io/gallery-image-caption/)
-
-✅ **Preloader Settings for Product Images**
-
-Enhance your product image loading speed with the powerful preloader feature. With this plugin, you can turn the preloader style on or off.
+* AutoPlay 
+* AutoPlay Delay Time 
+* Slider Speed 
 
 ✅ **Essential Thumbnails Slider Settings**
 
 The plugin provides a wide range of features to enhance the functionality, usability, and accessibility of product slider.
 
-* AutoPlay (PRO)
-* AutoPlay Delay Time (PRO)
-* Slider Speed (PRO)
 * Infinite Loop
 * Adaptive Height
 * Accessibility
 * RTL Mode
 * Free Mode
 * Mouse Wheel
+* Zoom Out Hover Effects
+* Slide Down Hover Effects
 
 [Live Demo](https://demo.woogallery.io/adaptive-height/)
+
+✅ **Preloader Settings for Product Images**
+
+Enhance your product image loading speed with the powerful preloader feature. With this plugin, you can turn the preloader style on or off.
 
 ✅ **Compatible with Popular WordPress Themes and Plugins**
 
@@ -348,6 +197,143 @@ The plugin is compatible with all the popular themes and plugins, especially Woo
 ✅ **Multisite Supported**
 
 The plugin is fully compatible with WordPress multisite, including network-activated and activated on individual sites.
+
+## WooGallery Pro Features 🚀 ##
+
+WooGallery Pro offers more robust features and easy customizations that will take your product gallery beyond limitations and boost your sales growth. 
+
+✅ **Choose Modern Product Gallery Layouts**
+
+* Tiles (Pro) [Live Demo](https://demo.woogallery.io/product/sports-wear/)
+* Hierarchy Grid (New) (Pro) [Live Demo](https://demo.woogallery.io/product/cozy-pullover/)
+* Modern Grid - Style 1 (New) (Pro) [Live Demo](https://demo.woogallery.io/product/nike-golf-club/)
+* Modern Grid - Style 2 (New) (Pro) [Live Demo](https://demo.woogallery.io/product/hooded-track-jacket/)
+* Modern Grid - Style 3 (New) (Pro) [Live Demo](https://demo.woogallery.io/product/training-suit/)
+* Modern Grid - Style 4 (New) (Pro) [Live Demo](https://demo.woogallery.io/product/ultimate-anorak/)
+* Modern Grid - Style 5 (New) (Pro) [Live Demo](https://demo.woogallery.io/product/zip-pullover/)
+* Anchor Navigation (New) (Pro) [Live Demo](https://demo.woogallery.io/product/jersey-sweat-shirt/)
+* Vertical Scroll (New) (Pro) [Live Demo](https://demo.woogallery.io/product/jersey-sweat-shirt/)
+* Multi-row Thumbs (New) (Pro) [Live Demo](https://demo.woogallery.io/product/jersey-sweat-shirt/)
+
+✅ **Product Featured Video on Shop/Archive/Listing Page** 🔥
+
+Grab the attention of visitors with compelling product featured videos right on the shop, archive, category, and any listing pages to grow the conversion rate. Featured videos can be played either in a pop-up window or directly on the same page.
+
+[Live Demo](https://demo.woogallery.io/) | [Documentation](https://woogallery.io/docs/how-to-show-product-video-on-the-shop-archive-page/)
+
+✅ **Add Product Videos from:**
+
+* Vimeo (PRO) [Live Demo](https://demo.woogallery.io/product/baseball-cleats/)
+* Dailymotion (PRO) [Live Demo](https://demo.woogallery.io/product/golf-bag/)
+* Facebook (PRO) [Live Demo ](https://demo.woogallery.io/product/skate-shoes/)
+* Self-hosted (PRO) [Live Demo](https://demo.woogallery.io/product/custom-dunk-low/)
+
+✅ **Product Video Placement**
+
+Make your product video slider more engaging and dynamic by choosing a video placement. When creating a slider for a product, it's essential to consider where to place the product video. The plugin has 3 options for setting the video:
+
+* At Starting of the Slider
+* End of the Slider
+* Keep Videos in Default Position
+
+[Live Demo](https://demo.woogallery.io/video-placement/) | [Documentation](https://woogallery.io/docs/how-to-place-the-videos-in-woogallery/)
+
+✅ **Stylize YouTube and Self-hosted Video Player Controls** 🔥🔥🔥
+
+Customize the appearance of the playback buttons, progress bar, volume controls, and other interactive elements within the video player to match your brand style.
+
+* Main Font Color
+* Control Background Color
+* Video Play Progress Color
+* Video Play Progress Background
+* YouTube Video Player Controls
+* Show/Hide YouTube Related Videos
+* Video Volume
+* Video Icon Color, etc.
+
+✅ **Advanced Product Image Zoom** 🔥🔥🔥
+
+Advanced image zoom functionality allows customers to view products in more detail by zooming in on specific areas. This feature enhances a super customer shopping experience by providing a closer look at the product.
+
+Here are key zoom features you'll love:
+
+* Right Side and Magnific zoom styles
+* 3 Additional Zooming cursor styles
+* Zoom Lens Shape: Circle and Box
+* Lens Color, Border 
+* On hover product image overlay style: Blur, Custom Color 
+* Custom image overlay color and opacity 
+* Auto and custom zoom window size 
+* Zoom window distance 
+* MouseWheel Zoom 
+
+
+[Live Demo](https://demo.woogallery.io/zoom-styles/) | [Documentation](https://woogallery.io/docs/how-to-apply-zoom-styles-for-product-images/)
+
+✅ **Advanced Product Image Lightbox** 🔥🔥🔥
+
+* 4 Additional Lightbox sliding effects: Fade, Rotate,
+* Circular and Tube 
+* Lightbox overlay background 
+* 5 Lightbox icon display positions
+* Configure lightbox icon size 
+* Show/Hide slideshow play button 
+* Show/Hide thumbnails button 
+* Show/Hide thumbnails visibility
+* Show/Hide full-screen button 
+* Show/Hide product image download button 
+
+[Live Demo](https://demo.woogallery.io/lightbox-sliding-effects/) | [Documentation](https://woogallery.io/docs/how-to-customize-the-lightbox-icon-display-position/)
+
+✅ **Retina Ready Product Image Supported**
+
+Enhance your online store's best product image viewing experience and attract more customers. Your customers will be amazed by the crystal-clear quality of your product images, making them more likely to purchase.
+
+✅ **Product Gallery Thumbnails Control**
+
+* Thumbnail navigation border 
+* Thumbnail navigation box size
+
+
+✅ **Thumbnails Custom Dimensions**
+
+Set specific dimensions for the thumbnails displayed in the product. This feature lets you control the height and width of the product thumbnails. 
+
+[Live Demo](https://demo.woogallery.io/thumbnails-space-padding-size-border/) | [Documentation](https://woogallery.io/docs/how-to-set-thumbnails-size/)
+
+✅ ** Thumbnails Hover Effects** 🔥🔥🔥
+
+Thumbnail hover effects refer to interactive visual changes when customers hover their cursor over thumbnail images. Choose a hover effect from-
+
+* Slide In
+* Slide Up
+
+[Live Demo](https://demo.woogallery.io/thumbnails-hover-effects/) | [Documentation](https://woogallery.io/docs/how-to-set-thumbnails-hover-effects/)
+
+✅ **Excellent Active Thumbnail Styles** 🔥
+
+* Outer Line 🔥🔥🔥 It's like a product images page of **Apple**
+* Zoom Out
+* Opacity
+
+[Live Demo](https://demo.woogallery.io/active-thumbnail-styles/) | [Documentation](https://woogallery.io/docs/how-to-set-active-thumbnails-style/)
+
+
+✅ **Change the Main Image on Click or Mouseover for Product Thumbnails** 🔥
+
+The plugin offers an engaging feature that allows you to change the main image by hovering over one of the product thumbnails. This feature was inspired by the top e-commerce stores such as Amazon, Nike, Adidas, Puma, etc. It is designed to enhance usability and save customers from making extra clicks.
+
+* On Click
+* Mouseover🔥 🔥 🔥 It's like the product images pages of **Amazon, Nike, AliExpress,** etc.
+
+[Live Demo](https://demo.woogallery.io/thumbnails-activation/) | [Documentation](https://woogallery.io/docs/how-do-you-want-to-activate-thumbnails/)
+
+✅ **Gallery Image Caption** 🔥
+
+When you have a product thumbnails slider, it's essential to have an active main image with a caption that provides additional context or information about the product and the variation images.
+
+[Live Demo](https://demo.woogallery.io/gallery-image-caption/)
+
 
 ## 🏆 UPGRADE TO WOOGALLERY PRO! ##
 
@@ -415,6 +401,19 @@ Yes, the plugin is compatible with the most popular WooCommerce themes. We’re 
 
 
 == Changelog ==
+
+= Version 3.1.0 - Aug 01, 2025 =
+* New: The Thumb Left gallery layout.
+* New: Thumbnails Hover Effect ( Zoom Out, Slider Down) options.
+* New: The Active Thumbnail Inner Line Style added.
+* New: Inactive Thumbnails Grayscale Style option. 
+* New: The product image modes (grayscale, grayscale on hover) have been added.
+* New: The Navigation Position Bottom Left option
+* New: The Thumbnails Navigation Style Inner Right option.
+* New: A new Zoom Style has been added.
+* New: 4 new video play icons added.
+* New: The video placement end of the slider option has been added.
+* New: 3 new lightbox icons added.
 
 = Version 3.0.4 - Jul 28, 2025 =
 * New: The unlimited YouTube video support for the product gallery.

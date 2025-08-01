@@ -41,10 +41,9 @@ if ( ! class_exists( 'WCGS_Field_migration' ) ) {
 
 			$button_text = ! empty( $this->field['button_text'] ) ? esc_html( $this->field['button_text'] ) : __( 'Run Migration', 'gallery-slider-for-woocommerce' );
 			$button_id   = ! empty( $this->field['button_id'] ) ? esc_attr( $this->field['button_id'] ) : 'wcgs-migration-btn';
+			echo '<button type="button" id="' . $button_id . '" class="button button-primary">' . $button_text . '</button>'; // phpcs:ignore -- Escaping are handled above using esc_html and esc_attr functions.
 
-			echo '<button type="button" id="' . $button_id . '" class="button button-primary">' . $button_text . '</button>';
 			echo '<div id="wcgs-migration-result" style="margin-top: 10px;"></div>';
-
 			echo wp_kses_post( $this->field_after() );
 		}
 	}

@@ -66,10 +66,10 @@ if ( ! class_exists( 'WCGS_Field_shortcode' ) ) {
 					echo '<li><i class="sp_wgs-icon-check-icon"></i> <a class="wcgs-feature-link" href="https://woogallery.io/product-image-zoom/" target="_blank">' . esc_html__( 'Advanced Product Image Zoom', 'gallery-slider-for-woocommerce' ) . ' <i class="sp_wgs-icon-external_link"></i></a></li>';
 					echo '<li><i class="sp_wgs-icon-check-icon"></i> <a class="wcgs-feature-link" href="https://woogallery.io/product-image-lightbox/" target="_blank">' . esc_html__( 'Powerful Product Lightbox', 'gallery-slider-for-woocommerce' ) . ' <i class="sp_wgs-icon-external_link"></i></a></li>';
 					echo '<li><i class="sp_wgs-icon-check-icon"></i> <a class="wcgs-feature-link" href="https://woogallery.io/" target="_blank">' . esc_html__( '200+ Customizations and More', 'gallery-slider-for-woocommerce' ) . ' <i class="sp_wgs-icon-external_link"></i></a></li>';
-					echo '<j/ul>';
+					echo '<ul>';
 					echo '<div class="wcgs-pro-notice-button">';
 					echo '<a class="wcgs-open-live-demo" href="https://woogallery.io/pricing/?ref=143" target="_blank">';
-					echo esc_html__( 'Upgrade to Pro Now', 'gallery-slider-for-woocommerce' ) . ' <i class="wcgs-icon-shuttle_2285485-1"></i>';
+					echo esc_html__( 'Upgrade to Pro Now', 'gallery-slider-for-woocommerce' ) . '<i class="sp_wgs-icon-external_link"></i> <i class="wcgs-icon-shuttle_2285485-1"></i>';
 					echo '</a>';
 					echo '</div>';
 					echo '</div>';
