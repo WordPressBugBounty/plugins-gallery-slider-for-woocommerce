@@ -9,6 +9,9 @@
  * @author     Shapedplugin <support@shapedplugin.com>
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}  // if direct access.
 /**
  * WCGS General class
  */
@@ -338,6 +341,14 @@ class WCGS_General {
 						'options'     => array(
 							'default_gl'  => __( 'To Default Gallery', 'gallery-slider-for-woocommerce' ),
 							'variable_gl' => __( 'To Variation Gallery', 'gallery-slider-for-woocommerce' ),
+						),
+					),
+					array(
+						'type'      => 'notice',
+						'ignore_db' => true,
+						'class'     => 'upgrade-to-pro-notice',
+						'content'   => (
+							WCGS::general_tab()
 						),
 					),
 					// array(

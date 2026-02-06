@@ -9,6 +9,9 @@
  * @author     Shapedplugin <support@shapedplugin.com>
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}  // if direct access.
 /**
  * WCGS Gallery class
  */
@@ -180,6 +183,14 @@ class WCGS_Gallery {
 										'text_off'   => __( 'Disabled', 'gallery-slider-for-woocommerce' ),
 										'text_width' => 96,
 										'default'    => false,
+									),
+									array(
+										'type'      => 'notice',
+										'ignore_db' => true,
+										'class'     => 'upgrade-to-pro-notice',
+										'content'   => (
+											WCGS::product_gallery_tab()
+										),
 									),
 								),
 							),
@@ -870,17 +881,11 @@ class WCGS_Gallery {
 										'dependency'  => array( 'zoom|exclude_zoom_by_products_type', '==|==', 'true|from_category' ),
 									),
 									array(
-										'id'      => 'zoom_notice',
-										'type'    => 'notice',
-										'style'   => 'normal',
-										'class'   => 'wcgs-light-notice wcgs-bottom-notice',
-										'content' => sprintf(
-											/* translators: 1: start link and strong tag, 2: close link and strong tag, 3: start strong tag, 4: close strong tag. 5: start link and strong tag, 6: close link and strong tag. */
-											__( 'Get additional %1$sAdvanced Image Zoom%2$s options for detailed product views and boost sales — %3$sUpgrade to Pro!%4$s', 'gallery-slider-for-woocommerce' ),
-											'<a class="wcgs-open-live-demo" href="https://woogallery.io/product-image-zoom/" target="_blank"><strong>',
-											'</strong></a>',
-											'<a href="https://woogallery.io/pricing/?ref=143" target="_blank" class="btn"><strong>',
-											'</strong></a>',
+										'type'      => 'notice',
+										'ignore_db' => true,
+										'class'     => 'upgrade-to-pro-notice',
+										'content'   => (
+											WCGS::image_zoom_tab()
 										),
 									),
 								),
@@ -947,7 +952,6 @@ class WCGS_Gallery {
 									// 'class'   => 'pro_slider',
 									// 'title'   => __( 'Video Volume', 'gallery-slider-for-woocommerce' ),
 									// ),
-
 									array(
 										'id'         => 'video_order',
 										'type'       => 'select',
@@ -962,17 +966,11 @@ class WCGS_Gallery {
 										'default'    => 'usual',
 									),
 									array(
-										'id'      => 'video_notice',
-										'type'    => 'notice',
-										'style'   => 'normal',
-										'class'   => 'wcgs-light-notice wcgs-bottom-notice',
-										'content' => sprintf(
-											/* translators: 1: start link and strong tag, 2: close link and strong tag. */
-											__( 'Enhance %1$sProduct Video Gallery%2$s with Self-hosted, Vimeo, Wistia, SproutVideo, Facebook & Dailymotion - %3$sUpgrade to Pro!%4$s', 'gallery-slider-for-woocommerce' ),
-											'<a href="https://woogallery.io/product-video-gallery/" target="_blank" class="btn"><strong>',
-											'</strong></a>',
-											'<a href="https://woogallery.io/pricing/?ref=143" target="_blank" class="btn"><strong>',
-											'</strong></a>',
+										'type'      => 'notice',
+										'ignore_db' => true,
+										'class'     => 'upgrade-to-pro-notice',
+										'content'   => (
+											WCGS::video_gallery_tab()
 										),
 									),
 								),

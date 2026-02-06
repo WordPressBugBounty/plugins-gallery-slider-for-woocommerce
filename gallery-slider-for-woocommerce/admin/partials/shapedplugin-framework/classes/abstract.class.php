@@ -48,7 +48,6 @@ if ( ! class_exists( 'WCGS_Abstract' ) ) {
 			if ( ! empty( $this->args['output_css'] ) ) {
 				add_action( 'wp_head', array( &$this, 'add_output_css' ), 100 );
 			}
-
 		}
 
 		/**
@@ -63,8 +62,6 @@ if ( ! class_exists( 'WCGS_Abstract' ) ) {
 			if ( ! empty( $this->output_css ) ) {
 				echo '<style type="text/css">' . wp_strip_all_tags( $this->output_css ) . '</style>'; // phpcs:ignore
 			}
-
 		}
-
 	}
 }

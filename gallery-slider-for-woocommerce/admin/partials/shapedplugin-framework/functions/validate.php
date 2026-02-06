@@ -24,7 +24,6 @@ if ( ! function_exists( 'wcgs_validate_email' ) ) {
 		if ( ! filter_var( $value, FILTER_VALIDATE_EMAIL ) ) {
 			return esc_html__( 'Please write a valid email address!', 'gallery-slider-for-woocommerce' );
 		}
-
 	}
 }
 
@@ -40,7 +39,6 @@ if ( ! function_exists( 'wcgs_validate_numeric' ) ) {
 		if ( ! is_numeric( $value ) ) {
 			return esc_html__( 'Please write a numeric data!', 'gallery-slider-for-woocommerce' );
 		}
-
 	}
 }
 
@@ -58,7 +56,6 @@ if ( ! function_exists( 'wcgs_validate_required' ) ) {
 		if ( empty( $value ) ) {
 			return esc_html__( 'Error! This field is required!', 'gallery-slider-for-woocommerce' );
 		}
-
 	}
 }
 
@@ -76,7 +73,6 @@ if ( ! function_exists( 'wcgs_validate_url' ) ) {
 		if ( ! filter_var( $value, FILTER_VALIDATE_URL ) ) {
 			return esc_html__( 'Please write a valid url!', 'gallery-slider-for-woocommerce' );
 		}
-
 	}
 }
 
@@ -98,7 +94,6 @@ if ( ! function_exists( 'wcgs_customize_validate_email' ) ) {
 		}
 
 		return $validity;
-
 	}
 }
 
@@ -121,7 +116,6 @@ if ( ! function_exists( 'wcgs_customize_validate_numeric' ) ) {
 		}
 
 		return $validity;
-
 	}
 }
 
@@ -143,7 +137,6 @@ if ( ! function_exists( 'wcgs_customize_validate_required' ) ) {
 		}
 
 		return $validity;
-
 	}
 }
 
@@ -165,7 +158,5 @@ if ( ! function_exists( 'wcgs_customize_validate_url' ) ) {
 		}
 
 		return $validity;
-
 	}
 }
-

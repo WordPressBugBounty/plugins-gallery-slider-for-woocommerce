@@ -46,8 +46,8 @@ class Woo_Gallery_Slider_Import_Export {
 			if ( ! empty( $shortcodes ) ) {
 				foreach ( $shortcodes as $shortcode ) {
 					$accordion_export = array(
-						'title'       => $shortcode->post_title,
-						'original_id' => $shortcode->ID,
+						'title'       => sanitize_text_field( $shortcode->post_title ),
+						'original_id' => absint( $shortcode->ID ),
 						'meta'        => array(),
 					);
 					foreach ( get_post_meta( $shortcode->ID ) as $metakey => $value ) {
@@ -106,6 +106,11 @@ class Woo_Gallery_Slider_Import_Export {
 			die();
 		}
 
+		$_capability = apply_filters( 'wcgs_import_export_capability', 'manage_options' );
+		if ( ! current_user_can( $_capability ) ) {
+			wp_send_json_error( array( 'error' => esc_html__( 'You do not have permission to export.', 'gallery-slider-for-woocommerce' ) ) );
+		}
+
 		$layout_ids = '';
 		if ( isset( $_POST['wcgs_ids'] ) ) {
 			$layout_ids = is_array( $_POST['wcgs_ids'] ) ? wp_unslash( array_map( 'absint', $_POST['wcgs_ids'] ) ) : sanitize_text_field( wp_unslash( $_POST['wcgs_ids'] ) );
@@ -115,7 +120,7 @@ class Woo_Gallery_Slider_Import_Export {
 		if ( is_wp_error( $export ) ) {
 			wp_send_json_error(
 				array(
-					'message' => $export->get_error_message(),
+					'message' => esc_html( $export->get_error_message() ),
 				),
 				400
 			);
@@ -146,12 +151,13 @@ class Woo_Gallery_Slider_Import_Export {
 		$errors  = array();
 		if ( empty( $layouts ) ) {
 			$shortcode        = $shortcodes[0];
+			$index            = 0;
 			$errors[ $index ] = array();
 			$new_tabs_id      = 0;
 			try {
 				$new_tabs_id = wp_insert_post(
 					array(
-						'post_title'  => isset( $shortcode['title'] ) ? $shortcode['title'] : '',
+						'post_title'  => isset( $shortcode['title'] ) ? sanitize_text_field( $shortcode['title'] ) : '',
 						'post_status' => 'publish',
 						'post_type'   => 'wcgs_layouts',
 					),
@@ -165,7 +171,7 @@ class Woo_Gallery_Slider_Import_Export {
 				if ( isset( $shortcode['meta'] ) && is_array( $shortcode['meta'] ) ) {
 					foreach ( $shortcode['meta'] as $key => $value ) {
 						if ( 'wcgs_metabox' === $key ) {
-							$sanitize_value = $this->sanitize_and_collect_metabox_data( $key, maybe_unserialize( str_replace( '{#ID#}', $new_tabs_id, $value ) ) );
+							$sanitize_value = $this->sanitize_recursive( maybe_unserialize( str_replace( '{#ID#}', $new_tabs_id, $value ) ), $key );
 
 							update_post_meta(
 								$new_tabs_id,
@@ -229,6 +235,51 @@ class Woo_Gallery_Slider_Import_Export {
 	}
 
 	/**
+	 * Recursively sanitize all options.
+	 *
+	 * @param mixed  $data field data.
+	 * @param string $key_context Context of the key, used for special cases.
+	 * @return mixed Sanitized data.
+	 */
+	public function sanitize_recursive( $data, $key_context = '' ) {
+		if ( is_array( $data ) ) {
+			$sanitized = array();
+			foreach ( $data as $key => $value ) {
+				$sanitized_key               = is_string( $key ) ? sanitize_key( $key ) : $key;
+				$sanitized[ $sanitized_key ] = $this->sanitize_recursive( $value, $sanitized_key );
+			}
+			return $sanitized;
+		}
+
+		if ( is_object( $data ) ) {
+			return $this->sanitize_recursive( (array) $data, $key_context );
+		}
+
+		if ( is_string( $data ) ) {
+			// Special case: CSS fields.
+			if ( 'wcgs_additional_css' === $key_context || 'wcgs_additional_js' === $key_context ) {
+				// Strip tags to avoid <script>, but keep CSS syntax intact.
+				return wp_strip_all_tags( $data );
+			}
+			return sanitize_text_field( $data );
+		}
+
+		if ( is_int( $data ) ) {
+			return intval( $data );
+		}
+
+		if ( is_float( $data ) ) {
+			return floatval( $data );
+		}
+
+		if ( is_bool( $data ) ) {
+			return (bool) $data;
+		}
+
+		return null;
+	}
+
+	/**
 	 * Import Tabs by ajax.
 	 *
 	 * @return void
@@ -238,13 +289,14 @@ class Woo_Gallery_Slider_Import_Export {
 		if ( ! wp_verify_nonce( $nonce, 'wcgs_options_nonce' ) ) {
 			wp_send_json_error( array( 'message' => esc_html__( 'Error: Nonce verification has failed. Please try again.', 'gallery-slider-for-woocommerce' ) ), 401 );
 		}
-		// $allow_tags = isset( $_POST['unSanitize'] ) ? sanitize_text_field( wp_unslash( $_POST['unSanitize'] ) ) : '';
+
+		$_capability = apply_filters( 'wcgs_import_export_capability', 'manage_options' );
+		if ( ! current_user_can( $_capability ) ) {
+			wp_send_json_error( array( 'error' => esc_html__( 'You do not have permission to import.', 'gallery-slider-for-woocommerce' ) ) );
+		}
+
 		// Don't worry sanitize after JSON decode below.
 		$data         = isset( $_POST['layout'] ) ? wp_unslash( $_POST['layout'] ) : '';//phpcs:ignore
-		$data       = json_decode( $data );
-		$data       = json_decode( $data, true );
-		$shortcodes = isset( $data['layout'] ) ? $data['layout'] : array();
-
 		if ( ! $data ) {
 			wp_send_json_error(
 				array(
@@ -253,25 +305,57 @@ class Woo_Gallery_Slider_Import_Export {
 				400
 			);
 		}
-		$status = array(
-			'message' => __( 'Nothing to import.', 'gallery-slider-for-woocommerce' ),
-		);
+
+		// Decode JSON with error checking.
+		$decoded_data = json_decode( $data, true );
+		if ( is_string( $decoded_data ) ) {
+			$decoded_data = json_decode( $decoded_data, true );
+		}
+
+		// Check for JSON errors.
+		if ( json_last_error() !== JSON_ERROR_NONE ) {
+			wp_send_json_error(
+				array(
+					'message' => esc_html__( 'Invalid JSON data.', 'gallery-slider-for-woocommerce' ),
+				),
+				400
+			);
+		}
+
+		$shortcodes = isset( $decoded_data['layout'] ) ? wp_kses_post_deep( $decoded_data['layout'] ) : array();
+
 		if ( empty( $shortcodes ) ) {
-			$global_settings = isset( $data['global_settings'] ) ? $data['global_settings'] : array();
+			$global_settings = isset( $decoded_data['global_settings'] ) ? $this->sanitize_recursive( $decoded_data['global_settings'] ) : array();
+			// Update global settings if available.
 			if ( ! empty( $global_settings ) ) {
 				update_option( 'wcgs_settings', $global_settings );
 			}
+
 			$status = array(
 				'message' => __( 'Global settings imported successfully.', 'gallery-slider-for-woocommerce' ),
 				'import'  => 'global_settings',
 			);
 		} else {
+			// Validate expected structure.
+			if ( ! isset( $decoded_data['layout'] ) || ! is_array( $decoded_data['layout'] ) ) {
+				wp_send_json_error(
+					array(
+						'message' => esc_html__( 'Invalid shortcode data structure.', 'gallery-slider-for-woocommerce' ),
+					),
+					400
+				);
+			}
+
+			$status = array(
+				'message' => __( 'Nothing to import.', 'gallery-slider-for-woocommerce' ),
+			);
+
 			$status = $this->import( $shortcodes );
 
 			if ( is_wp_error( $status ) ) {
 				wp_send_json_error(
 					array(
-						'message' => $status->get_error_message(),
+						'message' => esc_html( $status->get_error_message() ),
 					),
 					400
 				);

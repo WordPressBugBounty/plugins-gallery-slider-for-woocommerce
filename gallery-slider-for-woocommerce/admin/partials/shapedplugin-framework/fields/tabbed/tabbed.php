@@ -70,8 +70,6 @@ if ( ! class_exists( 'WCGS_Field_tabbed' ) ) {
 			echo '</div>';
 
 			echo wp_kses_post( $this->field_after() );
-
 		}
-
 	}
 }

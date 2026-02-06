@@ -35,7 +35,7 @@ class WCGS_Variation_Image_Block_Editor {
 	 * Registers the custom variation images block for the product block editor.
 	 */
 	public function register_variation_images_block() {
-		if ( isset( $_GET['page'] ) && $_GET['page'] === 'wc-admin' ) {
+		if ( isset( $_GET['page'] ) && 'wc-admin' === $_GET['page'] ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 			BlockRegistry::get_instance()->register_block_type_from_metadata(
 				WOO_GALLERY_SLIDER_PATH . 'block/variation-images/build'
 			);

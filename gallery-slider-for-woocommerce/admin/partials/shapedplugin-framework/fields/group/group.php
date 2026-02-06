@@ -1,5 +1,4 @@
-<?php if ( ! defined( 'ABSPATH' ) ) {
-	die; } // Cannot access directly.
+<?php
 /**
  *
  * Field: group
@@ -7,9 +6,28 @@
  * @since 1.0.0
  * @version 1.0.0
  */
-if ( ! class_exists( 'WCGS_Field_group' ) ) {
-	class WCGS_Field_group extends WCGS_Fields {
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die; } // Cannot access directly.
+
+if ( ! class_exists( 'WCGS_Field_group' ) ) {
+	/**
+	 *
+	 * Field: Group
+	 *
+	 * @since 1.0.0
+	 * @version 1.0.0
+	 */
+	class WCGS_Field_group extends WCGS_Fields {
+		/**
+		 * Field constructor.
+		 *
+		 * @param array  $field The field type.
+		 * @param string $value The values of the field.
+		 * @param string $unique The unique ID for the field.
+		 * @param string $where To where show the output CSS.
+		 * @param string $parent The parent args.
+		 */
 		public function __construct( $field, $value = '', $unique = '', $where = '', $parent = '' ) {
 			parent::__construct( $field, $value, $unique, $where, $parent );
 		}

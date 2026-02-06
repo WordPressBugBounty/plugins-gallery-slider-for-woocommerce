@@ -148,50 +148,6 @@
     }
 }
 
-/* Offer Banner Styles  */
-.spwoog-notice-wrapper.notice {
-    padding: 4px;
-    border-radius: 4px;
-    border: 0;
-    line-height: 0;
-    position: relative;
-    margin-left: 0;
-}
-.spwoog-notice-wrapper.notice img {
-    max-width: 100%;
-    margin-right: 0;
-}
-.spwoog-notice-wrapper .spwoog-close-offer-banner {
-    position: absolute;
-    right: 4px;
-    top: 4px;
-    cursor: pointer;
-    width: 25px;
-    height: 22px;
-    background: #000000;
-}
-
-.spwoog-notice-wrapper .spwoog-close-offer-banner:before,
-.spwoog-notice-wrapper .spwoog-close-offer-banner:after {
-    content: '';
-    width: 16px;
-    height: 1.3px;
-    background: #ffffff;
-    top: 10px;
-    left: 5px;
-    display: block !important;
-    transform: rotate(45deg);
-    position: absolute;
-}
-.spwoog-notice-wrapper .spwoog-close-offer-banner:after {
-    transform: rotate(135deg);
-}
-
-.spwoog-notice-wrapper .spwoog-close-offer-banner:hover:before,
-.spwoog-notice-wrapper .spwoog-close-offer-banner:hover:after {
-    background-color: #ff0000;
-}
-
 .rtl #sp-woogs-review-notice {
     margin: 20px 0 0 20px;
     padding: 18px 0 18px 15px;
@@ -329,19 +285,23 @@
     clear: both;
     position: relative;
 }
+
 .smart-swatches-notice-content img.emoji {
     float: none;
 }
+
 @media screen and (max-width: 1445px) {
-    .smart-swatches-notice-content{
+    .smart-swatches-notice-content {
         line-height: 1.6;
         padding-top: 4px;
     }
+
     .smart-swatches-notice-content img.emoji {
         display: none !important;
     }
 
 }
+
 @media screen and (max-width: 776px) {
 
     .smart-swatches-notice .smart-swatches-notice-text,
@@ -360,7 +320,35 @@
     margin-left: 12px;
     white-space: nowrap;
 }
+
 .rtl .smart-swatches-notice .smart-swatches-activate-btn {
     margin-left: 0;
     margin-right: 12px;
+}
+
+/* Admin offer banner */
+#shapedplugin-offer-banner {
+    padding: 0;
+    border: 0;
+    line-height: 0;
+    background: transparent;
+}
+
+#shapedplugin-offer-banner a:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+#shapedplugin-offer-banner .notice-dismiss:focus {
+    outline: 0;
+    box-shadow: none;
+}
+
+#shapedplugin-offer-banner button.shapedplugin-offer-banner-dismiss:before {
+    color: #fff;
+    font-size: 22px;
+}
+
+#shapedplugin-offer-banner button.shapedplugin-offer-banner-dismiss:hover:before {
+    color: #f30808;
 }

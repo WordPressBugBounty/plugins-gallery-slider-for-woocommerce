@@ -7,6 +7,10 @@
  * @author     ShapedPlugin <support@shapedplugin.com>
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}  // if direct access.
+
 /**
  * Helper class for Public functionality.
  *

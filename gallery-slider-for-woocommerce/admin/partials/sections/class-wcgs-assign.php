@@ -9,6 +9,10 @@
  * @author     ShapedPlugin <support@shapedplugin.com>
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}  // if direct access.
+
 /**
  * WCGS_Assign
  */

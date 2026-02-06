@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}  // if direct access.
+
 /**
  * Class WCGS_Variation_Gallery
  *

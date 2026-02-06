@@ -235,7 +235,7 @@
 
           $last_section = $section;
           if ($('.toplevel_page_wpgs-settings').hasClass('wp-has-current-submenu')) {
-              $('a[href="admin.php?page=wpgs-settings"]').parent().addClass('current wcgs-active').siblings().removeClass('current wcgs-active');
+            $('a[href="admin.php?page=wpgs-settings"]').parent().addClass('current wcgs-active').siblings().removeClass('current wcgs-active');
           }
         }
       }).trigger('hashchange');
@@ -461,54 +461,33 @@
   //
   $.fn.wcgs_field_code_editor = function () {
     return this.each(function () {
-
-      if (typeof CodeMirror !== 'function') { return; }
+      if (typeof wp === 'undefined' || typeof wp.codeEditor === 'undefined') {
+        return;
+      }
 
       var $this = $(this),
         $textarea = $this.find('textarea'),
-        $inited = $this.find('.CodeMirror'),
-        data_editor = $textarea.data('editor');
+        settings = $textarea.data('editor') || {};
 
-      if ($inited.length) {
-        $inited.remove();
-      }
+      // Merge with WP defaults
+      var editorSettings = wp.codeEditor.defaultSettings ? _.clone(wp.codeEditor.defaultSettings) : {};
+      editorSettings.codemirror = _.extend(
+        {},
+        editorSettings.codemirror,
+        settings
+      );
 
-      var interval = setInterval(function () {
-        if ($this.is(':visible')) {
-
-          var code_editor = CodeMirror.fromTextArea($textarea[0], data_editor);
-
-          // load code-mirror theme css.
-          if (data_editor.theme !== 'default' && WCGS.vars.code_themes.indexOf(data_editor.theme) === -1) {
-
-            var $cssLink = $('<link>');
-
-            $('#wcgs-codemirror-css').after($cssLink);
-
-            $cssLink.attr({
-              rel: 'stylesheet',
-              id: 'wcgs-codemirror-' + data_editor.theme + '-css',
-              href: data_editor.cdnURL + '/theme/' + data_editor.theme + '.min.css',
-              type: 'text/css',
-              media: 'all'
-            });
-
-            WCGS.vars.code_themes.push(data_editor.theme);
-
-          }
-
-          CodeMirror.modeURL = data_editor.cdnURL + '/mode/%N/%N.min.js';
-          CodeMirror.autoLoadMode(code_editor, data_editor.mode);
-
-          code_editor.on('change', function (editor, event) {
-            $textarea.val(code_editor.getValue()).trigger('change');
-          });
-
-          clearInterval(interval);
-
-        }
+      // Initialize editor
+      var editor = wp.codeEditor.initialize($textarea[0], editorSettings);
+      // Sync changes back to textarea
+      editor.codemirror.on('change', function () {
+        $textarea.val(editor.codemirror.getValue()).trigger('change');
       });
 
+      // Force refresh after initialization.
+      setTimeout(function () {
+        editor.codemirror.refresh();
+      }, 100);
     });
   };
 
@@ -670,7 +649,8 @@
             $buttons.prop('disabled', true);
 
             window.wp.ajax.post('wcgs_' + $panel.data('unique') + '_ajax_save', {
-              data: $('#wcgs-form').serializeJSONWCGS()
+              data: $('#wcgs-form').serializeJSONWCGS(),
+              nonce: $('#wcgs_options_nonce' + $panel.data('unique')).val()
             })
               .done(function (response) {
 

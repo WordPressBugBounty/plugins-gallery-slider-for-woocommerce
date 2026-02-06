@@ -9,7 +9,13 @@
  * @subpackage Woo_Gallery_Slider/admin
  * @author     ShapedPlugin <support@shapedplugin.com>
  */
-	use Automattic\WooCommerce\Admin\Features\ProductBlockEditor\BlockRegistry;
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}  // if direct access.
+
+use Automattic\WooCommerce\Admin\Features\ProductBlockEditor\BlockRegistry;
+
 /**
  * WooGallery Admin class
  */
@@ -137,7 +143,7 @@ class Woo_Gallery_Slider_Admin {
 	public function sp_woo_review_text( $text ) {
 		$current_screen = get_current_screen();
 
-		if ( is_object( $current_screen ) && 'wcgs_layouts' === $current_screen->post_type || ( 'woogallery_page_wpgs-help' === $current_screen->base ) ) {
+		if ( ( is_object( $current_screen ) && 'wcgs_layouts' === $current_screen->post_type ) || ( 'woogallery_page_wpgs-help' === $current_screen->base ) ) {
 
 			$text = sprintf(
 					/* translators: 1: start strong tag, 2: close strong tag, 3: span tag start, 4: span tag end, 5: anchor tag start, 6: anchor tag ended. */
@@ -146,7 +152,7 @@ class Woo_Gallery_Slider_Admin {
 				'</strong>',
 				'<span class="spwpcp-footer-text-star">',
 				'</span>',
-				'<a href="https://wordpress.org/support/plugin/gallery-slider-for-woocommerce/reviews/?filter=5#new-post" target="_blank">',
+				'<a href="https://wordpress.org/support/plugin/gallery-slider-for-woocommerce/reviews/" target="_blank">',
 				'</a>'
 			);
 		}
@@ -176,12 +182,13 @@ class Woo_Gallery_Slider_Admin {
 
 		return $new_columns;
 	}
-		/**
-		 * Save product assign options.
-		 *
-		 * @param string $post_id post ID.
-		 * @param string $post post.
-		 */
+
+	/**
+	 * Save product assign options.
+	 *
+	 * @param string $post_id post ID.
+	 * @param string $post post.
+	 */
 	public function save_product_assign_options( $post_id, $post ) {
 		if ( 'product' !== $post->post_type ) {
 			return;
@@ -189,7 +196,6 @@ class Woo_Gallery_Slider_Admin {
 
 		$wcgs_options_nonce = isset( $_POST['wcgs_options_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['wcgs_options_nonce'] ) ) : '';
 		if ( $wcgs_options_nonce && wp_verify_nonce( $wcgs_options_nonce, 'wcgs_options_nonce' ) ) {
-
 			if ( $post_id && isset( $_POST['wcgs_assign_layout_settings'] ) ) {
 				$wcgs_assign_gallery_layout = isset( $_POST['wcgs_assign_layout_settings'] ) ? sanitize_text_field( wp_unslash( $_POST['wcgs_assign_layout_settings'] ) ) : 0;
 				update_post_meta( $post_id, 'wcgs_assign_layout_settings', $wcgs_assign_gallery_layout );
@@ -328,6 +334,8 @@ class Woo_Gallery_Slider_Admin {
 	 */
 	public function layout_updated_messages( $messages ) {
 		global $post, $post_ID;
+		$revision_id = isset( $_GET['revision'] ) ? absint( $_GET['revision'] ) : false; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Safe read-only access
+
 		$messages['wcgs_layouts'] = array(
 			0  => '', // Unused. Messages start at index 1.
 			1  => __( 'Layout updated.', 'gallery-slider-for-woocommerce' ),
@@ -335,7 +343,7 @@ class Woo_Gallery_Slider_Admin {
 			3  => '',
 			4  => __( 'Layout updated.', 'gallery-slider-for-woocommerce' ),
 			/* translators: %s: revision */
-			5  => isset( $_GET['revision'] ) ? sprintf( __( 'Layout restored to revision from %s', 'gallery-slider-for-woocommerce' ), wp_post_revision_title( (int) $_GET['revision'], false ) ) : false,
+			5  => $revision_id ? sprintf( __( 'Layout restored to revision from %s', 'gallery-slider-for-woocommerce' ), wp_post_revision_title( $revision_id, false ) ) : false,
 			6  => __( 'Layout published.', 'gallery-slider-for-woocommerce' ),
 			7  => __( 'Layout saved.', 'gallery-slider-for-woocommerce' ),
 			8  => __( 'Layout submitted.', 'gallery-slider-for-woocommerce' ),
@@ -472,6 +480,7 @@ class Woo_Gallery_Slider_Admin {
 		);
 		return $form_fields;
 	}
+
 	/**
 	 * Save attachment having video field.
 	 *
@@ -485,6 +494,7 @@ class Woo_Gallery_Slider_Admin {
 			update_post_meta( $attachment_id, 'wcgs_video', $video );
 		}
 	}
+
 	/**
 	 * Add WooCommerce Product Variation Gallery field from WCGS plugin.
 	 *

@@ -498,6 +498,245 @@ if ( ! class_exists( 'WCGS' ) ) {
 			echo '<div class="clear"></div>';
 			echo '</div>';
 		}
+
+		/**
+		 * Render the "Upgrade to Pro" section markup for General tab.
+		 *
+		 * @return string HTML content for the upgrade section.
+		 */
+		public static function general_tab() {
+			return '<div class="wcgs-upgrade-to-pro-section">
+				<h2>Unlock the Full Potential of Product Image & Video Galleries with Pro</h2>
+				<p>
+					Enhance product pages with powerful galleries, videos, and premium controls.
+				</p>
+				<div class="features-wrapper general-tab">
+					<ul class="features-list">
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> <a href="https://woogallery.io/#layout-tab" target="_blank">16+ ready-made product gallery</a> layouts & modern designs</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Assign <a href="https://woogallery.io/assign-and-manage-layouts/" target="_blank">different gallery layouts</a> per product or category</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Advanced image & video product gallery system</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Add <a href="https://woogallery.io/additional-variation-gallery/" target="_blank">unlimited variation images</a> for each product variation</li>
+						<li class="long-list-item"><i class="sp_wgs-icon-feature-list-checkmark"></i> <a href="https://demo.woogallery.io/product/hooded-track-jacket/" target="_blank"> Product video gallery</a> support from multiple popular video sources (YouTube, Vimeo, Facebook, Wistia, Dailymotion, self-hosted & more)</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Show <a href="https://woogallery.io/product-featured-video/" target="_blank">featured product videos</a> on Shop & Archive pages</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> <a href="https://demo.woogallery.io/product-category/video-autoplay/" target="_blank">Video autoplay</a> or lazy-loaded videos for better performance</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Advanced thumbnail styling & navigation controls</li>
+						</ul>
+						<ul class="features-list second-column">
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Multiple slider effects with smooth animations</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Premium <a href="https://woogallery.io/product-image-zoom/" target="_blank">zoom effects</a> with full customization</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> <a href="https://woogallery.io/product-image-lightbox/" target="_blank">Modern product lightbox</a> with 30+ customization options</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Mobile-optimized layouts with touch-friendly sliders</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Lazy loading & smart performance optimization</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Advanced responsive and styling controls</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Priority, top-notch Pro support</li>
+					</ul>
+				</div>
+
+				<p class="special-bonus">
+					<strong>Special Bonus:</strong> As a WooGallery Lite user, you’ll receive an exclusive
+    				<span class="highlight-discount">50% discount</span> <strong>on a lifetime Pro upgrade.</strong>
+				</p>
+
+				<a href="' . esc_url( WOO_GALLERY_SLIDER_PRO_LINK ) . '" target="_blank" class="upgrade-btn">Upgrade to Pro</a>
+				<a href="https://woogallery.io/#features" target="_blank" class="see-full-features">See Full Features <i class="sp_wgs-icon-up-right-arrow"></i></a>
+			</div>';
+		}
+
+		/**
+		 * Render the "Upgrade to Pro" section markup for product gallery tab.
+		 *
+		 * @return string HTML content for the upgrade section.
+		 */
+		public static function product_gallery_tab() {
+			return '<div class="wcgs-upgrade-to-pro-section">
+				<h2>Additional Product Gallery Slider Options Available in Pro</h2>
+				<p>
+					Get full design control for a professional product gallery slider.
+				</p>
+				<div class="features-wrapper">
+					<ul class="features-list">
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Fixed product gallery height for a consistent layout
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Fully customizable gallery navigation & pagination
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Advanced thumbnail navigation customizations 
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Tons of customization options for a fully personalized product gallery.
+						</li>
+					</ul>
+				</div>
+
+				<a href="' . esc_url( WOO_GALLERY_SLIDER_PRO_LINK ) . '" target="_blank" class="upgrade-btn">Upgrade to Pro</a>
+				<a href="https://woogallery.io/#features" target="_blank" class="see-full-features">See Full Features <i class="sp_wgs-icon-up-right-arrow"></i></a>
+			</div>';
+		}
+
+		/**
+		 * Render the "Upgrade to Pro" section markup for image zoom tab.
+		 *
+		 * @return string HTML content for the upgrade section.
+		 */
+		public static function image_zoom_tab() {
+			return '<div class="wcgs-upgrade-to-pro-section">
+				<h2>Advanced Product Image Zoom</h2>
+				<p>
+				Give your customers a closer, more confident buying experience with a powerful product image zoom.
+				</p>
+				<div class="features-wrapper">
+					<ul class="features-list">
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Control zoom scale for precise magnification
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Enable mouse wheel zoom for smoother interaction
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Choose from 4 cursor styles
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Customize zoom lens color & border
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Show product image overlay on hover
+						</li>
+						</ul>
+						<ul class="features-list second-column">
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Adjust image overlay color & opacity
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Configure zoom window size, type & distance
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Customize zoom window border & box shadow
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Exclude Zoom for specific products when needed.
+						</li>
+					</ul>
+				</div>
+
+				<a href="' . esc_url( WOO_GALLERY_SLIDER_PRO_LINK ) . '" target="_blank" class="upgrade-btn">Upgrade to Pro</a>
+				<a href="https://woogallery.io/#features" target="_blank" class="see-full-features">See Full Features <i class="sp_wgs-icon-up-right-arrow"></i></a>
+			</div>';
+		}
+
+		/**
+		 * Render the "Upgrade to Pro" section markup for video gallery tab.
+		 *
+		 * @return string HTML content for the upgrade section.
+		 */
+		public static function video_gallery_tab() {
+			return '<div class="wcgs-upgrade-to-pro-section">
+				<h2>Product Videos in the Gallery</h2>
+				<p>
+					Add product videos to your galleries for a richer product presentation.
+				</p>
+				<div class="features-wrapper">
+					<ul class="features-list">
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Choose from 10+ beautiful video play icon styles
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Upload and use your own video play icons
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Precisely control video icon position, size, and colors
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Enable auto-play for instant product engagement
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Loop videos for uninterrupted viewing
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Manage self-hosted video player controls
+						</li>
+					</ul>
+					<ul class="features-list second-column">
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Customize self-hosted player appearance
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Adjust player text and font colors
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Control video player background colors
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Customize video playback progress colors
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Style progress bar background for better visibility
+						</li>
+						</li><li><i class="sp_wgs-icon-feature-list-checkmark"></i> Configure YouTube video player controls.
+						</li>
+					</ul>
+				</div>
+
+				<a href="' . esc_url( WOO_GALLERY_SLIDER_PRO_LINK ) . '" target="_blank" class="upgrade-btn">Upgrade to Pro</a>
+				<a href="https://woogallery.io/#features" target="_blank" class="see-full-features">See Full Features <i class="sp_wgs-icon-up-right-arrow"></i></a>
+			</div>';
+		}
+
+		/**
+		 * Render the "Upgrade to Pro" section markup for lightbox tab.
+		 *
+		 * @return string HTML content for the upgrade section.
+		 */
+		public static function lightbox_tab() {
+			return '<div class="wcgs-upgrade-to-pro-section">
+				<h2>Advanced Product Image Lightbox</h2>
+				<p>
+				Give customers a larger, distraction-free view of your products with a powerful lightbox.
+				</p>
+				<div class="features-wrapper">
+					<ul class="features-list">
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Customize lightbox overlay for a sleek viewing experience
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Show or hide lightbox icons for a cleaner UI
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Enable slideshow mode for smooth media browsing
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Toggle thumbnails gallery visibility with ease
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Add quick-access thumbnails navigation
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Choose stylish thumbnail layouts
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Enable media download with one click
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Zoom, rotate, and interact using transform controls.
+						</li>
+					</ul>
+				</div>
+
+				<a href="' . esc_url( WOO_GALLERY_SLIDER_PRO_LINK ) . '" target="_blank" class="upgrade-btn">Upgrade to Pro</a>
+				<a href="https://woogallery.io/#features" target="_blank" class="see-full-features">See Full Features <i class="sp_wgs-icon-up-right-arrow"></i></a>
+			</div>';
+		}
+
+		/**
+		 * Render the "Upgrade to Pro" section markup for shop page tab.
+		 *
+		 * @return string HTML content for the upgrade section.
+		 */
+		public static function shop_page_tab() {
+			return '<div class="wcgs-upgrade-to-pro-section">
+				<h2>Get premium features that enhance product gallery and drive more conversions.</h2>
+				<p>
+					By upgrading to WooGallery Pro, you can get access to numerous shop page video features and boost sales, including:
+				</p>
+				<div class="features-wrapper">
+					<ul class="features-list">
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Display product featured videos directly on the Shop page
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Play videos inline or in a popup/lightbox
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Choose from 10+ beautiful video play icon styles
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Adjust icon size, color, and position to match your shop design
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Customize video background overlay color
+						</li>
+						</ul>
+						<ul class="features-list second-column">
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Auto-play videos for instant attention
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Enable video looping for continuous engagement
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Show or hide video player controls as needed
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Control video aspect ratio for perfect display
+						</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Optimized video playback on mobile devices
+						</li>
+					</ul>
+				</div>
+				<a href="' . esc_url( WOO_GALLERY_SLIDER_PRO_LINK ) . '" target="_blank" class="upgrade-btn">Upgrade to Pro</a>
+				<a href="https://woogallery.io/#features" target="_blank" class="see-full-features">See Full Features <i class="sp_wgs-icon-up-right-arrow"></i></a>
+			</div>';
+		}
 	}
 
 	WCGS::init();

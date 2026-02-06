@@ -9,6 +9,10 @@
  * @author     Shapedplugin <support@shapedplugin.com>
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}  // if direct access.
+
 /**
  * WCGS Settings class
  */
@@ -44,7 +48,7 @@ class WCGS_Settings {
 					'</strong>',
 					'<span class="spwpcp-footer-text-star">',
 					'</span>',
-					'<a href="https://wordpress.org/support/plugin/gallery-slider-for-woocommerce/reviews/?filter=5#new-post" target="_blank">',
+					'<a href="https://wordpress.org/support/plugin/gallery-slider-for-woocommerce/reviews/" target="_blank">',
 					'</a>'
 				),
 				'footer_after'       => "<div id='BuyProPopupContent' style='display: none;'>

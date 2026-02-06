@@ -717,9 +717,6 @@
 						});
 						$(".wcgs-fancybox-wrapper ~ .elementor-lightbox").remove();
 					},
-					// done: (fancybox, slide) => console.log("✅ Slide Loaded", slide),
-					// close: (fancybox) => console.log("❌ Closing FancyBox"),
-					// destroy: (fancybox) => console.log("🚀 FancyBox Destroyed"),
 				}
 			});
 

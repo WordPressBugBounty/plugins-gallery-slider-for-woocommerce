@@ -9,6 +9,10 @@
  * @author     Shapedplugin <support@shapedplugin.com>
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}  // if direct access.
+
 /**
  * WCGS Advance class
  */
@@ -284,7 +288,7 @@ class WCGS_Advance {
 										'type'     => 'code_editor',
 										'title'    => __( 'Additional CSS', 'gallery-slider-for-woocommerce' ),
 										'settings' => array(
-											'theme' => 'mbo',
+											'theme' => 'default',
 											'mode'  => 'css',
 										),
 									),
@@ -293,7 +297,7 @@ class WCGS_Advance {
 										'type'     => 'code_editor',
 										'title'    => __( 'Additional JS', 'gallery-slider-for-woocommerce' ),
 										'settings' => array(
-											'theme' => 'mbo',
+											'theme' => 'default',
 											'mode'  => 'js',
 										),
 									),
@@ -320,6 +324,14 @@ class WCGS_Advance {
 											'</strong></a>',
 											'<a href="https://woogallery.io/docs/shop-page-video/" target="_blank" class="btn"><strong>',
 											'</strong></a>'
+										),
+									),
+									array(
+										'type'      => 'notice',
+										'ignore_db' => true,
+										'class'     => 'upgrade-to-pro-notice',
+										'content'   => (
+											WCGS::shop_page_tab()
 										),
 									),
 								),

@@ -11,6 +11,10 @@
  * @author     ShapedPlugin <support@shapedplugin.com>
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}  // if direct access.
+
 /**
  * WooGallery Loader class
  */

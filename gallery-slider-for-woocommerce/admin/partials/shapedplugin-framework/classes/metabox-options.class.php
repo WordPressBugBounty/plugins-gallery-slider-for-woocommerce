@@ -235,7 +235,7 @@ if ( ! class_exists( 'WCGS_Metabox' ) ) {
 
 			if ( is_object( $post ) && ! empty( $field['id'] ) ) {
 
-				if ( $this->args['data_type'] !== 'serialize' ) {
+				if ( 'serialize' !== $this->args['data_type'] ) {
 					$meta  = get_post_meta( $post->ID, $field['id'] );
 					$value = ( isset( $meta[0] ) ) ? $meta[0] : null;
 				} else {
@@ -261,13 +261,13 @@ if ( ! class_exists( 'WCGS_Metabox' ) ) {
 		 */
 		public function add_meta_box_content( $post, $callback ) {
 			global $post;
-			$has_nav   = ( count( $this->sections ) > 1 && $this->args['context'] !== 'side' ) ? true : false;
+			$has_nav   = ( count( $this->sections ) > 1 && 'side' !== $this->args['context'] ) ? true : false;
 			$show_all  = ( ! $has_nav ) ? ' wcgs-show-all' : '';
 			$post_type = ( is_object( $post ) ) ? $post->post_type : '';
 			$errors    = ( is_object( $post ) ) ? get_post_meta( $post->ID, '_wcgs_errors_' . $this->unique, true ) : array();
 			$errors    = ( ! empty( $errors ) ) ? $errors : array();
 			$theme     = ( $this->args['theme'] ) ? ' wcgs-theme-' . $this->args['theme'] : '';
-			$nav_type  = ( $this->args['nav'] === 'inline' ) ? 'inline' : 'normal';
+			$nav_type  = ( 'inline' === $this->args['nav'] ) ? 'inline' : 'normal';
 
 			if ( is_object( $post ) && ! empty( $errors ) ) {
 				delete_post_meta( $post->ID, '_wcgs_errors_' . $this->unique );
@@ -418,17 +418,22 @@ if ( ! class_exists( 'WCGS_Metabox' ) ) {
 			global $wpdb;
 			if ( is_multisite() ) {
 				$wp_sitemeta = $wpdb->get_blog_prefix( BLOG_ID_CURRENT_SITE ) . 'sitemeta';
-				$wpdb->query( "DELETE FROM {$wp_sitemeta} WHERE `meta_key` LIKE ('%\spwg_product_variation_%')" );
-				$wpdb->query( "DELETE FROM {$wp_sitemeta} WHERE `meta_key` LIKE ('%\wcgsf_woo_gallery_%')" );
+				$wpdb->query( "DELETE FROM {$wp_sitemeta} WHERE `meta_key` LIKE ('%\spwg_product_variation_%')" ); // phpcs:ignore -- intentinally used to delete specific key.
+				$wpdb->query( "DELETE FROM {$wp_sitemeta} WHERE `meta_key` LIKE ('%\wcgsf_woo_gallery_%')" ); // phpcs:ignore -- intentinally used to delete specific key.
 			} else {
 				$wp_options = $wpdb->prefix . 'options';
-				$wpdb->query( "DELETE FROM {$wp_options} WHERE `option_name` LIKE ('%\_transient_spwg_product_variation_%')" );
-				$wpdb->query( "DELETE FROM {$wp_options} WHERE `option_name` LIKE ('%\_transient_wcgsf_woo_gallery_%')" );
+				$wpdb->query( "DELETE FROM {$wp_options} WHERE `option_name` LIKE ('%\_transient_spwg_product_variation_%')" ); // phpcs:ignore -- intentinally used to delete specific key.
+				$wpdb->query( "DELETE FROM {$wp_options} WHERE `option_name` LIKE ('%\_transient_wcgsf_woo_gallery_%')" ); // phpcs:ignore -- intentinally used to delete specific key.
 			}
 		}
-		// Save metabox.
-		public function save_meta_box( $post_id ) {
 
+		/**
+		 * Save metabox.
+		 *
+		 * @param  int $post_id The post ID.
+		 * @return int
+		 */
+		public function save_meta_box( $post_id ) {
 			$count    = 1;
 			$data     = array();
 			$errors   = array();
@@ -441,11 +446,11 @@ if ( ! class_exists( 'WCGS_Metabox' ) ) {
 
 			// XSS ok.
 			// No worries, This "POST" requests is sanitizing in the below foreach.
-			$request = ( ! empty( $_POST[ $this->unique ] ) ) ? wp_unslash( $_POST[ $this->unique ] ) : array();
+			$request = ( ! empty( $_POST[ $this->unique ] ) ) ? wp_unslash( $_POST[ $this->unique ] ) : array(); // phpcs:ignore 
 
 			if ( ! empty( $request ) ) {
 
-				foreach ( $this->sections as $section ) {
+				foreach ( $this->sections as  $section ) {
 
 					if ( ! empty( $section['fields'] ) ) {
 
@@ -541,7 +546,7 @@ if ( ! class_exists( 'WCGS_Metabox' ) ) {
 
 			if ( empty( $data ) || ! empty( $request['_reset'] ) ) {
 
-				if ( $this->args['data_type'] !== 'serialize' ) {
+				if ( 'serialize' !== $this->args['data_type'] ) {
 					foreach ( $data as $key => $value ) {
 						delete_post_meta( $post_id, $key );
 					}
@@ -550,7 +555,7 @@ if ( ! class_exists( 'WCGS_Metabox' ) ) {
 				}
 			} else {
 
-				if ( $this->args['data_type'] !== 'serialize' ) {
+				if ( 'serialize' !== $this->args['data_type'] ) {
 					foreach ( $data as $key => $value ) {
 						update_post_meta( $post_id, $key, $value );
 					}

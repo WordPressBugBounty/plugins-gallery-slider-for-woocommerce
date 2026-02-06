@@ -9,6 +9,10 @@
  * @author     Shapedplugin <support@shapedplugin.com>
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}  // if direct access.
+
 /**
  * WCGSP_Lightbox
  */

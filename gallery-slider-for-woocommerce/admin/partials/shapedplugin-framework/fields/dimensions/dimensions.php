@@ -75,7 +75,7 @@ if ( ! class_exists( 'WCGS_Field_dimensions' ) ) {
 					'width_unit'  => 'px',
 					'height_unit' => '%',
 				);
-				$value = wp_parse_args( $this->value, $default_values );
+				$value          = wp_parse_args( $this->value, $default_values );
 				echo wp_kses_post( $this->field_before() );
 				echo '<div class="wcgs--inputs">';
 				if ( ! empty( $args['width'] ) ) {
@@ -125,32 +125,6 @@ if ( ! class_exists( 'WCGS_Field_dimensions' ) ) {
 				echo '<div class="clear"></div>';
 				echo wp_kses_post( $this->field_after() );
 			}
-
-			/**
-			 * Output
-			 *
-			 * @return statement
-			 */
-			public function output() {
-
-				$output    = '';
-				$element   = ( is_array( $this->field['output'] ) ) ? join( ',', $this->field['output'] ) : $this->field['output'];
-				$prefix    = ( ! empty( $this->field['output_prefix'] ) ) ? $this->field['output_prefix'] . '-' : '';
-				$important = ( ! empty( $this->field['output_important'] ) ) ? '!important' : '';
-				$unit      = ( ! empty( $this->value['unit'] ) ) ? $this->value['unit'] : 'px';
-				$width     = ( isset( $this->value['width'] ) && '' !== $this->value['width'] ) ? $prefix . 'width:' . $this->value['width'] . $unit . $important . ';' : '';
-				$height    = ( isset( $this->value['height'] ) && '' !== $this->value['width'] ) ? $prefix . 'height:' . $this->value['height'] . $unit . $important . ';' : '';
-
-				if ( '' !== $width || '' !== $height ) {
-					$output = $element . '{' . $width . $height . '}';
-				}
-
-				$this->parent->output_css .= $output;
-
-				return $output;
-
-			}
-
 		}
 	}
 }

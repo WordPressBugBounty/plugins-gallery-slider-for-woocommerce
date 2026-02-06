@@ -14,6 +14,10 @@
  * @author     ShapedPlugin <support@shapedplugin.com>
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}  // if direct access.
+
 /**
  * WooGallery class
  */
@@ -66,7 +70,6 @@ class Woo_Gallery_Slider {
 		$this->plugin_name = 'gallery-slider-for-woocommerce';
 
 		$this->load_dependencies();
-		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 		$active_plugins = get_option( 'active_plugins' );
@@ -104,7 +107,6 @@ class Woo_Gallery_Slider {
 	 * Include the following files that make up the plugin:
 	 *
 	 * - Woo_Gallery_Slider_Loader. Orchestrates the hooks of the plugin.
-	 * - Woo_Gallery_Slider_i18n. Defines internationalization functionality.
 	 * - Woo_Gallery_Slider_Admin. Defines all hooks for the admin area.
 	 * - Woo_Gallery_Slider_Public. Defines all hooks for the public side of the site.
 	 *
@@ -123,12 +125,6 @@ class Woo_Gallery_Slider {
 		require_once plugin_dir_path( __DIR__ ) . 'includes/class-woo-gallery-slider-loader.php';
 
 		require_once plugin_dir_path( __DIR__ ) . 'admin/help-page/help.php';
-
-		/**
-		 * The class responsible for defining internationalization functionality
-		 * of the plugin.
-		 */
-		require_once plugin_dir_path( __DIR__ ) . 'includes/class-woo-gallery-slider-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
@@ -156,22 +152,6 @@ class Woo_Gallery_Slider {
 		// WC block for adding variation images in Product editor beta.
 		require_once plugin_dir_path( __DIR__ ) . 'block/variation-images/variation-images.php';
 		$this->loader = new Woo_Gallery_Slider_Loader();
-	}
-
-	/**
-	 * Define the locale for this plugin for internationalization.
-	 *
-	 * Uses the Woo_Gallery_Slider_i18n class in order to set the domain and to register the hook
-	 * with WordPress.
-	 *
-	 * @since    1.0.0
-	 * @access   private
-	 */
-	private function set_locale() {
-
-		$plugin_i18n = new Woo_Gallery_Slider_i18n();
-
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
 	}
 
 	/**

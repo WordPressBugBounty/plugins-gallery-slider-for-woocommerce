@@ -44,4 +44,3 @@ if ( ! function_exists( 'wcgs_sanitize_title' ) ) {
 		return sanitize_title( $value );
 	}
 }
-

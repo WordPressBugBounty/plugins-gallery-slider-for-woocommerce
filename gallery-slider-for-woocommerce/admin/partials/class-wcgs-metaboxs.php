@@ -9,6 +9,10 @@
  * @author     Shapedplugin <support@shapedplugin.com>
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}  // if direct access.
+
 /**
  * WCGS_Metabox.
  */
@@ -35,7 +39,7 @@ class WCGS_Metaboxs {
 						'</strong>',
 						'<span class="spwpcp-footer-text-star">',
 						'</span>',
-						'<a href="https://wordpress.org/support/plugin/gallery-slider-for-woocommerce/reviews/?filter=5#new-post" target="_blank">',
+						'<a href="https://wordpress.org/support/plugin/gallery-slider-for-woocommerce/reviews/" target="_blank">',
 						'</a>'
 					),
 				)
@@ -52,7 +56,7 @@ class WCGS_Metaboxs {
 					'context'          => 'side',
 					'show_restore'     => false,
 					'sp_lcp_shortcode' => false,
-					'theme'     => 'light',
+					'theme'            => 'light',
 				)
 			);
 

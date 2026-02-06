@@ -39,8 +39,6 @@ if ( ! class_exists( 'WCGS_Field_notice' ) ) {
 			$style = ( ! empty( $this->field['style'] ) ) ? $this->field['style'] : 'normal';
 
 			echo ( ! empty( $this->field['content'] ) ) ? '<div class="wcgs-notice wcgs-notice-' . esc_attr( $style ) . '">' . wp_kses_post( $this->field['content'] ) . '</div>' : '';
-
 		}
-
 	}
 }

@@ -8,6 +8,14 @@
  * @subpackage Woo_Gallery_Slider/admin
  * @author     ShapedPlugin <support@shapedplugin.com>
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}  // if direct access.
+
+/**
+ * WCGS Gallery Get Help menu.
+ */
 class WCGS_Help {
 	/**
 	 * Specify the Help tab for the WooGallery.

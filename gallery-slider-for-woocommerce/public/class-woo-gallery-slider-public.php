@@ -13,6 +13,10 @@
  * @author     ShapedPlugin <support@shapedplugin.com>
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}  // if direct access.
+
 /**
  * WooGallery Public class
  */
@@ -79,7 +83,6 @@ class Woo_Gallery_Slider_Public {
 		spl_autoload_register( array( $this, 'autoload_class' ) );
 		spl_autoload_register( array( $this, 'autoload_trait' ) );
 		$this->helper = new WCGS_Public_Helper();
-		// add_action( 'wp_print_scripts', array( $this, 'dequeue_script' ), 100 );
 		add_filter( 'blocksy:woocommerce:product-view:use-default', array( $this, 'wcgs_product_slider_view' ) );
 		add_action( 'activated_plugin', array( $this, 'redirect_help_page' ) );
 		add_action( 'wp_enqueue_scripts', array( $this, 'dequeue_script' ), 100 );
@@ -113,9 +116,9 @@ class Woo_Gallery_Slider_Public {
 	public function wcgs_remove_woo_gallery() {
 
 		// if ( class_exists( '\Product_Gallery_Sldier\Product' ) ) {
-		// 	add_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
-		// 	add_action( 'woocommerce_product_thumbnails', 'woocommerce_show_product_thumbnails', 20 );
-		// 	add_action( 'woocommerce_before_single_product_summary', array( $this, 'remove_gallery_and_product_images' ), 20 );
+		// add_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
+		// add_action( 'woocommerce_product_thumbnails', 'woocommerce_show_product_thumbnails', 20 );
+		// add_action( 'woocommerce_before_single_product_summary', array( $this, 'remove_gallery_and_product_images' ), 20 );
 		// }
 		$remove_default_wc_gallery = isset( $this->settings['remove_default_wc_gallery'] ) ? $this->settings['remove_default_wc_gallery'] : array( 'lightbox', 'zoom', 'slider' );
 		// Remove default WooCommerce gallery lightbox,zoom,slider.
@@ -370,30 +373,7 @@ class Woo_Gallery_Slider_Public {
 			}
 			wp_enqueue_style( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'css/woo-gallery-slider-public.min.css', array(), $this->version, 'all' );
 			wp_enqueue_style( 'sp_wcgs-fontello-icons', WOO_GALLERY_SLIDER_URL . 'admin/css/fontello.min.css', array(), WOO_GALLERY_SLIDER_VERSION, 'all' );
-			// if ( $enqueue_swiper_js ) {
-			// wp_enqueue_script(
-			// 'wcgs-swiper',
-			// plugin_dir_url( __FILE__ ) . 'js/swiper.min.js',
-			// array(),
-			// $this->version,
-			// array(
-			// 'in_footer' => true,
-			// 'strategy'  => 'defer',
-			// )
-			// );
-			// }
-			// if ( $enqueue_fancybox_js ) {
-			// wp_enqueue_script(
-			// 'wcgs-fancybox',
-			// plugin_dir_url( __FILE__ ) . 'js/jquery.fancybox.min.js',
-			// array( 'jquery' ),
-			// $this->version,
-			// array(
-			// 'in_footer' => true,
-			// 'strategy'  => 'defer',
-			// )
-			// );
-			// }
+
 			wp_enqueue_script(
 				$this->plugin_name,
 				plugin_dir_url( __FILE__ ) . 'js/woo-gallery-slider-public.min.js',
@@ -427,47 +407,3 @@ class Woo_Gallery_Slider_Public {
 		}
 	}
 }
-
-// if ( ! function_exists( 'wcgs_image_meta' ) ) {
-// **
-// * Image meta
-// *
-// * @param  int $image_id image.
-// * @return array
-// */
-// function wcgs_image_meta( $image_id ) {
-// $settings      = get_option( 'wcgs_settings' );
-// $image_size    = isset( $settings['image_sizes'] ) ? $settings['image_sizes'] : 'full';
-// $thumb_size    = isset( $settings['thumbnails_sizes'] ) ? $settings['thumbnails_sizes'] : 'thumbnail';
-// $image_url     = wp_get_attachment_url( $image_id );
-// $image_caption = wp_get_attachment_caption( $image_id );
-// $image_alt     = get_post_meta( $image_id, '_wp_attachment_image_alt', true );
-
-// Thumb crop size.
-// $thumb_width    = isset( $settings['thumb_crop_size']['width'] ) ? $settings['thumb_crop_size']['width'] : '';
-// $image_full_src = wp_get_attachment_image_src( $image_id, 'full' );
-// $sized_thumb    = wp_get_attachment_image_src( $image_id, $thumb_size );
-// $sized_image    = wp_get_attachment_image_src( $image_id, $image_size );
-// $video_url      = get_post_meta( $image_id, 'wcgs_video', true );
-// if ( ! empty( $image_url ) ) {
-// $result = array(
-// 'url'         => $sized_image[0],
-// 'full_url'    => $image_url,
-// 'thumb_url'   => ! empty( $sized_thumb[0] ) && $sized_thumb[0] ? $sized_thumb[0] : '',
-// 'cap'         => isset( $image_caption ) && ! empty( $image_caption ) ? $image_caption : '',
-// 'thumbWidth'  => $sized_thumb[1],
-// 'thumbHeight' => $sized_thumb[2],
-// 'imageWidth'  => $sized_image[1],
-// 'imageHeight' => $sized_image[2],
-// 'alt_text'    => $image_alt,
-// );
-// if ( ! empty( $video_url ) ) {
-// Replace 'shorts/' by 'watch?v=' in the video URL.
-// $video_url       = str_replace( 'shorts/', 'watch?v=', $video_url );
-// $result['video'] = $video_url;
-// }
-
-// return $result;
-// }
-// }
-// }

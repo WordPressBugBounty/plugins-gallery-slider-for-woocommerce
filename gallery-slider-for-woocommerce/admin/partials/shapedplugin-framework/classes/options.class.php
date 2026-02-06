@@ -6,7 +6,6 @@
  * @subpackage Woo_Gallery_Slider/public
  */
 
-
 if ( ! defined( 'ABSPATH' ) ) {
 	die;
 } // Cannot access directly.
@@ -336,7 +335,7 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 				'fields'         => 'ids',
 				'posts_per_page' => $limit,
 				'offset'         => $offset,
-				'tax_query'      => array(
+				'tax_query'      => array( // phpcs:ignore -- intentionally used to fetch only variable products.
 					array(
 						'taxonomy' => 'product_type',
 						'field'    => 'slug',
@@ -452,12 +451,12 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 			global $wpdb;
 			if ( is_multisite() ) {
 				$wp_sitemeta = $wpdb->get_blog_prefix( BLOG_ID_CURRENT_SITE ) . 'sitemeta';
-				$wpdb->query( "DELETE FROM {$wp_sitemeta} WHERE `meta_key` LIKE ('%\spwg_product_variation_%')" );
-				$wpdb->query( "DELETE FROM {$wp_sitemeta} WHERE `meta_key` LIKE ('%\wcgsf_woo_gallery_%')" );
+				$wpdb->query( "DELETE FROM {$wp_sitemeta} WHERE `meta_key` LIKE ('%\spwg_product_variation_%')" ); // phpcs:ignore -- intentinally used to delete specific key.
+				$wpdb->query( "DELETE FROM {$wp_sitemeta} WHERE `meta_key` LIKE ('%\wcgsf_woo_gallery_%')" );// phpcs:ignore -- intentinally used to delete specific key.
 			} else {
 				$wp_options = $wpdb->prefix . 'options';
-				$wpdb->query( "DELETE FROM {$wp_options} WHERE `option_name` LIKE ('%\_transient_spwg_product_variation_%')" );
-				$wpdb->query( "DELETE FROM {$wp_options} WHERE `option_name` LIKE ('%\_transient_wcgsf_woo_gallery_%')" );
+				$wpdb->query( "DELETE FROM {$wp_options} WHERE `option_name` LIKE ('%\_transient_spwg_product_variation_%')" ); // phpcs:ignore -- intentinally used to delete specific key.
+				$wpdb->query( "DELETE FROM {$wp_options} WHERE `option_name` LIKE ('%\_transient_wcgsf_woo_gallery_%')" ); // phpcs:ignore -- intentinally used to delete specific key.
 			}
 		}
 
@@ -482,7 +481,6 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 		 * @return void
 		 */
 		public function save_defaults() {
-
 			$tmp_options = $this->options;
 
 			foreach ( $this->pre_fields as $field ) {
@@ -497,169 +495,212 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 		}
 
 		/**
+		 * Recursively sanitize all options.
+		 *
+		 * @param mixed  $data field data.
+		 * @param string $key_context Context of the key, used for special cases.
+		 * @return mixed Sanitized data.
+		 */
+		public function sanitize_recursive( $data, $key_context = '' ) {
+			if ( is_array( $data ) ) {
+				$sanitized = array();
+				foreach ( $data as $key => $value ) {
+					$sanitized_key               = is_string( $key ) ? sanitize_key( $key ) : $key;
+					$sanitized[ $sanitized_key ] = $this->sanitize_recursive( $value, $sanitized_key );
+				}
+				return $sanitized;
+			}
+
+			if ( is_object( $data ) ) {
+				return $this->sanitize_recursive( (array) $data, $key_context );
+			}
+
+			if ( is_string( $data ) ) {
+				// Special case: CSS fields.
+				if ( 'wcgs_additional_css' === $key_context || 'wcgs_additional_js' === $key_context ) {
+					// Strip tags to avoid <script>, but keep CSS syntax intact.
+					return wp_strip_all_tags( $data );
+				}
+				return sanitize_text_field( $data );
+			}
+
+			if ( is_int( $data ) ) {
+				return intval( $data );
+			}
+
+			if ( is_float( $data ) ) {
+				return floatval( $data );
+			}
+
+			if ( is_bool( $data ) ) {
+				return (bool) $data;
+			}
+
+			return null;
+		}
+
+		/**
 		 * Set options.
 		 *
 		 * @param boolean $ajax true/false.
 		 * @return bool
 		 */
 		public function set_options( $ajax = false ) {
+			// Retrieve nonce.
+			$nonce = '';
+			if ( $ajax && ! empty( $_POST['nonce'] ) ) {
+				// Nonce sent via AJAX request.
+				$nonce = sanitize_text_field( wp_unslash( $_POST['nonce'] ) );
+			} elseif ( ! empty( $_POST[ 'wcgs_options_nonce' . $this->unique ] ) ) {
+				// Nonce sent via standard form (with unique field key).
+				$nonce = sanitize_text_field( wp_unslash( $_POST[ 'wcgs_options_nonce' . $this->unique ] ) );
+			}
+
+			if ( empty( $nonce ) || ! wp_verify_nonce( $nonce, 'wcgs_options_nonce' ) ) {
+				return false;
+			}
 
 			// XSS ok.
 			// This "POST" requests is sanitizing in the below foreach. see #L331.
-			$response = ( $ajax && ! empty( $_POST['data'] ) ) ? json_decode( wp_unslash( trim( $_POST['data'] ) ), true ) : $_POST; // phpcs:ignore
+			$response = ( $ajax && ! empty( $_POST['data'] ) ) ? json_decode( wp_unslash( trim( $_POST['data'] ) ), true ) : wp_unslash( $_POST ); // phpcs:ignore
+			$response = $this->sanitize_recursive( $response );
 
 			// Set variables.
-			$data      = array();
-			$noncekey  = 'wcgs_options_nonce' . $this->unique;
-			$nonce     = ( ! empty( $response[ $noncekey ] ) ) ? $response[ $noncekey ] : '';
-			$options   = ( ! empty( $response[ $this->unique ] ) ) ? $response[ $this->unique ] : array();
-			$transient = ( ! empty( $response['wcgs_transient'] ) ) ? $response['wcgs_transient'] : array();
+			$data       = array();
+			$options    = ( ! empty( $response[ $this->unique ] ) ) ? $response[ $this->unique ] : array();
+			$transient  = ( ! empty( $response['wcgs_transient'] ) ) ? $response['wcgs_transient'] : array();
+			$importing  = false;
+			$section_id = ( ! empty( $transient['section'] ) ) ? $transient['section'] : '';
 
-			if ( wp_verify_nonce( $nonce, 'wcgs_options_nonce' ) ) {
-				$importing  = false;
-				$section_id = ( ! empty( $transient['section'] ) ) ? $transient['section'] : '';
-				if ( ! $ajax && ! empty( $response['wcgs_import_data'] ) ) {
-					// XSS ok.
-					// This "POST" requests is sanitizing in the below foreach. see #L331.
-					$import_data  = json_decode( wp_unslash( trim( $response['wcgs_import_data'] ) ), true );
-					$options      = ( is_array( $import_data ) && ! empty( $import_data ) ) ? $import_data : array();
-					$importing    = true;
-					$this->notice = esc_html__( 'Settings successfully imported.', 'gallery-slider-for-woocommerce' );
-				}
-
-				if ( ! empty( $transient['reset'] ) ) {
-					foreach ( $this->pre_fields as $field ) {
-						if ( ! empty( $field['id'] ) ) {
-							if ( isset( $field['id'] ) ) {
-								$data[ $field['id'] ] = $this->get_default( $field );
-							}
+			if ( ! empty( $transient['reset'] ) ) {
+				foreach ( $this->pre_fields as $field ) {
+					if ( ! empty( $field['id'] ) ) {
+						if ( isset( $field['id'] ) ) {
+							$data[ $field['id'] ] = $this->get_default( $field );
 						}
 					}
-					$this->notice = esc_html__( 'Default settings restored.', 'gallery-slider-for-woocommerce' );
-				} elseif ( ! empty( $transient['reset_section'] ) && ! empty( $section_id ) ) {
-					if ( ! empty( $this->pre_sections ) ) {
-						foreach ( $this->pre_sections as $fields ) {
-							if ( $fields['name'] === $section_id ) {
-								foreach ( $fields['fields'] as $field ) {
-									if ( 'tabbed' === $field['type'] ) {
-										$tabs = $field['tabs'];
-										foreach ( $tabs as $fields ) {
-											$fields = $fields['fields'];
-											foreach ( $fields as $field ) {
-												if ( isset( $field['id'] ) ) {
-													$data[ $field['id'] ] = $this->get_default( $field );
-												}
+				}
+				$this->notice = esc_html__( 'Default settings restored.', 'gallery-slider-for-woocommerce' );
+			} elseif ( ! empty( $transient['reset_section'] ) && ! empty( $section_id ) ) {
+				if ( ! empty( $this->pre_sections ) ) {
+					foreach ( $this->pre_sections as $fields ) {
+						if ( $fields['name'] === $section_id ) {
+							foreach ( $fields['fields'] as $field ) {
+								if ( 'tabbed' === $field['type'] ) {
+									$tabs = $field['tabs'];
+									foreach ( $tabs as $fields ) {
+										$fields = $fields['fields'];
+										foreach ( $fields as $field ) {
+											if ( isset( $field['id'] ) ) {
+												$data[ $field['id'] ] = $this->get_default( $field );
 											}
 										}
-									} elseif ( ! empty( $field['id'] ) ) {
-											$data[ $field['id'] ] = $this->get_default( $field );
 									}
+								} elseif ( ! empty( $field['id'] ) ) {
+										$data[ $field['id'] ] = $this->get_default( $field );
 								}
 							}
 						}
 					}
-					$data         = wp_parse_args( $data, $this->options );
-					$this->notice = esc_html__( 'Default settings restored.', 'gallery-slider-for-woocommerce' );
-				} else {
-					// sanitize and validate.
-					foreach ( $this->pre_fields as $field ) {
-						if ( 'tabbed' === $field['type'] ) {
-							$tabs = $field['tabs'];
-							foreach ( $tabs as $fields ) {
-								$fields = $fields['fields'];
-								foreach ( $fields as $field ) {
-									$field_id = isset( $field['id'] ) ? $field['id'] : '';
-									// If field is ignored, skip it.
-									if ( ! empty( $field['ignore_db'] ) ) {
-										continue;
-									}
-									$field_value = isset( $options[ $field_id ] ) ? $options[ $field_id ] : '';
-									// Ajax and Importing doing wp_unslash already.
-									if ( ! $ajax && ! $importing ) {
-										$field_value = wp_unslash( $field_value );
-									}
-									// Sanitize "post" request of field.
-									if ( ! isset( $field['sanitize'] ) ) {
-										if ( is_array( $field_value ) ) {
-											$data[ $field_id ] = wp_kses_post_deep( $field_value );
-										} else {
-											$data[ $field_id ] = wp_kses_post( $field_value );
-										}
-									} elseif ( isset( $field['sanitize'] ) && is_callable( $field['sanitize'] ) ) {
-										$data[ $field_id ] = call_user_func( $field['sanitize'], $field_value );
+				}
+				$data         = wp_parse_args( $data, $this->options );
+				$this->notice = esc_html__( 'Default settings restored.', 'gallery-slider-for-woocommerce' );
+			} else {
+				// sanitize and validate.
+				foreach ( $this->pre_fields as $field ) {
+					if ( 'tabbed' === $field['type'] ) {
+						$tabs = $field['tabs'];
+						foreach ( $tabs as $fields ) {
+							$fields = $fields['fields'];
+							foreach ( $fields as $field ) {
+								$field_id = isset( $field['id'] ) ? $field['id'] : '';
+								// If field is ignored, skip it.
+								if ( ! empty( $field['ignore_db'] ) ) {
+									continue;
+								}
+								$field_value = isset( $options[ $field_id ] ) ? $options[ $field_id ] : '';
+								// Ajax and Importing doing wp_unslash already.
+								if ( ! $ajax && ! $importing ) {
+									$field_value = wp_unslash( $field_value );
+								}
+								// Sanitize "post" request of field.
+								if ( ! isset( $field['sanitize'] ) ) {
+									if ( is_array( $field_value ) ) {
+										$data[ $field_id ] = wp_kses_post_deep( $field_value );
 									} else {
-										$data[ $field_id ] = $field_value;
+										$data[ $field_id ] = wp_kses_post( $field_value );
 									}
-
-									// Validate "post" request of field.
-									if ( isset( $field['validate'] ) && is_callable( $field['validate'] ) ) {
-										$has_validated = call_user_func( $field['validate'], $field_value );
-										if ( ! empty( $has_validated ) ) {
-											$data[ $field_id ]         = ( isset( $this->options[ $field_id ] ) ) ? $this->options[ $field_id ] : '';
-											$this->errors[ $field_id ] = $has_validated;
-										}
-									}
-								}
-							}
-						} elseif ( ! empty( $field['id'] ) ) {
-							$field_id = $field['id'];
-							// If field is ignored, skip it.
-							if ( ! empty( $field['ignore_db'] ) ) {
-								continue;
-							}
-							$field_value = isset( $options[ $field_id ] ) ? $options[ $field_id ] : '';
-							// Ajax and Importing doing wp_unslash already.
-							if ( ! $ajax && ! $importing ) {
-								$field_value = wp_unslash( $field_value );
-							}
-							// Sanitize "post" request of field.
-							if ( ! isset( $field['sanitize'] ) ) {
-								if ( is_array( $field_value ) ) {
-									$data[ $field_id ] = wp_kses_post_deep( $field_value );
+								} elseif ( isset( $field['sanitize'] ) && is_callable( $field['sanitize'] ) ) {
+									$data[ $field_id ] = call_user_func( $field['sanitize'], $field_value );
 								} else {
-									$data[ $field_id ] = wp_kses_post( $field_value );
+									$data[ $field_id ] = $field_value;
 								}
-							} elseif ( isset( $field['sanitize'] ) && is_callable( $field['sanitize'] ) ) {
-								$data[ $field_id ] = call_user_func( $field['sanitize'], $field_value );
-							} else {
-								$data[ $field_id ] = $field_value;
+
+								// Validate "post" request of field.
+								if ( isset( $field['validate'] ) && is_callable( $field['validate'] ) ) {
+									$has_validated = call_user_func( $field['validate'], $field_value );
+									if ( ! empty( $has_validated ) ) {
+										$data[ $field_id ]         = ( isset( $this->options[ $field_id ] ) ) ? $this->options[ $field_id ] : '';
+										$this->errors[ $field_id ] = $has_validated;
+									}
+								}
 							}
+						}
+					} elseif ( ! empty( $field['id'] ) ) {
+						$field_id = $field['id'];
+						// If field is ignored, skip it.
+						if ( ! empty( $field['ignore_db'] ) ) {
+							continue;
+						}
+						$field_value = isset( $options[ $field_id ] ) ? $options[ $field_id ] : '';
+						// Ajax and Importing doing wp_unslash already.
+						if ( ! $ajax && ! $importing ) {
+							$field_value = wp_unslash( $field_value );
+						}
+						// Sanitize "post" request of field.
+						if ( ! isset( $field['sanitize'] ) ) {
+							if ( is_array( $field_value ) ) {
+								$data[ $field_id ] = wp_kses_post_deep( $field_value );
+							} else {
+								$data[ $field_id ] = wp_kses_post( $field_value );
+							}
+						} elseif ( isset( $field['sanitize'] ) && is_callable( $field['sanitize'] ) ) {
+							$data[ $field_id ] = call_user_func( $field['sanitize'], $field_value );
+						} else {
+							$data[ $field_id ] = $field_value;
+						}
 
-							// Validate "post" request of field.
-							if ( isset( $field['validate'] ) && is_callable( $field['validate'] ) ) {
+						// Validate "post" request of field.
+						if ( isset( $field['validate'] ) && is_callable( $field['validate'] ) ) {
 
-								$has_validated = call_user_func( $field['validate'], $field_value );
+							$has_validated = call_user_func( $field['validate'], $field_value );
 
-								if ( ! empty( $has_validated ) ) {
+							if ( ! empty( $has_validated ) ) {
 
-									$data[ $field_id ]         = ( isset( $this->options[ $field_id ] ) ) ? $this->options[ $field_id ] : '';
-									$this->errors[ $field_id ] = $has_validated;
+								$data[ $field_id ]         = ( isset( $this->options[ $field_id ] ) ) ? $this->options[ $field_id ] : '';
+								$this->errors[ $field_id ] = $has_validated;
 
-								}
 							}
 						}
 					}
 				}
-
-				$data = apply_filters( "wcgs_{$this->unique}_save", $data, $this );
-
-				do_action( "wcgs_{$this->unique}_save_before", $data, $this );
-
-				$this->options = $data;
-
-				$this->save_options( $data );
-
-				do_action( "wcgs_{$this->unique}_save_after", $data, $this );
-
-				if ( empty( $this->notice ) ) {
-					$this->notice = esc_html__( 'Settings saved.', 'gallery-slider-for-woocommerce' );
-				}
-
-				return true;
-
 			}
 
-			return false;
+			$data = apply_filters( "wcgs_{$this->unique}_save", $data, $this );
+
+			do_action( "wcgs_{$this->unique}_save_before", $data, $this );
+
+			$this->options = $data;
+
+			$this->save_options( $data );
+
+			do_action( "wcgs_{$this->unique}_save_after", $data, $this );
+
+			if ( empty( $this->notice ) ) {
+				$this->notice = esc_html__( 'Settings saved.', 'gallery-slider-for-woocommerce' );
+			}
+
+			return true;
 		}
 
 		/**
@@ -713,8 +754,18 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 		 * @return void
 		 */
 		public function add_admin_menu() {
+			$args = $this->args;
 
-			extract( $this->args ); // phpcs:ignore
+			$menu_type       = $args['menu_type'] ?? '';
+			$menu_parent     = $args['menu_parent'] ?? '';
+			$menu_title      = $args['menu_title'] ?? '';
+			$menu_capability = $args['menu_capability'] ?? 'manage_options';
+			$menu_slug       = $args['menu_slug'] ?? '';
+			$menu_icon       = $args['menu_icon'] ?? '';
+			$menu_position   = $args['menu_position'] ?? null;
+			$sub_menu_title  = $args['sub_menu_title'] ?? '';
+			$menu_hidden     = $args['menu_hidden'] ?? false;
+
 			$menu_capability = apply_filters( 'wcgs_ui_permission', $menu_capability );
 			if ( 'submenu' === $menu_type ) {
 				$menu_page = call_user_func( 'add_submenu_page', $menu_parent, $menu_title, $menu_title, $menu_capability, $menu_slug, array( &$this, 'add_options_html' ) );
@@ -738,7 +789,6 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 					}
 
 					remove_submenu_page( $menu_slug, $menu_slug );
-
 				}
 
 				if ( ! empty( $menu_hidden ) ) {
@@ -877,7 +927,7 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 
 			echo '<div class="wcgs-header' . esc_attr( $sticky_class ) . '">';
 			echo '<div class="wcgs-header-inner">';
-			if ( $this->args['menu_slug'] === 'assign_layout' ) {
+			if ( 'assign_layout' === $this->args['menu_slug'] ) {
 				echo '<div class="wcgs-admin-header assign_layout_settings"><div class="wcgs-admin-logo"> WooGallery <div class="wcgs-version">v' . esc_html( WOO_GALLERY_SLIDER_VERSION ) . '</div></div>';
 			} else {
 				echo '<div class="wcgs-admin-header"><div class="wcgs-admin-logo"> WooGallery Settings <div class="wcgs-version">v' . esc_html( WOO_GALLERY_SLIDER_VERSION ) . '</div></div>';

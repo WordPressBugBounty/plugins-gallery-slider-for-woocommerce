@@ -60,7 +60,6 @@ if ( ! class_exists( 'WCGS_Field_slider' ) ) {
 			echo '</div>';
 
 			echo wp_kses_post( $this->field_after() );
-
 		}
 
 		/**
@@ -69,44 +68,9 @@ if ( ! class_exists( 'WCGS_Field_slider' ) ) {
 		 * @return void
 		 */
 		public function enqueue() {
-
 			if ( ! wp_script_is( 'jquery-ui-slider' ) ) {
 				wp_enqueue_script( 'jquery-ui-slider' );
 			}
-
 		}
-
-		/**
-		 * Output
-		 *
-		 * @return statement
-		 */
-		public function output() {
-
-			$output    = '';
-			$elements  = ( is_array( $this->field['output'] ) ) ? $this->field['output'] : array_filter( (array) $this->field['output'] );
-			$important = ( ! empty( $this->field['output_important'] ) ) ? '!important' : '';
-			$mode      = ( ! empty( $this->field['output_mode'] ) ) ? $this->field['output_mode'] : 'width';
-			$unit      = ( ! empty( $this->field['unit'] ) ) ? $this->field['unit'] : 'px';
-
-			if ( ! empty( $elements ) && isset( $this->value ) && '' !== $this->value ) {
-				foreach ( $elements as $key_property => $element ) {
-					if ( is_numeric( $key_property ) ) {
-						if ( $mode ) {
-							$output = implode( ',', $elements ) . '{' . $mode . ':' . $this->value . $unit . $important . ';}';
-						}
-						break;
-					} else {
-						$output .= $element . '{' . $key_property . ':' . $this->value . $unit . $important . '}';
-					}
-				}
-			}
-
-			$this->parent->output_css .= $output;
-
-			return $output;
-
-		}
-
 	}
 }

@@ -2,10 +2,10 @@
 Contributors: shapedplugin, rubel_miah, khalilu, shamimmiashuhagh
 Tags: woocommerce product gallery carousel, woocommerce product gallery slider, product image zoom, additional variation images gallery, product featured video
 Requires at least: 5.3
-Tested up to: 6.8.2
+Tested up to: 6.9
 WC requires at least: 4.5
-WC tested up to: 10.0.4
-Stable tag: 3.1.0
+WC tested up to: 10.4.3
+Stable tag: 3.1.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -126,7 +126,7 @@ The orientation of the slider refers to the direction in which the product image
 
 ✅ **Product Images Sliding Effects**
 
-Sliding effects are fancy ways the product images change in a slider. They can slide, fade, zoom 
+Sliding effects are fancy ways the product images change in a slider. They can slide, fade, zoom
 or use other cool transitions to switch between images, making the  more interesting display to look at.
 
 * Slide
@@ -167,9 +167,9 @@ This feature allows you to arrange variation images in a specific sequence, whic
 
 Adjusting the slider speed allows customers to view product images properly. This feature will enable you to increase or decrease the sliding duration and direction based on your needs.
 
-* AutoPlay 
-* AutoPlay Delay Time 
-* Slider Speed 
+* AutoPlay
+* AutoPlay Delay Time
+* Slider Speed
 
 ✅ **Essential Thumbnails Slider Settings**
 
@@ -200,7 +200,7 @@ The plugin is fully compatible with WordPress multisite, including network-activ
 
 ## WooGallery Pro Features 🚀 ##
 
-WooGallery Pro offers more robust features and easy customizations that will take your product gallery beyond limitations and boost your sales growth. 
+WooGallery Pro offers more robust features and easy customizations that will take your product gallery beyond limitations and boost your sales growth.
 
 ✅ **Choose Modern Product Gallery Layouts**
 
@@ -260,12 +260,12 @@ Here are key zoom features you'll love:
 * Right Side and Magnific zoom styles
 * 3 Additional Zooming cursor styles
 * Zoom Lens Shape: Circle and Box
-* Lens Color, Border 
-* On hover product image overlay style: Blur, Custom Color 
-* Custom image overlay color and opacity 
-* Auto and custom zoom window size 
-* Zoom window distance 
-* MouseWheel Zoom 
+* Lens Color, Border
+* On hover product image overlay style: Blur, Custom Color
+* Custom image overlay color and opacity
+* Auto and custom zoom window size
+* Zoom window distance
+* MouseWheel Zoom
 
 
 [Live Demo](https://demo.woogallery.io/zoom-styles/) | [Documentation](https://woogallery.io/docs/how-to-apply-zoom-styles-for-product-images/)
@@ -273,15 +273,15 @@ Here are key zoom features you'll love:
 ✅ **Advanced Product Image Lightbox** 🔥🔥🔥
 
 * 4 Additional Lightbox sliding effects: Fade, Rotate,
-* Circular and Tube 
-* Lightbox overlay background 
+* Circular and Tube
+* Lightbox overlay background
 * 5 Lightbox icon display positions
-* Configure lightbox icon size 
-* Show/Hide slideshow play button 
-* Show/Hide thumbnails button 
+* Configure lightbox icon size
+* Show/Hide slideshow play button
+* Show/Hide thumbnails button
 * Show/Hide thumbnails visibility
-* Show/Hide full-screen button 
-* Show/Hide product image download button 
+* Show/Hide full-screen button
+* Show/Hide product image download button
 
 [Live Demo](https://demo.woogallery.io/lightbox-sliding-effects/) | [Documentation](https://woogallery.io/docs/how-to-customize-the-lightbox-icon-display-position/)
 
@@ -291,17 +291,17 @@ Enhance your online store's best product image viewing experience and attract mo
 
 ✅ **Product Gallery Thumbnails Control**
 
-* Thumbnail navigation border 
+* Thumbnail navigation border
 * Thumbnail navigation box size
 
 
 ✅ **Thumbnails Custom Dimensions**
 
-Set specific dimensions for the thumbnails displayed in the product. This feature lets you control the height and width of the product thumbnails. 
+Set specific dimensions for the thumbnails displayed in the product. This feature lets you control the height and width of the product thumbnails.
 
 [Live Demo](https://demo.woogallery.io/thumbnails-space-padding-size-border/) | [Documentation](https://woogallery.io/docs/how-to-set-thumbnails-size/)
 
-✅ ** Thumbnails Hover Effects** 🔥🔥🔥
+✅ **Thumbnails Hover Effects** 🔥🔥🔥
 
 Thumbnail hover effects refer to interactive visual changes when customers hover their cursor over thumbnail images. Choose a hover effect from-
 
@@ -402,11 +402,24 @@ Yes, the plugin is compatible with the most popular WooCommerce themes. We’re 
 
 == Changelog ==
 
+= Version 3.1.3 - Jan 08, 2026 =
+* Improved: Code readability and maintainability improved.
+* Tested: WooCommerce 10.4.3 compatibility.
+
+= Version 3.1.2 - Oct 10, 2025 =
+* Tested: WordPress 6.9 compatibility.
+* Tested: WooCommerce 10.3.5 compatibility.
+
+= Version 3.1.1 - Oct 10, 2025 =
+* Improved: Enhanced plugin security and data validation.
+* Improved: The Additional CSS and JS options.
+* Fix: The warning related to the video order option.
+
 = Version 3.1.0 - Aug 01, 2025 =
 * New: The Thumb Left gallery layout.
 * New: Thumbnails Hover Effect ( Zoom Out, Slider Down) options.
 * New: The Active Thumbnail Inner Line Style added.
-* New: Inactive Thumbnails Grayscale Style option. 
+* New: Inactive Thumbnails Grayscale Style option.
 * New: The product image modes (grayscale, grayscale on hover) have been added.
 * New: The Navigation Position Bottom Left option
 * New: The Thumbnails Navigation Style Inner Right option.
@@ -423,7 +436,7 @@ Yes, the plugin is compatible with the most popular WooCommerce themes. We’re 
 
 = Version 3.0.2 - Jul 21, 2025 =
 * New: Some gallery navigation icons added.
-* New: Some gallery thmbnails navigation icons added.
+* New: Some gallery thumbnails navigation icons added.
 * New: The slider dynamic pagination style has been added.
 * New: The Lightbox Icon Size option.
 * Improved: The plugin's backend options have been enhanced.

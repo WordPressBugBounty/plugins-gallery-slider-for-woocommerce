@@ -34,7 +34,6 @@ if ( ! function_exists( 'wcgs_array_search' ) ) {
 		}
 
 		return $results;
-
 	}
 }
 
@@ -50,7 +49,6 @@ if ( ! function_exists( 'wcgs_microtime' ) ) {
 	function wcgs_microtime( $timenow, $starttime, $timeout = 30 ) {
 
 		return ( ( $timenow - $starttime ) < $timeout ) ? true : false;
-
 	}
 }
 
@@ -67,7 +65,5 @@ if ( ! function_exists( 'wcgs_wp_editor_api' ) ) {
 		global $wp_version;
 
 		return version_compare( $wp_version, '4.8', '>=' );
-
 	}
 }
-

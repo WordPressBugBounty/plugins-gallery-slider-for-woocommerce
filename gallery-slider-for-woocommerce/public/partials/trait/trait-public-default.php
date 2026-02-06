@@ -6,6 +6,10 @@
  * @subpackage Woo_Gallery_Slider/public
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}  // if direct access.
+
 /**
  * Default value trait
  */

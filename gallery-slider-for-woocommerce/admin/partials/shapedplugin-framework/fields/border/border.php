@@ -6,7 +6,7 @@
  * @subpackage Woo_Gallery_Slider/public
  */
 
- if ( ! defined( 'ABSPATH' ) ) {
+if ( ! defined( 'ABSPATH' ) ) {
 	die;
 } // Cannot access directly.
 
@@ -180,56 +180,6 @@ if ( ! class_exists( 'WCGS_Field_border' ) ) {
 			echo '<div class="clear"></div>';
 
 			echo wp_kses_post( $this->field_after() );
-
 		}
-
-		/**
-		 * Output
-		 *
-		 * @return statement
-		 */
-		public function output() {
-
-			$output    = '';
-			$unit      = ( ! empty( $this->value['unit'] ) ) ? $this->value['unit'] : 'px';
-			$important = ( ! empty( $this->field['output_important'] ) ) ? '!important' : '';
-			$element   = ( is_array( $this->field['output'] ) ) ? join( ',', $this->field['output'] ) : $this->field['output'];
-
-			// properties.
-			$top    = ( isset( $this->value['top'] ) && '' !== $this->value['top'] ) ? $this->value['top'] : '';
-			$right  = ( isset( $this->value['right'] ) && '' !== $this->value['right'] ) ? $this->value['right'] : '';
-			$bottom = ( isset( $this->value['bottom'] ) && '' !== $this->value['bottom'] ) ? $this->value['bottom'] : '';
-			$left   = ( isset( $this->value['left'] ) && '' !== $this->value['left'] ) ? $this->value['left'] : '';
-			$style  = ( isset( $this->value['style'] ) && '' !== $this->value['style'] ) ? $this->value['style'] : '';
-			$color  = ( isset( $this->value['color'] ) && '' !== $this->value['color'] ) ? $this->value['color'] : '';
-			$all    = ( isset( $this->value['all'] ) && '' !== $this->value['all'] ) ? $this->value['all'] : '';
-
-			if ( ! empty( $this->field['all'] ) && ( '' !== $all || '' !== $color ) ) {
-
-				$output  = $element . '{';
-				$output .= ( '' !== $all ) ? 'border-width:' . $all . $unit . $important . ';' : '';
-				$output .= ( '' !== $color ) ? 'border-color:' . $color . $important . ';' : '';
-				$output .= ( '' !== $style ) ? 'border-style:' . $style . $important . ';' : '';
-				$output .= '}';
-
-			} elseif ( '' !== $top || '' !== $right || '' !== $bottom || '' !== $left || '' !== $color ) {
-
-				$output  = $element . '{';
-				$output .= ( '' !== $top ) ? 'border-top-width:' . $top . $unit . $important . ';' : '';
-				$output .= ( '' !== $right ) ? 'border-right-width:' . $right . $unit . $important . ';' : '';
-				$output .= ( '' !== $bottom ) ? 'border-bottom-width:' . $bottom . $unit . $important . ';' : '';
-				$output .= ( '' !== $left ) ? 'border-left-width:' . $left . $unit . $important . ';' : '';
-				$output .= ( '' !== $color ) ? 'border-color:' . $color . $important . ';' : '';
-				$output .= ( '' !== $style ) ? 'border-style:' . $style . $important . ';' : '';
-				$output .= '}';
-
-			}
-
-			$this->parent->output_css .= $output;
-
-			return $output;
-
-		}
-
 	}
 }

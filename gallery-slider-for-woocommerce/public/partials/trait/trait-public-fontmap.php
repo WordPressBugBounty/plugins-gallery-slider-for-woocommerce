@@ -1,4 +1,8 @@
 <?php
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}  // if direct access.
+
 trait WCGS_Public_fontmap {
 	/**
 	 * Fonts map

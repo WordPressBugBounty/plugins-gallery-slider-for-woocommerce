@@ -44,37 +44,6 @@ if ( ! class_exists( 'WCGS_Field_color' ) ) {
 			echo wp_kses_post( $this->field_before() );
 			echo '<input type="text" name="' . esc_attr( $this->field_name() ) . '" value="' . esc_attr( $this->value ) . '" class="wcgs-color"' . wp_kses_post( $default_attr ) . $this->field_attributes() . '/>'; // phpcs:ignore
 			echo wp_kses_post( $this->field_after() );
-
 		}
-
-		/**
-		 * Output
-		 *
-		 * @return statement
-		 */
-		public function output() {
-
-			$output    = '';
-			$elements  = ( is_array( $this->field['output'] ) ) ? $this->field['output'] : array_filter( (array) $this->field['output'] );
-			$important = ( ! empty( $this->field['output_important'] ) ) ? '!important' : '';
-			$mode      = ( ! empty( $this->field['output_mode'] ) ) ? $this->field['output_mode'] : 'color';
-
-			if ( ! empty( $elements ) && isset( $this->value ) && '' !== $this->value ) {
-				foreach ( $elements as $key_property => $element ) {
-					if ( is_numeric( $key_property ) ) {
-						$output = implode( ',', $elements ) . '{' . $mode . ':' . $this->value . $important . ';}';
-						break;
-					} else {
-						$output .= $element . '{' . $key_property . ':' . $this->value . $important . '}';
-					}
-				}
-			}
-
-			$this->parent->output_css .= $output;
-
-			return $output;
-
-		}
-
 	}
 }

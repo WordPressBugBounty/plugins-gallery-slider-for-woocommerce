@@ -154,132 +154,132 @@ if ( ! class_exists( 'WCGS_Fields' ) ) {
 		}
 
 		// /**
-		//  * Field Data.
-		//  *
-		//  * @param array $type post types.
-		//  *
-		//  * @return statement
-		//  */
+		// * Field Data.
+		// *
+		// * @param array $type post types.
+		// *
+		// * @return statement
+		// */
 		// public function field_data( $type = '' ) {
 
-		// 	$options    = array();
-		// 	$query_args = ( ! empty( $this->field['query_args'] ) ) ? $this->field['query_args'] : array();
+		// $options    = array();
+		// $query_args = ( ! empty( $this->field['query_args'] ) ) ? $this->field['query_args'] : array();
 
-		// 	switch ( $type ) {
+		// switch ( $type ) {
 
-		// 		case 'page':
-		// 		case 'pages':
-		// 			$pages = get_pages( $query_args );
+		// case 'page':
+		// case 'pages':
+		// $pages = get_pages( $query_args );
 
-		// 			if ( ! is_wp_error( $pages ) && ! empty( $pages ) ) {
-		// 				foreach ( $pages as $page ) {
-		// 					$options[ $page->ID ] = $page->post_title;
-		// 				}
-		// 			}
+		// if ( ! is_wp_error( $pages ) && ! empty( $pages ) ) {
+		// foreach ( $pages as $page ) {
+		// $options[ $page->ID ] = $page->post_title;
+		// }
+		// }
 
-		// 			break;
+		// break;
 
-		// 		case 'post':
-		// 		case 'posts':
-		// 			$posts = get_posts( $query_args );
+		// case 'post':
+		// case 'posts':
+		// $posts = get_posts( $query_args );
 
-		// 			if ( ! is_wp_error( $posts ) && ! empty( $posts ) ) {
-		// 				foreach ( $posts as $post ) {
-		// 					$options[ $post->ID ] = $post->post_title;
-		// 				}
-		// 			}
+		// if ( ! is_wp_error( $posts ) && ! empty( $posts ) ) {
+		// foreach ( $posts as $post ) {
+		// $options[ $post->ID ] = $post->post_title;
+		// }
+		// }
 
-		// 			break;
+		// break;
 
-		// 		case 'category':
-		// 		case 'categories':
-		// 			$categories = get_categories( $query_args );
+		// case 'category':
+		// case 'categories':
+		// $categories = get_categories( $query_args );
 
-		// 			if ( ! is_wp_error( $categories ) && ! empty( $categories ) && ! isset( $categories['errors'] ) ) {
-		// 				foreach ( $categories as $category ) {
-		// 					$options[ $category->term_id ] = $category->name;
-		// 				}
-		// 			}
+		// if ( ! is_wp_error( $categories ) && ! empty( $categories ) && ! isset( $categories['errors'] ) ) {
+		// foreach ( $categories as $category ) {
+		// $options[ $category->term_id ] = $category->name;
+		// }
+		// }
 
-		// 			break;
+		// break;
 
-		// 		case 'tag':
-		// 		case 'tags':
-		// 			$taxonomies = ( isset( $query_args['taxonomies'] ) ) ? $query_args['taxonomies'] : 'post_tag';
-		// 			if ( ! isset( $query_args['taxonomy'] ) ) {
-		// 				unset( $query_args['taxonomies'] );
-		// 				$query_args['taxonomy'] = $taxonomies;
-		// 			}
-		// 			$tags = get_terms( $query_args );
-		// 			if ( ! is_wp_error( $tags ) && ! empty( $tags ) ) {
-		// 				foreach ( $tags as $tag ) {
-		// 					$options[ $tag->term_id ] = $tag->name;
-		// 				}
-		// 			}
+		// case 'tag':
+		// case 'tags':
+		// $taxonomies = ( isset( $query_args['taxonomies'] ) ) ? $query_args['taxonomies'] : 'post_tag';
+		// if ( ! isset( $query_args['taxonomy'] ) ) {
+		// unset( $query_args['taxonomies'] );
+		// $query_args['taxonomy'] = $taxonomies;
+		// }
+		// $tags = get_terms( $query_args );
+		// if ( ! is_wp_error( $tags ) && ! empty( $tags ) ) {
+		// foreach ( $tags as $tag ) {
+		// $options[ $tag->term_id ] = $tag->name;
+		// }
+		// }
 
-		// 			break;
+		// break;
 
-		// 		case 'menu':
-		// 		case 'menus':
-		// 			$menus = wp_get_nav_menus( $query_args );
-		// 			if ( ! is_wp_error( $menus ) && ! empty( $menus ) ) {
-		// 				foreach ( $menus as $menu ) {
-		// 					$options[ $menu->term_id ] = $menu->name;
-		// 				}
-		// 			}
-		// 			break;
-		// 		case 'post_type':
-		// 		case 'post_types':
-		// 			$post_types = get_post_types(
-		// 				array(
-		// 					'show_in_nav_menus' => true,
-		// 				)
-		// 			);
+		// case 'menu':
+		// case 'menus':
+		// $menus = wp_get_nav_menus( $query_args );
+		// if ( ! is_wp_error( $menus ) && ! empty( $menus ) ) {
+		// foreach ( $menus as $menu ) {
+		// $options[ $menu->term_id ] = $menu->name;
+		// }
+		// }
+		// break;
+		// case 'post_type':
+		// case 'post_types':
+		// $post_types = get_post_types(
+		// array(
+		// 'show_in_nav_menus' => true,
+		// )
+		// );
 
-		// 			if ( ! is_wp_error( $post_types ) && ! empty( $post_types ) ) {
-		// 				foreach ( $post_types as $post_type ) {
-		// 					$options[ $post_type ] = ucfirst( $post_type );
-		// 				}
-		// 			}
+		// if ( ! is_wp_error( $post_types ) && ! empty( $post_types ) ) {
+		// foreach ( $post_types as $post_type ) {
+		// $options[ $post_type ] = ucfirst( $post_type );
+		// }
+		// }
 
-		// 			break;
+		// break;
 
-		// 		case 'sidebar':
-		// 		case 'sidebars':
-		// 			global $wp_registered_sidebars;
+		// case 'sidebar':
+		// case 'sidebars':
+		// global $wp_registered_sidebars;
 
-		// 			if ( ! empty( $wp_registered_sidebars ) ) {
-		// 				foreach ( $wp_registered_sidebars as $sidebar ) {
-		// 					$options[ $sidebar['id'] ] = $sidebar['name'];
-		// 				}
-		// 			}
+		// if ( ! empty( $wp_registered_sidebars ) ) {
+		// foreach ( $wp_registered_sidebars as $sidebar ) {
+		// $options[ $sidebar['id'] ] = $sidebar['name'];
+		// }
+		// }
 
-		// 			break;
+		// break;
 
-		// 		case 'role':
-		// 		case 'roles':
-		// 			global $wp_roles;
+		// case 'role':
+		// case 'roles':
+		// global $wp_roles;
 
-		// 			if ( is_object( $wp_roles ) ) {
-		// 				$roles = $wp_roles->get_names();
-		// 				if ( ! empty( $wp_roles ) ) {
-		// 					foreach ( $roles as $key => $value ) {
-		// 						$options[ $key ] = $value;
-		// 					}
-		// 				}
-		// 			}
+		// if ( is_object( $wp_roles ) ) {
+		// $roles = $wp_roles->get_names();
+		// if ( ! empty( $wp_roles ) ) {
+		// foreach ( $roles as $key => $value ) {
+		// $options[ $key ] = $value;
+		// }
+		// }
+		// }
 
-		// 			break;
+		// break;
 
-		// 		default:
-		// 			if ( function_exists( $type ) ) {
-		// 				$options = call_user_func( $type, $this->value, $this->field );
-		// 			}
-		// 			break;
+		// default:
+		// if ( function_exists( $type ) ) {
+		// $options = call_user_func( $type, $this->value, $this->field );
+		// }
+		// break;
 
-		// 	}
+		// }
 
-		// 	return $options;
+		// return $options;
 		// }
 
 		/**

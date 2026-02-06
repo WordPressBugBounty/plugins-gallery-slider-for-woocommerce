@@ -43,6 +43,5 @@ if ( ! class_exists( 'WCGS_Field_sp_help_free' ) ) {
 			Woo_Gallery_Slider_Help::instance();
 			echo wp_kses_post( $this->field_after() );
 		}
-
 	}
 }

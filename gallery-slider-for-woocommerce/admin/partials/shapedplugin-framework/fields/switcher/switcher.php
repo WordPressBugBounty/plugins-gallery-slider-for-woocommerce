@@ -60,8 +60,6 @@ if ( ! class_exists( 'WCGS_Field_switcher' ) ) {
 			echo '<div class="clear"></div>';
 
 			echo wp_kses_post( $this->field_after() );
-
 		}
-
 	}
 }

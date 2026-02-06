@@ -42,6 +42,7 @@
  * ---------------------------------------------------------
  *
  */
+
 /**
  * 01. Base
  */
@@ -3663,4 +3664,144 @@ div:is(#wcgs_builder_option) .postbox-header .handle-actions .handle-order-highe
 
 span.spwpcp-footer-text-star {
   color: #2271b1;
+}
+
+/* Smart Tabs Upgrade to Pro section style */
+.wcgs-field.upgrade-to-pro-notice {
+  border: 0;
+  padding: 0;
+}
+
+.upgrade-to-pro-notice .wcgs-notice {
+  border: none;
+  padding-top: 0;
+}
+
+.wptabspro-field-notice.upgrade-to-pro-notice .wptabspro-notice {
+  padding: 0;
+  margin-top: 0;
+}
+
+.wcgs-upgrade-to-pro-section {
+  background: #E7F2E7;
+  border: 1px solid #3d9e564d;
+  border-radius: 8px;
+  padding: 30px;
+  line-height: 1.6;
+  color: #3C434A;
+  max-width: 100%;
+}
+
+.upgrade-to-pro-notice .wcgs-upgrade-to-pro-section h2 {
+  color: #3C434A;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 22px !important;
+}
+
+.wcgs-upgrade-to-pro-section p {
+  margin-bottom: 20px;
+  margin-top: 10px;
+  color: #3C434A;
+  font-size: 16px;
+  font-style: normal;
+}
+
+.wcgs-upgrade-to-pro-section .features-wrapper {
+  display: flex;
+  gap: 210px;
+}
+
+.wcgs-upgrade-to-pro-section .features-wrapper.general-tab {
+  gap: 10px;
+}
+
+.wcgs-upgrade-to-pro-section .features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.wcgs-upgrade-to-pro-section .features-list li {
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.wcgs-upgrade-to-pro-section .features-list li.long-list-item {
+  width: 92%;
+}
+
+.wcgs-upgrade-to-pro-section .features-list li .sw-feature-list-icon {
+  color: #aaaaaa;
+}
+
+.wcgs-upgrade-to-pro-section .features-list a {
+  color: #236CB4;
+  cursor: pointer;
+}
+
+
+.wcgs-upgrade-to-pro-section .special-bonus {
+  font-size: 15px;
+  margin: 10px 0 24px;
+}
+
+.wcgs-upgrade-to-pro-section .special-bonus .highlight-discount {
+  color: #F38600;
+  font-weight: bold;
+}
+
+.wcgs-upgrade-to-pro-section .upgrade-btn {
+  display: inline-block;
+  background: #7DC049;
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.wcgs-upgrade-to-pro-section .see-full-features {
+  border: 1px solid #3C434A;
+  color: #3C434A;
+  font-style: normal;
+  display: inline-block;
+  padding: 11px 44px 11px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  margin-left: 20px;
+  position: relative;
+}
+
+.wcgs-upgrade-to-pro-section .see-full-features .wcgs-icon-up-right-arrow {
+  font-size: 22px;
+  position: absolute;
+  top: 6px;
+}
+
+.wcgs-upgrade-to-pro-section .see-full-features:hover {
+  color: #fff;
+  background: #3c434a;
+}
+
+.wcgs-upgrade-to-pro-section .see-full-features:focus {
+  box-shadow: none;
+}
+
+.wcgs-upgrade-to-pro-section .features-list a:focus,
+.wcgs-upgrade-to-pro-section .upgrade-btn:focus {
+  box-shadow: none;
+}
+
+.wcgs-upgrade-to-pro-section .upgrade-btn:hover {
+  background: #78b74a;
+}
+
+.wcgs-upgrade-to-pro-section .see-full-features .sp_wgs-icon-up-right-arrow {
+  font-size: 22px;
+  position: absolute;
+  top: 6px;
 }

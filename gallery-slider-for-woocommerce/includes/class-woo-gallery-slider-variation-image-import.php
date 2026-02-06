@@ -311,7 +311,7 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 					'post_type'   => 'attachment',
 					'post_status' => 'any',
 					'fields'      => 'ids',
-					'meta_query'  => array(
+					'meta_query'  => array( // phpcs:ignore -- WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 						'relation' => 'OR',
 						array(
 							'key'     => '_wp_attached_file',
@@ -336,7 +336,7 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 					'post_type'   => 'attachment',
 					'post_status' => 'any',
 					'fields'      => 'ids',
-					'meta_query'  => array(
+					'meta_query'  => array( // phpcs:ignore -- WordPress.DB.SlowDBQuery.slow_db_query_meta_query
 						array(
 							'value' => $url,
 							'key'   => '_wc_attachment_source',

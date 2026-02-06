@@ -58,46 +58,28 @@ if ( ! class_exists( 'WCGS_Field_radio' ) ) {
 
 					echo '<ul' . wp_kses_post( $inline_class ) . '>';
 					foreach ( $options as $option_key => $option_value ) {
-
-						// if ( is_array( $option_value ) && ! empty( $option_value ) ) {
-
-						// echo '<li>';
-						// echo '<ul>';
-						// echo '<li><strong>' . esc_html( $option_key ) . '</strong></li>';
-						// foreach ( $option_value as $sub_key => $sub_value ) {
-						// $checked = ( $sub_key === $this->value ) ? ' checked' : '';
-						// echo '<li><label><input type="radio" name="' . esc_attr( $this->field_name() ) . '" value="' . esc_attr( $sub_key ) . '"' . $this->field_attributes() . esc_attr( $checked ) . '/> ' . esc_html( $sub_value ) . '</label></li>'; // phpcs:ignore
-						// }
-						// echo '</ul>';
-						// echo '</li>';
-						// } else {
 						$disabled = '';
 						if ( is_array( $option_value ) && ! empty( $option_value ) ) {
 							$disabled = isset( $option_value['pro_only'] ) && $option_value['pro_only'] ? 'disabled' : '';
 							$checked  = ( $option_key === $this->value ) ? ' checked' : '';
 							echo '<li><label class="' . esc_attr( $disabled  ) . '" ><input type="radio" ' . esc_attr( $disabled  ) . ' name="' . esc_attr( $this->field_name() ) . '" value="' . esc_attr( $option_key ) . '"' . $this->field_attributes() . esc_attr( $checked ) . '/> <span>' . esc_html( isset( $option_value['option_name'] ) ? $option_value['option_name'] : '' ) . '</span></label></li>'; // phpcs:ignore
 						} else {
-							$checked  = ( $option_key === $this->value ) ? ' checked' : '';
+							$checked = ( $option_key === $this->value ) ? ' checked' : '';
 							echo '<li><label><input type="radio" name="' . esc_attr( $this->field_name() ) . '" value="' . esc_attr( $option_key ) . '"' . $this->field_attributes() . esc_attr( $checked ) . '/> <span>' . esc_html( $option_value ) . '<span></label></li>'; // phpcs:ignore
 						}
-
-						// }
 					}
 					echo '</ul>';
 
 				} else {
 
 					echo ! empty( $this->field['empty_message'] ) ? esc_html( $this->field['empty_message'] ) : esc_html__( 'No data provided for this option type.', 'gallery-slider-for-woocommerce' );
-
 				}
 			} else {
-						$label = ( isset( $this->field['label'] ) ) ? $this->field['label'] : '';
-						echo '<label><input type="radio" name="' . esc_attr( $this->field_name() ) . '" value="1"' . $this->field_attributes() . checked( $this->value, 1, false ) . '/> ' . esc_html( $label ) . '</label>'; // phpcs:ignore
+				$label = ( isset( $this->field['label'] ) ) ? $this->field['label'] : '';
+				echo '<label><input type="radio" name="' . esc_attr( $this->field_name() ) . '" value="1"' . $this->field_attributes() . checked( $this->value, 1, false ) . '/> ' . esc_html( $label ) . '</label>'; // phpcs:ignore
 			}
 
 			echo wp_kses_post( $this->field_after() );
-
 		}
-
 	}
 }

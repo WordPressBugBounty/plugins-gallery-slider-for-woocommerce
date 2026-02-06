@@ -9,6 +9,10 @@
  * @author     Shapedplugin <support@shapedplugin.com>
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}  // if direct access.
+
 /**
  * WCGS Lightbox class
  */
@@ -215,21 +219,12 @@ class WCGS_Lightbox {
 						'dependency' => array( 'lightbox', '==', true ),
 					),
 					array(
-						'id'         => 'shoppage_video_notice',
-						'type'       => 'notice',
-						'style'      => 'normal',
-						'class'      => 'wcgs-light-notice',
-						'content'    => sprintf(
-							/* translators: 1: start link and strong tag, 2: close link and strong tag, 3: start strong tag, 4: close strong tag. 5: start link and strong tag, 6: close link and strong tag. */
-							__( 'Want to unlock the full potential of %1$s Advanced Lightbox%2$s features and %3$sSkyrocket%4$s conversions? %5$sUpgrade to Pro!%6$s', 'gallery-slider-for-woocommerce' ),
-							'<a href="https://woogallery.io/product-image-lightbox/" target="_blank" class="btn"> <strong>',
-							'</strong></a>',
-							'<strong>',
-							'</strong>',
-							'<a href="https://woogallery.io/pricing/?ref=143" target="_blank" class="btn"><strong>',
-							'</strong></a>'
+						'type'      => 'notice',
+						'ignore_db' => true,
+						'class'     => 'upgrade-to-pro-notice',
+						'content'   => (
+							WCGS::lightbox_tab()
 						),
-						'dependency' => array( 'lightbox', '==', true ),
 					),
 				),
 			)

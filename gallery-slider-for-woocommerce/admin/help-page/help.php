@@ -736,7 +736,7 @@ class Woo_Gallery_Slider_Help {
 							</div>
 						</div>
 						<div class="wcgs-about-img">
-							<img src="https://shapedplugin.com/wp-content/uploads/2024/01/shapedplugin-team.jpg" alt="">
+							<img src="<?php echo esc_url( WOO_GALLERY_SLIDER_URL . 'admin/help-page/img/shapedplugin-team.jpg' ); ?>" alt="ShapedPlugin Team">
 							<span>Team ShapedPlugin LLC at WordCamp Sylhet</span>
 						</div>
 					</div>

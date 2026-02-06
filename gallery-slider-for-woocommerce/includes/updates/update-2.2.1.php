@@ -8,6 +8,10 @@
  * @author     ShapedPlugin <support@shapedplugin.com>
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}  // if direct access.
+
 update_option( 'woo_gallery_slider_version', '2.2.1' );
 update_option( 'woo_gallery_slider_db_version', '2.2.1' );
 

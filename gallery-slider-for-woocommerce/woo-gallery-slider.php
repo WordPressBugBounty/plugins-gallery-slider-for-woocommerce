@@ -9,7 +9,7 @@
  * Plugin Name:       WooGallery
  * Plugin URI:        https://woogallery.io/?ref=143
  * Description:       WooGallery plugin allows you to insert additional images for each variation to let visitors see different images when product variations are switched. Increase your sales by transforming the WooCommerce default product gallery instantly to a beautiful thumbnails gallery slider on a single product page.
- * Version:           3.1.0
+ * Version:           3.1.3
  * Author:            WooGallery Team, ShapedPlugin LLC
  * Author URI:        https://woogallery.io/
  * License: GPLv3
@@ -18,7 +18,7 @@
  * Requires PHP: 7.0
  * Requires Plugins: woocommerce
  * WC requires at least: 4.5
- * WC tested up to: 10.0.4
+ * WC tested up to: 10.4.3
  * Text Domain:       gallery-slider-for-woocommerce
  * Domain Path:       /languages
  */
@@ -28,11 +28,10 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
-
 /**
  * Currently plugin version.
  */
-define( 'WOO_GALLERY_SLIDER_VERSION', '3.1.0' );
+define( 'WOO_GALLERY_SLIDER_VERSION', '3.1.3' );
 define( 'WOO_GALLERY_SLIDER_FILE', __FILE__ );
 define( 'WOO_GALLERY_SLIDER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WOO_GALLERY_SLIDER_URL', plugin_dir_url( __FILE__ ) );
@@ -59,10 +58,21 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-woo-gallery-slider.php';
 function run_woo_gallery_slider() {
 	$plugin = new Woo_Gallery_Slider();
 	$plugin->run();
+
+	if ( ! defined( 'SHAPEDPLIUGIN_OFFER_BANNER_LOADED' ) ) {
+		define( 'SHAPEDPLIUGIN_OFFER_BANNER_LOADED', true );
+
+		/**
+		 * The class responsible for generating admin offer banner.
+		 */
+		include_once plugin_dir_path( __FILE__ ) . '/admin/partials/class-wgs-offer-banner.php';
+	}
 }
+
 if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
 	include_once ABSPATH . 'wp-admin/includes/plugin.php';
 }
+
 if ( ( is_plugin_active( 'woocommerce/woocommerce.php' ) || is_plugin_active_for_network( 'woocommerce/woocommerce.php' ) ) && ! ( is_plugin_active( 'woo-gallery-slider-pro/woo-gallery-slider-pro.php' ) || is_plugin_active_for_network( 'woo-gallery-slider-pro/woo-gallery-slider-pro.php' ) ) ) {
 	if ( ! is_network_admin() ) {
 		run_woo_gallery_slider();

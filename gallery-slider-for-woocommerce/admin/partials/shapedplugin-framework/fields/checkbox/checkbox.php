@@ -100,8 +100,6 @@ if ( ! class_exists( 'WCGS_Field_checkbox' ) ) {
 			}
 
 			echo wp_kses_post( $this->field_after() );
-
 		}
-
 	}
 }

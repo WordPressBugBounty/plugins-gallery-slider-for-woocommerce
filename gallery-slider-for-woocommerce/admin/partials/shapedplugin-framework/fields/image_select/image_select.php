@@ -89,26 +89,5 @@ if ( ! class_exists( 'WCGS_Field_image_select' ) ) {
 
 			echo wp_kses_post( $this->field_after() );
 		}
-
-		/**
-		 * Output
-		 *
-		 * @return statement
-		 */
-		public function output() {
-
-			$output    = '';
-			$bg_image  = array();
-			$important = ( ! empty( $this->field['output_important'] ) ) ? '!important' : '';
-			$elements  = ( is_array( $this->field['output'] ) ) ? join( ',', $this->field['output'] ) : $this->field['output'];
-
-			if ( ! empty( $elements ) && isset( $this->value ) && '' !== $this->value ) {
-				$output = $elements . '{background-image:url(' . $this->value . ')' . $important . ';}';
-			}
-
-			$this->parent->output_css .= $output;
-
-			return $output;
-		}
 	}
 }

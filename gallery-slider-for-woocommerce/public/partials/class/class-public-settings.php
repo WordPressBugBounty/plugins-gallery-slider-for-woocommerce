@@ -6,11 +6,16 @@
  * @subpackage Woo_Gallery_Slider/public
  */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}  // if direct access.
+
 /**
  * WCGS Public Settings class
  */
 class WCGS_Public_Settings {
-	use WCGS_Public_Default, WCGS_Public_fontmap;
+	use WCGS_Public_Default;
+	use WCGS_Public_fontmap;
 
 	/**
 	 * The constructor of the class.
