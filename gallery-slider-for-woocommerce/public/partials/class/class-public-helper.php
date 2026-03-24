@@ -134,6 +134,10 @@ class WCGS_Public_Helper {
 	 * @return array
 	 */
 	public function wcgs_sort_by_has_key_add_last( $a, $b ) {
+		// Ensure both values are arrays to prevent TypeError.
+		$a = is_array( $a ) ? $a : array();
+		$b = is_array( $b ) ? $b : array();
+
 		$has_key_a = array_key_exists( 'video', $a );
 		$has_key_b = array_key_exists( 'video', $b );
 

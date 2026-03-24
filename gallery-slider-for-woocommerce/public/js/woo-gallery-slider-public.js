@@ -225,7 +225,7 @@
 
 			$(document).on(
 				`change${this.namespace}`,
-				'form.variations_form .variations select',
+				'form.variations_form .variations select, form.variations_form .variations input[type=radio]',
 				this.handleVariationChange
 			);
 
@@ -235,7 +235,7 @@
 						e => this.handleZoom(e));
 			}
 
-			if (this.settings.navigation === '1') {
+			if (this.settings.navigation === '1' || this.settings.navigation === true) {
 				this.$gallery.find('.gallery-navigation-carousel .wcgs-spswiper-button-next')
 					.off(this.namespace)
 					.on(`click${this.namespace}`, () => {
@@ -399,8 +399,8 @@
 		}
 		// Initialize SPSwiper instances
 		initializeSPSwipers() {
-			const thumbnail_nav = this.settings.thumbnailnavigation === '1';
-			const navigation = this.settings.navigation === '1';
+			const thumbnail_nav = this.settings.thumbnailnavigation === '1' || this.settings.thumbnailnavigation === true;
+			const navigation = this.settings.navigation === '1' || this.settings.navigation === true;
 			const thumbnails_sliders_space = this.settings.thumbnails_sliders_space ? this.settings.thumbnails_sliders_space.width : 6;
 			const slider_autoplay = this.settings.autoplay && this.settings.autoplay == '1' ? this.getThumbAutoplaySettings() : false;
 			let $swiperThumbContainer = this.$gallery.find('.gallery-navigation-carousel');
@@ -740,7 +740,9 @@
 				}
 				return;
 			}
-			if (this.settings.lightbox !== '1') {
+
+			const lightboxEnabled = this.settings.lightbox === '1' || this.settings.lightbox === true; // Note on plugin activation default value is boolean true but on saving settings it can be saved as string '1', so we are checking for both cases here.
+			if (!lightboxEnabled) {
 				return;
 			}
 			let current_selector = $(e.currentTarget).parents('.wcgs-carousel')
@@ -775,6 +777,7 @@
 				}
 			});
 		}
+
 		// Handle variation change event.
 		handleVariationChange(e) {
 			const data = wcgs_object.wcgs_data || [];
@@ -782,28 +785,39 @@
 			const variations = this.getSelectedVariations($variations_table);
 			this.updateGalleryBasedOnVariations(variations, data);
 		}
+
 		updateGalleryBasedOnVariations(variationsArray, data) {
 			const matchingItems = this.findMatchingVariations(data, variationsArray);
 			if (matchingItems.length) {
 				this.rebuildGallery(matchingItems);
 			}
 		}
+
 		// Get selected variations.
 		getSelectedVariations($variations_table) {
 			let variationsArray = {};
-			$variations_table.find('tr').each((index, element) => {
-				const attributeName = $(element).find('select').data('attribute_name');
-				const attributeValue = $(element).find('select').val();
+			$variations_table.find('tr, .aux-dropdown').each((index, element) => {
+				let attributeName = $(element).find('select').data('attribute_name');
+				let attributeValue = $(element).find('select').val();
+				if ($(element).find('input[type=radio]').length > 0) {
+					// Get the name and value of the selected radio button.
+					attributeName = $(element).find('input[type=radio]:checked').attr('name');
+					attributeValue = $(element).find('input[type=radio]:checked').val();
+				}
+
 				// Only add to variationsArray if attributeName is not already present.
 				if (attributeName && !(attributeName in variationsArray)) {
 					variationsArray[attributeName] = attributeValue;
 				}
 			});
+
 			if (this.areAllAttributesEmpty(variationsArray)) {
 				return {};
 			}
+
 			return variationsArray;
 		}
+
 		// Check if all attributes in the variation object are empty.
 		areAllAttributesEmpty(variation) {
 			for (let key in variation) {

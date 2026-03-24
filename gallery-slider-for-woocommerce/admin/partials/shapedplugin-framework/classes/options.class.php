@@ -484,7 +484,17 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 			$tmp_options = $this->options;
 
 			foreach ( $this->pre_fields as $field ) {
-				if ( isset( $field['id'] ) && ! empty( $field['id'] ) ) {
+				if ( isset( $field['type'] ) && 'tabbed' === $field['type'] ) {
+					$tabs = $field['tabs'];
+					foreach ( $tabs as $fields ) {
+						$fields = $fields['fields'];
+						foreach ( $fields as $subfield ) {
+							if ( isset( $subfield['id'] ) ) {
+								$this->options[ $subfield['id'] ] = $this->get_default( $subfield );
+							}
+						}
+					}
+				} elseif ( isset( $field['id'] ) && ! empty( $field['id'] ) ) {
 					$this->options[ $field['id'] ] = $this->get_default( $field, $this->options );
 				}
 			}

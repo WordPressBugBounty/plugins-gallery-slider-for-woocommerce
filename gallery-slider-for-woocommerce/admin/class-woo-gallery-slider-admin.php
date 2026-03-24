@@ -241,7 +241,7 @@ class Woo_Gallery_Slider_Admin {
 		switch ( $column ) {
 			case 'layout_type':
 				$wcgs_layouts_meta     = get_post_meta( $post_id, 'wcgs_metabox', true );
-				$wcgs_layouts_type     = isset( $wcgs_layouts_meta['gallery_layout'] ) ? $wcgs_layouts_meta['gallery_layout'] : '';
+				$wcgs_layouts_type     = isset( $wcgs_layouts_meta['gallery_layout'] ) ? $wcgs_layouts_meta['gallery_layout'] : 'horizontal';
 				$grid_orientation      = isset( $wcgs_layouts_meta['grid_orientation'] ) ? $wcgs_layouts_meta['grid_orientation'] : '';
 				$grid_orientation_name = '';
 				$pro_popup_content     = sprintf(

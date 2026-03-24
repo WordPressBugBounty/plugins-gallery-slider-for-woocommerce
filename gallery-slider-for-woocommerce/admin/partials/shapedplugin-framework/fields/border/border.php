@@ -147,7 +147,7 @@ if ( ! class_exists( 'WCGS_Field_border' ) ) {
 			if ( ! empty( $args['color'] ) ) {
 				$default_color_attr = ( ! empty( $default_value['color'] ) ) ? ' data-default-color="' . $default_value['color'] . '"' : '';
 				echo '<div class="wcgs--left wcgs-field-color">';
-				echo '<div class="wcgs--title">' . esc_html__( 'Normal', 'gallery-slider-for-woocommerce' ) . '</div>';
+				echo '<div class="wcgs--title">' . esc_html__( 'Color', 'gallery-slider-for-woocommerce' ) . '</div>';
 				echo '<input type="text" name="' . esc_attr( $this->field_name( '[color]' ) ) . '" value="' . esc_attr( $value['color'] ) . '" class="wcgs-color"' . wp_kses_post( $default_color_attr ) . ' />';
 				echo '</div>';
 			}
@@ -161,7 +161,7 @@ if ( ! class_exists( 'WCGS_Field_border' ) ) {
 			if ( ! empty( $args['color3'] ) ) {
 				$default_color_attr = ( ! empty( $default_value['color3'] ) ) ? ' data-default-color="' . $default_value['color3'] . '"' : '';
 				echo '<div class="wcgs--left wcgs-field-color">';
-				echo '<div class="wcgs--title">' . esc_html__( 'Hover', 'gallery-slider-for-woocommerce' ) . '</div>';
+				echo '<div class="wcgs--title">' . esc_html__( 'Hover Color', 'gallery-slider-for-woocommerce' ) . '</div>';
 				echo '<input type="text" name="' . esc_attr( $this->field_name( '[color3]' ) ) . '" value="' . esc_attr( $value['color3'] ) . '" class="wcgs-color"' . wp_kses_post( $default_color_attr ) . ' />';
 				echo '</div>';
 			}

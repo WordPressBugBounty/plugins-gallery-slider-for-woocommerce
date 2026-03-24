@@ -4,8 +4,8 @@ Tags: woocommerce product gallery carousel, woocommerce product gallery slider, 
 Requires at least: 5.3
 Tested up to: 6.9
 WC requires at least: 4.5
-WC tested up to: 10.4.3
-Stable tag: 3.1.3
+WC tested up to: 10.6.1
+Stable tag: 3.1.4
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -401,6 +401,12 @@ Yes, the plugin is compatible with the most popular WooCommerce themes. We’re 
 
 
 == Changelog ==
+
+= Version 3.1.4 - Mar 24, 2026 =
+* Fix: The variation image change issue with the Ferme theme and the variation type radio case.
+* Fix: The slider navigation is not working in the initially active case
+* Tested: WordPress 6.9.4 compatibility.
+* Tested: WooCommerce 10.6.1 compatibility.
 
 = Version 3.1.3 - Jan 08, 2026 =
 * Improved: Code readability and maintainability improved.
