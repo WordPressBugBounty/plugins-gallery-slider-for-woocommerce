@@ -327,8 +327,8 @@ class WCGS_General {
 						// 'title_help' => '<div class="wcgs-info-label">' . __( 'Gallery Image Source', 'gallery-slider-for-woocommerce' ) . '</div><div class="wcgs-short-content">' . __( 'Choose a source from where you want to display the gallery images.', 'gallery-slider-for-woocommerce' ) . '</div>',
 						'title_video' => '<div class="wcgs-img-tag"><video autoplay loop muted playsinline><source src="https://plugins.svn.wordpress.org/gallery-slider-for-woocommerce/assets/visuals/gallery-image-sources.webm" type="video/webm"></video></div><div class="wcgs-info-label">' . __( 'Gallery Image Source', 'gallery-slider-for-woocommerce' ) . '</div>',
 						'options'     => array(
-							'attached' => __( 'All images attached to this product content', 'gallery-slider-for-woocommerce' ),
 							'uploaded' => __( 'Only images uploaded to the product gallery', 'gallery-slider-for-woocommerce' ),
+							'attached' => __( 'All images attached to this product content', 'gallery-slider-for-woocommerce' ),
 						),
 						'default'     => 'uploaded',
 					),

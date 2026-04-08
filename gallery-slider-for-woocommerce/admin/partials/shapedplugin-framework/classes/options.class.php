@@ -484,7 +484,7 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 			$tmp_options = $this->options;
 
 			foreach ( $this->pre_fields as $field ) {
-				if ( isset( $field['type'] ) && 'tabbed' === $field['type'] ) {
+				if ( isset( $field['type'] ) && 'tabbed' === $field['type'] && empty( $tmp_options ) ) {
 					$tabs = $field['tabs'];
 					foreach ( $tabs as $fields ) {
 						$fields = $fields['fields'];

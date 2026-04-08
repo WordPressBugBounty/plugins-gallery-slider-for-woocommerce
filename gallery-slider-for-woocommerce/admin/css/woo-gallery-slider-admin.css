@@ -1018,8 +1018,8 @@ a.thickbox.wcgs_pro_popup {
 .woogallery_page_assign_layout .tb-close-icon::before,
 .toplevel_page_wpgs-settings .tb-close-icon::before,
 .post-type-wcgs_layouts .tb-close-icon::before {
-  content: "\e833";
-  font-family: sp_wgs-fontello;
+  /* content: "\e833";
+  font-family: sp_wgs-fontello; */
   font-style: normal;
   font-weight: 400;
   display: inline-block;
@@ -1215,4 +1215,9 @@ a.thickbox.wcgs_pro_popup {
 #adminmenu .toplevel_page_wpgs-settings .wp-submenu a[href*="wpgs-settings"]:hover,
 #adminmenu .toplevel_page_wpgs-settings .wp-submenu a[href*="wpgs-settings"]:focus {
   color: #72aee6;
+}
+
+.wcgs-field input[type="checkbox"]:focus,
+.wcgs-field input[type=radio]:focus {
+    box-shadow: none;
 }
