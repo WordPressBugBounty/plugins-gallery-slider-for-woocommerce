@@ -1,8 +1,20 @@
 <?php
+/**
+ * The product gallery navigation icons mapping of the plugin.
+ *
+ * @package    Woo_Gallery_Slider
+ * @subpackage Woo_Gallery_Slider/public
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }  // if direct access.
 
+/**
+ * Trait WCGS_Public_fontmap
+ *
+ * @since 1.0.0
+ */
 trait WCGS_Public_fontmap {
 	/**
 	 * Fonts map

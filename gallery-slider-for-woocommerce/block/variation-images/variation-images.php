@@ -1,4 +1,10 @@
 <?php
+/**
+ * The product variations block functionality of the plugin.
+ *
+ * @package    Woo_Gallery_Slider
+ * @subpackage Woo_Gallery_Slider/block/variation-images
+ */
 
 use Automattic\WooCommerce\Admin\Features\ProductBlockEditor\BlockRegistry;
 use Automattic\WooCommerce\Utilities\FeaturesUtil;

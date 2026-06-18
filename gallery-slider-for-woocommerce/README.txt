@@ -4,8 +4,8 @@ Tags: woocommerce product gallery carousel, woocommerce product gallery slider, 
 Requires at least: 5.3
 Tested up to: 7.0
 WC requires at least: 4.5
-WC tested up to: 10.6.2
-Stable tag: 3.1.5
+WC tested up to: 10.8.1
+Stable tag: 3.1.6
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -401,6 +401,14 @@ Yes, the plugin is compatible with the most popular WooCommerce themes. We’re 
 
 
 == Changelog ==
+
+= Version 3.1.6 - Jun 17, 2026 =
+* Improved: The slider navigation accessibility.
+* Fix: The prev/next navigation buttons in the product gallery slider could not be activated via keyboard (Space, Enter).
+* Fix: The Mousewheel scroll option not working at main image.
+* Fix: the potential undefined index notices for plugin icons in help page.
+* Fix: The Autoplay Interval option value visibility issue.
+* Tested: WooCommerce 10.8.1 compatibility.
 
 = Version 3.1.5 - Apr 08, 2026 =
 * Fix: Some CSS style issues found with WP 7.0.

@@ -1494,6 +1494,10 @@
   background: #444;
 }
 
+.wcgs-field-slider.autoplay_interval input[type=text] {
+    width: 60px;
+}
+
 /**
  * 03. 27. Field: tabbed
  */

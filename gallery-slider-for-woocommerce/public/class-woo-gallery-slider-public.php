@@ -115,11 +115,6 @@ class Woo_Gallery_Slider_Public {
 	 */
 	public function wcgs_remove_woo_gallery() {
 
-		// if ( class_exists( '\Product_Gallery_Sldier\Product' ) ) {
-		// add_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
-		// add_action( 'woocommerce_product_thumbnails', 'woocommerce_show_product_thumbnails', 20 );
-		// add_action( 'woocommerce_before_single_product_summary', array( $this, 'remove_gallery_and_product_images' ), 20 );
-		// }
 		$remove_default_wc_gallery = isset( $this->settings['remove_default_wc_gallery'] ) ? $this->settings['remove_default_wc_gallery'] : array( 'lightbox', 'zoom', 'slider' );
 		// Remove default WooCommerce gallery lightbox,zoom,slider.
 		if ( is_array( $remove_default_wc_gallery ) ) {

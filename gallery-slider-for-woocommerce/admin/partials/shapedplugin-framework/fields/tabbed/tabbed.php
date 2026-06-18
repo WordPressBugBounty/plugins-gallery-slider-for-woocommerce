@@ -1,14 +1,23 @@
-<?php if ( ! defined( 'ABSPATH' ) ) {
-	die; } // Cannot access directly.
+<?php
 /**
+ * Framework tabbed field.
  *
- * Field: tabbed
- *
- * @since 1.0.0
- * @version 1.0.0
+ * @package    Woo_Gallery_Slider
+ * @subpackage Woo_Gallery_Slider/admin
  */
-if ( ! class_exists( 'WCGS_Field_tabbed' ) ) {
 
+if ( ! defined( 'ABSPATH' ) ) {
+	die; // Cannot access directly.
+}
+
+if ( ! class_exists( 'WCGS_Field_tabbed' ) ) {
+	/**
+	 *
+	 * Field: tabbed
+	 *
+	 * @since 1.0.0
+	 * @version 1.0.0
+	 */
 	class WCGS_Field_tabbed extends WCGS_Fields {
 
 		/**

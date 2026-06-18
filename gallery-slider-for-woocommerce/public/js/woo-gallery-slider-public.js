@@ -248,6 +248,26 @@
 						this.$gallery.find('.wcgs-carousel .wcgs-spswiper-button-prev').trigger('click');
 					});
 			}
+
+			if (this.settings.accessibility === '1' ) {
+				// Make navigation arrows keyboard-activatable (Enter / Space)
+				this.$gallery.find('.wcgs-spswiper-arrow')
+					.attr('tabindex', function() {
+						// preserve existing tabindex if present
+						return typeof $(this).attr('tabindex') !== 'undefined' ? $(this).attr('tabindex') : 0;
+					})
+					.attr('role', function() {
+						return typeof $(this).attr('role') !== 'undefined' ? $(this).attr('role') : 'button';
+					})
+					.off(`keydown${this.namespace}`)
+					.on(`keydown${this.namespace}`, (e) => {
+						const key = e.key || e.keyCode;
+						if (key === 'Enter' || key === ' ' || key === 'Spacebar' || key === 13 || key === 32) {
+							e.preventDefault();
+							$(e.currentTarget).trigger('click');
+						}
+					});
+			}
 		}
 
 		// Initialize the gallery
@@ -444,6 +464,7 @@
 				speed: parseInt(this.settings.autoplay_speed) || 300,
 				observer: true,
 				watchOverflow: true,
+				mousewheel: this.settings.mouse_wheel === '1',
 				observeParents: true,
 				a11y: this.settings.accessibility === '1' ? {
 					prevSlideMessage: 'Previous slide',

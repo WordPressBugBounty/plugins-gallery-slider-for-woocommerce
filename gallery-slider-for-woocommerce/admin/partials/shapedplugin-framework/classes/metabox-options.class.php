@@ -1,13 +1,23 @@
-<?php if ( ! defined( 'ABSPATH' ) ) {
-	die; } // Cannot access directly.
+<?php
 /**
+ * Framework metabox class.
  *
- * Metabox Class
- *
- * @since 1.0.0
- * @version 1.0.0
+ * @package    Woo_Gallery_Slider
+ * @subpackage Woo_Gallery_Slider/admin
  */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die; // Cannot access directly.
+}
+
 if ( ! class_exists( 'WCGS_Metabox' ) ) {
+	/**
+	 *
+	 * Metabox Class
+	 *
+	 * @since 1.0.0
+	 * @version 1.0.0
+	 */
 	class WCGS_Metabox extends WCGS_Abstract {
 		/**
 		 * Unique

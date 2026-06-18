@@ -395,7 +395,7 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 			$class_start     = substr( $image, strpos( $image, 'class="' ) + 7 );
 			$class_end       = substr( $class_start, 0, strpos( $class_start, '" ' ) );
 			$image_class_pos = strpos( $class_end, 'wp-image-' );
-			if ( $image_class_pos !== false ) {
+			if ( false !== $image_class_pos ) {
 				return substr( $class_end, $image_class_pos + 9 );
 			}
 			return null;
@@ -447,17 +447,6 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 		public function display_gallery_output() {
 			$cache_key  = 'wcgsf_woo_gallery_' . $this->product_id . WOO_GALLERY_SLIDER_VERSION;
 			$cache_data = $this->helper->spwg_get_transient( $cache_key );
-			// if ( false !== $cache_data ) {
-			// 	// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-			// echo $cache_data;
-			// } else {
-				// ob_start();
-				// $this->assigns_layout();
-				// $this->render_gallery();
-				// $gallery = $this->helper->minify_output( ob_get_clean() );
-			// $this->helper->spwg_set_transient( $cache_key, $gallery, WOO_GALLERY_SLIDER_TRANSIENT_EXPIRATION );
-				// echo $gallery;
-			// }
 
 			ob_start();
 				$this->assigns_layout();
@@ -570,23 +559,23 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 									if ( 'inline' === $video_popup_place ) {
 										?>
 										<div class="wcgs-iframe-wrapper">
-										<div class="wcgs-iframe wcgs-youtube-video" data-video-id="<?php echo esc_attr( $video_id ); ?>" data-src="<?php echo esc_attr( $video ); ?>"></div><img class="wcgs-slider-image-tag" style="visibility: hidden" alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" srcset="<?php echo esc_html( $full_srcset ); ?>" sizes="<?php echo esc_html( $image_sizes ); ?>"  <?php echo $index === 1 ? 'fetchpriority="high" loading="eager"' : wp_kses_post( $this->get_lazy_load_attribute() ); ?> /></div>
+										<div class="wcgs-iframe wcgs-youtube-video" data-video-id="<?php echo esc_attr( $video_id ); ?>" data-src="<?php echo esc_attr( $video ); ?>"></div><img class="wcgs-slider-image-tag" style="visibility: hidden" alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" srcset="<?php echo esc_html( $full_srcset ); ?>" sizes="<?php echo esc_html( $image_sizes ); ?>"  <?php echo 1 === $index ? 'fetchpriority="high" loading="eager"' : wp_kses_post( $this->get_lazy_load_attribute() ); ?> /></div>
 										<?php
 									} else {
 										?>
-										<img class="wcgs-slider-image-tag" alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" data-type="youtube"  <?php echo $index === 1 ? 'fetchpriority="high" loading="eager"' : wp_kses_post( $this->get_lazy_load_attribute() ); ?>  srcset="<?php echo esc_html( $full_srcset ); ?>" sizes="<?php echo esc_html( $image_sizes ); ?>" />
+										<img class="wcgs-slider-image-tag" alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" data-type="youtube"  <?php echo 1 === $index ? 'fetchpriority="high" loading="eager"' : wp_kses_post( $this->get_lazy_load_attribute() ); ?>  srcset="<?php echo esc_html( $full_srcset ); ?>" sizes="<?php echo esc_html( $image_sizes ); ?>" />
 										<?php
 									}
 							} else {
 								?>
 									<a class="wcgs-slider-lightbox" data-fancybox="view" href="<?php echo esc_url( $slide['full_url'] ); ?>" aria-label="lightbox" data-caption="<?php echo esc_attr( $slide['cap'] ); ?>"></a>
-									<img class="wcgs-slider-image-tag" <?php echo $index == 1 ? 'fetchpriority="high" loading="eager"' : wp_kses_post( $this->get_lazy_load_attribute() ); ?>  alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" srcset="<?php echo esc_html( $full_srcset ); ?>" sizes="<?php echo esc_html( $image_sizes ); ?>" />
+									<img class="wcgs-slider-image-tag" <?php echo 1 === $index ? 'fetchpriority="high" loading="eager"' : wp_kses_post( $this->get_lazy_load_attribute() ); ?>  alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" srcset="<?php echo esc_html( $full_srcset ); ?>" sizes="<?php echo esc_html( $image_sizes ); ?>" />
 										<?php
 							}
 						} else {
 							?>
 								<a class="wcgs-slider-lightbox" data-fancybox="view" href="<?php echo esc_url( $slide['full_url'] ); ?>" aria-label="lightbox" data-caption="<?php echo esc_attr( $slide['cap'] ); ?>"></a>
-								<img class="wcgs-slider-image-tag" <?php echo $index === 1 ? 'fetchpriority="high" loading="eager"' : wp_kses_post( $this->get_lazy_load_attribute() ); ?>  alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" srcset="<?php echo esc_html( $full_srcset ); ?>" sizes="<?php echo esc_html( $image_sizes ); ?>" />
+								<img class="wcgs-slider-image-tag" <?php echo 1 === $index ? 'fetchpriority="high" loading="eager"' : wp_kses_post( $this->get_lazy_load_attribute() ); ?>  alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" srcset="<?php echo esc_html( $full_srcset ); ?>" sizes="<?php echo esc_html( $image_sizes ); ?>" />
 									<?php
 						}
 						++$index;

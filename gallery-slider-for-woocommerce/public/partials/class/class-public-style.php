@@ -91,9 +91,6 @@ class WCGS_Public_Style extends WCGS_Public_Settings {
 		$hover_thumbnail_border_color   = isset( $border_normal_width_for_thumbnail['color3'] ) ? $border_normal_width_for_thumbnail['color3'] : '#0085BA';
 		$normal_thumbnail_border_radius = isset( $border_normal_width_for_thumbnail['radius'] ) ? $border_normal_width_for_thumbnail['radius'] : '0';
 		$thumbnail_border               = isset( $settings['border_width_for_active_thumbnail'] ) ? $settings['border_width_for_active_thumbnail'] : '';
-		// $active_thumbnail_border_color     = isset( $thumbnail_border['color'] ) ? $thumbnail_border['color'] : '#dddddd';
-
-		// $active_thumbnail_border_color3    = isset( $thumbnail_border['color3'] ) ? $thumbnail_border['color3'] : '#5EABC1';
 
 		$active_thumbnail_border_color2 = isset( $thumbnail_border['color2'] ) ? $thumbnail_border['color2'] : '#0085BA';
 		$active_thumbnail_border_size   = isset( $thumbnail_border['all'] ) ? $thumbnail_border['all'] : '0';
@@ -252,18 +249,7 @@ class WCGS_Public_Style extends WCGS_Public_Settings {
 					left: 0;
 				}';
 			}
-			// if ( 'horizontal' === $this->gallery_layout ) {
-			// $dynamic_css .= '// wpgs-gallery .wcgs-thumb {
-			// padding-top: 10px;
-			// transition: border-color 0.33s;
-			// border-top: ' . $active_thumbnail_border_size . 'px solid transparent;
-			// }';
-			// }
-			// #wpgs-gallery .gallery-navigation-carousel-wrapper.vertical .wcgs-thumb {
-			// padding-right: 10px;
-			// transition: border-color 0.33s;
-			// border-top: none;
-			// }
+
 			$dynamic_css .= '
 			#wpgs-gallery .gallery-navigation-carousel-wrapper {
 				position: relative;
@@ -455,17 +441,4 @@ class WCGS_Public_Style extends WCGS_Public_Settings {
 	public static function wcgs_stylesheet_include() {
 		return self::$dynamic_css . self::$additional_css;
 	}
-
-	/**
-	 * Wcgs stylesheet include
-	 *
-	 * @return void
-	 */
-	// public static function wcgs_stylesheet_include() {
-	// if ( is_singular( 'product' ) ) {
-	// wp_enqueue_style( 'wcgs_custom-style', plugin_dir_url( dirname( __DIR__ ) ) . 'css/dynamic.css', '1.0.0', 'all' );
-	// wp_add_inline_style( 'wcgs_custom-style', self::$dynamic_css );
-	// wp_add_inline_style( 'wcgs_custom-style', self::$additional_css );
-	// }
-	// }
 }

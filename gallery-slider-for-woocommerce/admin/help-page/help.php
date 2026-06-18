@@ -754,73 +754,73 @@ class Woo_Gallery_Slider_Help {
 						<div class="wcgs-our-plugin-list-wrap">
 							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://wpcarousel.io/?ref=143">
 								<i class="wcgs-icon-button-arrow-icon"></i>
-								<img src="<?php echo esc_url( $plugin_icon['wp-carousel-free'] ); ?>" alt="WP Carousel">
+								<img src="<?php echo esc_url( $plugin_icon['wp-carousel-free'] ?? '' ); ?>" alt="WP Carousel">
 								<h4>WP Carousel</h4>
 								<p>The most powerful and user-friendly multi-purpose carousel, slider, & gallery plugin for WordPress.</p>
 							</a>
 							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://realtestimonials.io/?ref=143">
 								<i class="wcgs-icon-button-arrow-icon"></i>
-								<img src="<?php echo esc_url( $plugin_icon['testimonial-free'] ); ?>" alt="Real Testimonials">
+								<img src="<?php echo esc_url( $plugin_icon['testimonial-free'] ?? '' ); ?>" alt="Real Testimonials">
 								<h4>Real Testimonials</h4>
 								<p>Simply collect, manage, and display Testimonials on your website and boost conversions.</p>
 							</a>
 							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://wpsmartpost.com/?ref=143">
 								<i class="wcgs-icon-button-arrow-icon"></i>
-								<img src="<?php echo esc_url( $plugin_icon['post-carousel'] ); ?>" alt="Smart Post Show">
+								<img src="<?php echo esc_url( $plugin_icon['post-carousel'] ?? '' ); ?>" alt="Smart Post Show">
 								<h4>Smart Post Show</h4>
 								<p>Filter and display posts (any post types), pages, taxonomy, custom taxonomy, and custom field, in beautiful layouts.</p>
 							</a>
 							<a target="_blank" href="https://wooproductslider.io/?ref=143" class="wcgs-our-plugin-list-box">
 								<i class="wcgs-icon-button-arrow-icon"></i>
-								<img src="<?php echo esc_url( $plugin_icon['woo-product-slider'] ); ?>" alt="Product Slider for WooCommerce">
+								<img src="<?php echo esc_url( $plugin_icon['woo-product-slider'] ?? '' ); ?>" alt="Product Slider for WooCommerce">
 								<h4>Product Slider for WooCommerce</h4>
 								<p>Boost sales by interactive product Slider, Grid, and Table in your WooCommerce website or store.</p>
 							</a>
 							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://woogallery.io/?ref=143">
 								<i class="wcgs-icon-button-arrow-icon"></i>
-								<img src="<?php echo esc_url( $plugin_icon['gallery-slider-for-woocommerce'] ); ?>" alt="WooGallery">
+								<img src="<?php echo esc_url( $plugin_icon['gallery-slider-for-woocommerce'] ?? '' ); ?>" alt="WooGallery">
 								<h4>WooGallery</h4>
 								<p>Product gallery slider and additional variation images gallery for WooCommerce and boost your sales.</p>
 							</a>
 							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://getwpteam.com/?ref=143">
 								<i class="wcgs-icon-button-arrow-icon"></i>
-								<img src="<?php echo esc_url( $plugin_icon['team-free'] ); ?>" alt="WP Team">
+								<img src="<?php echo esc_url( $plugin_icon['team-free'] ?? '' ); ?>" alt="WP Team">
 								<h4>WP Team</h4>
 								<p>Display your team members smartly who are at the heart of your company or organization!</p>
 							</a>
 							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://logocarousel.com/?ref=143">
 								<i class="wcgs-icon-button-arrow-icon"></i>
-								<img src="<?php echo esc_url( $plugin_icon['logo-carousel-free'] ); ?>" alt="Logo Carousel">
+								<img src="<?php echo esc_url( $plugin_icon['logo-carousel-free'] ?? '' ); ?>" alt="Logo Carousel">
 								<h4>Logo Carousel</h4>
 								<p>Showcase a group of logo images with Title, Description, Tooltips, Links, and Popup as a grid or in a carousel.</p>
 							</a>
 							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://easyaccordion.io/?ref=143">
 								<i class="wcgs-icon-button-arrow-icon"></i>
-								<img src="<?php echo esc_url( $plugin_icon['easy-accordion-free'] ); ?>" alt="Easy Accordion">
+								<img src="<?php echo esc_url( $plugin_icon['easy-accordion-free'] ?? '' ); ?>" alt="Easy Accordion">
 								<h4>Easy Accordion</h4>
 								<p>Minimize customer support by offering comprehensive FAQs and increasing conversions.</p>
 							</a>
 							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://shapedplugin.com/woocategory/?ref=143">
 								<i class="wcgs-icon-button-arrow-icon"></i>
-								<img src="<?php echo esc_url( $plugin_icon['woo-category-slider-grid'] ); ?>" alt="Category Slider for WooCommerce">
+								<img src="<?php echo esc_url( $plugin_icon['woo-category-slider-grid'] ?? '' ); ?>" alt="Category Slider for WooCommerce">
 								<h4>WooCategory</h4>
 								<p>Display by filtering the list of categories aesthetically and boosting sales.</p>
 							</a>
 							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://wptabs.com/?ref=143">
 								<i class="wcgs-icon-button-arrow-icon"></i>
-								<img src="<?php echo esc_url( $plugin_icon['wp-expand-tabs-free'] ); ?>" alt="WP Tabs">
+								<img src="<?php echo esc_url( $plugin_icon['wp-expand-tabs-free'] ?? '' ); ?>" alt="WP Tabs">
 								<h4>WP Tabs</h4>
 								<p>Display tabbed content smartly & quickly on your WordPress site without coding skills.</p>
 							</a>
 							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://shapedplugin.com/quick-view-for-woocommerce/?ref=143">
 								<i class="wcgs-icon-button-arrow-icon"></i>
-								<img src="<?php echo esc_url( $plugin_icon['woo-quickview'] ); ?>" alt="Quick View for WooCommerce">
+								<img src="<?php echo esc_url( $plugin_icon['woo-quickview'] ?? '' ); ?>" alt="Quick View for WooCommerce">
 								<h4>Quick View for WooCommerce</h4>
 								<p>Quickly view product information with smooth animation via AJAX in a nice Modal without opening the product page.</p>
 							</a>
 							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://shapedplugin.com/smart-brands/?ref=143">
 								<i class="wcgs-icon-button-arrow-icon"></i>
-								<img src="<?php echo esc_url( $plugin_icon['smart-brands-for-woocommerce'] ); ?>" alt="Smart Brands for WooCommerce">
+								<img src="<?php echo esc_url( $plugin_icon['smart-brands-for-woocommerce'] ?? '' ); ?>" alt="Smart Brands for WooCommerce">
 								<h4>Smart Brands for WooCommerce</h4>
 								<p>Smart Brands for WooCommerce Pro helps you display product brands in an attractive way on your online store.</p>
 							</a>

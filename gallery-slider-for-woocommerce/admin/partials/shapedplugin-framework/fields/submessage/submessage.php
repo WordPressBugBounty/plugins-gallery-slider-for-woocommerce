@@ -1,5 +1,15 @@
-<?php if ( ! defined( 'ABSPATH' ) ) {
-	die; } // Cannot access directly.
+<?php
+/**
+ * Framework submessage field.
+ *
+ * @package    Woo_Gallery_Slider
+ * @subpackage Woo_Gallery_Slider/admin
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	die; // Cannot access directly.
+}
+
 /**
  *
  * Field: submessage
@@ -10,7 +20,7 @@
 if ( ! class_exists( 'WCGS_Field_submessage' ) ) {
 	/**
 	 *
-	 * Field: subheading
+	 * Field: submessage
 	 *
 	 * @since 1.0.0
 	 * @version 1.0.0

@@ -58,7 +58,6 @@ class Woo_Gallery_Slider_Admin {
 		add_filter( 'custom_menu_order', array( $this, 'reorder_submenus' ) );
 		add_filter( 'post_row_actions', array( $this, 'wcgs_remove_defaults_action' ), 10, 2 );
 		add_filter( 'manage_wcgs_layouts_posts_columns', array( $this, 'add_wcgs_layouts_column' ) );
-		// add_filter( 'admin_init', array( $this, 'product_options_meta_box' ) );
 		add_action( 'manage_wcgs_layouts_posts_custom_column', array( $this, 'add_wcgs_layouts_extra_column' ), 10, 2 );
 		add_filter( 'post_updated_messages', array( $this, 'layout_updated_messages' ), 10, 2 );
 		add_action( 'load-post-new.php', array( $this, 'check_wcgs_layouts_limit' ) );
@@ -87,7 +86,7 @@ class Woo_Gallery_Slider_Admin {
 	 * @since
 	 */
 	public function wcgs_layouts_post_type() {
-		$labels = array(
+		$labels     = array(
 			'name'               => __( 'Manage Layouts', 'gallery-slider-for-woocommerce' ),
 			'singular_name'      => __( 'Layout', 'gallery-slider-for-woocommerce' ),
 			'add_new'            => __( 'Add New', 'gallery-slider-for-woocommerce' ),
@@ -99,7 +98,6 @@ class Woo_Gallery_Slider_Admin {
 			'not_found'          => __( 'No Layout Found', 'gallery-slider-for-woocommerce' ),
 			'not_found_in_trash' => __( 'No Layout Found in Trash', 'gallery-slider-for-woocommerce' ),
 			'parent_item_colon'  => null,
-			// 'menu_name'          => __( 'WooGallery', 'gallery-slider-for-woocommerce' ),
 		);
 		$menu_icon  = 'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiBmb2N1c2FibGU9ImZhbHNlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIgoJIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI0IDI0OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I0ZGRkZGRjt9Cjwvc3R5bGU+CjxnPgoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTAsMS45djIwLjFDMCwyMy4xLDAuOSwyNCwxLjksMjRoMjAuMWMxLjEsMCwxLjktMC45LDEuOS0xLjlWMS45QzI0LDAuOSwyMy4xLDAsMjIuMSwwSDEuOUMwLjksMCwwLDAuOSwwLDEuOQoJCXogTTIxLjQsMjIuM0gyLjZjLTAuNSwwLTEtMC40LTEtMVYyLjZjMC0wLjUsMC40LTEsMS0xaDE4LjdjMC41LDAsMSwwLjQsMSwxdjE4LjdDMjIuMywyMS45LDIxLjksMjIuMywyMS40LDIyLjN6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNy45LDE3LjR2Mi44YzAsMC4zLTAuMiwwLjUtMC41LDAuNUgzLjhjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWgzLjUKCQlDNy42LDE2LjksNy45LDE3LjEsNy45LDE3LjR6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTQuNSwxNy40djIuOGMwLDAuMy0wLjIsMC41LTAuNSwwLjVoLTRjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWg0CgkJQzE0LjIsMTYuOSwxNC41LDE3LjEsMTQuNSwxNy40eiIvPgoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTIwLjYsMTcuNHYyLjhjMCwwLjMtMC4yLDAuNS0wLjUsMC41aC0zLjVjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWgzLjUKCQlDMjAuNCwxNi45LDIwLjYsMTcuMSwyMC42LDE3LjR6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMy40LDMuOHYxMC45YzAsMC4zLDAuMiwwLjUsMC41LDAuNWgxNi4zYzAuMywwLDAuNS0wLjIsMC41LTAuNVYzLjhjMC0wLjMtMC4yLTAuNS0wLjUtMC41SDMuOAoJCUMzLjYsMy40LDMuNCwzLjYsMy40LDMuOHogTTUuNCwxMi44bDMuOC03YzAuMi0wLjMsMC43LTAuMywwLjgsMGwyLjcsNC45YzAuMiwwLjMsMC43LDAuMywwLjgsMGwwLjQtMC43YzAuMi0wLjMsMC43LTAuMywwLjgsMAoJCWwxLjUsMi43YzAuMiwwLjMtMC4xLDAuNy0wLjQsMC43aC0xMEM1LjUsMTMuNSw1LjMsMTMuMSw1LjQsMTIuOHogTTE2LjgsOS40Yy0xLjIsMC0yLjItMS0yLjItMi4yYzAtMS4yLDEtMi4xLDIuMS0yLjEKCQlDMTgsNSwxOSw2LDE5LDcuMkMxOC45LDguNCwxOCw5LjMsMTYuOCw5LjR6Ii8+CjwvZz4KPC9zdmc+';
 		$capability = apply_filters( 'wcgs_ui_permission', 'manage_options' );
@@ -127,7 +125,6 @@ class Woo_Gallery_Slider_Admin {
 	 * Add menu items.
 	 */
 	public function admin_menu() {
-		// global $menu, $admin_page_hooks;
 		$capability = apply_filters( 'wcgs_ui_permission', 'manage_options' );
 		$menu_icon  = 'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiBmb2N1c2FibGU9ImZhbHNlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIgoJIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI0IDI0OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I0ZGRkZGRjt9Cjwvc3R5bGU+CjxnPgoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTAsMS45djIwLjFDMCwyMy4xLDAuOSwyNCwxLjksMjRoMjAuMWMxLjEsMCwxLjktMC45LDEuOS0xLjlWMS45QzI0LDAuOSwyMy4xLDAsMjIuMSwwSDEuOUMwLjksMCwwLDAuOSwwLDEuOQoJCXogTTIxLjQsMjIuM0gyLjZjLTAuNSwwLTEtMC40LTEtMVYyLjZjMC0wLjUsMC40LTEsMS0xaDE4LjdjMC41LDAsMSwwLjQsMSwxdjE4LjdDMjIuMywyMS45LDIxLjksMjIuMywyMS40LDIyLjN6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNy45LDE3LjR2Mi44YzAsMC4zLTAuMiwwLjUtMC41LDAuNUgzLjhjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWgzLjUKCQlDNy42LDE2LjksNy45LDE3LjEsNy45LDE3LjR6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTQuNSwxNy40djIuOGMwLDAuMy0wLjIsMC41LTAuNSwwLjVoLTRjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWg0CgkJQzE0LjIsMTYuOSwxNC41LDE3LjEsMTQuNSwxNy40eiIvPgoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTIwLjYsMTcuNHYyLjhjMCwwLjMtMC4yLDAuNS0wLjUsMC41aC0zLjVjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWgzLjUKCQlDMjAuNCwxNi45LDIwLjYsMTcuMSwyMC42LDE3LjR6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMy40LDMuOHYxMC45YzAsMC4zLDAuMiwwLjUsMC41LDAuNWgxNi4zYzAuMywwLDAuNS0wLjIsMC41LTAuNVYzLjhjMC0wLjMtMC4yLTAuNS0wLjUtMC41SDMuOAoJCUMzLjYsMy40LDMuNCwzLjYsMy40LDMuOHogTTUuNCwxMi44bDMuOC03YzAuMi0wLjMsMC43LTAuMywwLjgsMGwyLjcsNC45YzAuMiwwLjMsMC43LDAuMywwLjgsMGwwLjQtMC43YzAuMi0wLjMsMC43LTAuMywwLjgsMAoJCWwxLjUsMi43YzAuMiwwLjMtMC4xLDAuNy0wLjQsMC43aC0xMEM1LjUsMTMuNSw1LjMsMTMuMSw1LjQsMTIuOHogTTE2LjgsOS40Yy0xLjIsMC0yLjItMS0yLjItMi4yYzAtMS4yLDEtMi4xLDIuMS0yLjEKCQlDMTgsNSwxOSw2LDE5LDcuMkMxOC45LDguNCwxOCw5LjMsMTYuOCw5LjR6Ii8+CjwvZz4KPC9zdmc+';
 		add_menu_page( __( 'WooGallery', 'gallery-slider-for-woocommerce' ), __( 'WooGallery', 'gallery-slider-for-woocommerce' ), $capability, 'wpgs-settings', null, $menu_icon, '58' );
@@ -172,13 +169,10 @@ class Woo_Gallery_Slider_Admin {
 	 * @return array
 	 */
 	public function add_wcgs_layouts_column() {
-		$new_columns['cb']    = '<input type="checkbox" />';
-		$new_columns['title'] = __( 'Title', 'gallery-slider-for-woocommerce' );
-		// $new_columns['preview']     = __( 'Preview', 'gallery-slider-for-woocommerce' );
-		// $new_columns['empty']       = '';
+		$new_columns['cb']          = '<input type="checkbox" />';
+		$new_columns['title']       = __( 'Title', 'gallery-slider-for-woocommerce' );
 		$new_columns['layout_type'] = __( 'Gallery Layout', 'gallery-slider-for-woocommerce' );
 		$new_columns['date']        = __( 'Date', 'gallery-slider-for-woocommerce' );
-		// $new_columns['action']      = __( 'Action', 'gallery-slider-for-woocommerce' );
 
 		return $new_columns;
 	}
@@ -392,7 +386,7 @@ class Woo_Gallery_Slider_Admin {
 		if ( isset( $submenu['wpgs-settings'] ) ) {
 			$wpgs_menu = $submenu['wpgs-settings'];
 			usort( $wpgs_menu, array( $this, 'sort_submenus' ) );
-			$submenu['wpgs-settings'] = $wpgs_menu;
+			$submenu['wpgs-settings'] = $wpgs_menu; // phpcs:ignore -- this is variable is inside class based function, so it is safe to use.
 		}
 
 		return $menu_ord;
@@ -598,7 +592,6 @@ class Woo_Gallery_Slider_Admin {
 		<?php
 	}
 
-
 	/**
 	 * WooCommerce save gallery product variation.
 	 *
@@ -607,8 +600,8 @@ class Woo_Gallery_Slider_Admin {
 	 * @return void
 	 */
 	public function woocommerce_save_gallery_product_variation( $variation_id, $i ) {
-		if ( isset( $_POST['woo_gallery_slider'][ $i ] ) ) {
-			$custom_field = sanitize_text_field( wp_unslash( $_POST['woo_gallery_slider'][ $i ] ) );
+		if ( isset( $_POST['woo_gallery_slider'][ $i ] ) ) { // phpcs:ignore -- No nonce check needed — this hook fires inside WooCommerce's product save flow, which already verifies the nonce and user capability before dispatch.
+			$custom_field = sanitize_text_field( wp_unslash( $_POST['woo_gallery_slider'][ $i ] ) ); // phpcs:ignore -- read the above comment.
 			update_post_meta( $variation_id, 'woo_gallery_slider', $custom_field );
 		}
 	}
@@ -673,7 +666,7 @@ class Woo_Gallery_Slider_Admin {
 		 * class.
 		 */
 		$current_screen = get_current_screen();
-		if ( is_object( $current_screen ) && 'wcgs_layouts' === $current_screen->post_type || 'toplevel_page_wpgs-settings' === $current_screen->base || 'woogallery_page_assign_layout' === $current_screen->base || 'woogallery_page_wpgs-help' === $current_screen->base ) {
+		if ( is_object( $current_screen ) && ( 'wcgs_layouts' === $current_screen->post_type || 'toplevel_page_wpgs-settings' === $current_screen->base || 'woogallery_page_assign_layout' === $current_screen->base || 'woogallery_page_wpgs-help' === $current_screen->base ) ) {
 			wp_enqueue_style( 'wp-jquery-ui' );
 			wp_enqueue_style( 'sp_wcgs-help-fontello', WOO_GALLERY_SLIDER_URL . 'admin/help-page/css/fontello.min.css', array(), WOO_GALLERY_SLIDER_VERSION, 'all' );
 			wp_enqueue_style( 'sp_wcgs-help-page', WOO_GALLERY_SLIDER_URL . 'admin/help-page/css/help-page.min.css', array(), WOO_GALLERY_SLIDER_VERSION, 'all' );

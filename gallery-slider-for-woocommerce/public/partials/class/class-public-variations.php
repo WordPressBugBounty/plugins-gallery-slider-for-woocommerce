@@ -1,4 +1,11 @@
 <?php
+/**
+ * The product variations functionality of the plugin.
+ *
+ * @package    Woo_Gallery_Slider
+ * @subpackage Woo_Gallery_Slider/public
+ */
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }  // if direct access.
