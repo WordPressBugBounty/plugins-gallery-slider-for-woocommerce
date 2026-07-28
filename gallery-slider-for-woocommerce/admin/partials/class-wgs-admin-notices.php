@@ -77,11 +77,11 @@ class Woo_Gallery_Slider_Admin_Notices {
 		?>
 		<div id="sp-woogs-review-notice" class="sp-woogs-review-notice">
 			<div class="sp-woogs-plugin-icon">
-				<img src="<?php echo esc_url( 'https://ps.w.org/gallery-slider-for-woocommerce/assets/icon-256x256.gif' ); ?>" alt="WooGallery">
+				<img src="<?php echo esc_url( 'https://ps.w.org/gallery-slider-for-woocommerce/assets/icon-256x256.gif' ); ?>" alt="Reno Product Gallery">
 			</div>
 			<div class="sp-woogs-notice-text">
-				<h3>Enjoying <strong>WooGallery</strong>?</h3>
-				<p>We hope you had a wonderful experience using <strong>WooGallery</strong>. Please take a moment to leave a review on <a href="https://wordpress.org/support/plugin/gallery-slider-for-woocommerce/reviews/" target="_blank"><strong>WordPress.org</strong></a>.
+				<h3>Enjoying <strong>Reno Product Gallery</strong>?</h3>
+				<p>We hope you had a wonderful experience using <strong>Reno Product Gallery</strong>. Please take a moment to leave a review on <a href="https://wordpress.org/support/plugin/gallery-slider-for-woocommerce/reviews/" target="_blank"><strong>WordPress.org</strong></a>.
 				Your positive review will help us improve. Thank you! 😊</p>
 
 				<p class="sp-woogs-review-actions">
@@ -191,7 +191,11 @@ class Woo_Gallery_Slider_Admin_Notices {
 
 		$current_screen = get_current_screen();
 
-		if ( current_user_can( 'install_plugins' ) && is_object( $current_screen ) && is_object( $current_screen ) && 'wcgs_layouts' === $current_screen->post_type || 'toplevel_page_wpgs-settings' === $current_screen->base || 'woogallery_page_assign_layout' === $current_screen->base || 'woogallery_page_wpgs-help' === $current_screen->base ) {
+		// The submenu screen base is prefixed with the sanitized parent menu title, so derive it instead of hardcoding it.
+		$assign_layout_base = get_plugin_page_hookname( 'assign_layout', 'wpgs-settings' );
+		$help_base          = get_plugin_page_hookname( 'wpgs-help', 'wpgs-settings' );
+
+		if ( current_user_can( 'install_plugins' ) && is_object( $current_screen ) && is_object( $current_screen ) && 'wcgs_layouts' === $current_screen->post_type || 'toplevel_page_wpgs-settings' === $current_screen->base || $assign_layout_base === $current_screen->base || $help_base === $current_screen->base ) {
 			$plugins = array_keys( get_plugins() );
 			$slug    = 'smart-swatches';
 			$icon    = 'https://ps.w.org/smart-swatches/assets/icon-128x128.gif';
@@ -237,7 +241,7 @@ class Woo_Gallery_Slider_Admin_Notices {
 				'<div class="smart-swatches-notice  is-dismissible" data-nonce="%7$s"><img src="%1$s" />
 			<div class="smart-swatches-notice-text">
 				<div class="smart-swatches-notice-content">
-				Use the <a href="%2$s" class="thickbox open-plugin-details-modal"><strong>Smart Swatches</strong></a> plugin with <a href="%8$s" class="thickbox open-plugin-details-modal"> <strong> WooGallery</strong></a> to transform dropdowns into <strong> Color, Button, Radio, and Image Swatches</strong>—A Perfect match to <strong> Boost Sales! 🚀 </strong>
+				Use the <a href="%2$s" class="thickbox open-plugin-details-modal"><strong>Smart Swatches</strong></a> plugin with <a href="%8$s" class="thickbox open-plugin-details-modal"> <strong> Reno Product Gallery</strong></a> to transform dropdowns into <strong> Color, Button, Radio, and Image Swatches</strong>—A Perfect match to <strong> Boost Sales! 🚀 </strong>
 				</div>
 				<div class="smart-swatches-notice-action">
 					<a href="%3$s" rel="noopener" class="smart-swatches-activate-btn">%5$s</a>

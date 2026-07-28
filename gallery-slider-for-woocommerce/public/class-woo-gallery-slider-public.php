@@ -89,13 +89,15 @@ class Woo_Gallery_Slider_Public {
 		// Add specific CSS class by filter .
 		add_filter( 'body_class', array( $this, 'wcgs_body_class' ), 100 );
 
-		// Register new shortcode [woogallery] since version 2.2.3.
+		// Register primary shortcode [reno_product_gallery] since the Reno Product Gallery rebrand.
+		add_shortcode( 'reno_product_gallery', array( $this, 'wcgs_woocommerce_show_product_images' ) );
+		// Legacy shortcode [woogallery] kept for backward compatibility (since version 2.2.3).
 		add_shortcode( 'woogallery', array( $this, 'wcgs_woocommerce_show_product_images' ) );
-		// Deprecated shortcode [wcgs_gallery_slider] since version 2.2.3 (use [woogallery] instead).
+		// Deprecated shortcode [wcgs_gallery_slider] since version 2.2.3 (use [reno_product_gallery] instead).
 		add_shortcode(
 			'wcgs_gallery_slider',
 			function () {
-				return do_shortcode( '[woogallery]' );
+				return do_shortcode( '[reno_product_gallery]' );
 			}
 		);
 		// Remove default WooCommerce gallery lightbox,zoom,slider scripts.

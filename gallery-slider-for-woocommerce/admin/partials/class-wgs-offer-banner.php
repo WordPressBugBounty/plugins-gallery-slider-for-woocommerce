@@ -64,14 +64,14 @@ if ( ! class_exists( 'ShapedPlugin_Offer_Banner' ) ) {
 					'start' => strtotime( '2025-11-18 00:00:00' ),
 					'end'   => strtotime( '2025-12-14 23:59:59' ),
 					'image' => WOO_GALLERY_SLIDER_URL . 'admin/img/offer-banner/bfcm-offer-banner.svg',
-					'link'  => 'https://woogallery.io/pricing/?campaign=woog&ref=423',
+					'link'  => 'https://renoproductgallery.com/pricing/?campaign=woog&ref=423',
 				),
 				'new_year'     => array(
 					'id'    => 'new_year_2026',
 					'start' => strtotime( '2025-12-26 00:00:00' ),
 					'end'   => strtotime( '2026-01-14 23:59:59' ),
 					'image' => WOO_GALLERY_SLIDER_URL . 'admin/img/offer-banner/new-year-offer-banner.svg',
-					'link'  => 'https://woogallery.io/pricing/?campaign=woog&ref=423',
+					'link'  => 'https://renoproductgallery.com/pricing/?campaign=woog&ref=423',
 				),
 			);
 
@@ -159,5 +159,10 @@ if ( ! class_exists( 'ShapedPlugin_Offer_Banner' ) ) {
 		}
 	}
 
-	ShapedPlugin_Offer_Banner::instance();
+	/**
+	 * Temporarily disabled while the rebrand announcement notice runs, so that
+	 * it is the only banner shown. Uncomment to bring the seasonal offer
+	 * banners back.
+	 */
+	// ShapedPlugin_Offer_Banner::instance();
 }

@@ -42,7 +42,7 @@ class WCGS_Advance {
 										'id'         => 'wcgs_data_remove',
 										'type'       => 'checkbox',
 										'title'      => __( 'Clean-up Data on Deletion', 'gallery-slider-for-woocommerce' ),
-										'title_help' => __( 'Check this box if you would like WooGallery plugin to completely remove all of its data when the plugin is deleted.', 'gallery-slider-for-woocommerce' ),
+										'title_help' => __( 'Check this box if you would like Reno Product Gallery plugin to completely remove all of its data when the plugin is deleted.', 'gallery-slider-for-woocommerce' ),
 									),
 									array(
 										'id'         => 'shortcode',
@@ -58,13 +58,13 @@ class WCGS_Advance {
 											),
 											'<b>',
 											'</b>',
-											'<a href="https://woogallery.io/docs/woogallery-displays-issues-in-different-page-builders/" target="_blank"><b>',
+											'<a href="https://docs.renoproductgallery.com/guide/integrations/page-builder-compatibility" target="_blank"><b>',
 											'</b></a>'
 										),
 										'attributes' => array(
 											'readonly' => '',
 										),
-										'default'    => '[woogallery]',
+										'default'    => '[reno_product_gallery]',
 									),
 									array(
 										'type'    => 'subheading',
@@ -119,8 +119,8 @@ class WCGS_Advance {
 										'class'   => 'wcgs-light-notice',
 										'content' => sprintf(
 											// translators: 1: start bold tag, 2: close bold tag, 3: start link tag, 4: close link tag.
-											__( 'To improve the loading speed of your single product page with %3$sWooGallery%4$s, please follow these %1$sguidelines%2$s. Additionally, you may refer to your caching plugin\'s recommendations for further optimization.', 'gallery-slider-for-woocommerce' ),
-											'<a href="https://woogallery.io/docs/docs/how-to-speed-up-your-single-product-page-with-woogallery/" target="_blank"><b>',
+											__( 'To improve the loading speed of your single product page with %3$sReno Product Gallery%4$s, please follow these %1$sguidelines%2$s. Additionally, you may refer to your caching plugin\'s recommendations for further optimization.', 'gallery-slider-for-woocommerce' ),
+											'<a href="https://docs.renoproductgallery.com/guide/how-to/performance-and-speed#best-practices-to-speed-up-the-single-product-page" target="_blank"><b>',
 											'</b></a>',
 											'<b>',
 											'</b>'
@@ -130,14 +130,14 @@ class WCGS_Advance {
 										'id'         => 'lazy_load_gallery',
 										'type'       => 'checkbox',
 										'title'      => __( 'Load the Product Gallery on the Visible Viewport', 'gallery-slider-for-woocommerce' ),
-										'title_help' => __( 'Check this box if you would like WooGallery plugin to ensure the product gallery loads automatically when it enters the visible viewport', 'gallery-slider-for-woocommerce' ),
+										'title_help' => __( 'Check this box if you would like Reno Product Gallery plugin to ensure the product gallery loads automatically when it enters the visible viewport', 'gallery-slider-for-woocommerce' ),
 										'default'    => true,
 									),
 									array(
 										'id'         => 'remove_default_wc_gallery',
 										'type'       => 'checkbox',
 										'title'      => __( 'Remove Default WooCommerce Gallery Scripts', 'gallery-slider-for-woocommerce' ),
-										'title_help' => __( 'WooCommerce gallery assets are disabled because WooGallery is handling those functions.', 'gallery-slider-for-woocommerce' ),
+										'title_help' => __( 'WooCommerce gallery assets are disabled because Reno Product Gallery is handling those functions.', 'gallery-slider-for-woocommerce' ),
 										'default'    => array( 'lightbox', 'zoom', 'slider' ),
 										'options'    => array(
 											'lightbox' => __( 'Lightbox(PhotoSwipe) ', 'gallery-slider-for-woocommerce' ),
@@ -172,7 +172,7 @@ class WCGS_Advance {
 										'type'    => 'notice',
 										'style'   => 'normal',
 										'class'   => 'wcgs-light-notice',
-										'content' => __( 'Migrate galleries from the following plugins to <b>WooGallery</b>. The migration process will run in the background.', 'gallery-slider-for-woocommerce' ),
+										'content' => __( 'Migrate galleries from the following plugins to <b>Reno Product Gallery</b>. The migration process will run in the background.', 'gallery-slider-for-woocommerce' ),
 									),
 									array(
 										'id'      => 'woo-variation-gallery',
@@ -316,13 +316,13 @@ class WCGS_Advance {
 										'content' => sprintf(
 											/* translators: 1: start link and strong tag, 2: close link and strong tag, 3: start link and strong tag, 4: close link and strong tag. */
 											__( 'Want to show multiple types of %1$s Product Featured Videos with AutoPlay%2$s on the %3$sShop/Archive Page%4$s and speed up customer decision-making? %5$sUpgrade to Pro!%6$s See the %7$savailable options.%8$s', 'gallery-slider-for-woocommerce' ),
-											'<a href="https://demo.woogallery.io/product-category/video-autoplay/" target="_blank"><strong>',
+											'<a href="https://demo.renoproductgallery.com/product-category/video-autoplay/" target="_blank"><strong>',
 											'</strong></a>',
-											'<a class="wcgs-open-live-demo" href="https://demo.woogallery.io/" target="_blank"><strong>',
+											'<a class="wcgs-open-live-demo" href="https://demo.renoproductgallery.com/" target="_blank"><strong>',
 											'</strong></a>',
-											'<a href="https://woogallery.io/pricing/?ref=143" target="_blank" class="btn"><strong>',
+											'<a href="https://renoproductgallery.com/pricing/?ref=143" target="_blank" class="btn"><strong>',
 											'</strong></a>',
-											'<a href="https://woogallery.io/docs/shop-page-video/" target="_blank" class="btn"><strong>',
+											'<a href="https://docs.renoproductgallery.com/guide/shop-page-video" target="_blank" class="btn"><strong>',
 											'</strong></a>'
 										),
 									),

@@ -43,7 +43,7 @@ class WCGS_Assigns {
 				'show_sub_menu'      => false,
 				'footer_credit'      => sprintf(
 					/* translators: 1: start strong tag, 2: close strong tag, 3: span tag start, 4: span tag end, 5: anchor tag start, 6: anchor tag ended. */
-					__( 'Enjoying %1$sWooGallery?%2$s Please rate us %3$s★★★★★%4$s %5$sWordPress.org.%6$s Your positive feedback will help us grow more. Thank you! 😊', 'gallery-slider-for-woocommerce' ),
+					__( 'Enjoying %1$sReno Product Gallery?%2$s Please rate us %3$s★★★★★%4$s %5$sWordPress.org.%6$s Your positive feedback will help us grow more. Thank you! 😊', 'gallery-slider-for-woocommerce' ),
 					'<strong>',
 					'</strong>',
 					'<span class="spwpcp-footer-text-star">',

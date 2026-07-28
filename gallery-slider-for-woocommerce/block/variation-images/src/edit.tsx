@@ -181,7 +181,7 @@ export function Edit({ attributes }: { attributes: BlockAttributes }) {
 				{tempImages && tempImages.length > 2 && (
 					<span className="wcgs-pro-notice" style={{ color: 'red' }}>
 						To add more images &amp; videos,{' '}
-						<a href="https://woogallery.io/pricing/?ref=143" target="_blank" style={{ fontStyle: 'italic' }} >
+						<a href="https://renoproductgallery.com/pricing/?ref=143" target="_blank" style={{ fontStyle: 'italic' }} >
 							Upgrade to Pro!
 						</a>
 					</span>

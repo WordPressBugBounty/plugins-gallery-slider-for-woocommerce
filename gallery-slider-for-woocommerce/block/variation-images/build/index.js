@@ -6878,7 +6878,7 @@ function Edit({
           color: 'red'
         },
         children: ["To add more images & videos,", ' ', /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_10__.jsx)("a", {
-          href: "https://woogallery.io/pricing/?ref=143",
+          href: "https://renoproductgallery.com/pricing/?ref=143",
           target: "_blank",
           style: {
             fontStyle: 'italic'

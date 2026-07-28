@@ -43,7 +43,7 @@ if ( ! class_exists( 'WCGS_Field_text' ) ) {
 
 			echo $this->field_before(); // phpcs:ignore
 
-			$value = isset( $this->field['shortcode'] ) && ( $this->field['shortcode'] ) ? '[woogallery]' : $this->value;
+			$value = isset( $this->field['shortcode'] ) && ( $this->field['shortcode'] ) ? '[reno_product_gallery]' : $this->value;
 			echo '<input type="' . esc_attr( $type ) . '" name="' . esc_attr( $this->field_name() ) . '" value="' . esc_attr( $value ) . '"' . $this->field_attributes() . ' />'; // phpcs:ignore
 
 			echo $this->field_after(); // phpcs:ignore

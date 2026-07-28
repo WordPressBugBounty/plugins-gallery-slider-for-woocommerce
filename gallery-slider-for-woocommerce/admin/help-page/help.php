@@ -85,7 +85,7 @@ class Woo_Gallery_Slider_Help {
 	public function wcgs_plugins_info_api_help_page() {
 		$plugins_arr = get_transient( 'wcgs_plugins' );
 		if ( false === $plugins_arr ) {
-			$args    = (object) array(
+			$args = array(
 				'author'   => 'shapedplugin',
 				'per_page' => '120',
 				'page'     => '1',
@@ -103,31 +103,30 @@ class Woo_Gallery_Slider_Help {
 					'icons',
 				),
 			);
-			$request = array(
-				'action'  => 'query_plugins',
-				'timeout' => 30,
-				'request' => serialize( $args ),
-			);
-			// https://codex.wordpress.org/WordPress.org_API.
-			$url      = 'http://api.wordpress.org/plugins/info/1.0/';
-			$response = wp_remote_post( $url, array( 'body' => $request ) );
-			if ( ! is_wp_error( $response ) ) {
+
+			if ( ! function_exists( 'plugins_api' ) ) {
+				require_once ABSPATH . 'wp-admin/includes/plugin-install.php';
+			}
+
+			$plugin_info = plugins_api( 'query_plugins', $args );
+
+			if ( ! is_wp_error( $plugin_info ) ) {
+
 				$plugins_arr = array();
-				$plugins     = unserialize( $response['body'] );
-				if ( isset( $plugins->plugins ) && ( count( $plugins->plugins ) > 0 ) ) {
-					foreach ( $plugins->plugins as $pl ) {
-						if ( ! in_array( $pl->slug, self::$not_show_plugin_list, true ) ) {
+				if ( isset( $plugin_info->plugins ) && ( count( $plugin_info->plugins ) > 0 ) ) {
+					foreach ( $plugin_info->plugins as $pl ) {
+						if ( ! in_array( $pl['slug'], self::$not_show_plugin_list, true ) ) {
 							$plugins_arr[] = array(
-								'slug'              => $pl->slug,
-								'name'              => $pl->name,
-								'version'           => $pl->version,
-								'downloaded'        => $pl->downloaded,
-								'active_installs'   => $pl->active_installs,
-								'last_updated'      => strtotime( $pl->last_updated ),
-								'rating'            => $pl->rating,
-								'num_ratings'       => $pl->num_ratings,
-								'short_description' => $pl->short_description,
-								'icons'             => $pl->icons['2x'],
+								'slug'              => $pl['slug'],
+								'name'              => $pl['name'],
+								'version'           => $pl['version'],
+								'downloaded'        => $pl['downloaded'],
+								'active_installs'   => $pl['active_installs'],
+								'last_updated'      => strtotime( $pl['last_updated'] ),
+								'rating'            => $pl['rating'],
+								'num_ratings'       => $pl['num_ratings'],
+								'short_description' => $pl['short_description'],
+								'icons'             => $pl['icons']['2x'],
 							);
 						}
 					}
@@ -135,6 +134,10 @@ class Woo_Gallery_Slider_Help {
 
 				set_transient( 'wcgs_plugins', $plugins_arr, 24 * HOUR_IN_SECONDS );
 			}
+		}
+
+		if ( ! is_array( $plugins_arr ) ) {
+			return;
 		}
 
 		$woocommerce_plugin = array( 'smart-swatches', 'woo-category-slider-grid', 'woo-product-slider', 'woo-quickview', 'smart-brands-for-woocommerce' );
@@ -321,25 +324,25 @@ class Woo_Gallery_Slider_Help {
 		$plugin   = isset( $_GET['plugin'] ) ? sanitize_text_field( wp_unslash( $_GET['plugin'] ) ) : '';
 		$_wpnonce = isset( $_GET['_wpnonce'] ) ? sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ) : '';
 
-		if ( isset( $action, $plugin ) && ( 'activate' === $action ) && wp_verify_nonce( $_wpnonce, 'activate-plugin_' . $plugin ) ) {
+		if ( isset( $action, $plugin ) && ( 'activate' === $action ) && wp_verify_nonce( $_wpnonce, 'activate-plugin_' . $plugin ) && current_user_can( 'activate_plugins' ) ) {
 			activate_plugin( $plugin, '', false, true );
 		}
 
-		if ( isset( $action, $plugin ) && ( 'deactivate' === $action ) && wp_verify_nonce( $_wpnonce, 'deactivate-plugin_' . $plugin ) ) {
-			deactivate_plugins( $plugin, '', false, true );
+		if ( isset( $action, $plugin ) && ( 'deactivate' === $action ) && wp_verify_nonce( $_wpnonce, 'deactivate-plugin_' . $plugin ) && current_user_can( 'deactivate_plugins' ) ) {
+			deactivate_plugins( $plugin, '', false );
 		}
 
 		?>
 		<div class="sp-woo-gallery-slider-help">
 			<section class="wcgs__help header">
-				<div class="spea-header-area-top">
-					<p>You’re currently using <b>WooGallery</b> lite. To access additional features, consider <a target="_blank" href="https://woogallery.io/pricing/?ref=143"><b>upgrading to Pro!</b></a></p>
-				</div>
+			<!-- <div class="spea-header-area-top">
+					<p>You’re currently using <b>Reno Product Gallery</b> lite. To access additional features, consider <a target="_blank" href="https://renoproductgallery.com/pricing/?ref=143"><b>upgrading to Pro!</b></a></p>
+				</div> -->
 				<!-- Header section start -->
 				<div class="wcgsp-header-area">
 					<div class="wcgs-container">
 						<div class="wcgsp-header-logo">
-							<img src="<?php echo esc_url( WOO_GALLERY_SLIDER_URL . 'admin/help-page/img/woogallery_logo.svg' ); ?>" alt="woogallery_logo">
+							<img src="<?php echo esc_url( WOO_GALLERY_SLIDER_URL . 'admin/img/reno-product-gallery.svg' ); ?>" alt="Reno Product Gallery">
 							<span>v<?php echo esc_html( WOO_GALLERY_SLIDER_VERSION ); ?></span>
 						</div>
 					</div>
@@ -366,13 +369,13 @@ class Woo_Gallery_Slider_Help {
 				<div class="wcgs-container">
 					<div class="wcgs-start-page-wrap">
 						<div class="wcgs-video-area">
-							<h2 class='wcgs-section-title-help'>Welcome to WooGallery!</h2>
-							<span class='wcgs-normal-paragraph'>Thank you for installing WooGallery! This video will help you get started with the plugin. Enjoy!</span>
+							<h2 class='wcgs-section-title-help'>Welcome to Reno Product Gallery!</h2>
+							<span class='wcgs-normal-paragraph'>Thank you for installing Reno Product Gallery! This video will help you get started with the plugin. Enjoy!</span>
 							<iframe width="724" height="405" src="https://www.youtube.com/embed/aofImhOCZYs?si=NMYms_CEQi4KpDa4" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
 							<ul>
 								<li><a class='wcgs-medium-btn' href="<?php echo esc_url( home_url( '/' ) . 'wp-admin/admin.php?page=wpgs-settings#tab=general' ); ?>">Configure Settings</a></li>
-								<li><a target="_blank" class='wcgs-medium-btn' href="https://demo.woogallery.io/product/air-max-plus/">Live Demo</a></li>
-								<li><a target="_blank" class='wcgs-medium-btn arrow-btn' href="https://woogallery.io/?ref=143">Explore WooGallery <i class="wcgs-icon-button-arrow-icon"></i></a></li>
+								<li><a target="_blank" class='wcgs-medium-btn' href="https://demo.renoproductgallery.com/product/air-max-plus/">Live Demo</a></li>
+								<li><a target="_blank" class='wcgs-medium-btn arrow-btn' href="https://renoproductgallery.com/?ref=143">Explore Reno Product Gallery <i class="wcgs-icon-button-arrow-icon"></i></a></li>
 							</ul>
 						</div>
 						<div class="wcgs-start-page-sidebar">
@@ -380,8 +383,8 @@ class Woo_Gallery_Slider_Help {
 								<div class="wcgs-info-box-title">
 									<h4><i class="wcgs-icon-doc-icon"></i> Documentation</h4>
 								</div>
-								<span class='wcgs-normal-paragraph'>Explore WooGallery plugin capabilities in our enriched documentation.</span>
-								<a target="_blank" class='wcgs-small-btn' href="https://woogallery.io/docs/">Browse Now</a>
+								<span class='wcgs-normal-paragraph'>Explore Reno Product Gallery plugin capabilities in our enriched documentation.</span>
+								<a target="_blank" class='wcgs-small-btn' href="https://docs.renoproductgallery.com/">Browse Now</a>
 							</div>
 							<div class="wcgs-start-page-sidebar-info-box">
 								<div class="wcgs-info-box-title">
@@ -407,7 +410,7 @@ class Woo_Gallery_Slider_Help {
 				<div class="wcgs-container">
 					<div class="wcgs-call-to-action-top">
 						<h2 class="wcgs-section-title-help">Lite vs Pro Comparison</h2>
-						<a target="_blank" href="https://woogallery.io/pricing/?ref=143" class='wcgs-big-btn'>Upgrade to Pro Now!</a>
+						<a target="_blank" href="https://renoproductgallery.com/pricing/?ref=143" class='wcgs-big-btn'>Upgrade to Pro Now!</a>
 					</div>
 					<div class="wcgs-lite-to-pro-wrap">
 						<div class="wcgs-features">
@@ -631,26 +634,26 @@ class Woo_Gallery_Slider_Help {
 						</div>
 						<div class="wcgs-upgrade-to-pro">
 							<h2 class='wcgs-section-title-help'>Upgrade To PRO & Enjoy Advanced Features!</h2>
-							<span class='wcgs-section-subtitle'>Already, <b>20000+</b> people are using WooGallery on their websites to create beautiful carousels, sliders, and galleries; why won’t you!</span>
+							<span class='wcgs-section-subtitle'>Already, <b>30000+</b> people are using Reno Product Gallery on their websites to create beautiful carousels, sliders, and galleries; why won’t you!</span>
 							<div class="wcgs-upgrade-to-pro-btn">
 								<div class="wcgs-action-btn">
-									<a target="_blank" href="https://woogallery.io/pricing/?ref=143" class='wcgs-big-btn'>Upgrade to Pro Now!</a>
+									<a target="_blank" href="https://renoproductgallery.com/pricing/?ref=143" class='wcgs-big-btn'>Upgrade to Pro Now!</a>
 									<span class='wcgs-small-paragraph'>14-Day No-Questions-Asked <a target="_blank" href="https://shapedplugin.com/refund-policy/">Refund Policy</a></span>
 								</div>
-								<a target="_blank" href="https://woogallery.io/#features" class='wcgs-big-btn-border'>See All Features</a>
-								<a target="_blank" href="https://demo.woogallery.io/product/hooded-track-jacket/" class="wcgs-big-btn-border wcgs-pro-live-demo-btn">Pro Live Demo</a>
+								<a target="_blank" href="https://renoproductgallery.com/#features" class='wcgs-big-btn-border'>See All Features</a>
+								<a target="_blank" href="https://demo.renoproductgallery.com/product/hooded-track-jacket/" class="wcgs-big-btn-border wcgs-pro-live-demo-btn">Pro Live Demo</a>
 							</div>
 						</div>
 					</div>
 					<div class="wcgs-testimonial">
 						<div class="wcgs-testimonial-title-section">
 							<span class='wcgs-testimonial-subtitle'>NO NEED TO TAKE OUR WORD FOR IT</span>
-							<h2 class="wcgs-section-title-help">Our Users Love WooGallery Pro!</h2>
+							<h2 class="wcgs-section-title-help">Our Users Love Reno Product Gallery Pro!</h2>
 						</div>
 						<div class="wcgs-testimonial-wrap">
 							<div class="wcgs-testimonial-area">
 								<div class="wcgs-testimonial-content">
-									<p>There’s one piece of experience I would like to share – in addition to my review before: It’s the world class support of Shaped Plugin WooGallery.I use this plugin...</p>
+									<p>There’s one piece of experience I would like to share – in addition to my review before: It’s the world class support of Shaped Plugin Reno Product Gallery.I use this plugin...</p>
 								</div>
 								<div class="wcgs-testimonial-info">
 									<div class="wcgs-img">
@@ -720,8 +723,8 @@ class Woo_Gallery_Slider_Help {
 				<div class="wcgs-container">
 					<div class="wcgs-about-box">
 						<div class="wcgs-about-info">
-							<h3>All-in-One WooCommerce Product Image and Video Gallery Solution by the WooGallery Team, ShapedPlugin, LLC</h3>
-							<p> At <b>ShapedPlugin LLC</b>, we sought the best way to enhance WooCommerce product pages with engaging layouts inspired by Amazon, <b>Nike, Adidas, AliExpress,</b> and <b>Louis Vuitton</b>. We also wanted the flexibility to create custom layouts for specific products and categories. Finding no suitable solution, we finally built <a target="_blank" href="https://woogallery.io/?ref=143"><b>WooGallery</b></a>, which helps you boost sales!</p>
+							<h3>All-in-One WooCommerce Product Image and Video Gallery Solution by the Reno Product Gallery Team, ShapedPlugin, LLC</h3>
+							<p> At <b>ShapedPlugin LLC</b>, we sought the best way to enhance WooCommerce product pages with engaging layouts inspired by Amazon, <b>Nike, Adidas, AliExpress,</b> and <b>Louis Vuitton</b>. We also wanted the flexibility to create custom layouts for specific products and categories. Finding no suitable solution, we finally built <a target="_blank" href="https://renoproductgallery.com/?ref=143"><b>Reno Product Gallery</b></a>, which helps you boost sales!</p>
 							<ul>
 								<li><span class="wcgs-checkmark-icon"></span> Enable Product Gallery Slider on the Product Page</li>
 								<li><span class="wcgs-checkmark-icon"></span> Enable Additional Variation Images Gallery Slider 🔥🔥</li>
@@ -731,7 +734,7 @@ class Woo_Gallery_Slider_Help {
 								<li><span class="wcgs-checkmark-icon"></span>  Custom Layouts for Products & Categories 🔥🔥</li>
 							</ul>
 							<div class="wcgs-about-btn">
-								<a target="_blank" href="https://woogallery.io/?ref=143" class='wcgs-medium-btn'>Explore WooGallery</a>
+								<a target="_blank" href="https://renoproductgallery.com/?ref=143" class='wcgs-medium-btn'>Explore Reno Product Gallery</a>
 								<a target="_blank" href="https://shapedplugin.com/about-us/" class='wcgs-medium-btn wcgs-arrow-btn'>More About Us <i class="wcgs-icon-button-arrow-icon"></i></a>
 							</div>
 						</div>
@@ -766,26 +769,20 @@ class Woo_Gallery_Slider_Help {
 							</a>
 							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://wpsmartpost.com/?ref=143">
 								<i class="wcgs-icon-button-arrow-icon"></i>
-								<img src="<?php echo esc_url( $plugin_icon['post-carousel'] ?? '' ); ?>" alt="Smart Post Show">
-								<h4>Smart Post Show</h4>
+								<img src="<?php echo esc_url( $plugin_icon['post-carousel'] ?? '' ); ?>" alt="Smart Post">
+								<h4>Smart Post</h4>
 								<p>Filter and display posts (any post types), pages, taxonomy, custom taxonomy, and custom field, in beautiful layouts.</p>
 							</a>
 							<a target="_blank" href="https://wooproductslider.io/?ref=143" class="wcgs-our-plugin-list-box">
 								<i class="wcgs-icon-button-arrow-icon"></i>
-								<img src="<?php echo esc_url( $plugin_icon['woo-product-slider'] ?? '' ); ?>" alt="Product Slider for WooCommerce">
-								<h4>Product Slider for WooCommerce</h4>
+								<img src="<?php echo esc_url( $plugin_icon['woo-product-slider'] ?? '' ); ?>" alt="Reno Product Slider">
+								<h4>Reno Product Slider</h4>
 								<p>Boost sales by interactive product Slider, Grid, and Table in your WooCommerce website or store.</p>
-							</a>
-							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://woogallery.io/?ref=143">
-								<i class="wcgs-icon-button-arrow-icon"></i>
-								<img src="<?php echo esc_url( $plugin_icon['gallery-slider-for-woocommerce'] ?? '' ); ?>" alt="WooGallery">
-								<h4>WooGallery</h4>
-								<p>Product gallery slider and additional variation images gallery for WooCommerce and boost your sales.</p>
 							</a>
 							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://getwpteam.com/?ref=143">
 								<i class="wcgs-icon-button-arrow-icon"></i>
-								<img src="<?php echo esc_url( $plugin_icon['team-free'] ?? '' ); ?>" alt="WP Team">
-								<h4>WP Team</h4>
+								<img src="<?php echo esc_url( $plugin_icon['team-free'] ?? '' ); ?>" alt="Smart Team">
+								<h4>Smart Team</h4>
 								<p>Display your team members smartly who are at the heart of your company or organization!</p>
 							</a>
 							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://logocarousel.com/?ref=143">
@@ -802,14 +799,14 @@ class Woo_Gallery_Slider_Help {
 							</a>
 							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://shapedplugin.com/woocategory/?ref=143">
 								<i class="wcgs-icon-button-arrow-icon"></i>
-								<img src="<?php echo esc_url( $plugin_icon['woo-category-slider-grid'] ?? '' ); ?>" alt="Category Slider for WooCommerce">
-								<h4>WooCategory</h4>
+								<img src="<?php echo esc_url( $plugin_icon['woo-category-slider-grid'] ?? '' ); ?>" alt="Reno Product Category">
+								<h4>Reno Product Category</h4>
 								<p>Display by filtering the list of categories aesthetically and boosting sales.</p>
 							</a>
 							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://wptabs.com/?ref=143">
 								<i class="wcgs-icon-button-arrow-icon"></i>
-								<img src="<?php echo esc_url( $plugin_icon['wp-expand-tabs-free'] ?? '' ); ?>" alt="WP Tabs">
-								<h4>WP Tabs</h4>
+								<img src="<?php echo esc_url( $plugin_icon['wp-expand-tabs-free'] ?? '' ); ?>" alt="Smart Tabs">
+								<h4>Smart Tabs</h4>
 								<p>Display tabbed content smartly & quickly on your WordPress site without coding skills.</p>
 							</a>
 							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://shapedplugin.com/quick-view-for-woocommerce/?ref=143">
@@ -823,6 +820,12 @@ class Woo_Gallery_Slider_Help {
 								<img src="<?php echo esc_url( $plugin_icon['smart-brands-for-woocommerce'] ?? '' ); ?>" alt="Smart Brands for WooCommerce">
 								<h4>Smart Brands for WooCommerce</h4>
 								<p>Smart Brands for WooCommerce Pro helps you display product brands in an attractive way on your online store.</p>
+							</a>
+							<a target="_blank" class="wcgs-our-plugin-list-box" href="https://shapedplugin.com/smart-swatches-for-woocommerce/?ref=1">
+								<i class="wcgs-icon-button-arrow-icon"></i>
+								<img src="<?php echo esc_url( $plugin_icon['smart-swatches'] ); ?>" alt="Smart Swatches for WooCommerce">
+								<h4>Smart Swatches for WooCommerce</h4>
+								<p>Appealing color, image, and button variation swatches on your WooCommerce Shop and Product pages in minutes to increase sales.</p>
 							</a>
 						</div>
 					</div>

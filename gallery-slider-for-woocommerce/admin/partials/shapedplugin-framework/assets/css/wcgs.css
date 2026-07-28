@@ -3072,9 +3072,9 @@ div.sp-wcgs-plugin-section .three-col .col .sp-wcgs-plugin img {
   margin-right: 10px;
   background-image: url(../images/copy.svg);
   background-size: 16px;
-  background-position: 98px center;
+  background-position: 164px center;
   background-repeat: no-repeat;
-  width: 125px;
+  width: 190px;
 }
 
 .spwg_shortcode .wcgs-text-desc {
@@ -3087,7 +3087,7 @@ div.sp-wcgs-plugin-section .three-col .col .sp-wcgs-plugin img {
 .spwg_shortcode .wcgs-fieldset .wcgs-alert {
   position: absolute;
   top: 8px;
-  left: 134px;
+  left: 200px;
 }
 
 .spwg_shortcode .wcgs-text-desc {
@@ -3231,7 +3231,7 @@ div#wcgs_metabox {
 
 .wcgs-metabox .wcgs-admin-header .wcgs-admin-logo {
   margin-left: 25px;
-  background-image: url(../images/woo-gallery-slider-white.svg)
+  background-image: url(../images/reno-product-gallery-white-logo.svg)
 }
 
 .wcgs-metabox .wcgs-header {
@@ -3254,7 +3254,7 @@ div#wcgs_metabox {
 .wcgs-admin-header .wcgs-version {
   position: absolute;
   top: 25px;
-  left: 180px;
+  left: 222px;
   display: inline-block;
   color: #4b4744;
   background: #fcfaff;

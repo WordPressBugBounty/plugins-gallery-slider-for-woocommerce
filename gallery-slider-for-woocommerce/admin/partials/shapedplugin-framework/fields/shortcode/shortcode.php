@@ -58,17 +58,17 @@ if ( ! class_exists( 'WCGS_Field_shortcode' ) ) {
 						'</b>'
 					) . '</p>';
 					echo '<ul>';
-					echo '<li><i class="sp_wgs-icon-check-icon"></i> <a class="wcgs-feature-link" href="https://woogallery.io/#layout-tab" target="_blank">' . esc_html__( '16+ Modern Gallery Layouts', 'gallery-slider-for-woocommerce' ) . ' <i class="sp_wgs-icon-external_link"></i></a></li>';
-					echo '<li><i class="sp_wgs-icon-check-icon"></i> <a class="wcgs-feature-link" href="https://woogallery.io/assign-and-manage-layouts/" target="_blank">' . esc_html__( 'Different Layouts Per Category', 'gallery-slider-for-woocommerce' ) . ' <i class="sp_wgs-icon-external_link"></i></a></li>';
-					echo '<li><i class="sp_wgs-icon-check-icon"></i> <a class="wcgs-feature-link" href="https://woogallery.io/additional-variation-gallery/" target="_blank">' . esc_html__( 'Additional Variation Gallery', 'gallery-slider-for-woocommerce' ) . ' <i class="sp_wgs-icon-external_link"></i></a></li>';
-					echo '<li><i class="sp_wgs-icon-check-icon"></i> <a class="wcgs-feature-link" href="https://woogallery.io/product-video-gallery/" target="_blank">' . esc_html__( 'Product Videos in Galleries', 'gallery-slider-for-woocommerce' ) . ' <i class="sp_wgs-icon-external_link"></i></a></li>';
-					echo '<li><i class="sp_wgs-icon-check-icon"></i> <a class="wcgs-feature-link" href="https://woogallery.io/product-featured-video/" target="_blank">' . esc_html__( 'Product Videos on Shop Page', 'gallery-slider-for-woocommerce' ) . ' <i class="sp_wgs-icon-external_link"></i></a></li>';
-					echo '<li><i class="sp_wgs-icon-check-icon"></i> <a class="wcgs-feature-link" href="https://woogallery.io/product-image-zoom/" target="_blank">' . esc_html__( 'Advanced Product Image Zoom', 'gallery-slider-for-woocommerce' ) . ' <i class="sp_wgs-icon-external_link"></i></a></li>';
-					echo '<li><i class="sp_wgs-icon-check-icon"></i> <a class="wcgs-feature-link" href="https://woogallery.io/product-image-lightbox/" target="_blank">' . esc_html__( 'Powerful Product Lightbox', 'gallery-slider-for-woocommerce' ) . ' <i class="sp_wgs-icon-external_link"></i></a></li>';
-					echo '<li><i class="sp_wgs-icon-check-icon"></i> <a class="wcgs-feature-link" href="https://woogallery.io/" target="_blank">' . esc_html__( '200+ Customizations and More', 'gallery-slider-for-woocommerce' ) . ' <i class="sp_wgs-icon-external_link"></i></a></li>';
+					echo '<li><i class="sp_wgs-icon-check-icon"></i> <a class="wcgs-feature-link" href="https://renoproductgallery.com/#layout-tab" target="_blank">' . esc_html__( '16+ Modern Gallery Layouts', 'gallery-slider-for-woocommerce' ) . ' <i class="sp_wgs-icon-external_link"></i></a></li>';
+					echo '<li><i class="sp_wgs-icon-check-icon"></i> <a class="wcgs-feature-link" href="https://renoproductgallery.com/assign-and-manage-layouts/" target="_blank">' . esc_html__( 'Different Layouts Per Category', 'gallery-slider-for-woocommerce' ) . ' <i class="sp_wgs-icon-external_link"></i></a></li>';
+					echo '<li><i class="sp_wgs-icon-check-icon"></i> <a class="wcgs-feature-link" href="https://renoproductgallery.com/additional-variation-gallery/" target="_blank">' . esc_html__( 'Additional Variation Gallery', 'gallery-slider-for-woocommerce' ) . ' <i class="sp_wgs-icon-external_link"></i></a></li>';
+					echo '<li><i class="sp_wgs-icon-check-icon"></i> <a class="wcgs-feature-link" href="https://renoproductgallery.com/product-video-gallery/" target="_blank">' . esc_html__( 'Product Videos in Galleries', 'gallery-slider-for-woocommerce' ) . ' <i class="sp_wgs-icon-external_link"></i></a></li>';
+					echo '<li><i class="sp_wgs-icon-check-icon"></i> <a class="wcgs-feature-link" href="https://renoproductgallery.com/product-featured-video/" target="_blank">' . esc_html__( 'Product Videos on Shop Page', 'gallery-slider-for-woocommerce' ) . ' <i class="sp_wgs-icon-external_link"></i></a></li>';
+					echo '<li><i class="sp_wgs-icon-check-icon"></i> <a class="wcgs-feature-link" href="https://renoproductgallery.com/product-image-zoom/" target="_blank">' . esc_html__( 'Advanced Product Image Zoom', 'gallery-slider-for-woocommerce' ) . ' <i class="sp_wgs-icon-external_link"></i></a></li>';
+					echo '<li><i class="sp_wgs-icon-check-icon"></i> <a class="wcgs-feature-link" href="https://renoproductgallery.com/product-image-lightbox/" target="_blank">' . esc_html__( 'Powerful Product Lightbox', 'gallery-slider-for-woocommerce' ) . ' <i class="sp_wgs-icon-external_link"></i></a></li>';
+					echo '<li><i class="sp_wgs-icon-check-icon"></i> <a class="wcgs-feature-link" href="https://renoproductgallery.com/" target="_blank">' . esc_html__( '200+ Customizations and More', 'gallery-slider-for-woocommerce' ) . ' <i class="sp_wgs-icon-external_link"></i></a></li>';
 					echo '<ul>';
 					echo '<div class="wcgs-pro-notice-button">';
-					echo '<a class="wcgs-open-live-demo" href="https://woogallery.io/pricing/?ref=143" target="_blank">';
+					echo '<a class="wcgs-open-live-demo" href="https://renoproductgallery.com/pricing/?ref=143" target="_blank">';
 					echo esc_html__( 'Upgrade to Pro Now', 'gallery-slider-for-woocommerce' ) . '<i class="sp_wgs-icon-external_link"></i> <i class="wcgs-icon-shuttle_2285485-1"></i>';
 					echo '</a>';
 					echo '</div>';
@@ -81,7 +81,7 @@ if ( ! class_exists( 'WCGS_Field_shortcode' ) ) {
 						' .
 							sprintf(
 								/* translators: 1: start strong tag, 2: close tag. */
-								esc_html__( 'WooGallery works smoothly with Gutenberg, Classic Editor, %1$sElementor%2$s, Divi, Bricks, Beaver, Oxygen, WPBakery Builder, etc.', 'gallery-slider-for-woocommerce' ),
+								esc_html__( 'Reno Product Gallery works smoothly with Gutenberg, Classic Editor, %1$sElementor%2$s, Divi, Bricks, Beaver, Oxygen, WPBakery Builder, etc.', 'gallery-slider-for-woocommerce' ),
 								'<strong>',
 								'</strong>'
 							)

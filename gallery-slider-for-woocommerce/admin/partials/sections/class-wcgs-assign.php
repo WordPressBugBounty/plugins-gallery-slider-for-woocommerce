@@ -32,7 +32,7 @@ class WCGS_Assign {
 				'fields' => array(
 					array(
 						'type'    => 'submessage',
-						'content' => 'Assign product gallery layout based on category or product. <a href="https://woogallery.io/docs/assign-layout-2/" target="_blank">See Docs</a>',
+						'content' => 'Assign product gallery layout based on category or product. <a href="https://docs.renoproductgallery.com/guide/assign-layout" target="_blank">See Docs</a>',
 					),
 					array(
 						'id'                     => 'assign_layout_data',

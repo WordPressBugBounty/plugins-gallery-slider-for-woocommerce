@@ -1,24 +1,24 @@
 <?php
 /**
- * WooGallery
+ * ProductGallery
  *
  * @link              https://shapedplugin.com/
  * @since             1.0.0
  * @package           Woo_Gallery_Slider
  *
- * Plugin Name:       WooGallery
- * Plugin URI:        https://woogallery.io/?ref=143
- * Description:       WooGallery plugin allows you to insert additional images for each variation to let visitors see different images when product variations are switched. Increase your sales by transforming the WooCommerce default product gallery instantly to a beautiful thumbnails gallery slider on a single product page.
- * Version:           3.1.6
- * Author:            WooGallery Team, ShapedPlugin LLC
- * Author URI:        https://woogallery.io/
+ * Plugin Name:       Reno Product Gallery (formerly WooGallery)
+ * Plugin URI:        https://renoproductgallery.com/?ref=143
+ * Description:       Reno Product Gallery plugin allows you to insert additional images for each variation to let visitors see different images when product variations are switched. Increase your sales by transforming the WooCommerce default product gallery instantly to a beautiful thumbnails gallery slider on a single product page.
+ * Version:           3.2.0
+ * Author:            Reno Product Gallery Team, ShapedPlugin LLC
+ * Author URI:        https://renoproductgallery.com/
  * License: GPLv3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  * Requires at least: 5.3
  * Requires PHP: 7.0
  * Requires Plugins: woocommerce
  * WC requires at least: 4.5
- * WC tested up to: 10.8.1
+ * WC tested up to: 10.9.4
  * Text Domain:       gallery-slider-for-woocommerce
  * Domain Path:       /languages
  */
@@ -31,12 +31,12 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'WOO_GALLERY_SLIDER_VERSION', '3.1.6' );
+define( 'WOO_GALLERY_SLIDER_VERSION', '3.2.0' );
 define( 'WOO_GALLERY_SLIDER_FILE', __FILE__ );
 define( 'WOO_GALLERY_SLIDER_PATH', plugin_dir_path( __FILE__ ) );
 define( 'WOO_GALLERY_SLIDER_URL', plugin_dir_url( __FILE__ ) );
 define( 'WOO_GALLERY_SLIDER_BASENAME', plugin_basename( __FILE__ ) );
-define( 'WOO_GALLERY_SLIDER_PRO_LINK', 'https://woogallery.io/pricing/?ref=143' );
+define( 'WOO_GALLERY_SLIDER_PRO_LINK', 'https://renoproductgallery.com/pricing/?ref=143' );
 define( 'WOO_GALLERY_SLIDER_TRANSIENT_EXPIRATION', apply_filters( 'sp_gallery_transient_expiration', 0 ) );
 
 /**
@@ -59,14 +59,10 @@ function run_woo_gallery_slider() {
 	$plugin = new Woo_Gallery_Slider();
 	$plugin->run();
 
-	if ( ! defined( 'SHAPEDPLIUGIN_OFFER_BANNER_LOADED' ) ) {
-		define( 'SHAPEDPLIUGIN_OFFER_BANNER_LOADED', true );
-
-		/**
-		 * The class responsible for generating admin offer banner.
-		 */
-		include_once plugin_dir_path( __FILE__ ) . '/admin/partials/class-wgs-offer-banner.php';
-	}
+	/**
+	 * The class responsible for generating the rebrand announcement notice.
+	 */
+	include_once plugin_dir_path( __FILE__ ) . '/admin/partials/class-wgs-rebrand-notice.php';
 }
 
 if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
@@ -110,7 +106,7 @@ function wcgs_wc_admin_notice() {
 				admin_url( 'plugin-install.php' )
 			)
 		);
-		$outline = '<div class="error"><p>' . wp_kses_post( 'You must install and activate <a class="thickbox open-plugin-details-modal" href="' . esc_url( $link ) . '"><strong>WooCommerce</strong></a> plugin to make the <strong>WooGallery</strong> work.', 'gallery-slider-for-woocommerce' ) . '</p></div>';
+		$outline = '<div class="error"><p>' . wp_kses_post( 'You must install and activate <a class="thickbox open-plugin-details-modal" href="' . esc_url( $link ) . '"><strong>WooCommerce</strong></a> plugin to make the <strong>Reno Product Gallery</strong> work.', 'gallery-slider-for-woocommerce' ) . '</p></div>';
 		echo wp_kses_post( $outline );
 	}
 }

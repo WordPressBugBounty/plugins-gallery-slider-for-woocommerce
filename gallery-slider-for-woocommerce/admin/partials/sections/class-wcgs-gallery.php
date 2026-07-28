@@ -84,7 +84,7 @@ class WCGS_Gallery {
 										'id'         => 'slide_orientation',
 										'type'       => 'select',
 										'title'      => esc_html__( 'Slide Orientation', 'gallery-slider-for-woocommerce' ),
-										'title_help' => '<div class="wcgs-img-tag"><img src="' . plugin_dir_url( __DIR__ ) . '/shapedplugin-framework/assets/images/help-visuals/slide_orientation.svg" alt="' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '"></div><a class="wcgs-open-live-demo" href="https://demo.woogallery.io/slider-orientations/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
+										'title_help' => '<div class="wcgs-img-tag"><img src="' . plugin_dir_url( __DIR__ ) . '/shapedplugin-framework/assets/images/help-visuals/slide_orientation.svg" alt="' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '"></div><a class="wcgs-open-live-demo" href="https://demo.renoproductgallery.com/slider-orientations/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
 										'options'    => array(
 											'horizontal' => esc_html__( 'Horizontal', 'gallery-slider-for-woocommerce' ),
 											'vertical'   => esc_html__( 'Vertical', 'gallery-slider-for-woocommerce' ),
@@ -451,7 +451,7 @@ class WCGS_Gallery {
 										'id'         => 'thumbnailnavigation_style',
 										'class'      => 'thumbnailnavigation_style',
 										'type'       => 'image_select',
-										'title_help' => '<div class="wcgs-info-label">' . __( 'Thumbnails Navigation Style', 'gallery-slider-for-woocommerce' ) . '</div><div class="wcgs-short-content">' . __( 'Stylize your thumbnail navigation using Inner, Outer, and Custom design.', 'gallery-slider-for-woocommerce' ) . '</div><a class="wcgs-open-docs" href="https://woogallery.io/docs/how-to-customize-thumbnails-navigation-styles/" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.woogallery.io/thumbnails-navigation-styles/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
+										'title_help' => '<div class="wcgs-info-label">' . __( 'Thumbnails Navigation Style', 'gallery-slider-for-woocommerce' ) . '</div><div class="wcgs-short-content">' . __( 'Stylize your thumbnail navigation using Inner, Outer, and Custom design.', 'gallery-slider-for-woocommerce' ) . '</div><a class="wcgs-open-docs" href="https://docs.renoproductgallery.com/guide/how-to/thumbnails-settings#how-to-customize-thumbnails-navigation" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.renoproductgallery.com/thumbnails-navigation-styles/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
 										'title'      => __( 'Thumbnails Navigation Style', 'gallery-slider-for-woocommerce' ),
 										'options'    => array(
 											'custom'      => array(
@@ -676,7 +676,7 @@ class WCGS_Gallery {
 												'pro_only' => true,
 											),
 										),
-										'title_help' => '<div class="wcgs-info-label">' . __( 'Zoom Style', 'gallery-slider-for-woocommerce' ) . '</div><div class="wcgs-short-content">' . __( 'This option indicates the visual or interactive approach used to magnify or enlarge product thumbnails.', 'gallery-slider-for-woocommerce' ) . '</div><a class="wcgs-open-docs" href="https://woogallery.io/docs/how-to-apply-zoom-styles-for-product-images/" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.woogallery.io/zoom-styles/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
+										'title_help' => '<div class="wcgs-info-label">' . __( 'Zoom Style', 'gallery-slider-for-woocommerce' ) . '</div><div class="wcgs-short-content">' . __( 'This option indicates the visual or interactive approach used to magnify or enlarge product thumbnails.', 'gallery-slider-for-woocommerce' ) . '</div><a class="wcgs-open-docs" href="https://docs.renoproductgallery.com/guide/how-to/image-zoom-settings#how-to-apply-zoom-styles-for-product-images" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.renoproductgallery.com/zoom-styles/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
 										'default'    => 'in_side',
 										'dependency' => array( 'zoom', '==', 'true', true ),
 									),
@@ -742,7 +742,7 @@ class WCGS_Gallery {
 										'type'       => 'color',
 										'class'      => 'pro_color',
 										'title'      => __( 'Lens Color', 'gallery-slider-for-woocommerce' ),
-										'title_help' => '<div class="wcgs-img-tag"><img src="' . plugin_dir_url( __DIR__ ) . '/shapedplugin-framework/assets/images/help-visuals/lens_color.svg" alt=""></div><a class="wcgs-open-docs" href="https://woogallery.io/docs/how-to-choose-the-lens-color/" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.woogallery.io/lens-color/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
+										'title_help' => '<div class="wcgs-img-tag"><img src="' . plugin_dir_url( __DIR__ ) . '/shapedplugin-framework/assets/images/help-visuals/lens_color.svg" alt=""></div><a class="wcgs-open-docs" href="https://docs.renoproductgallery.com/guide/how-to/image-zoom-settings#how-to-choose-the-lens-color" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.renoproductgallery.com/lens-color/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
 										'default'    => 'transparent',
 										'dependency' => array( 'zoom|zoom_type', '==|==', 'true|right_side', true ),
 									),
@@ -769,7 +769,7 @@ class WCGS_Gallery {
 										'type'       => 'button_set',
 										'class'      => 'pro_button_set',
 										'title'      => __( 'Product Image Overlay on Hover', 'gallery-slider-for-woocommerce' ),
-										'title_help' => '<div class="wcgs-img-tag"><img src="' . plugin_dir_url( __DIR__ ) . '/shapedplugin-framework/assets/images/help-visuals/product-image-overlay-hover.svg" alt=""></div><a class="wcgs-open-docs" href="https://woogallery.io/docs/how-to-choose-product-image-overlay-style-on-hover/" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.woogallery.io/product-image-overlay-on-hover/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
+										'title_help' => '<div class="wcgs-img-tag"><img src="' . plugin_dir_url( __DIR__ ) . '/shapedplugin-framework/assets/images/help-visuals/product-image-overlay-hover.svg" alt=""></div><a class="wcgs-open-docs" href="https://docs.renoproductgallery.com/guide/how-to/image-zoom-settings#how-to-choose-product-image-overlay-style-on-hover" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.renoproductgallery.com/product-image-overlay-on-hover/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
 										'options'    => array(
 											'blur'         => array(
 												'option_name' => __( 'Blur', 'gallery-slider-for-woocommerce' ),
@@ -827,7 +827,7 @@ class WCGS_Gallery {
 										'title'       => __( 'Zoom Window Size', 'gallery-slider-for-woocommerce' ),
 										'width_text'  => __( 'Width', 'gallery-slider-for-woocommerce' ),
 										'height_text' => __( 'Height', 'gallery-slider-for-woocommerce' ),
-										'title_help'  => '<div class="wcgs-info-label">' . __( 'Zoom Window Size', 'gallery-slider-for-woocommerce' ) . '</div><div class="wcgs-short-content">' . __( 'Adjust the zoom window size as per your need.', 'gallery-slider-for-woocommerce' ) . '</div><a class="wcgs-open-docs" href="https://woogallery.io/docs/how-to-adjust-the-zoom-window-size-for-product-images/" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.woogallery.io/zoom-window-size/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
+										'title_help'  => '<div class="wcgs-info-label">' . __( 'Zoom Window Size', 'gallery-slider-for-woocommerce' ) . '</div><div class="wcgs-short-content">' . __( 'Adjust the zoom window size as per your need.', 'gallery-slider-for-woocommerce' ) . '</div><a class="wcgs-open-docs" href="https://docs.renoproductgallery.com/guide/how-to/image-zoom-settings#how-to-adjust-the-zoom-window-size-for-product-images" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.renoproductgallery.com/zoom-window-size/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
 										'units'       => array( 'px' ),
 										'default'     => array(
 											'width'  => '400',
@@ -843,7 +843,7 @@ class WCGS_Gallery {
 										'type'       => 'slider',
 										'class'      => 'pro_only_field pro_slider',
 										'title'      => __( 'Zoom Window Distance', 'gallery-slider-for-woocommerce' ),
-										'title_help' => '<div class="wcgs-img-tag"> <img src="' . plugin_dir_url( __DIR__ ) . '/shapedplugin-framework/assets/images/help-visuals/zoom-window-distance.svg" alt=""></div><a class="wcgs-open-live-demo" href="https://demo.woogallery.io/zoom-window-distance/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
+										'title_help' => '<div class="wcgs-img-tag"> <img src="' . plugin_dir_url( __DIR__ ) . '/shapedplugin-framework/assets/images/help-visuals/zoom-window-distance.svg" alt=""></div><a class="wcgs-open-live-demo" href="https://demo.renoproductgallery.com/zoom-window-distance/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
 										'default'    => 10,
 										'unit'       => 'px',
 										'dependency' => array( 'zoom|zoom_type', '==|==', 'true|right_side' ),
@@ -898,7 +898,7 @@ class WCGS_Gallery {
 										'id'         => 'video_popup_place',
 										'type'       => 'button_set',
 										'title'      => __( 'Video Play Mode', 'gallery-slider-for-woocommerce' ),
-										'title_help' => '<div class="wcgs-info-label">' . __( 'Video Play Mode', 'gallery-slider-for-woocommerce' ) . '</div><div class="wcgs-short-content">' . __( 'This option refers to the specific behavior or settings related to how a video is played.', 'gallery-slider-for-woocommerce' ) . '</div><a class="wcgs-open-docs" href="https://woogallery.io/docs/how-to-set-a-video-play-mode/" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.woogallery.io/play-modes/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
+										'title_help' => '<div class="wcgs-info-label">' . __( 'Video Play Mode', 'gallery-slider-for-woocommerce' ) . '</div><div class="wcgs-short-content">' . __( 'This option refers to the specific behavior or settings related to how a video is played.', 'gallery-slider-for-woocommerce' ) . '</div><a class="wcgs-open-docs" href="https://docs.renoproductgallery.com/guide/how-to/adding-videos#how-to-set-video-play-mode-placement-related-videos" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.renoproductgallery.com/play-modes/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
 										'options'    => array(
 											'inline' => __( 'Inline', 'gallery-slider-for-woocommerce' ),
 											'popup'  => __( 'Popup', 'gallery-slider-for-woocommerce' ),
@@ -956,7 +956,7 @@ class WCGS_Gallery {
 										'id'         => 'video_order',
 										'type'       => 'select',
 										'title'      => __( 'Place of the Videos in Gallery Slider', 'gallery-slider-for-woocommerce' ),
-										'title_help' => '<div class="wcgs-info-label">' . __( 'Place of the Videos in Gallery Slider', 'gallery-slider-for-woocommerce' ) . '</div><div class="wcgs-short-content">' . __( 'Determine where and when you want to display the video.', 'gallery-slider-for-woocommerce' ) . '</div><a class="wcgs-open-docs" href="https://woogallery.io/docs/how-to-place-the-videos-in-woogallery/" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.woogallery.io/video-placement/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
+										'title_help' => '<div class="wcgs-info-label">' . __( 'Place of the Videos in Gallery Slider', 'gallery-slider-for-woocommerce' ) . '</div><div class="wcgs-short-content">' . __( 'Determine where and when you want to display the video.', 'gallery-slider-for-woocommerce' ) . '</div><a class="wcgs-open-docs" href="https://docs.renoproductgallery.com/guide/how-to/adding-videos#how-to-set-video-play-mode-placement-related-videos" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.renoproductgallery.com/video-placement/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
 										'options'    => array(
 											'usual' => __( 'Keep Videos in Default Position', 'gallery-slider-for-woocommerce' ),
 											'video_come_last' => __( 'End of the Slider', 'gallery-slider-for-woocommerce' ),

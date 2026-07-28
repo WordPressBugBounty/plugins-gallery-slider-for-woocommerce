@@ -171,6 +171,7 @@ class Woo_Gallery_Slider {
 		$this->loader->add_action( 'woocommerce_save_product_variation', $plugin_admin, 'woocommerce_save_gallery_product_variation', 10, 2 );
 		$this->loader->add_action( 'save_post', $plugin_admin, 'spwg_product_variation_transient_data_clear' );
 		$this->loader->add_filter( 'attachment_fields_to_edit', $plugin_admin, 'wcgs_add_media_custom_field', 99, 2 );
+		$this->loader->add_filter( 'admin_body_class', $plugin_admin, 'wcgs_admin_body_class' );
 		$this->loader->add_filter( 'update_footer', $plugin_admin, 'wcgs_footer_version', 11 );
 		$this->loader->add_filter( 'edit_attachment', $plugin_admin, 'wcgs_add_media_custom_field_save' );
 		// Export Import Ajax call.

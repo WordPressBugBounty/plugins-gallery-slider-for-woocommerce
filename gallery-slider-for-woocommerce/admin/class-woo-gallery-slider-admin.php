@@ -127,7 +127,7 @@ class Woo_Gallery_Slider_Admin {
 	public function admin_menu() {
 		$capability = apply_filters( 'wcgs_ui_permission', 'manage_options' );
 		$menu_icon  = 'data:image/svg+xml;base64,PHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJMYXllcl8xIiBmb2N1c2FibGU9ImZhbHNlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIgoJIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDI0IDI0OyIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+CjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+Cgkuc3Qwe2ZpbGw6I0ZGRkZGRjt9Cjwvc3R5bGU+CjxnPgoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTAsMS45djIwLjFDMCwyMy4xLDAuOSwyNCwxLjksMjRoMjAuMWMxLjEsMCwxLjktMC45LDEuOS0xLjlWMS45QzI0LDAuOSwyMy4xLDAsMjIuMSwwSDEuOUMwLjksMCwwLDAuOSwwLDEuOQoJCXogTTIxLjQsMjIuM0gyLjZjLTAuNSwwLTEtMC40LTEtMVYyLjZjMC0wLjUsMC40LTEsMS0xaDE4LjdjMC41LDAsMSwwLjQsMSwxdjE4LjdDMjIuMywyMS45LDIxLjksMjIuMywyMS40LDIyLjN6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNNy45LDE3LjR2Mi44YzAsMC4zLTAuMiwwLjUtMC41LDAuNUgzLjhjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWgzLjUKCQlDNy42LDE2LjksNy45LDE3LjEsNy45LDE3LjR6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMTQuNSwxNy40djIuOGMwLDAuMy0wLjIsMC41LTAuNSwwLjVoLTRjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWg0CgkJQzE0LjIsMTYuOSwxNC41LDE3LjEsMTQuNSwxNy40eiIvPgoJPHBhdGggY2xhc3M9InN0MCIgZD0iTTIwLjYsMTcuNHYyLjhjMCwwLjMtMC4yLDAuNS0wLjUsMC41aC0zLjVjLTAuMywwLTAuNS0wLjItMC41LTAuNXYtMi44YzAtMC4zLDAuMi0wLjUsMC41LTAuNWgzLjUKCQlDMjAuNCwxNi45LDIwLjYsMTcuMSwyMC42LDE3LjR6Ii8+Cgk8cGF0aCBjbGFzcz0ic3QwIiBkPSJNMy40LDMuOHYxMC45YzAsMC4zLDAuMiwwLjUsMC41LDAuNWgxNi4zYzAuMywwLDAuNS0wLjIsMC41LTAuNVYzLjhjMC0wLjMtMC4yLTAuNS0wLjUtMC41SDMuOAoJCUMzLjYsMy40LDMuNCwzLjYsMy40LDMuOHogTTUuNCwxMi44bDMuOC03YzAuMi0wLjMsMC43LTAuMywwLjgsMGwyLjcsNC45YzAuMiwwLjMsMC43LDAuMywwLjgsMGwwLjQtMC43YzAuMi0wLjMsMC43LTAuMywwLjgsMAoJCWwxLjUsMi43YzAuMiwwLjMtMC4xLDAuNy0wLjQsMC43aC0xMEM1LjUsMTMuNSw1LjMsMTMuMSw1LjQsMTIuOHogTTE2LjgsOS40Yy0xLjIsMC0yLjItMS0yLjItMi4yYzAtMS4yLDEtMi4xLDIuMS0yLjEKCQlDMTgsNSwxOSw2LDE5LDcuMkMxOC45LDguNCwxOCw5LjMsMTYuOCw5LjR6Ii8+CjwvZz4KPC9zdmc+';
-		add_menu_page( __( 'WooGallery', 'gallery-slider-for-woocommerce' ), __( 'WooGallery', 'gallery-slider-for-woocommerce' ), $capability, 'wpgs-settings', null, $menu_icon, '58' );
+		add_menu_page( __( 'Product Gallery', 'gallery-slider-for-woocommerce' ), __( 'Product Gallery', 'gallery-slider-for-woocommerce' ), $capability, 'wpgs-settings', null, $menu_icon, '58' );
 		add_submenu_page( 'wpgs-settings', 'Help', 'Get Help', 'edit_posts', 'wpgs-help', array( $this, 'help_page_callback' ) );
 	}
 	/**
@@ -140,11 +140,11 @@ class Woo_Gallery_Slider_Admin {
 	public function sp_woo_review_text( $text ) {
 		$current_screen = get_current_screen();
 
-		if ( ( is_object( $current_screen ) && 'wcgs_layouts' === $current_screen->post_type ) || ( 'woogallery_page_wpgs-help' === $current_screen->base ) ) {
+		if ( is_object( $current_screen ) && ( 'wcgs_layouts' === $current_screen->post_type || get_plugin_page_hookname( 'wpgs-help', 'wpgs-settings' ) === $current_screen->base ) ) {
 
 			$text = sprintf(
 					/* translators: 1: start strong tag, 2: close strong tag, 3: span tag start, 4: span tag end, 5: anchor tag start, 6: anchor tag ended. */
-				__( 'Enjoying %1$sWooGallery?%2$s Please rate us %3$s★★★★★%4$s %5$sWordPress.org.%6$s Your positive feedback will help us grow more. Thank you! 😊', 'gallery-slider-for-woocommerce' ),
+				__( 'Enjoying %1$sReno Product Gallery?%2$s Please rate us %3$s★★★★★%4$s %5$sWordPress.org.%6$s Your positive feedback will help us grow more. Thank you! 😊', 'gallery-slider-for-woocommerce' ),
 				'<strong>',
 				'</strong>',
 				'<span class="spwpcp-footer-text-star">',
@@ -458,7 +458,7 @@ class Woo_Gallery_Slider_Admin {
 		$form_fields['wcgs_notice'] = array(
 			'input' => 'html',
 			'label' => '',
-			'html'  => '<h2>' . esc_html__( 'WooGallery Video (Youtube)', 'gallery-slider-for-woocommerce' ) . '</h2>',
+			'html'  => '<h2>' . esc_html__( 'Reno Product Gallery Video (Youtube)', 'gallery-slider-for-woocommerce' ) . '</h2>',
 		);
 		$form_fields['wcgs_video']  = array(
 			'value' => $wcgs_video ? $wcgs_video : '',
@@ -467,9 +467,9 @@ class Woo_Gallery_Slider_Admin {
 			'helps' => sprintf(
 				/* translators: 1: start link and strong tag, 2: close link and strong tag. 3: start link and strong tag, 4: close link and strong tag. */
 				__( 'To show this video on the %1$sShop page%2$s, %3$s Upgrade to Pro!%2$s', 'gallery-slider-for-woocommerce' ),
-				'<a href="https://demo.woogallery.io/" target="_blank" class="btn"><strong>',
+				'<a href="https://demo.renoproductgallery.com/" target="_blank" class="btn"><strong>',
 				'</strong></a>',
-				'<a href="https://woogallery.io/pricing/?ref=143" target="_blank" class="btn"><strong>'
+				'<a href="https://renoproductgallery.com/pricing/?ref=143" target="_blank" class="btn"><strong>'
 			),
 		);
 		return $form_fields;
@@ -501,7 +501,7 @@ class Woo_Gallery_Slider_Admin {
 	public function woocommerce_add_gallery_product_variation( $loop, $variation_data, $variation ) {
 		?>
 		<div class="wcgs-variation-gallery form-row form-row-full">
-		<h4><?php esc_html_e( 'Variation Image Gallery by WooGallery', 'gallery-slider-for-woocommerce' ); ?><h4>
+		<h4><?php esc_html_e( 'Variation Image Gallery by Reno Product Gallery', 'gallery-slider-for-woocommerce' ); ?><h4>
 		<div class="wcgs-gallery-items" id="<?php echo esc_attr( $variation->ID ); ?>">
 		<?php
 		$variation_gallery     = get_post_meta( $variation->ID, 'woo_gallery_slider', true );
@@ -555,7 +555,7 @@ class Woo_Gallery_Slider_Admin {
 				echo 'hidden';
 			}
 			?>
-			" style="color:red;">To add more images & videos, <a href="https://woogallery.io/pricing/?ref=143" target="_blank" style="font-style: italic;">Upgrade to Pro!</a></span>
+			" style="color:red;">To add more images & videos, <a href="https://renoproductgallery.com/pricing/?ref=143" target="_blank" style="font-style: italic;">Upgrade to Pro!</a></span>
 
 		</p>
 		<script type="text/javascript">
@@ -666,7 +666,12 @@ class Woo_Gallery_Slider_Admin {
 		 * class.
 		 */
 		$current_screen = get_current_screen();
-		if ( is_object( $current_screen ) && ( 'wcgs_layouts' === $current_screen->post_type || 'toplevel_page_wpgs-settings' === $current_screen->base || 'woogallery_page_assign_layout' === $current_screen->base || 'woogallery_page_wpgs-help' === $current_screen->base ) ) {
+
+		// The submenu screen base is prefixed with the sanitized parent menu title, so derive it instead of hardcoding it.
+		$assign_layout_base = get_plugin_page_hookname( 'assign_layout', 'wpgs-settings' );
+		$help_base          = get_plugin_page_hookname( 'wpgs-help', 'wpgs-settings' );
+
+		if ( is_object( $current_screen ) && ( 'wcgs_layouts' === $current_screen->post_type || 'toplevel_page_wpgs-settings' === $current_screen->base || $assign_layout_base === $current_screen->base || $help_base === $current_screen->base ) ) {
 			wp_enqueue_style( 'wp-jquery-ui' );
 			wp_enqueue_style( 'sp_wcgs-help-fontello', WOO_GALLERY_SLIDER_URL . 'admin/help-page/css/fontello.min.css', array(), WOO_GALLERY_SLIDER_VERSION, 'all' );
 			wp_enqueue_style( 'sp_wcgs-help-page', WOO_GALLERY_SLIDER_URL . 'admin/help-page/css/help-page.min.css', array(), WOO_GALLERY_SLIDER_VERSION, 'all' );
@@ -703,9 +708,36 @@ class Woo_Gallery_Slider_Admin {
 		add_thickbox();
 		wp_enqueue_script( $this->plugin_name . '-admin', WOO_GALLERY_SLIDER_URL . 'admin/js/woo-gallery-slider-admin.min.js', array( 'jquery' ), $this->version, true );
 		wp_enqueue_style( $this->plugin_name . '-admin', WOO_GALLERY_SLIDER_URL . 'admin/css/woo-gallery-slider-admin.min.css', array(), WOO_GALLERY_SLIDER_VERSION, 'all' );
-		if ( is_object( $current_screen ) && 'woogallery_page_wpgs-help' === $current_screen->base ) {
+		if ( is_object( $current_screen ) && get_plugin_page_hookname( 'wpgs-help', 'wpgs-settings' ) === $current_screen->base ) {
 			wp_enqueue_script( 'sp-wcgs-help-page', WOO_GALLERY_SLIDER_URL . 'admin/help-page/js/help-page.min.js', array( 'jquery' ), $this->version, true );
 		}
+	}
+
+	/**
+	 * Add a stable body class on the plugin's admin screens.
+	 *
+	 * The screen base WordPress puts on the body is prefixed with the
+	 * sanitized parent menu title, which changes once that title is
+	 * translated. Styles therefore hook onto this class instead.
+	 *
+	 * @param string $classes Space separated list of body classes.
+	 * @return string
+	 */
+	public function wcgs_admin_body_class( $classes ) {
+		$current_screen = get_current_screen();
+
+		if ( ! is_object( $current_screen ) ) {
+			return $classes;
+		}
+
+		if ( 'wcgs_layouts' === $current_screen->post_type
+			|| 'toplevel_page_wpgs-settings' === $current_screen->base
+			|| get_plugin_page_hookname( 'assign_layout', 'wpgs-settings' ) === $current_screen->base
+			|| get_plugin_page_hookname( 'wpgs-help', 'wpgs-settings' ) === $current_screen->base ) {
+			$classes .= ' wcgs-admin-page';
+		}
+
+		return $classes;
 	}
 
 	/**
@@ -717,7 +749,7 @@ class Woo_Gallery_Slider_Admin {
 	public function wcgs_footer_version( $text ) {
 		$current_screen = get_current_screen();
 		if ( 'toplevel_page_wpgs-settings' === $current_screen->base ) {
-			$text = 'WooGallery ' . $this->version;
+			$text = 'Reno Product Gallery ' . $this->version;
 		}
 		return $text;
 	}

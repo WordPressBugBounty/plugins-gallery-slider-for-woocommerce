@@ -352,3 +352,111 @@
 #shapedplugin-offer-banner button.shapedplugin-offer-banner-dismiss:hover:before {
     color: #f30808;
 }
+/* Rebrand announcement notice. */
+.wgs-rebrand-notice {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    /* A flex container makes its own formatting context, so it would sit
+       beside the right-floated Screen Options / Help tabs instead of
+       spanning past them. */
+    clear: both;
+    min-height: 40px;
+    padding: 10px 48px;
+    /* Bleed past the 20px left padding on #wpcontent so the bar spans the
+       full width of the screen, from the admin menu to the viewport edge. */
+    margin: 10px 0 15px -20px;
+    background-color: #148652;
+}
+
+.wgs-rebrand-notice-content {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.wgs-rebrand-notice-icon {
+    display: block;
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+}
+
+.wgs-rebrand-notice-text {
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+}
+
+.wgs-rebrand-notice-text strong {
+    font-weight: 700;
+}
+
+.wgs-rebrand-notice-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    margin-left: 0;
+    color: #fff;
+    text-decoration: none;
+    opacity: .9;
+    transition: opacity .2s linear;
+}
+
+.wgs-rebrand-notice-link:hover,
+.wgs-rebrand-notice-link:focus {
+    color: #fff;
+    opacity: 1;
+    outline: 0;
+    box-shadow: none;
+}
+
+.wgs-rebrand-notice-dismiss {
+    position: absolute;
+    top: 6px;
+    right: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: 0;
+    border-radius: 3px;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    opacity: .85;
+    transition: opacity .2s linear;
+}
+
+.wgs-rebrand-notice-dismiss:hover,
+.wgs-rebrand-notice-dismiss:focus {
+    opacity: 1;
+    outline: 0;
+    box-shadow: none;
+}
+
+@media screen and (max-width: 782px) {
+    .wgs-rebrand-notice {
+        padding: 10px 44px 10px 12px;
+        /* #wpcontent drops to 10px of left padding on small screens. */
+        margin: 10px 0 15px -10px;
+    }
+
+    .wgs-rebrand-notice-content {
+        align-items: flex-start;
+    }
+
+    .wgs-rebrand-notice-text {
+        text-align: left;
+    }
+}

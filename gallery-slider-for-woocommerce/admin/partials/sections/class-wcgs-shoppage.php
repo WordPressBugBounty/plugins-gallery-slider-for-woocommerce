@@ -39,13 +39,13 @@ class WCGSP_Shoppage {
 						'content' => sprintf(
 							/* translators: 1: start link and strong tag, 2: close link and strong tag, 3: start link and strong tag, 4: close link and strong tag. */
 							__( 'Want to show multiple types of %1$s Product Featured Videos with AutoPlay%2$s on the %3$sShop/Archive Page%4$s and speed up customer decision-making? %5$sUpgrade to Pro!%6$s See the %7$savailable options.%8$s', 'gallery-slider-for-woocommerce' ),
-							'<a href="https://demo.woogallery.io/product-category/video-autoplay/" target="_blank"><strong>',
+							'<a href="https://demo.renoproductgallery.com/product-category/video-autoplay/" target="_blank"><strong>',
 							'</strong></a>',
-							'<a class="wcgs-open-live-demo" href="https://demo.woogallery.io/" target="_blank"><strong>',
+							'<a class="wcgs-open-live-demo" href="https://demo.renoproductgallery.com/" target="_blank"><strong>',
 							'</strong></a>',
-							'<a href="https://woogallery.io/pricing/?ref=143" target="_blank" class="btn"><strong>',
+							'<a href="https://renoproductgallery.com/pricing/?ref=143" target="_blank" class="btn"><strong>',
 							'</strong></a>',
-							'<a href="https://woogallery.io/docs/shop-page-video/" target="_blank" class="btn"><strong>',
+							'<a href="https://docs.renoproductgallery.com/guide/shop-page-video" target="_blank" class="btn"><strong>',
 							'</strong></a>'
 						),
 					),

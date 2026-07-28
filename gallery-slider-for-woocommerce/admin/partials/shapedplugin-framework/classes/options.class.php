@@ -938,9 +938,9 @@ if ( ! class_exists( 'WCGS_Options' ) ) {
 			echo '<div class="wcgs-header' . esc_attr( $sticky_class ) . '">';
 			echo '<div class="wcgs-header-inner">';
 			if ( 'assign_layout' === $this->args['menu_slug'] ) {
-				echo '<div class="wcgs-admin-header assign_layout_settings"><div class="wcgs-admin-logo"> WooGallery <div class="wcgs-version">v' . esc_html( WOO_GALLERY_SLIDER_VERSION ) . '</div></div>';
+				echo '<div class="wcgs-admin-header assign_layout_settings"><div class="wcgs-admin-logo"> <div class="wcgs-version">v' . esc_html( WOO_GALLERY_SLIDER_VERSION ) . '</div></div>';
 			} else {
-				echo '<div class="wcgs-admin-header"><div class="wcgs-admin-logo"> WooGallery Settings <div class="wcgs-version">v' . esc_html( WOO_GALLERY_SLIDER_VERSION ) . '</div></div>';
+				echo '<div class="wcgs-admin-header"><div class="wcgs-admin-logo"> <div class="wcgs-version">v' . esc_html( WOO_GALLERY_SLIDER_VERSION ) . '</div></div>';
 			}
 
 			echo '<div class="wcgs-header-right">';

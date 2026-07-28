@@ -140,7 +140,7 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 		 */
 		public function export_column_name( $columns ) {
 			// Add our custom column to the export columns.
-			$columns[ $this->column_id ] = esc_html__( 'WooGallery Variation Images', 'gallery-slider-for-woocommerce' );
+			$columns[ $this->column_id ] = esc_html__( 'Reno Product Gallery Variation Images', 'gallery-slider-for-woocommerce' );
 			return $columns;
 		}
 
@@ -215,7 +215,7 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 		 */
 		public function import_column_name( $columns ) {
 			// Add our custom column to the import mapping options.
-			$columns[ $this->column_id ] = esc_html__( 'WooGallery Variation Images', 'gallery-slider-for-woocommerce' );
+			$columns[ $this->column_id ] = esc_html__( 'Reno Product Gallery Variation Images', 'gallery-slider-for-woocommerce' );
 			return $columns;
 		}
 
@@ -228,7 +228,7 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 		 */
 		public function default_import_column_name( $columns ) {
 			// Map the human-readable column name to our column ID.
-			$columns[ esc_html__( 'WooGallery Variation Images', 'gallery-slider-for-woocommerce' ) ] = $this->column_id;
+			$columns[ esc_html__( 'Reno Product Gallery Variation Images', 'gallery-slider-for-woocommerce' ) ] = $this->column_id;
 			return $columns;
 		}
 

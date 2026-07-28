@@ -329,7 +329,9 @@ if ( ! class_exists( 'WCGS' ) ) {
 		 */
 		public static function add_admin_enqueue_scripts() {
 			$current_screen = get_current_screen();
-			if ( is_object( $current_screen ) && 'toplevel_page_wpgs-settings' === $current_screen->base || 'woogallery_page_assign_layout' === $current_screen->base || 'wcgs_layouts' === $current_screen->post_type ) {
+			// The submenu screen base is prefixed with the sanitized parent menu title, so derive it instead of hardcoding it.
+			$assign_layout_base = get_plugin_page_hookname( 'assign_layout', 'wpgs-settings' );
+			if ( is_object( $current_screen ) && 'toplevel_page_wpgs-settings' === $current_screen->base || $assign_layout_base === $current_screen->base || 'wcgs_layouts' === $current_screen->post_type ) {
 				// check for developer mode.
 				$min = ( apply_filters( 'wcgs_dev_mode', false ) || WP_DEBUG ) ? '' : '.min';
 
@@ -512,19 +514,19 @@ if ( ! class_exists( 'WCGS' ) ) {
 				</p>
 				<div class="features-wrapper general-tab">
 					<ul class="features-list">
-						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> <a href="https://woogallery.io/#layout-tab" target="_blank">16+ ready-made product gallery</a> layouts & modern designs</li>
-						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Assign <a href="https://woogallery.io/assign-and-manage-layouts/" target="_blank">different gallery layouts</a> per product or category</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> <a href="https://renoproductgallery.com/#layout-tab" target="_blank">16+ ready-made product gallery</a> layouts & modern designs</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Assign <a href="https://renoproductgallery.com/assign-and-manage-layouts/" target="_blank">different gallery layouts</a> per product or category</li>
 						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Advanced image & video product gallery system</li>
-						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Add <a href="https://woogallery.io/additional-variation-gallery/" target="_blank">unlimited variation images</a> for each product variation</li>
-						<li class="long-list-item"><i class="sp_wgs-icon-feature-list-checkmark"></i> <a href="https://demo.woogallery.io/product/hooded-track-jacket/" target="_blank"> Product video gallery</a> support from multiple popular video sources (YouTube, Vimeo, Facebook, Wistia, Dailymotion, self-hosted & more)</li>
-						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Show <a href="https://woogallery.io/product-featured-video/" target="_blank">featured product videos</a> on Shop & Archive pages</li>
-						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> <a href="https://demo.woogallery.io/product-category/video-autoplay/" target="_blank">Video autoplay</a> or lazy-loaded videos for better performance</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Add <a href="https://renoproductgallery.com/additional-variation-gallery/" target="_blank">unlimited variation images</a> for each product variation</li>
+						<li class="long-list-item"><i class="sp_wgs-icon-feature-list-checkmark"></i> <a href="https://demo.renoproductgallery.com/product/hooded-track-jacket/" target="_blank"> Product video gallery</a> support from multiple popular video sources (YouTube, Vimeo, Facebook, Wistia, Dailymotion, self-hosted & more)</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Show <a href="https://renoproductgallery.com/product-featured-video/" target="_blank">featured product videos</a> on Shop & Archive pages</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> <a href="https://demo.renoproductgallery.com/product-category/video-autoplay/" target="_blank">Video autoplay</a> or lazy-loaded videos for better performance</li>
 						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Advanced thumbnail styling & navigation controls</li>
 						</ul>
 						<ul class="features-list second-column">
 						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Multiple slider effects with smooth animations</li>
-						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Premium <a href="https://woogallery.io/product-image-zoom/" target="_blank">zoom effects</a> with full customization</li>
-						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> <a href="https://woogallery.io/product-image-lightbox/" target="_blank">Modern product lightbox</a> with 30+ customization options</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Premium <a href="https://renoproductgallery.com/product-image-zoom/" target="_blank">zoom effects</a> with full customization</li>
+						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> <a href="https://renoproductgallery.com/product-image-lightbox/" target="_blank">Modern product lightbox</a> with 30+ customization options</li>
 						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Mobile-optimized layouts with touch-friendly sliders</li>
 						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Lazy loading & smart performance optimization</li>
 						<li><i class="sp_wgs-icon-feature-list-checkmark"></i> Advanced responsive and styling controls</li>
@@ -533,12 +535,12 @@ if ( ! class_exists( 'WCGS' ) ) {
 				</div>
 
 				<p class="special-bonus">
-					<strong>Special Bonus:</strong> As a WooGallery Lite user, you’ll receive an exclusive
+					<strong>Special Bonus:</strong> As a Reno Product Gallery Lite user, you’ll receive an exclusive
     				<span class="highlight-discount">50% discount</span> <strong>on a lifetime Pro upgrade.</strong>
 				</p>
 
 				<a href="' . esc_url( WOO_GALLERY_SLIDER_PRO_LINK ) . '" target="_blank" class="upgrade-btn">Upgrade to Pro</a>
-				<a href="https://woogallery.io/#features" target="_blank" class="see-full-features">See Full Features <i class="sp_wgs-icon-up-right-arrow"></i></a>
+				<a href="https://renoproductgallery.com/#features" target="_blank" class="see-full-features">See Full Features <i class="sp_wgs-icon-up-right-arrow"></i></a>
 			</div>';
 		}
 
@@ -567,7 +569,7 @@ if ( ! class_exists( 'WCGS' ) ) {
 				</div>
 
 				<a href="' . esc_url( WOO_GALLERY_SLIDER_PRO_LINK ) . '" target="_blank" class="upgrade-btn">Upgrade to Pro</a>
-				<a href="https://woogallery.io/#features" target="_blank" class="see-full-features">See Full Features <i class="sp_wgs-icon-up-right-arrow"></i></a>
+				<a href="https://renoproductgallery.com/#features" target="_blank" class="see-full-features">See Full Features <i class="sp_wgs-icon-up-right-arrow"></i></a>
 			</div>';
 		}
 
@@ -608,7 +610,7 @@ if ( ! class_exists( 'WCGS' ) ) {
 				</div>
 
 				<a href="' . esc_url( WOO_GALLERY_SLIDER_PRO_LINK ) . '" target="_blank" class="upgrade-btn">Upgrade to Pro</a>
-				<a href="https://woogallery.io/#features" target="_blank" class="see-full-features">See Full Features <i class="sp_wgs-icon-up-right-arrow"></i></a>
+				<a href="https://renoproductgallery.com/#features" target="_blank" class="see-full-features">See Full Features <i class="sp_wgs-icon-up-right-arrow"></i></a>
 			</div>';
 		}
 
@@ -655,7 +657,7 @@ if ( ! class_exists( 'WCGS' ) ) {
 				</div>
 
 				<a href="' . esc_url( WOO_GALLERY_SLIDER_PRO_LINK ) . '" target="_blank" class="upgrade-btn">Upgrade to Pro</a>
-				<a href="https://woogallery.io/#features" target="_blank" class="see-full-features">See Full Features <i class="sp_wgs-icon-up-right-arrow"></i></a>
+				<a href="https://renoproductgallery.com/#features" target="_blank" class="see-full-features">See Full Features <i class="sp_wgs-icon-up-right-arrow"></i></a>
 			</div>';
 		}
 
@@ -692,7 +694,7 @@ if ( ! class_exists( 'WCGS' ) ) {
 				</div>
 
 				<a href="' . esc_url( WOO_GALLERY_SLIDER_PRO_LINK ) . '" target="_blank" class="upgrade-btn">Upgrade to Pro</a>
-				<a href="https://woogallery.io/#features" target="_blank" class="see-full-features">See Full Features <i class="sp_wgs-icon-up-right-arrow"></i></a>
+				<a href="https://renoproductgallery.com/#features" target="_blank" class="see-full-features">See Full Features <i class="sp_wgs-icon-up-right-arrow"></i></a>
 			</div>';
 		}
 
@@ -705,7 +707,7 @@ if ( ! class_exists( 'WCGS' ) ) {
 			return '<div class="wcgs-upgrade-to-pro-section">
 				<h2>Get premium features that enhance product gallery and drive more conversions.</h2>
 				<p>
-					By upgrading to WooGallery Pro, you can get access to numerous shop page video features and boost sales, including:
+					By upgrading to Reno Product Gallery Pro, you can get access to numerous shop page video features and boost sales, including:
 				</p>
 				<div class="features-wrapper">
 					<ul class="features-list">
@@ -734,7 +736,7 @@ if ( ! class_exists( 'WCGS' ) ) {
 					</ul>
 				</div>
 				<a href="' . esc_url( WOO_GALLERY_SLIDER_PRO_LINK ) . '" target="_blank" class="upgrade-btn">Upgrade to Pro</a>
-				<a href="https://woogallery.io/#features" target="_blank" class="see-full-features">See Full Features <i class="sp_wgs-icon-up-right-arrow"></i></a>
+				<a href="https://renoproductgallery.com/#features" target="_blank" class="see-full-features">See Full Features <i class="sp_wgs-icon-up-right-arrow"></i></a>
 			</div>';
 		}
 	}

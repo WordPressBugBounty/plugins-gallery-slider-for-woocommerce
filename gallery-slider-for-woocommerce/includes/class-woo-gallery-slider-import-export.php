@@ -171,7 +171,12 @@ class Woo_Gallery_Slider_Import_Export {
 				if ( isset( $shortcode['meta'] ) && is_array( $shortcode['meta'] ) ) {
 					foreach ( $shortcode['meta'] as $key => $value ) {
 						if ( 'wcgs_metabox' === $key ) {
-							$sanitize_value = $this->sanitize_recursive( maybe_unserialize( str_replace( '{#ID#}', $new_tabs_id, $value ) ), $key );
+
+							$value = str_replace( '{#ID#}', $new_tabs_id, $value );
+							if ( is_serialized( $value ) ) {
+								$value = unserialize( $value, array( 'allowed_classes' => false ) ); //phpcs:ignore -- no class allowed.
+							}
+							$sanitize_value = $this->sanitize_recursive( $value, $key );
 
 							update_post_meta(
 								$new_tabs_id,

@@ -143,8 +143,7 @@
   width: 50%;
   height: 100%;
   color: #343434;
-  background-image: url("../img/woo-gallery-slider.svg");
-  background-size: 33px;
+  background-image: url("../img/reno-product-gallery.svg");
   background-repeat: no-repeat;
   background-position-y: center;
   font-size: 20px;
@@ -865,13 +864,13 @@ a.thickbox.wcgs_pro_popup {
   overflow: visible !important;
 }
 
-.woogallery_page_assign_layout a.thickbox:focus,
+.wcgs-admin-page a.thickbox:focus,
 .toplevel_page_wpgs-settings a.thickbox:focus,
 .post-type-wcgs_layouts a.thickbox:focus,
-.woogallery_page_assign_layout #TB_closeWindowButton:focus,
+.wcgs-admin-page #TB_closeWindowButton:focus,
 .toplevel_page_wpgs-settings #TB_closeWindowButton:focus,
 .post-type-wcgs_layouts #TB_closeWindowButton:focus,
-.woogallery_page_assign_layout #TB_closeWindowButton:focus .tb-close-icon,
+.wcgs-admin-page #TB_closeWindowButton:focus .tb-close-icon,
 .toplevel_page_wpgs-settings #TB_closeWindowButton:focus .tb-close-icon,
 .post-type-wcgs_layouts #TB_closeWindowButton:focus .tb-close-icon {
   outline: none;
@@ -880,13 +879,13 @@ a.thickbox.wcgs_pro_popup {
   box-shadow: none;
 }
 
-.woogallery_page_assign_layout #TB_closeWindowButton:focus .tb-close-icon,
+.wcgs-admin-page #TB_closeWindowButton:focus .tb-close-icon,
 .toplevel_page_wpgs-settings #TB_closeWindowButton:focus .tb-close-icon,
 .post-type-wcgs_layouts #TB_closeWindowButton:focus .tb-close-icon {
   color: #444;
 }
 
-.woogallery_page_assign_layout #TB_title,
+.wcgs-admin-page #TB_title,
 .toplevel_page_wpgs-settings #TB_title,
 .post-type-wcgs_layouts #TB_title {
   background: #fff;
@@ -894,7 +893,7 @@ a.thickbox.wcgs_pro_popup {
   border-radius: 5px;
 }
 
-.woogallery_page_assign_layout #TB_ajaxContent,
+.wcgs-admin-page #TB_ajaxContent,
 .toplevel_page_wpgs-settings #TB_ajaxContent,
 .post-type-wcgs_layouts #TB_ajaxContent {
   clear: both;
@@ -906,7 +905,7 @@ a.thickbox.wcgs_pro_popup {
   width: auto !important;
 }
 
-.woogallery_page_assign_layout #TB_overlay,
+.wcgs-admin-page #TB_overlay,
 .toplevel_page_wpgs-settings #TB_overlay,
 .post-type-wcgs_layouts #TB_overlay {
   opacity: 0.5;
@@ -914,19 +913,19 @@ a.thickbox.wcgs_pro_popup {
   z-index: 99999;
 }
 
-.woogallery_page_assign_layout #adminmenuback,
+.wcgs-admin-page #adminmenuback,
 .toplevel_page_wpgs-settings #adminmenuback,
 .post-type-wcgs_layouts #adminmenuback {
   z-index: 5;
 }
 
-.woogallery_page_assign_layout #TB_window,
+.wcgs-admin-page #TB_window,
 .toplevel_page_wpgs-settings #TB_window,
 .post-type-wcgs_layouts #TB_window {
   border-radius: 5px;
 }
 
-.woogallery_page_assign_layout #TB_ajaxContent,
+.wcgs-admin-page #TB_ajaxContent,
 .toplevel_page_wpgs-settings #TB_ajaxContent,
 .post-type-wcgs_layouts #TB_ajaxContent {
   padding-top: 0;
@@ -936,7 +935,7 @@ a.thickbox.wcgs_pro_popup {
   display: none;
 }
 
-.woogallery_page_assign_layout .wcgs-popup-content,
+.wcgs-admin-page .wcgs-popup-content,
 .toplevel_page_wpgs-settings .wcgs-popup-content,
 .post-type-wcgs_layouts .wcgs-popup-content {
   text-align: center;
@@ -945,14 +944,14 @@ a.thickbox.wcgs_pro_popup {
   text-align: center;
 }
 
-.woogallery_page_assign_layout .pro-image-tag,
+.wcgs-admin-page .pro-image-tag,
 .toplevel_page_wpgs-settings .wcgs-popup-content .pro-image-tag,
 .post-type-wcgs_layouts .wcgs-popup-content .pro-image-tag {
   display: inline-block;
   margin-bottom: 20px;
 }
 
-.woogallery_page_assign_layout .wcgs-popup-content .pro-icon,
+.wcgs-admin-page .wcgs-popup-content .pro-icon,
 .toplevel_page_wpgs-settings .wcgs-popup-content .pro-icon,
 .post-type-wcgs_layouts .wcgs-popup-content .pro-icon {
   height: 60px;
@@ -964,7 +963,7 @@ a.thickbox.wcgs_pro_popup {
   align-items: center;
 }
 
-.woogallery_page_assign_layout .wcgs-popup-content .pro-icon img,
+.wcgs-admin-page .wcgs-popup-content .pro-icon img,
 .toplevel_page_wpgs-settings .wcgs-popup-content .pro-icon img,
 .post-type-wcgs_layouts .wcgs-popup-content .pro-icon img {
   vertical-align: middle;
@@ -973,7 +972,7 @@ a.thickbox.wcgs_pro_popup {
   text-align: center;
 }
 
-.woogallery_page_assign_layout .wcgs-popup-content h2,
+.wcgs-admin-page .wcgs-popup-content h2,
 .toplevel_page_wpgs-settings .wcgs-popup-content h2,
 .post-type-wcgs_layouts .wcgs-popup-content h2 {
   color: #343434;
@@ -985,7 +984,7 @@ a.thickbox.wcgs_pro_popup {
   margin-top: 0;
 }
 
-.woogallery_page_assign_layout .wcgs-popup-content h3,
+.wcgs-admin-page .wcgs-popup-content h3,
 .toplevel_page_wpgs-settings .wcgs-popup-content h3,
 .post-type-wcgs_layouts .wcgs-popup-content h3 {
   color: #343434;
@@ -997,7 +996,7 @@ a.thickbox.wcgs_pro_popup {
   margin-top: 0;
 }
 
-.woogallery_page_assign_layout .wcgs-popup-content p.wcgs-popup-p,
+.wcgs-admin-page .wcgs-popup-content p.wcgs-popup-p,
 .toplevel_page_wpgs-settings .wcgs-popup-content p.wcgs-popup-p,
 .post-type-wcgs_layouts .wcgs-popup-content p.wcgs-popup-p {
   font-size: 14px;
@@ -1008,14 +1007,14 @@ a.thickbox.wcgs_pro_popup {
   padding-bottom: 11px !important;
 }
 
-.woogallery_page_assign_layout .wcgs-popup-content h2 .sp_wgs-icon-lock,
+.wcgs-admin-page .wcgs-popup-content h2 .sp_wgs-icon-lock,
 .toplevel_page_wpgs-settings .wcgs-popup-content h2 .sp_wgs-icon-lock,
 .post-type-wcgs_layouts .wcgs-popup-content h2 .sp_wgs-icon-lock {
   color: #6ba4ba;
   margin-right: 4px;
 }
 
-.woogallery_page_assign_layout .tb-close-icon::before,
+.wcgs-admin-page .tb-close-icon::before,
 .toplevel_page_wpgs-settings .tb-close-icon::before,
 .post-type-wcgs_layouts .tb-close-icon::before {
   /* content: "\e833";
@@ -1034,7 +1033,7 @@ a.thickbox.wcgs_pro_popup {
   font-size: 18px;
 }
 
-.woogallery_page_assign_layout .tb-close-icon,
+.wcgs-admin-page .tb-close-icon,
 .toplevel_page_wpgs-settings .tb-close-icon,
 .post-type-wcgs_layouts .tb-close-icon {
   line-height: 32px;
@@ -1047,7 +1046,7 @@ a.thickbox.wcgs_pro_popup {
   right: 3px;
 }
 
-.woogallery_page_assign_layout .wcgs-popup-content a.btn,
+.wcgs-admin-page .wcgs-popup-content a.btn,
 .toplevel_page_wpgs-settings .wcgs-popup-content a.btn,
 .post-type-wcgs_layouts .wcgs-popup-content a.btn {
   color: #fff;
@@ -1061,7 +1060,7 @@ a.thickbox.wcgs_pro_popup {
   transition: 0.2s all;
 }
 
-.woogallery_page_assign_layout .wcgs-popup-content a.btn:hover,
+.wcgs-admin-page .wcgs-popup-content a.btn:hover,
 .toplevel_page_wpgs-settings .wcgs-popup-content a.btn:hover,
 .post-type-wcgs_layouts .wcgs-popup-content a.btn:hover {
   background: #01984d;

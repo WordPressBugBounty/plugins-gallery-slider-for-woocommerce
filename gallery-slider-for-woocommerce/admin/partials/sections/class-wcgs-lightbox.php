@@ -59,7 +59,7 @@ class WCGS_Lightbox {
 						'id'         => 'lightbox_icon_position',
 						'class'      => 'lightbox_icon_position',
 						'type'       => 'image_select',
-						'title_help' => '<div class="wcgs-info-label">' . __( 'Lightbox Icon Display Position', 'gallery-slider-for-woocommerce' ) . '</div><div class="wcgs-short-content">' . __( 'Choose where you want to place the lightbox icon over the product thumbnail.', 'gallery-slider-for-woocommerce' ) . '</div><a class="wcgs-open-docs" href="https://woogallery.io/docs/how-to-customize-the-lightbox-icon-display-position/" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.woogallery.io/lightbox-popup-icon-position/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
+						'title_help' => '<div class="wcgs-info-label">' . __( 'Lightbox Icon Display Position', 'gallery-slider-for-woocommerce' ) . '</div><div class="wcgs-short-content">' . __( 'Choose where you want to place the lightbox icon over the product thumbnail.', 'gallery-slider-for-woocommerce' ) . '</div><a class="wcgs-open-docs" href="https://docs.renoproductgallery.com/guide/lightbox" target="_blank">' . __( 'Open Docs', 'gallery-slider-for-woocommerce' ) . '</a><a class="wcgs-open-live-demo" href="https://demo.renoproductgallery.com/lightbox-popup-icon-position/" target="_blank">' . __( 'Live Demo', 'gallery-slider-for-woocommerce' ) . '</a>',
 						'title'      => __( 'Lightbox Icon Display Position', 'gallery-slider-for-woocommerce' ),
 						'options'    => array(
 							'top_right'    => array(

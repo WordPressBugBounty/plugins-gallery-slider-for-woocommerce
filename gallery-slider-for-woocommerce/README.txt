@@ -1,25 +1,25 @@
-=== Product Gallery Slider, Additional Variation Images, Product Video, Product Image Zoom and Lightbox for WooCommerce – WooGallery ===
+=== Product Gallery Slider, Additional Variation Images, Product Video, Product Image Zoom and Lightbox for WooCommerce – Reno Product Gallery (formerly WooGallery) ===
 Contributors: shapedplugin, rubel_miah, khalilu, shamimmiashuhagh
 Tags: woocommerce product gallery carousel, woocommerce product gallery slider, product image zoom, additional variation images gallery, product featured video
 Requires at least: 5.3
 Tested up to: 7.0
 WC requires at least: 4.5
-WC tested up to: 10.8.1
-Stable tag: 3.1.6
+WC tested up to: 10.9.4
+Stable tag: 3.2.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
-🔥 All-in-One WooCommerce Product Image and Video Gallery Solution to Enhance Your Customers' Shopping Experience and Boost Sales Instantly!  🚀
+All-in-One WooCommerce Product Image and Video Gallery Solution to Enhance Your Customers' Shopping Experience and Boost Sales Instantly! 
 
 == Description ==
 
-🔥 All-in-One WooCommerce Product Gallery (Image and Video) Solution to Enhance Your Customers' Shopping Experience and Boost Sales Instantly! 🚀
+All-in-One WooCommerce Product Gallery (Image and Video) Solution to Enhance Your Customers' Shopping Experience and Boost Sales Instantly!
 
-[__🖥️ Live Demo__](https://demo.woogallery.io/product/air-max-plus/) | [__📖 Documentation__](https://woogallery.io/docs/) | [__🛟 Support__](https://shapedplugin.com/support/?user=lite) | [__🌐 Full Features List__](https://woogallery.io/) | [__🏆 Upgrade To Pro!__](https://woogallery.io/pricing/?ref=143)
+[__🖥️ Live Demo__](https://demo.renoproductgallery.com/product/air-max-plus/) | [__📖 Documentation__](https://docs.renoproductgallery.com/) | [__🛟 Support__](https://shapedplugin.com/support/?user=lite) | [__🌐 Full Features List__](https://renoproductgallery.com/) | [__🏆 Upgrade To Pro!__](https://renoproductgallery.com/pricing/?ref=143)
 
 [youtube https://www.youtube.com/watch?v=aofImhOCZYs]
 
-## 👉 What Does the WooGallery Mainly Do? ##
+## 👉 What Does the Reno Product Gallery Mainly Do? ##
 
 ✅ **Enable Product Gallery Slider on Product Page**
 ✅ **Enable Additional Variation Images Gallery Slider**
@@ -32,13 +32,13 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
 Do you want to boost sales by enhancing your product page design and layout? Do you have too many images of your product?
 
-No worries, **[WooGallery](https://woogallery.io/)** is the perfect solution for you. This fantastic plugin can help you transform WooCommerce's default product gallery into an eye-catching product gallery slider on your product page. By displaying your product and additional variation images in an elegant slider style, you can easily attract more customer attention and increase your sales instantly.
+No worries, **[Reno Product Gallery](https://renoproductgallery.com/)** is the perfect solution for you. This fantastic plugin can help you transform WooCommerce's default product gallery into an eye-catching product gallery slider on your product page. By displaying your product and additional variation images in an elegant slider style, you can easily attract more customer attention and increase your sales instantly.
 
 ✅ **Additional Variation Images Gallery**
 
 The plugin also allows you to insert unlimited additional images for each variation, letting potential customers see different images when switching between variations. WooCommerce offers an option to insert only one image per product variation. It means there is no option to add more than a single variation image when it is essential to show additional product images to boost sales.
 
-To unlock this limitation, you can use the WooGallery plugin. This plugin allows you to upload multiple images for each product variation. So, by using WooGallery, you can show different sets of images to potential customers when they switch between product variations such as Color, Style, and Size simultaneously.
+To unlock this limitation, you can use the Reno Product Gallery plugin. This plugin allows you to upload multiple images for each product variation. So, by using Reno Product Gallery, you can show different sets of images to potential customers when they switch between product variations such as Color, Style, and Size simultaneously.
 
 ✅ **Product Video Gallery**
 
@@ -66,20 +66,20 @@ The plugin offers exclusively powerful lightbox functionality to open the full-s
 
 Use beautiful, functional, ready layouts to deliver better product display.
 
-* Thumbnails Left [Live Demo](https://demo.woogallery.io/product/featherlight-cap/)
-* Thumbnails Bottom [Live Demo](https://demo.woogallery.io/product/air-max-plus/)
-* Thumbnails Top [Live Demo](https://demo.woogallery.io/product/elemental-backpack/)
-* Thumbnails Right [Live Demo](https://demo.woogallery.io/product/custom-dunk-low/)
-* Slider [Live Demo](https://demo.woogallery.io/product/duffel-bag/)
+* Thumbnails Left [Live Demo](https://demo.renoproductgallery.com/product/featherlight-cap/)
+* Thumbnails Bottom [Live Demo](https://demo.renoproductgallery.com/product/air-max-plus/)
+* Thumbnails Top [Live Demo](https://demo.renoproductgallery.com/product/elemental-backpack/)
+* Thumbnails Right [Live Demo](https://demo.renoproductgallery.com/product/custom-dunk-low/)
+* Slider [Live Demo](https://demo.renoproductgallery.com/product/duffel-bag/)
 
 
- [See more modern layouts](https://woogallery.io/#layout-tab) | [Documentation](https://woogallery.io/docs/how-to-choose-a-gallery-layout/)
+ [See more modern layouts](https://renoproductgallery.com/#layout-tab) | [Documentation](https://docs.renoproductgallery.com/guide/how-to/layouts-choose-and-assign#how-to-choose-a-gallery-layout)
 
 ✅ **Display Multiple Images Per Product Variation**
 
 By default, WooCommerce allows adding only one image per product variation. With the plugin, you can add and display multiple product images for each product variation. It is essential to show additional product images to boost sales.
 
-[Live Demo](https://demo.woogallery.io/product/featherlight-cap/) | [Documentation](https://woogallery.io/docs/how-to-add-images-in-variation-gallery/)
+[Live Demo](https://demo.renoproductgallery.com/product/featherlight-cap/) | [Documentation](https://docs.renoproductgallery.com/guide/how-to/variation-gallery-images#how-to-add-images-to-a-variation-gallery)
 
 ✅ **Drag & Drop Custom Sorting for Product Variation Images & Videos**
 
@@ -93,7 +93,7 @@ By specifying a gallery width value, you can ensure that product images are disp
 
 The plugin allows you to add unlimited videos to the product images, which can significantly impact customer engagement, trust, conversions, and brand perception, ultimately driving sales and business growth.
 
-[Documentation](https://woogallery.io/docs/2-how-to-add-different-types-of-videos-to-product-gallery/)
+[Documentation](https://docs.renoproductgallery.com/guide/how-to/adding-videos#how-to-add-a-video-to-any-product-image)
 
 ✅ **Add Videos to Simple, Group, External/Affiliate, and Variable Product Images**
 
@@ -104,7 +104,7 @@ If you want to show YouTube videos in the Simple, Group, External/Affiliate, and
 
 Enhance your customers' video viewing experience with our customizable video play options, including inline and pop-up window modes. You can choose how your customers watch the product video by selecting either inline or pop-up window mode.
 
-[Live Demo](https://demo.woogallery.io/play-modes/) | [Documentation](https://woogallery.io/docs/how-to-set-a-video-play-mode/)
+[Live Demo](https://demo.renoproductgallery.com/play-modes/) | [Documentation](https://docs.renoproductgallery.com/guide/how-to/adding-videos#how-to-set-video-play-mode-placement-related-videos)
 
 ✅ **Enable the Thumbnails Gallery Slider for the Product Images**
 
@@ -116,13 +116,13 @@ It provides a convenient way for customers to view and select different product 
 
 This plugin allows customers to navigate different product images or variations using sliding mechanisms. These controls often include AutoPlay Interval, Slider Speed, Direction, etc.
 
-[Live Demo](https://demo.woogallery.io/navigation-pagination-styles/)
+[Live Demo](https://demo.renoproductgallery.com/navigation-pagination-styles/)
 
 ✅ **Set Product Slider Orientation**
 
 The orientation of the slider refers to the direction in which the product images move or are displayed. It’s typically horizontal or vertical, each with advantages and considerations.
 
-[Live Demo](https://demo.woogallery.io/slider-orientations/) | [Documentation](https://woogallery.io/docs/how-to-change-slide-orientation/)
+[Live Demo](https://demo.renoproductgallery.com/slider-orientations/) | [Documentation](https://docs.renoproductgallery.com/guide/how-to/thumbnails-settings#how-to-change-slide-orientation)
 
 ✅ **Product Images Sliding Effects**
 
@@ -134,7 +134,7 @@ or use other cool transitions to switch between images, making the  more interes
 * Flip
 * Cube
 
-[Live Demo](https://demo.woogallery.io/sliding-effects/)
+[Live Demo](https://demo.renoproductgallery.com/sliding-effects/)
 
 ✅ **Complete Navigation Control for Product Image and Thumbnails Slider**
 
@@ -147,7 +147,7 @@ The plugin provides a comprehensive navigational arrow control for product image
 * Thumbnail navigation icon size
 * Thumbnail navigation color
 
-[Live Demo](https://demo.woogallery.io/thumbnails-navigation-styles/) | [Documentation](https://woogallery.io/docs/how-to-customize-thumbnails-navigation-styles/)
+[Live Demo](https://demo.renoproductgallery.com/thumbnails-navigation-styles/) | [Documentation](https://docs.renoproductgallery.com/guide/how-to/thumbnails-settings#how-to-customize-thumbnails-navigation)
 
 ✅ **Control Thumbnail Items Number & Gap**
 
@@ -155,7 +155,7 @@ Enhance the visual appearance of your product images slider by customizing the n
 
 Initially, the product images slider displays four thumbnails. However, you can customize the number of thumbnails to be displayed, ranging from 2 to 10. Additionally, you can adjust the gap between thumbnails easily.
 
-[Documentation](https://woogallery.io/docs/how-to-set-space-between-thumbnails/)
+[Documentation](https://docs.renoproductgallery.com/guide/how-to/thumbnails-settings#how-to-set-space-between-thumbnails)
 
 ✅ **Product Variation Images Sorting**
 
@@ -184,7 +184,7 @@ The plugin provides a wide range of features to enhance the functionality, usabi
 * Zoom Out Hover Effects
 * Slide Down Hover Effects
 
-[Live Demo](https://demo.woogallery.io/adaptive-height/)
+[Live Demo](https://demo.renoproductgallery.com/adaptive-height/)
 
 ✅ **Preloader Settings for Product Images**
 
@@ -198,35 +198,35 @@ The plugin is compatible with all the popular themes and plugins, especially Woo
 
 The plugin is fully compatible with WordPress multisite, including network-activated and activated on individual sites.
 
-## WooGallery Pro Features 🚀 ##
+## Reno Product Gallery Pro Features 🚀 ##
 
-WooGallery Pro offers more robust features and easy customizations that will take your product gallery beyond limitations and boost your sales growth.
+Reno Product Gallery Pro offers more robust features and easy customizations that will take your product gallery beyond limitations and boost your sales growth.
 
 ✅ **Choose Modern Product Gallery Layouts**
 
-* Tiles (Pro) [Live Demo](https://demo.woogallery.io/product/sports-wear/)
-* Hierarchy Grid (New) (Pro) [Live Demo](https://demo.woogallery.io/product/cozy-pullover/)
-* Modern Grid - Style 1 (New) (Pro) [Live Demo](https://demo.woogallery.io/product/nike-golf-club/)
-* Modern Grid - Style 2 (New) (Pro) [Live Demo](https://demo.woogallery.io/product/hooded-track-jacket/)
-* Modern Grid - Style 3 (New) (Pro) [Live Demo](https://demo.woogallery.io/product/training-suit/)
-* Modern Grid - Style 4 (New) (Pro) [Live Demo](https://demo.woogallery.io/product/ultimate-anorak/)
-* Modern Grid - Style 5 (New) (Pro) [Live Demo](https://demo.woogallery.io/product/zip-pullover/)
-* Anchor Navigation (New) (Pro) [Live Demo](https://demo.woogallery.io/product/jersey-sweat-shirt/)
-* Vertical Scroll (New) (Pro) [Live Demo](https://demo.woogallery.io/product/jersey-sweat-shirt/)
-* Multi-row Thumbs (New) (Pro) [Live Demo](https://demo.woogallery.io/product/jersey-sweat-shirt/)
+* Tiles (Pro) [Live Demo](https://demo.renoproductgallery.com/product/sports-wear/)
+* Hierarchy Grid (New) (Pro) [Live Demo](https://demo.renoproductgallery.com/product/cozy-pullover/)
+* Modern Grid - Style 1 (New) (Pro) [Live Demo](https://demo.renoproductgallery.com/product/nike-golf-club/)
+* Modern Grid - Style 2 (New) (Pro) [Live Demo](https://demo.renoproductgallery.com/product/hooded-track-jacket/)
+* Modern Grid - Style 3 (New) (Pro) [Live Demo](https://demo.renoproductgallery.com/product/training-suit/)
+* Modern Grid - Style 4 (New) (Pro) [Live Demo](https://demo.renoproductgallery.com/product/ultimate-anorak/)
+* Modern Grid - Style 5 (New) (Pro) [Live Demo](https://demo.renoproductgallery.com/product/zip-pullover/)
+* Anchor Navigation (New) (Pro) [Live Demo](https://demo.renoproductgallery.com/product/jersey-sweat-shirt/)
+* Vertical Scroll (New) (Pro) [Live Demo](https://demo.renoproductgallery.com/product/cotton-polo-shirt/)
+* Multi-row Thumbs (New) (Pro) [Live Demo](https://demo.renoproductgallery.com/product/bubblecomfy-shoes-kids/)
 
 ✅ **Product Featured Video on Shop/Archive/Listing Page** 🔥
 
 Grab the attention of visitors with compelling product featured videos right on the shop, archive, category, and any listing pages to grow the conversion rate. Featured videos can be played either in a pop-up window or directly on the same page.
 
-[Live Demo](https://demo.woogallery.io/) | [Documentation](https://woogallery.io/docs/how-to-show-product-video-on-the-shop-archive-page/)
+[Live Demo](https://demo.renoproductgallery.com/) | [Documentation](https://docs.renoproductgallery.com/guide/how-to/adding-videos#how-to-show-product-video-on-the-shop-archive-page)
 
 ✅ **Add Product Videos from:**
 
-* Vimeo (PRO) [Live Demo](https://demo.woogallery.io/product/baseball-cleats/)
-* Dailymotion (PRO) [Live Demo](https://demo.woogallery.io/product/golf-bag/)
-* Facebook (PRO) [Live Demo ](https://demo.woogallery.io/product/skate-shoes/)
-* Self-hosted (PRO) [Live Demo](https://demo.woogallery.io/product/custom-dunk-low/)
+* Vimeo (PRO) [Live Demo](https://demo.renoproductgallery.com/product/baseball-cleats/)
+* Dailymotion (PRO) [Live Demo](https://demo.renoproductgallery.com/product/golf-bag/)
+* Facebook (PRO) [Live Demo ](https://demo.renoproductgallery.com/product/skate-shoes/)
+* Self-hosted (PRO) [Live Demo](https://demo.renoproductgallery.com/product/custom-dunk-low/)
 
 ✅ **Product Video Placement**
 
@@ -236,7 +236,7 @@ Make your product video slider more engaging and dynamic by choosing a video pla
 * End of the Slider
 * Keep Videos in Default Position
 
-[Live Demo](https://demo.woogallery.io/video-placement/) | [Documentation](https://woogallery.io/docs/how-to-place-the-videos-in-woogallery/)
+[Live Demo](https://demo.renoproductgallery.com/video-placement/) | [Documentation](https://docs.renoproductgallery.com/guide/how-to/adding-videos#how-to-set-video-play-mode-placement-related-videos)
 
 ✅ **Stylize YouTube and Self-hosted Video Player Controls** 🔥🔥🔥
 
@@ -268,7 +268,7 @@ Here are key zoom features you'll love:
 * MouseWheel Zoom
 
 
-[Live Demo](https://demo.woogallery.io/zoom-styles/) | [Documentation](https://woogallery.io/docs/how-to-apply-zoom-styles-for-product-images/)
+[Live Demo](https://demo.renoproductgallery.com/zoom-styles/) | [Documentation](https://docs.renoproductgallery.com/guide/how-to/image-zoom-settings#how-to-apply-zoom-styles-for-product-images)
 
 ✅ **Advanced Product Image Lightbox** 🔥🔥🔥
 
@@ -283,7 +283,7 @@ Here are key zoom features you'll love:
 * Show/Hide full-screen button
 * Show/Hide product image download button
 
-[Live Demo](https://demo.woogallery.io/lightbox-sliding-effects/) | [Documentation](https://woogallery.io/docs/how-to-customize-the-lightbox-icon-display-position/)
+[Live Demo](https://demo.renoproductgallery.com/lightbox-sliding-effects/) | [Documentation](https://docs.renoproductgallery.com/guide/lightbox)
 
 ✅ **Retina Ready Product Image Supported**
 
@@ -299,7 +299,7 @@ Enhance your online store's best product image viewing experience and attract mo
 
 Set specific dimensions for the thumbnails displayed in the product. This feature lets you control the height and width of the product thumbnails.
 
-[Live Demo](https://demo.woogallery.io/thumbnails-space-padding-size-border/) | [Documentation](https://woogallery.io/docs/how-to-set-thumbnails-size/)
+[Live Demo](https://demo.renoproductgallery.com/thumbnails-space-padding-size-border/) | [Documentation](https://docs.renoproductgallery.com/guide/how-to/thumbnails-settings#how-to-set-thumbnails-size)
 
 ✅ **Thumbnails Hover Effects** 🔥🔥🔥
 
@@ -308,7 +308,7 @@ Thumbnail hover effects refer to interactive visual changes when customers hover
 * Slide In
 * Slide Up
 
-[Live Demo](https://demo.woogallery.io/thumbnails-hover-effects/) | [Documentation](https://woogallery.io/docs/how-to-set-thumbnails-hover-effects/)
+[Live Demo](https://demo.renoproductgallery.com/thumbnails-hover-effects/) | [Documentation](https://docs.renoproductgallery.com/guide/how-to/thumbnails-settings#how-to-set-thumbnails-hover-effects)
 
 ✅ **Excellent Active Thumbnail Styles** 🔥
 
@@ -316,7 +316,7 @@ Thumbnail hover effects refer to interactive visual changes when customers hover
 * Zoom Out
 * Opacity
 
-[Live Demo](https://demo.woogallery.io/active-thumbnail-styles/) | [Documentation](https://woogallery.io/docs/how-to-set-active-thumbnails-style/)
+[Live Demo](https://demo.renoproductgallery.com/active-thumbnail-styles/) | [Documentation](https://docs.renoproductgallery.com/guide/how-to/thumbnails-settings#how-to-set-the-active-thumbnail-style)
 
 
 ✅ **Change the Main Image on Click or Mouseover for Product Thumbnails** 🔥
@@ -326,20 +326,20 @@ The plugin offers an engaging feature that allows you to change the main image b
 * On Click
 * Mouseover🔥 🔥 🔥 It's like the product images pages of **Amazon, Nike, AliExpress,** etc.
 
-[Live Demo](https://demo.woogallery.io/thumbnails-activation/) | [Documentation](https://woogallery.io/docs/how-do-you-want-to-activate-thumbnails/)
+[Live Demo](https://demo.renoproductgallery.com/thumbnails-activation/) | [Documentation](https://docs.renoproductgallery.com/guide/how-to/thumbnails-settings#how-to-set-how-thumbnails-activate)
 
 ✅ **Gallery Image Caption** 🔥
 
 When you have a product thumbnails slider, it's essential to have an active main image with a caption that provides additional context or information about the product and the variation images.
 
-[Live Demo](https://demo.woogallery.io/gallery-image-caption/)
+[Live Demo](https://demo.renoproductgallery.com/gallery-image-caption/)
 
 
 ## 🏆 UPGRADE TO WOOGALLERY PRO! ##
 
 [youtube https://www.youtube.com/watch?v=-NaP5vqQaH4]
 
-[__Upgrade To our Pro version Today!__](https://woogallery.io/pricing/?ref=143) You’ll never regret it.✌️
+[__Upgrade To our Pro version Today!__](https://renoproductgallery.com/pricing/?ref=143) You’ll never regret it.✌️
 
 == Installation ==
 
@@ -347,8 +347,8 @@ When you have a product thumbnails slider, it's essential to have an active main
 
 = AUTOMATIC INSTALLATION (EASIEST WAY) =
 
-To automatically install WooGallery, log in to your WordPress dashboard, navigate to the Plugins menu, and click Add New.
-In the search field type "WooGallery" by ShapedPlugin. Once you have found it, you can install it by clicking "Install Now" and then "Activate".
+To automatically install Reno Product Gallery, log in to your WordPress dashboard, navigate to the Plugins menu, and click Add New.
+In the search field type "Reno Product Gallery" by ShapedPlugin. Once you have found it, you can install it by clicking "Install Now" and then "Activate".
 
 = MANUAL INSTALLATION =
 
@@ -401,6 +401,15 @@ Yes, the plugin is compatible with the most popular WooCommerce themes. We’re 
 
 
 == Changelog ==
+
+= Version 3.2.0 – Jul 28, 2026 =
+* New: WooGallery is now Reno Product Gallery. Everything else remains the same — your settings, layouts, and galleries are unchanged, and no reinstallation is required.
+* New: The [reno_product_gallery] shortcode to render the product gallery manually when using page builders (Divi, Elementor, Bricks, etc.).
+* Updated: The admin menu label has been changed from WooGallery to Product Gallery.
+* Updated: The language file (.pot) has been updated.
+* Improved: Replaced unserialize() with WordPress plugins_api() for the recommended plugin section.
+* Dev: The [woogallery] and [wcgs_gallery_slider] shortcodes continue to work.
+* Tested: WooCommerce 10.9.4 compatibility.
 
 = Version 3.1.6 - Jun 17, 2026 =
 * Improved: The slider navigation accessibility.
