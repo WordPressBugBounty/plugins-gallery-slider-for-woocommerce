@@ -44,13 +44,31 @@ function wcgs_delete_plugin_data() {
 	// Delete offer banner related option keys.
 	delete_option( 'shapedplugin_offer_banner_dismissed_black_friday_2025' );
 	delete_option( 'shapedplugin_offer_banner_dismissed_new_year_2026' );
+	delete_option( 'shapedplugin_bfcm_2026_dismissed' );
 }
 
-// Load WPTP file.
-require plugin_dir_path( __FILE__ ) . '/woo-gallery-slider.php';
+/**
+ * Remove what the plugin keeps running or cached: the weekly cache sweep
+ * and the cached gallery data (always, it is not user data).
+ *
+ * @return void
+ */
+function wcgs_delete_plugin_cache() {
+	wp_clear_scheduled_hook( 'woo_gallery_slider_weekly_scheduled_events' );
+
+	if ( ! class_exists( 'Woo_Gallery_Slider_Cache' ) ) {
+		require_once plugin_dir_path( __FILE__ ) . 'includes/class-woo-gallery-slider-cache.php';
+	}
+	Woo_Gallery_Slider_Cache::purge_product_transients();
+	delete_transient( 'wcgs_wporg_changelog' );
+}
+
+wcgs_delete_plugin_cache();
+
 $wcgs_plugin_settings = get_option( 'wcgs_settings' );
 $wcgs_data_delete     = isset( $wcgs_plugin_settings['wcgs_data_remove'] ) ? $wcgs_plugin_settings['wcgs_data_remove'] : false;
 
-if ( $wcgs_data_delete ) {
+// The 3.x framework saved an unchecked box as "0".
+if ( $wcgs_data_delete && '0' !== $wcgs_data_delete ) {
 	wcgs_delete_plugin_data();
 }

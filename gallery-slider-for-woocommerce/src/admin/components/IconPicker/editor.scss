@@ -1,0 +1,85 @@
+@use "../../styles/variables" as *;
+
+.wcgs-icon-picker {
+
+	&__grid {
+		overflow: hidden;
+		border: 1px solid $wcgs-divider;
+		border-radius: 5px;
+		background: #fff;
+	}
+
+	&__item {
+
+		@include wcgs-reset-button;
+		--wcgs-sep-r: 0 0 0 0 transparent;
+		--wcgs-sep-b: 0 0 0 0 transparent;
+		height: 34px;
+		font-size: 12px;
+		font-weight: 500;
+		color: $wcgs-muted;
+		background: #fff;
+		box-shadow: var(--wcgs-sep-r), var(--wcgs-sep-b);
+		transition:
+			background 140ms $wcgs-ease,
+			color 140ms $wcgs-ease;
+
+		&.has-sep-right {
+			--wcgs-sep-r: inset -1px 0 0 #{$wcgs-divider};
+		}
+
+		&.has-sep-bottom {
+			--wcgs-sep-b: inset 0 -1px 0 #{$wcgs-divider};
+		}
+
+		&:hover {
+			background: $wcgs-bg-soft;
+			color: $wcgs-text;
+		}
+
+		&:focus {
+			box-shadow: var(--wcgs-sep-r), var(--wcgs-sep-b);
+		}
+
+		&:focus-visible {
+			box-shadow: inset $wcgs-focus-ring;
+		}
+
+		&.is-active {
+			background: #f3eefe;
+			color: $wcgs-accent;
+		}
+
+		// Pro icon: light grey with a crown in the corner.
+		&.is-locked {
+			position: relative;
+			color: $wcgs-off;
+
+			&:hover {
+				background: #fffbf0;
+				color: $wcgs-off;
+			}
+		}
+
+		// "+N" tile of the Pro icons, two columns wide.
+		&.is-more {
+			grid-column: span 2;
+			gap: 4px;
+			background: #fff8e8;
+			font-weight: 600;
+			color: #a86f00;
+
+			&:hover {
+				background: #fff1d2;
+				color: #a86f00;
+			}
+		}
+	}
+
+	&__crown {
+		position: absolute;
+		top: 1px;
+		right: 1px;
+		pointer-events: none;
+	}
+}

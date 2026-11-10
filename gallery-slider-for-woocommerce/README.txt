@@ -1,11 +1,11 @@
 === Product Gallery Slider, Additional Variation Images, Product Video, Product Image Zoom and Lightbox for WooCommerce – Reno Product Gallery (formerly WooGallery) ===
 Contributors: shapedplugin, rubel_miah, khalilu, shamimmiashuhagh
 Tags: woocommerce product gallery carousel, woocommerce product gallery slider, product image zoom, additional variation images gallery, product featured video
-Requires at least: 5.3
+Requires at least: 6.6
 Tested up to: 7.1
 WC requires at least: 4.5
-WC tested up to: 11.2.1
-Stable tag: 3.2.1
+WC tested up to: 11.2.2
+Stable tag: 4.0.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -407,6 +407,29 @@ Yes, the plugin is compatible with the most popular WooCommerce themes. We’re 
 
 == Changelog ==
 
+
+= Version 4.0.0 – Nov 05, 2026 =
+* New: Redesigned dashboard with a live preview of your product page, so you see every change before you save.
+* New: Desktop, tablet, and mobile previews, plus separate tablet and mobile values for spacing, thumbnails, and icon sizes.
+* New: Per-Product Layouts page that lets you edit layouts with live preview and assign or exclude products and categories from one searchable panel.
+* New: Setup Wizard to get your gallery ready in minutes after install.
+* New: Works with the WooCommerce core variation gallery. Your existing variation images are moved over automatically.
+* New: Gallery Image Caption option.
+* New: Product Video Gallery switch to turn product videos on or off.
+* New: Variation Swatches page in the Product Gallery menu.
+* Improved: Advanced, Speed, Migration, Import & Export, and Custom CSS & JS options now share one Settings tab.
+* Improved: Your existing settings and layouts carry over automatically, and old settings links open the new dashboard.
+* Improved: Invalid video links can no longer be saved to images.
+* Improved: Gallery updates right away when you change captions, alt text, or videos, including on sites with object caching.
+* Improved: Docs, video tutorials, and support links are now in the dashboard Help menu.
+* Fixed: Layout import breaking some saved values.
+* Fixed: The 3.0.0 update switching every layout's slider height to adaptive.
+* Fixed: CSV variation image imports in the older "12,34" format not being read.
+* Security: Lightbox captions now display HTML safely as plain text.
+* Updated: Swiper library to 12.2.0.
+* Updated: Language (.pot) file.
+* Tested: WordPress 7.1 compatibility.
+* Tested: WooCommerce 11.2.2 compatibility.
 
 = Version 3.2.1 – Oct 14, 2026 =
 * Improved: Stronger permission checks when saving and resetting settings.

@@ -1,0 +1,113 @@
+@use "../../styles/variables" as *;
+
+.wcgs-media-upload {
+
+	&__drop {
+
+		@include wcgs-reset-button;
+		padding: 20px 16px;
+		border: 1px dashed $wcgs-off;
+		border-radius: 6px;
+		background: $wcgs-bg-faint;
+		text-align: center;
+		color: $wcgs-muted;
+		transition:
+			border-color 200ms $wcgs-ease,
+			background-color 200ms $wcgs-ease;
+
+		&:disabled {
+			cursor: not-allowed;
+			opacity: 0.6;
+		}
+
+		&:hover:not(:disabled) {
+			border-color: $wcgs-accent;
+			background-color: $wcgs-accent-tint;
+		}
+	}
+
+	&__title {
+		font-size: 14px;
+		font-weight: 500;
+		color: $wcgs-text;
+	}
+
+	&__hint {
+		font-size: 12.5px;
+		color: $wcgs-muted;
+	}
+
+	&__file {
+		padding: 8px;
+		border: 1px solid $wcgs-border;
+		border-radius: 6px;
+		background: #fff;
+	}
+
+	// Checkerboard behind the image so transparent icons stay visible.
+	&__thumb {
+		flex: 0 0 48px;
+		width: 48px;
+		height: 48px;
+		border: 1px solid $wcgs-line;
+		border-radius: 4px;
+		background-color: #fff;
+		background-image:
+			linear-gradient(45deg, $wcgs-line 25%, transparent 25%, transparent 75%, $wcgs-line 75%),
+			linear-gradient(45deg, $wcgs-line 25%, #fff 25%, #fff 75%, $wcgs-line 75%);
+		background-position: center, 0 0, 5px 5px;
+		background-repeat: no-repeat, repeat, repeat;
+		background-size: contain, 10px 10px, 10px 10px;
+	}
+
+	&__name {
+
+		@include wcgs-truncate;
+		font-size: 12.5px;
+		color: $wcgs-muted;
+	}
+
+	&__replace {
+
+		@include wcgs-reset-button;
+		height: 30px;
+		padding: 0 10px;
+		border: 1px solid $wcgs-border;
+		border-radius: 4px;
+		background: #fff;
+		font-size: 13px;
+		font-weight: 500;
+		color: $wcgs-muted;
+		transition:
+			border-color 200ms $wcgs-ease,
+			color 200ms $wcgs-ease;
+
+		&:disabled {
+			cursor: not-allowed;
+			opacity: 0.6;
+		}
+
+		&:hover:not(:disabled) {
+			border-color: $wcgs-border-hover;
+			color: $wcgs-text;
+		}
+	}
+
+	&__remove {
+
+		@include wcgs-reset-button;
+		flex: 0 0 30px;
+		width: 30px;
+		height: 30px;
+		border-radius: 4px;
+		color: $wcgs-faint;
+		transition:
+			background-color 160ms $wcgs-ease,
+			color 160ms $wcgs-ease;
+
+		&:hover {
+			background-color: #fdecec;
+			color: #b32d2e;
+		}
+	}
+}

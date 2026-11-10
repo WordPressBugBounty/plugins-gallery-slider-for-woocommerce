@@ -1,0 +1,44 @@
+@use "../../styles/variables" as *;
+
+.wcgs-radio-control {
+
+	&__item {
+
+		@include wcgs-reset-button;
+		border-radius: 3px;
+		font-size: 14px;
+		color: $wcgs-text;
+		text-align: left;
+	}
+
+	&__ring {
+
+		@include wcgs-check-box(18px, 50%, 1.5px);
+		transition: border-color 160ms $wcgs-ease;
+
+		&.is-checked {
+			border-color: $wcgs-accent;
+		}
+	}
+
+	&__item:hover &__ring:not(.is-checked) {
+		border-color: $wcgs-border-hover;
+	}
+
+	&__dot {
+		width: 8px;
+		height: 8px;
+		border-radius: 50%;
+		background: $wcgs-accent;
+		opacity: 0;
+		transform: scale(0.4);
+		transition:
+			transform 180ms $wcgs-ease,
+			opacity 160ms $wcgs-ease;
+	}
+
+	&__ring.is-checked &__dot {
+		opacity: 1;
+		transform: scale(1);
+	}
+}

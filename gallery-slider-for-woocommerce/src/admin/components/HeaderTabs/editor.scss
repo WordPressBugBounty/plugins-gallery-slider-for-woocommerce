@@ -1,0 +1,52 @@
+@use "../../styles/variables" as *;
+
+.wcgs-header-tabs {
+	position: relative;
+	align-self: stretch;
+	margin-left: 36px;
+	overflow-x: auto;
+	scrollbar-width: none;
+
+	&::-webkit-scrollbar {
+		display: none;
+	}
+
+	&__tab {
+
+		@include wcgs-reset-button;
+		padding: 0 12px;
+		font-size: 15px;
+		font-weight: 500;
+		white-space: nowrap;
+		color: $wcgs-text-2;
+		transition: color 160ms $wcgs-ease;
+
+		&:hover {
+			color: $wcgs-text;
+		}
+
+		&:focus-visible {
+			box-shadow: none;
+			outline: 2px solid rgba(124, 58, 237, 0.35);
+			outline-offset: -2px;
+		}
+
+		&.is-active {
+			color: $wcgs-accent;
+		}
+	}
+
+	// Underline that slides to the active tab (`ttBar` in the design).
+	&__bar {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		height: 2px;
+		border-radius: 2px 2px 0 0;
+		background: $wcgs-accent;
+		pointer-events: none;
+		transition:
+			transform 320ms $wcgs-ease-out,
+			width 320ms $wcgs-ease-out;
+	}
+}

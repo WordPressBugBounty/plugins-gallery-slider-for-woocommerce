@@ -1,0 +1,248 @@
+@use "../../styles/variables" as *;
+
+.wcgs-multi-select {
+
+	&__wrap {
+		position: relative;
+	}
+
+	&__field {
+		position: relative;
+		min-height: $wcgs-control-height;
+		padding: 6px 32px 6px 6px;
+		border: 1px solid $wcgs-border;
+		border-radius: 4px;
+		background: #fff;
+		transition: border-color 220ms $wcgs-ease;
+
+		&:hover {
+			border-color: $wcgs-border-hover;
+		}
+
+		&.is-open {
+			border-color: $wcgs-border-active;
+		}
+	}
+
+	// Transparent button over the whole field.
+	&__toggle {
+
+		@include wcgs-reset-button;
+		position: absolute;
+		inset: 0;
+		z-index: 0;
+		border-radius: 3px;
+	}
+
+	&__chip,
+	&__placeholder,
+	&__chevron {
+		position: relative;
+		z-index: 1;
+		pointer-events: none;
+	}
+
+	&__chip {
+		height: 26px;
+		padding: 0 4px 0 9px;
+		border-radius: 4px;
+		background: $wcgs-bg-active;
+		font-size: 13px;
+		font-weight: 500;
+		color: $wcgs-text;
+	}
+
+	&__chip-remove {
+
+		@include wcgs-reset-button;
+		width: 18px;
+		height: 18px;
+		border-radius: 3px;
+		color: $wcgs-muted;
+		pointer-events: auto;
+		transition:
+			background-color 160ms $wcgs-ease,
+			color 160ms $wcgs-ease;
+
+		&:hover {
+			background-color: #e4e5e8;
+			color: $wcgs-text;
+		}
+	}
+
+	&__placeholder {
+		padding-left: 6px;
+		font-size: 14px;
+		color: $wcgs-faint;
+	}
+
+	&__chevron {
+		position: absolute;
+		right: 10px;
+		top: 50%;
+		margin-top: -8px;
+		color: $wcgs-faint;
+		transition: transform 160ms $wcgs-ease;
+	}
+
+	&__field.is-open &__chevron {
+		transform: rotate(180deg);
+	}
+
+	&__menu {
+
+		@include wcgs-popover(top center);
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: calc(100% + 4px);
+		z-index: 41;
+		min-width: 160px;
+		max-height: 280px;
+		overflow-y: auto;
+		padding: 4px;
+		background: #fff;
+		border: 1px solid $wcgs-border;
+		border-radius: 6px;
+		box-shadow: $wcgs-menu-shadow;
+	}
+
+	// Stays on top while the options scroll.
+	&__search {
+		position: sticky;
+		top: -4px;
+		z-index: 1;
+		margin: -4px -4px 0;
+		padding: 8px 8px 6px;
+		background: #fff;
+	}
+
+	&__search-box {
+		height: 34px;
+		padding: 0 10px;
+		border: 1px solid $wcgs-divider;
+		border-radius: 4px;
+		background: #fff;
+		color: $wcgs-faint;
+	}
+
+	input.wcgs-multi-select__search-input {
+		flex: 1;
+		min-width: 0;
+		height: 100%;
+		min-height: 0;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		border-radius: 0;
+		background: none;
+		box-shadow: none;
+		outline: none;
+		font: inherit;
+		font-size: 14px;
+		color: $wcgs-text;
+
+		&:focus {
+			border: 0;
+			box-shadow: none;
+			outline: none;
+		}
+	}
+
+	&__group {
+		padding: 8px 10px 4px;
+		font-size: 12px;
+		font-weight: 600;
+		color: $wcgs-faint;
+	}
+
+	&__option {
+
+		@include wcgs-reset-button;
+		padding: 7px 10px;
+		border-radius: 4px;
+		text-align: left;
+		transition: background-color 160ms $wcgs-ease;
+
+		&:hover {
+			background-color: $wcgs-bg-soft;
+		}
+
+		&.is-disabled {
+			cursor: not-allowed;
+		}
+	}
+
+	&__box {
+		width: 16px;
+		height: 16px;
+		flex: 0 0 16px;
+		border-radius: 3px;
+		background: #fff;
+		border: 1px solid $wcgs-off;
+		transition:
+			background 120ms $wcgs-ease,
+			border-color 120ms $wcgs-ease;
+
+		svg {
+			opacity: 0;
+			transition: opacity 120ms $wcgs-ease;
+		}
+
+		&.is-checked {
+			background: $wcgs-accent;
+			border-color: $wcgs-accent;
+
+			svg {
+				opacity: 1;
+			}
+		}
+	}
+
+	&__image {
+		width: 32px;
+		height: 32px;
+		border: 1px solid $wcgs-line;
+		border-radius: 4px;
+		background: #f4f5f7 center / cover no-repeat;
+	}
+
+	&__text {
+		gap: 1px;
+	}
+
+	&__label {
+		font-size: 14px;
+		color: $wcgs-text;
+	}
+
+	&__option.is-disabled &__label {
+		color: $wcgs-faint;
+	}
+
+	&__sub,
+	&__hint {
+		font-size: 12px;
+		color: $wcgs-faint;
+	}
+
+	&__hint {
+		white-space: nowrap;
+	}
+
+	&__empty {
+		padding: 14px 10px;
+		font-size: 13px;
+		color: $wcgs-muted;
+	}
+
+	&__note {
+		margin-top: 4px;
+		padding: 8px 10px 6px;
+		border-top: 1px solid $wcgs-line;
+		font-size: 12.5px;
+		line-height: 1.45;
+		color: $wcgs-muted;
+		text-wrap: pretty;
+	}
+}

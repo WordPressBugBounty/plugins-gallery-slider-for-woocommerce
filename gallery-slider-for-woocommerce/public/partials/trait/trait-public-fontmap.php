@@ -1,30 +1,15 @@
 <?php
-/**
- * The product gallery navigation icons mapping of the plugin.
- *
- * @package    Woo_Gallery_Slider
- * @subpackage Woo_Gallery_Slider/public
- */
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}  // if direct access.
-
-/**
- * Trait WCGS_Public_fontmap
- *
- * @since 1.0.0
- */
 trait WCGS_Public_fontmap {
+
 	/**
-	 * Fonts map
+	 * Fonts_map
 	 *
 	 * @var array
 	 */
 	public $fonts_map = array(
 		'angle'              => array(
-			'\e814',
-			'\e801',
+			'\f104',
+			'\f105',
 		),
 		'chevron'            => array(
 			'\e822',
@@ -35,8 +20,8 @@ trait WCGS_Public_fontmap {
 			'\f006',
 		),
 		'right_open_1'       => array(
-			'\f104',
-			'\f105',
+			'\e814',
+			'\e802',
 		),
 		'right_open_3'       => array(
 			'\e820',
@@ -62,7 +47,7 @@ trait WCGS_Public_fontmap {
 			'\e81a',
 			'\e815',
 		),
-		'right_outline'      => array(
+		'right_outline'         => array(
 			'\e817',
 			'\e807',
 		),

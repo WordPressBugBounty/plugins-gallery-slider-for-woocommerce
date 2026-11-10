@@ -27,8 +27,34 @@ class Woo_Gallery_Slider_Admin_Notices {
 	 */
 	public function __construct() {
 		add_action( 'admin_notices', array( $this, 'all_admin_notice' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_notice_assets' ) );
 		add_action( 'wp_ajax_sp-woogs-never-show-review-notice', array( $this, 'dismiss_review_notice' ) );
 		add_action( 'wp_ajax_dismiss_smart_swatches_notice', array( $this, 'dismiss_smart_swatches_notice' ) );
+	}
+
+	/**
+	 * Whether the notices may show on this screen. Never on the full-screen
+	 * React dashboard, which has no room for admin notices.
+	 *
+	 * @since 4.0.0
+	 * @return bool
+	 */
+	private function can_show_notices() {
+		return ! ( class_exists( 'Woo_Gallery_Slider_Dashboard' ) && Woo_Gallery_Slider_Dashboard::is_dashboard_screen() );
+	}
+
+	/**
+	 * Styles of the notices, and Thickbox for their plugin-details links.
+	 *
+	 * @since 4.0.0
+	 * @return void
+	 */
+	public function enqueue_notice_assets() {
+		if ( ! $this->can_show_notices() ) {
+			return;
+		}
+		add_thickbox();
+		wp_enqueue_style( 'sp-wcgs-notices', WOO_GALLERY_SLIDER_URL . 'admin/css/notices.min.css', array(), WOO_GALLERY_SLIDER_VERSION, 'all' );
 	}
 
 	/**
@@ -37,6 +63,9 @@ class Woo_Gallery_Slider_Admin_Notices {
 	 * @return void
 	 */
 	public function all_admin_notice() {
+		if ( ! $this->can_show_notices() ) {
+			return;
+		}
 		$this->display_review_notice();
 		$this->smart_swatches_install_admin_notice();
 	}
@@ -196,11 +225,10 @@ class Woo_Gallery_Slider_Admin_Notices {
 
 		$current_screen = get_current_screen();
 
-		// The submenu screen base is prefixed with the sanitized parent menu title, so derive it instead of hardcoding it.
-		$assign_layout_base = get_plugin_page_hookname( 'assign_layout', 'wpgs-settings' );
-		$help_base          = get_plugin_page_hookname( 'wpgs-help', 'wpgs-settings' );
-
-		if ( current_user_can( 'install_plugins' ) && is_object( $current_screen ) && is_object( $current_screen ) && 'wcgs_layouts' === $current_screen->post_type || 'toplevel_page_wpgs-settings' === $current_screen->base || $assign_layout_base === $current_screen->base || $help_base === $current_screen->base ) {
+		// The plugin's own settings pages became the full-screen dashboard (no
+		// notices there, it promotes Smart Swatches itself), so the notice shows
+		// on the Plugins screen and the product screens instead.
+		if ( current_user_can( 'install_plugins' ) && is_object( $current_screen ) && ( 'plugins' === $current_screen->base || 'product' === $current_screen->post_type ) ) {
 			$plugins = array_keys( get_plugins() );
 			$slug    = 'smart-swatches';
 			$icon    = 'https://ps.w.org/smart-swatches/assets/icon-128x128.gif';
@@ -253,6 +281,23 @@ class Woo_Gallery_Slider_Admin_Notices {
 				</div>
 			</div>
 			<button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>', esc_url( $icon ), esc_url( $popup_url ), esc_url( $install_url ), esc_html( $text ), esc_html( $button_text ), $arrow, $nonce, esc_url( $popup_woo_url ) ); // phpcs:ignore
+			?>
+			<script type="text/javascript">
+			jQuery( function ( $ ) {
+				$( document ).on( 'click', '.smart-swatches-notice .notice-dismiss', function () {
+					var notice = $( this ).parents( '.smart-swatches-notice' );
+					$.ajax( {
+						url: ajaxurl,
+						data: {
+							action: 'dismiss_smart_swatches_notice',
+							ajax_nonce: notice.data( 'nonce' )
+						}
+					} );
+					notice.hide();
+				} );
+			} );
+			</script>
+			<?php
 		}
 	}
 }

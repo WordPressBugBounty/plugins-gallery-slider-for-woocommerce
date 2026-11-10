@@ -1,0 +1,308 @@
+@use "../../styles/variables" as *;
+
+// Inner ring of a color swatch.
+$wcgs-swatch-ring: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+
+// Round color swatch button (field swatch and saved colors).
+@mixin wcgs-swatch {
+
+	@include wcgs-reset-button;
+	width: 26px;
+	height: 26px;
+	border-radius: 50%;
+	box-shadow: $wcgs-swatch-ring;
+}
+
+// Panel that fades and scales in once `.is-open` (picker popover, format menu).
+@mixin wcgs-color-panel($duration) {
+	transform-origin: top left;
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transform: translateY(-6px) scale(0.97);
+	transition:
+		opacity $duration $wcgs-ease,
+		transform $duration $wcgs-ease,
+		visibility 0s linear $duration;
+
+	&.is-open {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
+		transform: none;
+		transition:
+			opacity $duration $wcgs-ease,
+			transform $duration $wcgs-ease,
+			visibility 0s;
+	}
+}
+
+.wcgs-color-control {
+
+	&__wrap {
+		position: relative;
+	}
+
+	&__box {
+		max-width: 100%;
+		height: $wcgs-control-height;
+		box-sizing: border-box;
+		padding: 0 10px 0 6px;
+		border: 1px solid $wcgs-border;
+		border-radius: 4px;
+		background: #fff;
+		transition: border-color 220ms $wcgs-ease;
+
+		&:hover {
+			border-color: $wcgs-border-hover;
+		}
+
+		&.is-open {
+			border-color: $wcgs-border-active;
+		}
+	}
+
+	&__swatch {
+
+		@include wcgs-swatch;
+		flex: 0 0 26px;
+		transition: transform 120ms $wcgs-ease;
+
+		&:hover {
+			transform: scale(1.08);
+		}
+
+		&:focus {
+			box-shadow: $wcgs-swatch-ring;
+		}
+
+		&:focus-visible {
+			box-shadow: $wcgs-swatch-ring, $wcgs-focus-ring;
+		}
+	}
+
+	// Inputs: specific enough to beat the wp-admin `input[type="text"]` rules.
+	input.wcgs-color-control__hex,
+	input.wcgs-color-control__value-input {
+		flex: 1;
+		min-width: 0;
+		min-height: 0;
+		height: auto;
+		margin: 0;
+		padding: 0;
+		border: 0;
+		border-radius: 0;
+		background: none;
+		box-shadow: none;
+		outline: none;
+		font: inherit;
+		font-size: 13px;
+		font-variant-numeric: tabular-nums;
+		line-height: normal;
+		text-transform: uppercase;
+		color: $wcgs-text;
+
+		&:focus {
+			border: 0;
+			box-shadow: none;
+			outline: none;
+		}
+	}
+
+	&__popover {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		z-index: 41;
+		width: 248px;
+		max-width: calc(100vw - 40px);
+		margin-top: 6px;
+		box-sizing: border-box;
+		padding: 12px;
+		background: #fff;
+		border: 1px solid $wcgs-menu-border;
+		border-radius: 10px;
+		box-shadow: 0 12px 32px rgba(16, 17, 20, 0.18);
+
+		@include wcgs-color-panel(160ms);
+
+		&.is-right {
+			left: auto;
+			right: 0;
+			transform-origin: top right;
+		}
+	}
+
+	&__saturation {
+		position: relative;
+		width: 100%;
+		height: 150px;
+		border-radius: 7px;
+		overflow: hidden;
+		cursor: crosshair;
+		touch-action: none;
+	}
+
+	&__sat-knob {
+		position: absolute;
+		width: 14px;
+		height: 14px;
+		box-sizing: border-box;
+		border-radius: 50%;
+		border: 2px solid #fff;
+		box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+		transform: translate(-50%, -50%);
+		pointer-events: none;
+	}
+
+	&__hue,
+	&__alpha {
+		position: relative;
+		width: 100%;
+		height: 12px;
+		border-radius: 999px;
+		cursor: pointer;
+		touch-action: none;
+	}
+
+	&__hue {
+		margin-top: 14px;
+		background: linear-gradient(to right, #f00 0%, #ff0 17%, #0f0 33%, #0ff 50%, #00f 67%, #f0f 83%, #f00 100%);
+	}
+
+	&__alpha {
+		margin-top: 12px;
+		background-size:
+			100% 100%,
+			10px 10px,
+			10px 10px;
+		background-position:
+			0 0,
+			0 0,
+			5px 5px;
+	}
+
+	&__bar-knob {
+		position: absolute;
+		top: 50%;
+		width: 16px;
+		height: 16px;
+		border-radius: 50%;
+		background: #fff;
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+		transform: translate(-50%, -50%);
+		pointer-events: none;
+	}
+
+	&__values {
+		margin-top: 12px;
+	}
+
+	&__format {
+		position: relative;
+	}
+
+	&__format-toggle {
+
+		@include wcgs-reset-button;
+		gap: 5px;
+		height: 32px;
+		padding: 0 9px;
+		box-sizing: border-box;
+		border: 1px solid $wcgs-border;
+		border-radius: 6px;
+		background: $wcgs-bg-soft;
+		font-size: 12.5px;
+		font-weight: 500;
+		color: $wcgs-text-2;
+		transition: border-color 200ms $wcgs-ease;
+
+		svg {
+			color: $wcgs-faint;
+			transition: transform 140ms $wcgs-ease;
+		}
+
+		&:hover {
+			border-color: $wcgs-border-hover;
+		}
+
+		&.is-open svg {
+			transform: rotate(180deg);
+		}
+	}
+
+	&__format-menu {
+		position: absolute;
+		top: 100%;
+		left: 0;
+		z-index: 3;
+		width: 96px;
+		margin-top: 4px;
+		padding: 6px;
+		background: #fff;
+		border: 1px solid $wcgs-menu-border;
+		border-radius: 6px;
+		box-shadow: 0 8px 22px rgba(16, 17, 20, 0.1);
+
+		@include wcgs-color-panel(140ms);
+
+		.wcgs-color-control__format-option {
+
+			@include wcgs-reset-button;
+			width: 100%;
+			padding: 7px 10px;
+			border-radius: 4px;
+			text-align: left;
+			font-size: 13px;
+			color: $wcgs-text-2;
+			transition: background 120ms $wcgs-ease;
+
+			&:hover {
+				background: $wcgs-bg-soft;
+			}
+
+			&.is-active {
+				background: $wcgs-bg-active;
+				color: $wcgs-text;
+			}
+		}
+	}
+
+	&__value {
+		height: 32px;
+		box-sizing: border-box;
+		padding: 0 10px;
+		border: 1px solid $wcgs-border;
+		border-radius: 6px;
+
+		span {
+			font-size: 12.5px;
+			color: $wcgs-faint;
+		}
+	}
+
+	&__saved-title {
+		margin: 14px 0 8px;
+		font-size: 12px;
+		font-weight: 500;
+		color: $wcgs-text-2;
+	}
+
+	&__saved {
+		grid-template-columns: repeat(7, 1fr);
+
+		.wcgs-color-control__saved-swatch {
+
+			@include wcgs-swatch;
+
+			&:focus {
+				box-shadow: $wcgs-swatch-ring;
+			}
+
+			&.is-active {
+				outline: 2px solid $wcgs-accent;
+				outline-offset: 2px;
+			}
+		}
+	}
+}

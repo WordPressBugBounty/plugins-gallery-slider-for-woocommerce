@@ -36,6 +36,7 @@ class Woo_Gallery_Slider_Updates {
 		'2.0.0' => 'updates/update-2.0.0.php',
 		'2.2.1' => 'updates/update-2.2.1.php',
 		'3.0.0' => 'updates/update-3.0.0.php',
+		'4.0.0' => 'updates/update-4.0.0.php',
 	);
 
 	/**
@@ -50,6 +51,20 @@ class Woo_Gallery_Slider_Updates {
 	}
 
 	/**
+	 * The single instance.
+	 *
+	 * @since 4.0.0
+	 * @return Woo_Gallery_Slider_Updates
+	 */
+	public static function instance() {
+		static $instance = null;
+		if ( null === $instance ) {
+			$instance = new self();
+		}
+		return $instance;
+	}
+
+	/**
 	 * Check if need any update
 	 *
 	 * @since 1.0.0
@@ -60,6 +75,12 @@ class Woo_Gallery_Slider_Updates {
 		$installed_version = get_option( 'woo_gallery_slider_version' );
 		$first_version     = get_option( 'woo_gallery_slider_first_version' );
 		$activation_date   = get_option( 'woo_gallery_slider_activation_date' );
+
+		// Another version (or Pro, which shares the cache keys) rendered the cached
+		// galleries: drop them so this version renders its own.
+		if ( WOO_GALLERY_SLIDER_VERSION !== $installed_version ) {
+			self::purge_gallery_cache();
+		}
 
 		if ( false === $installed_version ) {
 			update_option( 'woo_gallery_slider_version', WOO_GALLERY_SLIDER_VERSION );
@@ -77,6 +98,21 @@ class Woo_Gallery_Slider_Updates {
 		}
 
 		return false;
+	}
+
+	/**
+	 * Delete the cached product galleries (variation JSON and gallery HTML).
+	 * Pro writes the same transient keys, so a version change or a switch
+	 * from Pro must not serve galleries another plugin rendered.
+	 *
+	 * @since 4.0.0
+	 * @return void
+	 */
+	public static function purge_gallery_cache() {
+		if ( ! class_exists( 'Woo_Gallery_Slider_Cache' ) ) {
+			require_once __DIR__ . '/class-woo-gallery-slider-cache.php';
+		}
+		Woo_Gallery_Slider_Cache::purge_product_transients();
 	}
 
 	/**
@@ -106,7 +142,7 @@ class Woo_Gallery_Slider_Updates {
 
 		foreach ( self::$updates as $version => $path ) {
 			if ( version_compare( $installed_version, $version, '<' ) ) {
-				include $path;
+				include __DIR__ . '/' . $path;
 				update_option( 'woo_gallery_slider_version', $version );
 			}
 		}
@@ -114,4 +150,4 @@ class Woo_Gallery_Slider_Updates {
 		update_option( 'woo_gallery_slider_version', WOO_GALLERY_SLIDER_VERSION );
 	}
 }
-new Woo_Gallery_Slider_Updates();
+Woo_Gallery_Slider_Updates::instance();

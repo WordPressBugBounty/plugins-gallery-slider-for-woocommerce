@@ -1,0 +1,122 @@
+@use "../../styles/variables" as *;
+
+.wcgs-card-select {
+
+	&__card {
+
+		@include wcgs-reset-button;
+		position: relative;
+		min-height: 48px;
+		padding: 8px 6px;
+		border: 1px solid $wcgs-divider;
+		border-radius: 6px;
+		background: #fff;
+		font-size: 12.5px;
+		font-weight: 500;
+		line-height: 1.25;
+		text-align: center;
+		color: $wcgs-text-2;
+		transition:
+			border-color 140ms $wcgs-ease,
+			background 140ms $wcgs-ease,
+			color 140ms $wcgs-ease,
+			box-shadow 140ms $wcgs-ease;
+
+		&:hover {
+			border-color: $wcgs-border-hover;
+		}
+
+		&.is-active {
+			border-color: $wcgs-accent;
+			background: $wcgs-accent-tint;
+			color: $wcgs-accent;
+		}
+
+		// Preview card: image area on top, name below.
+		&.has-preview {
+			min-height: 0;
+			padding: 0;
+			flex-direction: column;
+			align-items: stretch;
+			overflow: hidden;
+		}
+
+		&.has-preview.is-active {
+			background: #fff;
+		}
+
+		// Pro card: grey name and a lock pill in the corner.
+		&.is-locked {
+			color: $wcgs-locked;
+
+			&:hover {
+				border-color: #e8cf8f;
+			}
+		}
+
+		// "+N more" card of the Pro styles.
+		&.is-more {
+			min-height: 40px;
+			flex-direction: column;
+			gap: 4px;
+			padding: 6px;
+			border: 1px dashed #e9cf8e;
+			background: #fffbf0;
+			font-size: 12.5px;
+			font-weight: 600;
+			color: #a86f00;
+			transition:
+				background-color 160ms $wcgs-ease,
+				border-color 160ms $wcgs-ease;
+
+			&.is-tall {
+				min-height: 74px;
+			}
+
+			&:hover {
+				border-color: #c98a0b;
+				background: #fff4db;
+			}
+		}
+	}
+
+	&__check {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		z-index: 2;
+		width: 14px;
+		height: 14px;
+		border-radius: 50%;
+		background: $wcgs-accent;
+		opacity: 0;
+		transform: scale(0.6);
+		transition:
+			opacity 140ms $wcgs-ease,
+			transform 160ms $wcgs-ease;
+	}
+
+	&__card.is-active &__check {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	&__preview {
+		padding: 6px 8px;
+		background: $wcgs-bg-faint;
+		border-bottom: 1px solid #efeff1;
+	}
+
+	&__image {
+		width: 100%;
+		height: 100%;
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: contain;
+	}
+
+	&__card.has-preview &__name {
+		display: block;
+		padding: 6px;
+	}
+}

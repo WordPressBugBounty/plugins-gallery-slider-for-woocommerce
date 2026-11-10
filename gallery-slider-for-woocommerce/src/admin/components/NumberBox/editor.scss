@@ -1,0 +1,213 @@
+@use "../../styles/variables" as *;
+
+.wcgs-number-box {
+	position: relative;
+
+	&__field {
+		position: relative;
+		align-items: stretch;
+		height: $wcgs-control-height;
+		box-sizing: border-box;
+		border: 1px solid $wcgs-border;
+		border-radius: 4px;
+		background: #fff;
+		overflow: hidden;
+		transition: border-color 220ms $wcgs-ease;
+
+		&:hover {
+			z-index: 1;
+			border-color: $wcgs-border-hover;
+		}
+
+		&:focus-within {
+			z-index: 2;
+			border-color: $wcgs-border-active;
+		}
+	}
+
+	// Fields joined into one bar (box shadow, spacing).
+	&.is-join-start &__field {
+		border-radius: 4px 0 0 4px;
+	}
+
+	&.is-join-mid &__field {
+		margin-left: -1px;
+		border-radius: 0;
+	}
+
+	&.is-join-end &__field {
+		margin-left: -1px;
+		border-radius: 0 4px 4px 0;
+	}
+
+	&__icon {
+		flex: 0 0 26px;
+		background: $wcgs-bg-soft;
+		color: $wcgs-muted;
+		border-right: 1px solid #efeff1;
+	}
+
+	&__body {
+		position: relative;
+		align-items: stretch;
+	}
+
+	// Specific enough to beat the wp-admin `input[type="text"]` rules.
+	input.wcgs-number-box__input {
+		flex: 1;
+		min-width: 0;
+		width: 100%;
+		min-height: 0;
+		height: auto;
+		margin: 0;
+		padding: 0 0 0 10px;
+		border: 0;
+		border-radius: 0;
+		background: none;
+		box-shadow: none;
+		outline: none;
+		font: inherit;
+		font-size: 14px;
+		font-variant-numeric: tabular-nums;
+		line-height: normal;
+		color: $wcgs-text;
+
+		&:focus {
+			border: 0;
+			box-shadow: none;
+			outline: none;
+		}
+	}
+
+	// Spin buttons slide in on hover / focus.
+	&__spin {
+		flex: 0 0 16px;
+		border-left: 1px solid $wcgs-line;
+		background: $wcgs-bg-soft;
+		opacity: 0;
+		transform: translateX(4px);
+		transition:
+			opacity 180ms $wcgs-ease,
+			transform 200ms $wcgs-ease;
+
+		.wcgs-number-box__spin-btn {
+
+			@include wcgs-reset-button;
+			flex: 1;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: $wcgs-muted;
+			transition:
+				background-color 160ms $wcgs-ease,
+				color 160ms $wcgs-ease;
+
+			&:first-child {
+				border-bottom: 1px solid $wcgs-line;
+			}
+
+			&:hover {
+				background-color: $wcgs-bg-hover;
+				color: $wcgs-text;
+			}
+		}
+	}
+
+	&__field:hover &__spin,
+	&__field:focus-within &__spin {
+		opacity: 1;
+		transform: none;
+	}
+
+	&__unit {
+		padding: 0 10px;
+		font-size: 12.5px;
+		color: $wcgs-muted;
+		background: $wcgs-bg-soft;
+		border-left: 1px solid $wcgs-divider;
+
+		&.is-select {
+
+			@include wcgs-reset-button;
+			justify-content: center;
+			min-width: 36px;
+			padding: 0 9px;
+			font-size: 12.5px;
+			font-weight: 500;
+			color: $wcgs-muted;
+			background: $wcgs-bg-soft;
+			border-left: 1px solid $wcgs-divider;
+			transition:
+				color 160ms $wcgs-ease,
+				background-color 160ms $wcgs-ease;
+
+			&:hover {
+				color: $wcgs-text;
+				background-color: $wcgs-bg-hover;
+			}
+		}
+	}
+
+	&__units {
+		position: absolute;
+		top: 100%;
+		right: 0;
+		z-index: 60;
+		width: 38px;
+		padding-top: 4px;
+		transform-origin: top right;
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
+		transform: translateY(-4px) scale(0.97);
+		transition:
+			opacity 140ms $wcgs-ease,
+			transform 140ms $wcgs-ease,
+			visibility 0s linear 140ms;
+
+		&.is-open {
+			opacity: 1;
+			visibility: visible;
+			pointer-events: auto;
+			transform: none;
+			transition:
+				opacity 140ms $wcgs-ease,
+				transform 140ms $wcgs-ease,
+				visibility 0s;
+		}
+	}
+
+	&__units-list {
+		overflow: hidden;
+		background: #fff;
+		border: 1px solid $wcgs-border;
+		border-radius: 3px;
+		box-shadow: $wcgs-menu-shadow;
+
+		.wcgs-number-box__unit-option {
+
+			@include wcgs-reset-button;
+			width: 100%;
+			height: 26px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 12.5px;
+			color: $wcgs-faint;
+			transition:
+				background-color 160ms $wcgs-ease,
+				color 160ms $wcgs-ease;
+
+			&:hover {
+				background-color: $wcgs-bg-soft;
+				color: $wcgs-text;
+			}
+
+			&.is-active {
+
+				@include wcgs-option-active;
+			}
+		}
+	}
+}

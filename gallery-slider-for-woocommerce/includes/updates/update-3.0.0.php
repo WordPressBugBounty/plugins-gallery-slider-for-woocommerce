@@ -40,7 +40,7 @@ if ( ! empty( $wcgs_layouts ) ) {
 		$layout_meta = get_post_meta( $layout, 'wcgs_metabox', true );
 		if ( ! empty( $layout_meta ) ) {
 			$adaptive_height                   = isset( $layout_meta['adaptive_height'] ) ? $layout_meta['adaptive_height'] : false;
-			$layout_meta['slider_height_type'] = $layout_meta ? 'adaptive' : 'max_image';
+			$layout_meta['slider_height_type'] = $adaptive_height ? 'adaptive' : 'max_image';
 			$layout_meta['slider_height']      = array(
 				'width'   => '500',
 				'height'  => '500',

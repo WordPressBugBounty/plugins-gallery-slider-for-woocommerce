@@ -1,0 +1,818 @@
+@use "../../styles/variables" as *;
+
+// Variation Swatches page (free design `pgSwatches`).
+
+$wcgs-sw-blue: $wcgs-wp-blue;
+$wcgs-sw-blue-dark: #135e96;
+// The hero card's brighter selection blue.
+$wcgs-sw-bright: #2563eb;
+$wcgs-sw-image-bg: #eef0f1;
+$wcgs-sw-ink: #1d1d1f;
+$wcgs-sw-dashed: #d4d5d9;
+$wcgs-sw-swatch-edge: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+$wcgs-sw-card-shadow:
+	0 1px 2px rgba(16, 17, 20, 0.04),
+	0 16px 40px rgba(16, 17, 20, 0.08);
+
+// Selected swatch: a white gap, then a colored ring.
+@function wcgs-sw-ring($color, $gap: 2px, $ring: 4px) {
+
+	@return 0 0 0 $gap #fff, 0 0 0 $ring $color;
+}
+
+@keyframes wcgs-sw-rise {
+
+	from {
+		opacity: 0;
+		transform: translateY(14px);
+	}
+
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+@keyframes wcgs-sw-fill {
+
+	from {
+		transform: scaleX(0);
+	}
+
+	to {
+		transform: scaleX(1);
+	}
+}
+
+@keyframes wcgs-sw-fade {
+
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+.wcgs-swatches-page {
+	min-height: 0;
+	overflow-y: auto;
+	background:
+		radial-gradient(1000px 560px at 85% -10%, rgba(34, 113, 177, 0.07), transparent 70%),
+		radial-gradient(800px 500px at -5% 35%, rgba(114, 174, 230, 0.06), transparent 70%),
+		#fbfcfe;
+	color: $wcgs-text;
+
+	h1,
+	h2,
+	p {
+		margin: 0;
+		padding: 0;
+	}
+
+	:where(button, a) {
+
+		@include wcgs-reset-button;
+		text-decoration: none;
+	}
+}
+
+.wcgs-sw {
+	max-width: 1220px;
+	margin: 0 auto;
+	padding: 72px 40px 80px;
+	box-sizing: border-box;
+	gap: 80px;
+}
+
+.wcgs-sw-gap-18 {
+	gap: 18px;
+}
+
+.wcgs-sw-h2 {
+	font-size: clamp(26px, 2.6vw, 34px);
+	font-weight: 650;
+	line-height: 1.15;
+	letter-spacing: -0.025em;
+	color: $wcgs-text;
+	text-wrap: balance;
+}
+
+// Blue install button.
+.wcgs-swatches-page .wcgs-sw-button {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	height: 44px;
+	padding: 0 20px;
+	border-radius: 6px;
+	background: $wcgs-sw-blue;
+	font-size: 15px;
+	font-weight: 600;
+	color: #fff;
+	white-space: nowrap;
+	transition: background-color 180ms $wcgs-ease;
+
+	&:hover,
+	&:focus {
+		background-color: $wcgs-sw-blue-dark;
+		color: #fff;
+	}
+
+	&:focus-visible {
+		box-shadow: 0 0 0 3px rgba(34, 113, 177, 0.35);
+	}
+
+	&.is-busy {
+		cursor: default;
+	}
+}
+
+// A product photo as a cover background.
+.wcgs-sw-photo {
+	display: block;
+	background-color: $wcgs-sw-image-bg;
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+// "Color: Forest".
+.wcgs-sw-label {
+	font-size: 13.5px;
+	color: $wcgs-body;
+
+	b {
+		font-weight: 600;
+		color: $wcgs-sw-ink;
+	}
+
+	&.is-small {
+		font-size: 12.5px;
+	}
+}
+
+// Small uppercase caption ("Before", "After", "Hidden").
+.wcgs-sw-eyebrow {
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: $wcgs-sw-blue;
+
+	&.is-muted {
+		width: 52px;
+		color: #8a8b90;
+	}
+}
+
+// Color swatch.
+.wcgs-sw-dot {
+	position: relative;
+	flex: 0 0 auto;
+	display: block;
+	box-sizing: border-box;
+	border-radius: 50%;
+	box-shadow: $wcgs-sw-swatch-edge;
+	transition: box-shadow 140ms $wcgs-ease;
+
+	&.is-active {
+		box-shadow: wcgs-sw-ring($wcgs-sw-blue);
+	}
+
+	&.is-bright.is-active {
+		box-shadow: wcgs-sw-ring($wcgs-sw-bright);
+	}
+
+	&.is-tiny.is-active {
+		box-shadow: wcgs-sw-ring($wcgs-sw-blue, 1.5px, 3px);
+	}
+
+	&.is-flat:not(.is-active) {
+		box-shadow: none;
+	}
+
+	&.is-rounded {
+		border-radius: 8px;
+	}
+
+	&.is-square {
+		border-radius: 2px;
+	}
+
+	// Out of stock: faded, with a white diagonal line.
+	&.is-out {
+		opacity: 0.4;
+		box-shadow: none;
+		background-image: linear-gradient(to top right, transparent calc(50% - 1px), #fff calc(50% - 1px), #fff calc(50% + 1px), transparent calc(50% + 1px)) !important;
+	}
+
+	.wcgs-swatches-page &.is-button {
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		box-shadow: $wcgs-sw-swatch-edge;
+
+		&.is-active {
+			box-shadow: wcgs-sw-ring($wcgs-sw-blue);
+		}
+
+		&:focus-visible {
+			box-shadow: wcgs-sw-ring($wcgs-sw-blue), 0 0 0 7px rgba(34, 113, 177, 0.25);
+		}
+	}
+}
+
+// Label swatch.
+.wcgs-sw-chip {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	box-sizing: border-box;
+	min-width: 44px;
+	height: 38px;
+	padding: 0 12px;
+	border: 1px solid $wcgs-border;
+	border-radius: 6px;
+	background: #fff;
+	font-size: 13.5px;
+	color: $wcgs-text-2;
+
+	&.is-sm {
+		min-width: 40px;
+		height: 34px;
+		padding: 0 10px;
+		border-radius: 4px;
+		font-size: 13px;
+		font-weight: 500;
+	}
+
+	&.is-xs {
+		min-width: 38px;
+		height: 32px;
+		padding: 0;
+		border-radius: 5px;
+		font-size: 12.5px;
+	}
+
+	&.is-pill {
+		min-width: 0;
+		height: 34px;
+		padding: 0 16px;
+		border-radius: 999px;
+	}
+
+	&.is-blue {
+		min-width: 0;
+		height: 34px;
+		padding: 0 14px;
+	}
+
+	&.is-active {
+		font-weight: 600;
+	}
+
+	&.is-dark.is-active {
+		border: 1.5px solid $wcgs-sw-ink;
+		color: $wcgs-sw-ink;
+	}
+
+	&.is-pill.is-active {
+		border-color: $wcgs-sw-ink;
+		background: $wcgs-sw-ink;
+		color: #fff;
+	}
+
+	&.is-blue.is-active {
+		border: 1.5px solid $wcgs-sw-blue;
+		background: rgba(34, 113, 177, 0.06);
+		color: $wcgs-sw-blue-dark;
+	}
+
+	&.is-bright.is-active {
+		border: 1.5px solid $wcgs-sw-bright;
+		color: $wcgs-sw-bright;
+		font-weight: 500;
+	}
+
+	&.is-out {
+		border-color: $wcgs-divider;
+		color: $wcgs-border-strong;
+		text-decoration: line-through;
+	}
+}
+
+// 1. Hero.
+.wcgs-sw-hero {
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+	gap: 64px;
+
+	&__text {
+		gap: 20px;
+	}
+
+	&__pill {
+		align-self: flex-start;
+		height: 28px;
+		padding: 0 12px;
+		border-radius: 999px;
+		background: rgba(34, 113, 177, 0.1);
+		font-size: 12.5px;
+		font-weight: 600;
+		color: $wcgs-sw-blue-dark;
+	}
+
+	&__title {
+		font-size: clamp(26px, 2.9vw, 38px);
+		font-weight: 650;
+		line-height: 1.1;
+		letter-spacing: -0.03em;
+		color: $wcgs-sw-ink;
+		white-space: nowrap;
+	}
+
+	&__lead {
+		max-width: 480px;
+		font-size: 18px;
+		line-height: 1.6;
+		color: $wcgs-body;
+		text-wrap: pretty;
+	}
+
+	&__actions {
+		margin-top: 8px;
+	}
+
+	.wcgs-swatches-page &__demo {
+		font-size: 15px;
+		font-weight: 600;
+		color: $wcgs-sw-ink;
+
+		&:hover,
+		&:focus {
+			color: $wcgs-sw-blue;
+		}
+	}
+
+	&__error {
+		font-size: 13px;
+		line-height: 1.5;
+		color: $wcgs-red;
+	}
+}
+
+// Hero product card.
+.wcgs-sw-card {
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	gap: 24px;
+	padding: 20px;
+	border: 1px solid $wcgs-line;
+	border-radius: 16px;
+	background: #fff;
+	box-shadow:
+		0 1px 2px rgba(16, 17, 20, 0.04),
+		0 16px 40px rgba(16, 17, 20, 0.06);
+
+	&__main {
+		aspect-ratio: 3 / 4;
+		border-radius: 10px;
+	}
+
+	&__thumbs {
+		grid-template-columns: repeat(4, minmax(0, 1fr));
+	}
+
+	&__thumb {
+		aspect-ratio: 1;
+		border-radius: 6px;
+		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+
+		&.is-active {
+			box-shadow: 0 0 0 2px $wcgs-sw-bright;
+		}
+	}
+
+	&__info {
+		gap: 18px;
+		padding: 4px 0;
+	}
+
+	&__name {
+		font-size: 17px;
+		font-weight: 600;
+		line-height: 1.3;
+		color: $wcgs-sw-ink;
+		text-wrap: balance;
+	}
+
+	&__price {
+		font-size: 15px;
+		font-weight: 500;
+		color: $wcgs-text-2;
+	}
+
+	&__options {
+		gap: 16px;
+		padding: 14px;
+		border: 1.5px dashed $wcgs-sw-dashed;
+		border-radius: 10px;
+	}
+
+	&__style {
+		width: 42px;
+		height: 42px;
+		border-radius: 6px;
+		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+
+		&.is-active {
+			box-shadow: wcgs-sw-ring($wcgs-sw-bright);
+		}
+	}
+
+	&__add {
+		margin-top: auto;
+		height: 42px;
+		border-radius: 6px;
+		background: $wcgs-sw-ink;
+		font-size: 14px;
+		font-weight: 600;
+		color: #fff;
+	}
+}
+
+// 2. Features.
+.wcgs-sw-features {
+	gap: 48px;
+	padding-top: 56px;
+	border-top: 1px solid #dfe7ef;
+
+	&__head {
+		max-width: 640px;
+	}
+
+	&__lead {
+		font-size: 17px;
+		line-height: 1.6;
+		color: $wcgs-body;
+		text-wrap: pretty;
+	}
+}
+
+.wcgs-sw-tour {
+	gap: 40px 64px;
+	align-items: stretch;
+
+	&__list {
+		flex: 1 1 320px;
+		min-width: 0;
+	}
+}
+
+.wcgs-swatches-page .wcgs-sw-feat {
+	position: relative;
+	padding: 18px 0 20px;
+	text-align: left;
+
+	&:focus-visible {
+		box-shadow: none;
+		outline: 2px solid rgba(34, 113, 177, 0.45);
+		outline-offset: 2px;
+		border-radius: 4px;
+	}
+
+	&__num {
+		padding-top: 2px;
+		font-size: 13px;
+		font-weight: 600;
+		font-variant-numeric: tabular-nums;
+		color: #8a8b90;
+	}
+
+	&__title {
+		font-size: 15.5px;
+		font-weight: 600;
+		color: #3c3d41;
+	}
+
+	&__text {
+		font-size: 14px;
+		line-height: 1.55;
+		color: $wcgs-body;
+		text-wrap: pretty;
+	}
+
+	&__track {
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		height: 1px;
+		overflow: hidden;
+		background: #e6e8ec;
+	}
+
+	&__bar {
+		position: absolute;
+		inset: 0;
+		background: $wcgs-sw-blue;
+		transform-origin: left center;
+		animation: wcgs-sw-fill 6s linear forwards;
+	}
+
+	&.is-active &__num {
+		color: $wcgs-sw-blue;
+	}
+
+	&.is-active &__title {
+		color: $wcgs-sw-ink;
+	}
+}
+
+// The progress bar waits while the shopper looks around.
+.wcgs-sw-tour:hover .wcgs-sw-feat__bar,
+.wcgs-sw-tour:focus-within .wcgs-sw-feat__bar {
+	animation-play-state: paused;
+}
+
+// Sticky stage that illustrates the active feature.
+.wcgs-sw-stage {
+	position: sticky;
+	top: max(16px, calc(50% - 230px));
+	flex: 1.35 1 420px;
+	align-self: flex-start;
+	min-width: 0;
+	min-height: 460px;
+	padding: 40px 32px;
+	box-sizing: border-box;
+	border: 1px solid #e8ebf0;
+	border-radius: 20px;
+	background:
+		radial-gradient(520px 320px at 80% 0%, rgba(34, 113, 177, 0.07), transparent 70%),
+		#f3f5f8;
+
+	&__panel {
+		animation: wcgs-sw-rise 380ms $wcgs-ease-out both;
+	}
+
+	&__stack {
+		width: 100%;
+		max-width: 420px;
+	}
+}
+
+// White card on the stage.
+.wcgs-sw-panel {
+	width: 100%;
+	max-width: 420px;
+	padding: 22px;
+	box-sizing: border-box;
+	border-radius: 14px;
+	background: #fff;
+	box-shadow: $wcgs-sw-card-shadow;
+
+	&.is-row {
+		gap: 18px;
+		padding: 18px;
+	}
+
+	&.is-sync {
+		gap: 20px;
+		padding: 20px;
+	}
+
+	&.is-compact {
+		padding: 18px;
+	}
+
+	&__image {
+		width: 112px;
+		flex: 0 0 112px;
+		aspect-ratio: 3 / 4;
+		border-radius: 8px;
+
+		&.is-large {
+			width: 132px;
+			flex-basis: 132px;
+			animation: wcgs-sw-fade 220ms $wcgs-ease;
+		}
+	}
+
+	&__hint {
+		font-size: 13px;
+		line-height: 1.5;
+		color: #8a8b90;
+		text-wrap: pretty;
+	}
+
+	&__key {
+		width: 72px;
+		font-size: 12px;
+		color: #8a8b90;
+	}
+}
+
+// Color swatches: the dropdown it replaces.
+.wcgs-sw-before {
+	padding: 14px 16px;
+	border: 1px dashed $wcgs-sw-dashed;
+	border-radius: 12px;
+	background: rgba(255, 255, 255, 0.55);
+
+	&__select {
+		flex: 1;
+		height: 36px;
+		padding: 0 12px;
+		border: 1px solid $wcgs-border;
+		border-radius: 6px;
+		background: #fff;
+		font-size: 13.5px;
+		color: #8a8b90;
+	}
+}
+
+// Image swatches.
+.wcgs-sw-tiles {
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.wcgs-sw-tile {
+
+	&__image {
+		width: 100%;
+		aspect-ratio: 1;
+		border-radius: 8px;
+		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+	}
+
+	&__name {
+		font-size: 12px;
+		color: $wcgs-body;
+	}
+
+	&.is-active &__image {
+		box-shadow: wcgs-sw-ring($wcgs-sw-blue);
+	}
+
+	&.is-active &__name {
+		font-weight: 600;
+		color: $wcgs-sw-ink;
+	}
+}
+
+// Shop page cards.
+.wcgs-sw-shop {
+	width: 100%;
+	max-width: 520px;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+
+	&__card {
+		padding: 10px 10px 14px;
+		border-radius: 12px;
+		background: #fff;
+		box-shadow:
+			0 1px 2px rgba(16, 17, 20, 0.04),
+			0 12px 30px rgba(16, 17, 20, 0.07);
+	}
+
+	&__image {
+		aspect-ratio: 3 / 4;
+		border-radius: 8px;
+	}
+
+	&__name {
+		font-size: 13px;
+		font-weight: 600;
+		line-height: 1.3;
+		color: $wcgs-sw-ink;
+	}
+
+	&__price {
+		font-size: 12.5px;
+		color: $wcgs-body;
+	}
+
+	&__more {
+		font-size: 11.5px;
+		line-height: 16px;
+		color: #8a8b90;
+	}
+}
+
+// Out-of-stock handling.
+.wcgs-sw-stock {
+	width: 100%;
+	max-width: 460px;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 190px), 1fr));
+}
+
+// Tooltips.
+.wcgs-sw-tips {
+	padding-top: 140px;
+}
+
+.wcgs-sw-tip {
+	position: absolute;
+	bottom: calc(100% + 10px);
+	left: 50%;
+	width: 96px;
+	padding: 6px;
+	box-sizing: border-box;
+	border-radius: 8px;
+	background: $wcgs-sw-ink;
+	box-shadow: 0 8px 20px rgba(16, 17, 20, 0.2);
+	transform: translateX(-50%);
+
+	&__image {
+		aspect-ratio: 1;
+		border-radius: 5px;
+	}
+
+	&__name {
+		font-size: 12px;
+		font-weight: 600;
+		color: #fff;
+		text-align: center;
+	}
+}
+
+// Clear selection.
+.wcgs-sw-clear {
+	padding-top: 14px;
+	border-top: 1px solid #f1f1f3;
+
+	&__price {
+		font-size: 15px;
+		font-weight: 600;
+		color: $wcgs-sw-ink;
+	}
+
+	&__reset {
+		font-size: 13px;
+		font-weight: 600;
+		color: $wcgs-sw-blue-dark;
+	}
+}
+
+@media (max-width: 900px) {
+
+	.wcgs-sw {
+		padding: 48px 24px 64px;
+		gap: 56px;
+	}
+
+	.wcgs-sw-hero {
+		gap: 40px;
+	}
+
+	// The stage goes above the list, so a pick shows without scrolling.
+	.wcgs-sw-stage {
+		position: static;
+		order: -1;
+		min-height: 380px;
+		padding: 32px 20px;
+	}
+}
+
+@media (max-width: 600px) {
+
+	.wcgs-sw {
+		padding: 32px 16px 48px;
+		gap: 48px;
+	}
+
+	.wcgs-sw-hero__title {
+		white-space: normal;
+	}
+
+	.wcgs-sw-card {
+		grid-template-columns: minmax(0, 1fr);
+		padding: 16px;
+	}
+
+	.wcgs-sw-features {
+		padding-top: 40px;
+	}
+
+	.wcgs-sw-stage {
+		min-height: 340px;
+		padding: 24px 14px;
+	}
+
+	.wcgs-sw-shop {
+		gap: 8px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.wcgs-swatches-page * {
+		animation-duration: 0.01ms !important;
+		transition-duration: 0.01ms !important;
+	}
+
+	// No autoplay: the active feature's bar stays full and never ends.
+	.wcgs-swatches-page .wcgs-sw-feat__bar {
+		animation: none !important;
+	}
+}

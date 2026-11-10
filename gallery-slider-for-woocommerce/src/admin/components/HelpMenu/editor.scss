@@ -1,0 +1,102 @@
+@use "../../styles/variables" as *;
+
+.wcgs-help-menu {
+	position: relative;
+	flex: 0 0 auto;
+	margin-left: auto;
+
+	&__toggle {
+
+		@include wcgs-reset-button;
+		width: 40px;
+		height: 40px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 8px;
+		color: $wcgs-muted;
+		transition:
+			background-color 120ms $wcgs-ease,
+			color 120ms $wcgs-ease;
+
+		&:hover,
+		&.is-open {
+			background-color: $wcgs-bg-subtle;
+			color: $wcgs-text;
+		}
+	}
+
+	&__popover {
+
+		@include wcgs-popover(top right);
+		position: absolute;
+		top: calc(100% + 8px);
+		right: 0;
+		z-index: 61;
+		width: 220px;
+		padding: 6px;
+		background: #fff;
+		border: 1px solid $wcgs-divider;
+		border-radius: 8px;
+		box-shadow: 0 12px 32px rgba(16, 17, 20, 0.14);
+	}
+
+	// `a.class` so these beat the wp-admin link colors and focus ring.
+	a.wcgs-help-menu__item,
+	button.wcgs-help-menu__item {
+
+		@include wcgs-reset-button;
+		width: 100%;
+		text-align: left;
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding: 7px 8px;
+		border-radius: 6px;
+		color: $wcgs-text;
+		text-decoration: none;
+		transition: background-color 120ms $wcgs-ease;
+
+		&:hover,
+		&:focus {
+			background-color: #f5f5f7;
+			color: $wcgs-text;
+			box-shadow: none;
+			outline: none;
+		}
+
+		&:focus-visible {
+			box-shadow: $wcgs-focus-ring;
+		}
+	}
+
+	&__icon {
+		flex: 0 0 28px;
+		width: 28px;
+		height: 28px;
+		border-radius: 7px;
+		background: $wcgs-bg-subtle;
+		color: $wcgs-text-2;
+
+		// Setup Wizard.
+		&.is-accent {
+			background: #f3eefe;
+			color: $wcgs-accent;
+		}
+	}
+
+	&__divider {
+		height: 1px;
+		margin: 4px 2px;
+		background: $wcgs-line;
+
+		&.is-wide {
+			margin: 6px 2px;
+		}
+	}
+
+	&__label {
+		font-size: 14px;
+		font-weight: 500;
+	}
+}

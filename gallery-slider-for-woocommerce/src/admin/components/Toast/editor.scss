@@ -1,0 +1,64 @@
+@use "../../styles/variables" as *;
+
+@keyframes wcgs-toast-in {
+
+	from {
+		opacity: 0;
+		transform: translate(-50%, 10px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translate(-50%, 0);
+	}
+}
+
+@keyframes wcgs-toast-out {
+
+	from {
+		opacity: 1;
+		transform: translate(-50%, 0);
+	}
+
+	to {
+		opacity: 0;
+		transform: translate(-50%, 10px);
+	}
+}
+
+// Bottom toast ("Changes saved"), shown by the store's `showToast`.
+.wcgs-toast {
+	position: fixed;
+	left: 50%;
+	bottom: 72px;
+	z-index: 99985;
+	height: 42px;
+	padding: 0 16px 0 12px;
+	border-radius: 8px;
+	background: $wcgs-text;
+	box-shadow: 0 10px 28px rgba(16, 17, 20, 0.24);
+	font-size: 13.5px;
+	white-space: nowrap;
+	color: #fff;
+	// Keep the centering transform after the entry animation ends, or the
+	// toast jumps half its width to the right.
+	transform: translate(-50%, 0);
+	animation: wcgs-toast-in 240ms $wcgs-ease;
+
+	&.is-out {
+		animation: wcgs-toast-out 200ms $wcgs-ease forwards;
+	}
+
+	&__icon {
+		width: 20px;
+		height: 20px;
+		flex: 0 0 20px;
+		border-radius: 50%;
+		background: $wcgs-green;
+		color: #fff;
+	}
+
+	&.is-draft &__icon {
+		background: $wcgs-body;
+	}
+}

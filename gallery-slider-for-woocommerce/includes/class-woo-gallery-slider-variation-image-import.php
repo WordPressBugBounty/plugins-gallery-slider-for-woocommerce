@@ -1,13 +1,13 @@
 <?php
 /**
- * WooGallery Custom variation images import/export functionality.
+ * Reno Product Gallery Custom variation images import/export functionality.
  *
  * This class handles the import and export of custom gallery images for WooCommerce products.
  * It integrates with WooCommerce's native CSV import/export system to include gallery images.
  *
- * @since      2.2.1
- * @package    Woo_Gallery_Slide
- * @subpackage Woo_Gallery_Slide/includes
+ * @since      3.1.2
+ * @package    Woo_Gallery_Slider
+ * @subpackage Woo_Gallery_Slider/includes
  * @author     ShapedPlugin <support@shapedplugin.com>
  */
 
@@ -16,20 +16,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
+if ( ! class_exists( 'Woo_Gallery_Slider_Variation_Image_Import' ) ) {
 	/**
-	 * Woo_Gallery_Slide_Export_Import Class
+	 * Woo_Gallery_Slider_Variation_Image_Import Class
 	 *
 	 * Handles the import and export of custom gallery images for WooCommerce products.
 	 *
-	 * @since 2.2.1
+	 * @since 3.1.2
 	 */
-	class Woo_Gallery_Slide_Export_Import {
+	class Woo_Gallery_Slider_Variation_Image_Import {
 
 		/**
 		 * Export type for WooCommerce product export.
 		 *
-		 * @since 2.2.1
+		 * @since 3.1.2
 		 * @var string
 		 */
 		private $export_type = 'product';
@@ -37,7 +37,7 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 		/**
 		 * Column identifier for WooCommerce product export/import.
 		 *
-		 * @since 2.2.1
+		 * @since 3.1.2
 		 * @var string
 		 */
 		private $column_id = 'woo_gallery_slider';
@@ -45,8 +45,8 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 		/**
 		 * Singleton instance of the class.
 		 *
-		 * @since 2.2.1
-		 * @var Woo_Gallery_Slide_Export_Import
+		 * @since 3.1.2
+		 * @var Woo_Gallery_Slider_Variation_Image_Import
 		 */
 		protected static $_instance = null;
 
@@ -55,7 +55,7 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 		 *
 		 * Sets up the necessary hooks and initializes the class.
 		 *
-		 * @since 2.2.1
+		 * @since 3.1.2
 		 * @return void
 		 */
 		protected function __construct() {
@@ -65,8 +65,8 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 		/**
 		 * Get the singleton instance of the class.
 		 *
-		 * @since 2.2.1
-		 * @return Woo_Gallery_Slide_Export_Import The singleton instance.
+		 * @since 3.1.2
+		 * @return Woo_Gallery_Slider_Variation_Image_Import The singleton instance.
 		 */
 		public static function instance() {
 			if ( is_null( self::$_instance ) ) {
@@ -88,7 +88,7 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 		/**
 		 * Set up the necessary hooks for the class.
 		 *
-		 * @since 2.2.1
+		 * @since 3.1.2
 		 * @return void
 		 */
 		public function import_export_hooks() {
@@ -122,19 +122,31 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 				10,
 				2
 			);
+
+			// Make sure the Custom Gallery Image are compatible with the Import Export for WooCommerce Wrapper by WebToffee.
+			add_filter( 'wt_batch_product_export_row_data', array( $this, 'wt_iew_exporter_product_gallery_slider' ), 19, 2 );
+			// Change the action hook name to match the new plugin's hook
+			add_action(
+				'wt_woocommerce_product_import_inserted_product_object',
+				array( $this, 'process_wt_product_gallery_image_import' ), // Using a slightly different method name to distinguish, or you can keep the old one if preferred.
+				10,
+				2
+			);
+
 			/**
 			 * Action hook that fires after the export/import class is loaded.
 			 *
-			 * @since 2.2.1
-			 * @param Woo_Gallery_Slide_Export_Import $this The class instance.
+			 * @since 3.1.2
+			 * @param Woo_Gallery_Slider_Variation_Image_Import $this The class instance.
 			 */
 			do_action( 'woo_gallery_export_import_loaded', $this );
 		}
 
+
 		/**
 		 * Add the gallery images column to the WooCommerce product export.
 		 *
-		 * @since 2.2.1
+		 * @since 3.1.2
 		 * @param array $columns The existing columns.
 		 * @return array The modified columns.
 		 */
@@ -147,7 +159,8 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 		/**
 		 * Provide the data for the gallery images column in the export.
 		 *
-		 * @since 2.2.1
+		 * @since 3.1.2
+		 * @since 3.2.0 Added video export support.
 		 * @param string     $value      The column value.
 		 * @param WC_Product $product    The product being exported.
 		 * @param string     $column_id  The column identifier.
@@ -155,17 +168,23 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 		 */
 		public function export_column_data( $value, $product, $column_id ) {
 			$product_id = $product->get_id();
-			// Get the gallery images for this product.
-			$gallery_images = get_post_meta( $product_id, 'woo_gallery_slider', true );
+			// Get the gallery images for this product. A variation exports the images it shows
+			// (WooCommerce core's gallery once migrated), so a re-import doesn't bring back
+			// woo_gallery_slider images replaced in core's field.
+			if ( $product->is_type( 'variation' ) && class_exists( 'Woo_Gallery_Slider_Variation_Gallery' ) ) {
+				$gallery_images = Woo_Gallery_Slider_Variation_Gallery::ids( $product_id );
+			} else {
+				$gallery_images = get_post_meta( $product_id, 'woo_gallery_slider', true );
+			}
 
 			// If there are no gallery images, return an empty string.
 			if ( empty( $gallery_images ) ) {
 				return '';
 			}
 
-			// Decode the gallery images if they are stored as JSON.
-			if ( is_string( $gallery_images ) && is_array( json_decode( $gallery_images, true ) ) ) {
-				$gallery_images = json_decode( $gallery_images );
+			// Stored as "[12,34]" or, by the removed product-editor block, "12,34".
+			if ( is_string( $gallery_images ) ) {
+				$gallery_images = array_filter( array_map( 'absint', explode( ',', trim( $gallery_images, '[]' ) ) ) );
 			}
 
 			// Ensure we have an array of image IDs.
@@ -173,7 +192,7 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 				/**
 				 * Filter the raw gallery images before processing.
 				 *
-				 * @since 2.2.1
+				 * @since 3.1.2
 				 * @param array     $gallery_images  The gallery image IDs.
 				 * @param WC_Product $product        The product being exported.
 				 */
@@ -185,31 +204,86 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 				// If we don't have an array, initialize an empty one.
 				$gallery_images = array();
 			}
-			// Convert attachment IDs to URLs.
-			$images = array();
+
+			/**
+			 * Build paired image-video entries
+			 *
+			 * @since 3.2.0
+			 */
+			$entries = array();
 			foreach ( $gallery_images as $image_id ) {
 				$image = wp_get_attachment_image_src( $image_id, 'full' );
-				if ( $image ) {
-					$images[] = $image[0]; // Get the URL from the image data.
+				if ( ! $image ) {
+					continue;
+				}
+
+				$entry = array( 'image' => $image[0] );
+
+				// Get video URL for this image.
+				$video_url = get_post_meta( $image_id, 'wcgs_video', true );
+				if ( ! empty( $video_url ) ) {
+					$entry['video'] = $video_url;
+				}
+
+				$entries[] = $entry;
+			}
+
+			/**
+			 * Filter entries before export.
+			 *
+			 * @since 3.2.0
+			 * @param array $entries Array of {image, video} pairs.
+			 * @param int   $product_id Product ID.
+			 */
+			$entries = apply_filters( 'sp_woo_gallery_exported_entries', $entries, $product_id );
+
+			// The image-only filter of 3.x: keep it working, each kept image with its video.
+			if ( has_filter( 'sp_woo_gallery_exported_images' ) ) {
+				$videos = array();
+				foreach ( $entries as $entry ) {
+					if ( ! empty( $entry['video'] ) ) {
+						$videos[ $entry['image'] ] = $entry['video'];
+					}
+				}
+				$images  = (array) apply_filters_deprecated( 'sp_woo_gallery_exported_images', array( array_column( $entries, 'image' ), $product_id ), '4.0.0', 'sp_woo_gallery_exported_entries' );
+				$entries = array();
+				foreach ( $images as $image ) {
+					$entry = array( 'image' => $image );
+					if ( isset( $videos[ $image ] ) ) {
+						$entry['video'] = $videos[ $image ];
+					}
+					$entries[] = $entry;
 				}
 			}
-			/**
-			 * Filter the gallery image URLs before exporting.
-			 *
-			 * @since 2.2.1
-			 * @param array $images     The gallery image URLs.
-			 * @param int   $product_id The product ID.
-			 */
-			$images = apply_filters( 'sp_woo_gallery_exported_images', $images, $product_id );
 
-			// Join the image URLs with commas.
-			return implode( ',', array_values( array_filter( $images ) ) );
+			// Format: image1.jpg|video1.mp4, image2.jpg, image3.jpg|video2.mp4.
+			$formatted = array();
+			foreach ( $entries as $entry ) {
+				$part = $entry['image'];
+				if ( isset( $entry['video'] ) && ! empty( $entry['video'] ) ) {
+					$part .= '|' . $entry['video'];
+				}
+				$formatted[] = $part;
+			}
+
+			/**
+			 * Filter formatted export string.
+			 *
+			 * @since 3.2.0
+			 * @param string $formatted Comma-separated image|video pairs.
+			 * @param array  $entries Original entries array.
+			 * @param int    $product_id Product ID.
+			 */
+			$formatted = apply_filters( 'sp_woo_gallery_exported_string', $formatted, $entries, $product_id );
+
+			// Join the entries with commas.
+			return implode( ',', array_values( array_filter( $formatted ) ) );
 		}
 
 		/**
 		 * Add the gallery images column to the import mapping options.
 		 *
-		 * @since 2.2.1
+		 * @since 3.1.2
 		 * @param array $columns The existing columns.
 		 * @return array The modified columns.
 		 */
@@ -222,7 +296,7 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 		/**
 		 * Define the default column name for import mapping.
 		 *
-		 * @since 2.2.1
+		 * @since 3.1.2
 		 * @param array $columns The existing default columns.
 		 * @return array The modified default columns.
 		 */
@@ -235,7 +309,8 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 		/**
 		 * Process the import data for a product.
 		 *
-		 * @since 2.2.1
+		 * @since 3.1.2
+		 * @since 3.2.0 Added video import support.
 		 * @param WC_Product $product The product being imported.
 		 * @param array      $data    The import data.
 		 * @return void
@@ -251,13 +326,13 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 				$raw_gallery_images = array_values( array_filter( $raw_gallery_images ) );
 
 				/**
-				 * Filter the raw gallery image URLs before processing.
+				 * Filter the raw gallery entries (image URLs, or image|video pairs) before parsing.
 				 *
 				 * @since 2.2.1
-				 * @param array $raw_gallery_images The raw gallery image URLs.
-				 * @param int   $product_id        The product ID.
-				 * @param array $data              The import data.
-				 * @param string $column_id        The column identifier.
+				 * @param array  $raw_gallery_images Raw entries.
+				 * @param int    $product_id         Product ID.
+				 * @param array  $data               Import data.
+				 * @param string $column_id          Column identifier.
 				 */
 				$raw_gallery_images = (array) apply_filters(
 					'sp_woo_gallery_raw_imported_images',
@@ -267,17 +342,135 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 					$this->column_id
 				);
 
+				/**
+				 * Parse paired image|video entries
+				 *
+				 * @since 3.2.0
+				 */
+				$parsed_entries = array();
+				foreach ( $raw_gallery_images as $entry ) {
+					$parsed_entries[] = $this->parse_entry( $entry );
+				}
+
+				/**
+				 * Filter parsed entries before processing.
+				 *
+				 * @since 3.2.0
+				 * @param array  $parsed_entries Parsed {image, video} pairs.
+				 * @param int    $product_id Product ID.
+				 * @param array  $data Full import data.
+				 * @param string $column_id Column identifier.
+				 */
+				$parsed_entries = (array) apply_filters(
+					'sp_woo_gallery_parsed_import_entries',
+					$parsed_entries,
+					$product_id,
+					$data,
+					$this->column_id
+				);
+
 				// Convert URLs to attachment IDs.
-				foreach ( $raw_gallery_images as $url ) {
-					$attachment_id = $this->get_attachment_id_from_url( trim( $url ), $product_id );
-					if ( $attachment_id ) {
-						$woo_variation_images[] = $attachment_id;
+				foreach ( $parsed_entries as $entry ) {
+					if ( empty( $entry['image'] ) ) {
+						continue;
+					}
+
+					$attachment_id = $this->get_attachment_id_from_url( $entry['image'], $product_id );
+					if ( ! $attachment_id ) {
+						continue;
+					}
+
+					$woo_variation_images[] = $attachment_id;
+
+					// Attach video URL to this image.
+					if ( ! empty( $entry['video'] ) ) {
+						$video_url = esc_url_raw( $entry['video'] );
+
+						// Validate video URL before saving.
+						if ( $this->is_valid_video_url( $video_url ) ) {
+							update_post_meta( $attachment_id, 'wcgs_video', $video_url );
+
+							/**
+							 * Action after video attached.
+							 *
+							 * @since 3.2.0
+							 * @param int    $attachment_id Attachment ID.
+							 * @param string $video_url Video URL.
+							 * @param int    $product_id Product ID.
+							 */
+							do_action(
+								'sp_woo_gallery_video_imported',
+								$attachment_id,
+								$video_url,
+								$product_id
+							);
+						}
 					}
 				}
 
-				// Save the gallery images to the product.
-				update_post_meta( $product_id, 'woo_gallery_slider', json_encode( array_values( array_filter( $woo_variation_images ) ) ) );
+				// Save the gallery images: a variation's go to WooCommerce core's gallery while it is enabled.
+				// When none resolved (unreachable URLs), keep the current gallery instead of emptying it,
+				// as the WebToffee import does: it may hold the images core's own Images column just set.
+				$woo_variation_images = array_values( array_filter( $woo_variation_images ) );
+				if ( ! empty( $woo_variation_images ) ) {
+					$this->save_gallery( $product, $woo_variation_images );
+				}
 			}
+		}
+
+		/**
+		 * Parse a single entry (image or image|video).
+		 *
+		 * @since 3.2.0
+		 * @param string $entry The entry to parse.
+		 * @return array Array with 'image' and optionally 'video' keys.
+		 */
+		protected function parse_entry( $entry ) {
+			// Check for pipe separator (new format with video).
+			if ( strpos( $entry, '|' ) !== false ) {
+				$parts = explode( '|', $entry );
+				return array(
+					'image' => isset( $parts[0] ) ? trim( $parts[0] ) : '',
+					'video' => isset( $parts[1] ) ? trim( $parts[1] ) : '',
+				);
+			}
+
+			// Legacy format (image only).
+			return array(
+				'image' => trim( $entry ),
+				'video' => '',
+			);
+		}
+
+		/**
+		 * Validate video URL.
+		 *
+		 * @since 3.2.0
+		 * @param string $url Video URL to validate.
+		 * @return bool True if valid video URL.
+		 */
+		protected function is_valid_video_url( $url ) {
+			if ( empty( $url ) ) {
+				return false;
+			}
+
+			$parsed = wp_parse_url( $url );
+
+			// Must have scheme and host.
+			if ( ! isset( $parsed['scheme'] ) || ! isset( $parsed['host'] ) ) {
+				return false;
+			}
+
+			/**
+			 * Filter: Allow custom video URL validation.
+			 *
+			 * @since 3.2.0
+			 * @param bool   $is_valid Whether the URL is valid.
+			 * @param string $url The video URL.
+			 * @param array  $parsed The parsed URL components.
+			 */
+			// Defaults to the hosts and file types the gallery can play (stored values are checked the same way).
+			return apply_filters( 'sp_woo_gallery_is_valid_video_url', Woo_Gallery_Slider_Video_Url::is_valid( $url ), $url, $parsed );
 		}
 
 		/**
@@ -285,11 +478,10 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 		 *
 		 * If the URL doesn't correspond to an existing attachment, the image will be downloaded and created.
 		 *
-		 * @since 2.2.1
+		 * @since 3.1.2
 		 * @param string $url        The image URL.
 		 * @param int    $product_id The product ID.
 		 * @return int The attachment ID or 0 on failure.
-		 * @throws Exception If there's an error processing the image.
 		 */
 		public function get_attachment_id_from_url( $url, $product_id ) {
 			// If the URL is empty, return 0.
@@ -311,7 +503,7 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 					'post_type'   => 'attachment',
 					'post_status' => 'any',
 					'fields'      => 'ids',
-					'meta_query'  => array( // phpcs:ignore -- WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+					'meta_query'  => array(
 						'relation' => 'OR',
 						array(
 							'key'     => '_wp_attached_file',
@@ -336,7 +528,7 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 					'post_type'   => 'attachment',
 					'post_status' => 'any',
 					'fields'      => 'ids',
-					'meta_query'  => array( // phpcs:ignore -- WordPress.DB.SlowDBQuery.slow_db_query_meta_query
+					'meta_query'  => array(
 						array(
 							'value' => $url,
 							'key'   => '_wc_attachment_source',
@@ -382,18 +574,151 @@ if ( ! class_exists( 'Woo_Gallery_Slide_Export_Import' ) ) {
 					update_post_meta( $id, '_wc_attachment_source', $url );
 				} catch ( Exception $e ) {
 					// Log the error but continue with the import.
+					error_log( 'Reno Product Gallery Import Error: ' . $e->getMessage() ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
 					return 0;
 				}
 			}
-			// If we still don't have an ID, report the error.
+			// If we still don't have an ID, log it and skip the image: the callers
+			// don't catch exceptions, and one bad URL must not abort the import.
 			if ( ! $id ) {
-				// translators: %s: URL of the image that could not be used.
-				throw new Exception( sprintf( __( 'Unable to use image "%s".', 'gallery-slider-for-woocommerce' ), $url ), 400 ); // phpcs:ignore -- WordPress.Security.EscapeOutput.OutputNotEscaped
+				/* translators: %s: image URL */
+				error_log( 'Reno Product Gallery Import Error: ' . sprintf( __( 'Unable to use image "%s".', 'gallery-slider-for-woocommerce' ), $url ) ); // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+				return 0;
 			}
 			return $id;
+		}
+
+		/**
+		 * Exporter function to handle the product gallery slider images.
+		 *
+		 * @param array      $row The row data being exported.
+		 * @param WC_Product $product The product object.
+		 * @return array The modified row data with gallery slider images.
+		 */
+		public function wt_iew_exporter_product_gallery_slider( $row, $product ) {
+			// A variation exports the images it shows (WooCommerce core's gallery once migrated).
+			$is_variation = is_a( $product, 'WC_Product' ) && $product->is_type( 'variation' ) && class_exists( 'Woo_Gallery_Slider_Variation_Gallery' );
+			if ( $is_variation && array_key_exists( 'meta:woo_gallery_slider', $row ) ) {
+				$row['meta:woo_gallery_slider'] = implode( ',', Woo_Gallery_Slider_Variation_Gallery::ids( $product->get_id() ) );
+			}
+			if ( ! empty( $row['meta:woo_gallery_slider'] ) ) {
+				$woo_gallery_slider = $row['meta:woo_gallery_slider'];
+				// Stored as "[12,34]" or, by the removed product-editor block, "12,34".
+				$woo_gallery_slider = array_filter( array_map( 'absint', explode( ',', trim( (string) $woo_gallery_slider, '[]' ) ) ) );
+				$image_file_names   = array();
+				if ( $woo_gallery_slider ) {
+					foreach ( $woo_gallery_slider as $image_id ) {
+
+						$attached_file_path = wp_get_attachment_url( $image_id );
+
+						if ( ! empty( $attached_file_path ) ) {
+							$image_file_names[] = $attached_file_path;
+						}
+					}
+					if ( ! empty( $image_file_names ) ) {
+						$image_file_names = implode( ',', $image_file_names );
+					} else {
+						$image_file_names = '';
+					}
+					$row['meta:woo_gallery_slider'] = $image_file_names;
+				} else {
+					$row['meta:woo_gallery_slider'] = '';
+				}
+			}
+
+			return $row;
+		}
+
+		/**
+		 * Process custom variation gallery image data during product import by webtoffee.
+		 *
+		 * This method hooks into the 'wt_woocommerce_product_import_inserted_product_object' action
+		 * to save the 'woo_gallery_slider' meta key for variation products based on
+		 * the image URLs provided in the import data.
+		 *
+		 * @since 3.1.2 // Update if this is a new version of your code
+		 * @param WC_Product $product The product being imported (can be parent or variation).
+		 * @param array      $data    The import data for this specific product/variation.
+		 * @return void
+		 */
+		public function process_wt_product_gallery_image_import( $product, $data ) {
+
+			$product_id   = $product->get_id();
+			$meta_key     = 'woo_gallery_slider';
+			$meta_value   = null;
+			$meta_present = false;
+
+			// Look for the 'woo_gallery_slider' meta value in the import data.
+			if ( ! empty( $data['meta_data'] ) && is_array( $data['meta_data'] ) ) {
+				foreach ( $data['meta_data'] as $meta ) {
+					if ( isset( $meta['key'] ) && $meta['key'] === $meta_key ) {
+						$meta_value   = isset( $meta['value'] ) ? $meta['value'] : '';
+						$meta_present = true;
+						break;
+					}
+				}
+			}
+
+			// Gallery column not part of this import: keep the existing gallery untouched.
+			if ( ! $meta_present ) {
+				return;
+			}
+
+			// Gallery column present but empty: leave the existing gallery untouched
+			// to prevent recurring imports with an empty column from wiping galleries.
+			if ( '' === trim( (string) $meta_value ) ) {
+				return;
+			}
+
+			// Process raw URLs into cleaned list.
+			$raw_urls = array_filter( array_map( 'trim', explode( ',', $meta_value ) ) );
+
+			// Allow filtering of image URLs.
+			$raw_urls = apply_filters(
+				'sp_woo_gallery_raw_imported_images',
+				$raw_urls,
+				$product_id,
+				$data,
+				$meta_key
+			);
+
+			// Convert to attachment IDs.
+			$attachment_ids = array();
+			foreach ( $raw_urls as $url ) {
+				$id = $this->get_attachment_id_from_url( $url, $product_id );
+				if ( $id ) {
+					$attachment_ids[] = $id;
+				}
+			}
+
+			$attachment_ids = array_values( array_filter( $attachment_ids ) );
+
+			// Save meta when at least one attachment ID resolved.
+			if ( ! empty( $attachment_ids ) ) {
+				$this->save_gallery( $product, $attachment_ids );
+			}
+		}
+
+		/**
+		 * Save imported gallery images. A variation's gallery goes through
+		 * Woo_Gallery_Slider_Variation_Gallery::set_ids(), which writes
+		 * WooCommerce core's variation gallery while it is enabled; anything
+		 * else keeps the plugin's meta.
+		 *
+		 * @since 4.0.0
+		 * @param WC_Product $product        Imported product or variation.
+		 * @param int[]      $attachment_ids Image IDs, in order.
+		 * @return void
+		 */
+		private function save_gallery( $product, array $attachment_ids ) {
+			if ( $product->is_type( 'variation' ) && class_exists( 'Woo_Gallery_Slider_Variation_Gallery' ) ) {
+				Woo_Gallery_Slider_Variation_Gallery::set_ids( $product->get_id(), $attachment_ids );
+				return;
+			}
+			update_post_meta( $product->get_id(), 'woo_gallery_slider', wp_json_encode( $attachment_ids ) );
 		}
 	}
 
 	// Initialize the class.
-	Woo_Gallery_Slide_Export_Import::instance();
+	Woo_Gallery_Slider_Variation_Image_Import::instance();
 }

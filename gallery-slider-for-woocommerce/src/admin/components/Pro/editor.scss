@@ -1,0 +1,1941 @@
+@use "../../styles/variables" as *;
+
+// Lock and upsell kit of the free plugin, from the free design.
+
+$wcgs-gold: #c98a0b;
+$wcgs-gold-text: #a86f00;
+$wcgs-gold-bg: #fff8e8;
+$wcgs-gold-pill: #fff4db;
+$wcgs-gold-soft: #fffbf0;
+$wcgs-gold-ring: #f1dfb0;
+$wcgs-gold-dashed: #e9cf8e;
+$wcgs-gold-hover: #e8cf8f;
+$wcgs-soft-gradient: linear-gradient(135deg, #fffcf5 0%, #fffefc 50%, #fbfaff 100%);
+$wcgs-visual-gradient: linear-gradient(135deg, #f4f0ff 0%, #f7f7fa 48%, #eef4ff 100%);
+$wcgs-pointer-shadow: drop-shadow(0 2px 3px rgba(16, 17, 20, 0.35));
+
+// Visuals: the active thumbnail ring, the zoom lens and the motion curves.
+$wcgs-pro-blue: #2563eb;
+$wcgs-pro-active-ring: inset 0 0 0 2px $wcgs-pro-blue;
+$wcgs-pro-lens-shadow:
+	0 0 0 2px #fff,
+	0 0 0 3px rgba(16, 17, 20, 0.1),
+	0 10px 24px rgba(16, 17, 20, 0.22);
+$wcgs-pro-glide: cubic-bezier(0.45, 0, 0.25, 1);
+$wcgs-pro-swing: cubic-bezier(0.65, 0, 0.35, 1);
+
+// Rounded picture with a hairline ring.
+@mixin wcgs-pro-frame($radius: 6px, $alpha: 0.05) {
+	border-radius: $radius;
+	box-shadow: inset 0 0 0 1px rgba(16, 17, 20, $alpha);
+}
+
+// Fixed-size square that doesn't flex.
+@mixin wcgs-pro-square($size) {
+	flex: 0 0 $size;
+	width: $size;
+	height: $size;
+}
+
+// Absolute box centered on a point of its parent.
+@mixin wcgs-pro-dot($size, $top: 50%) {
+	position: absolute;
+	left: 50%;
+	top: $top;
+	width: $size;
+	height: $size;
+	margin: (-$size * 0.5) 0 0 (-$size * 0.5);
+}
+
+// Purple fill of the "Upgrade to Pro" buttons.
+@mixin wcgs-pro-cta {
+	background: $wcgs-accent;
+	font-size: 13.5px;
+	font-weight: 500;
+	color: #fff;
+	transition: background-color 180ms $wcgs-ease;
+
+	&:hover,
+	&:focus {
+		background: $wcgs-accent-hover;
+		color: #fff;
+	}
+}
+
+// Markers.
+
+.wcgs-crown {
+	display: block;
+	flex: 0 0 auto;
+}
+
+.wcgs-pro-pointer {
+	display: block;
+	filter: $wcgs-pointer-shadow;
+
+	&.is-centered {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+	}
+}
+
+.wcgs-pro-pill {
+	height: 22px;
+	padding: 0 8px 0 6px;
+	border-radius: 999px;
+	background: $wcgs-gold-pill;
+	box-shadow: inset 0 0 0 1px $wcgs-gold-ring;
+	font-size: 11.5px;
+	font-weight: 600;
+	line-height: 1;
+	color: $wcgs-gold-text;
+}
+
+.wcgs-lock-pill {
+	height: 22px;
+	padding: 0 4px;
+	border-radius: 999px;
+	background: $wcgs-gold-bg;
+	box-shadow: 0 0 0 1px $wcgs-gold-ring;
+	pointer-events: none;
+
+	&__text {
+		max-width: 0;
+		padding: 0;
+		overflow: hidden;
+		opacity: 0;
+		white-space: nowrap;
+		font-size: 11px;
+		font-weight: 600;
+		line-height: 22px;
+		color: $wcgs-gold-text;
+		transition:
+			max-width 260ms $wcgs-ease,
+			opacity 180ms $wcgs-ease,
+			padding 260ms $wcgs-ease;
+	}
+
+	// Corner of a card.
+	&.is-corner {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		z-index: 3;
+	}
+}
+
+// The pill as its own button (the host card is not clickable).
+.wcgs-lock-pill.is-button {
+	appearance: none;
+	margin: 0;
+	border: 0;
+	font: inherit;
+	cursor: pointer;
+	pointer-events: auto;
+
+	&:hover {
+		box-shadow: 0 0 0 1px $wcgs-gold-text;
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	&:focus-visible {
+		box-shadow: $wcgs-focus-ring;
+	}
+}
+
+.wcgs-lock-host:hover .wcgs-lock-pill__text,
+.wcgs-lock-host:focus-visible .wcgs-lock-pill__text,
+.wcgs-lock-host:focus-within .wcgs-lock-pill__text {
+	max-width: 60px;
+	padding: 0 3px 0 4px;
+	opacity: 1;
+}
+
+.wcgs-crown-badge {
+
+	@include wcgs-pro-square(18px);
+	border-radius: 50%;
+	background: $wcgs-gold-bg;
+	box-shadow: 0 0 0 1px $wcgs-gold-ring;
+}
+
+// Purple "Upgrade to Pro" button.
+.wcgs-upgrade-button {
+
+	@include wcgs-reset-button;
+	height: 34px;
+	padding: 0 14px;
+	border-radius: 5px;
+	line-height: 1;
+	white-space: nowrap;
+
+	@include wcgs-pro-cta;
+
+	&.is-small {
+		height: 28px;
+		padding: 0 10px;
+		font-size: 12.5px;
+	}
+
+	&.is-large {
+		height: 38px;
+		padding: 0 16px;
+		font-size: 14px;
+	}
+
+	&.is-block {
+		width: 100%;
+		padding: 0 12px;
+	}
+}
+
+// Product pictures of the visuals (photos with a #f6f6f6 backdrop).
+.wcgs-pa {
+	background-color: #f6f6f6;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+// Feature popover.
+.wcgs-fpop {
+	position: fixed;
+	z-index: 9991;
+	width: 320px;
+	box-sizing: border-box;
+	border: 1px solid $wcgs-divider;
+	border-radius: 12px;
+	background: #fff;
+	box-shadow:
+		0 24px 60px rgba(16, 17, 20, 0.2),
+		0 2px 6px rgba(16, 17, 20, 0.06);
+	color: $wcgs-text;
+	animation: wcgs-fp-in 220ms $wcgs-ease both;
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+
+	&.is-closing {
+		animation: wcgs-fp-out 170ms cubic-bezier(0.4, 0, 1, 1) both;
+	}
+
+	&__arrow {
+		position: absolute;
+		z-index: 2;
+		width: 12px;
+		height: 12px;
+		background: #fff;
+		border: 1px solid $wcgs-divider;
+		transform: rotate(45deg);
+		pointer-events: none;
+
+		&.is-up {
+			bottom: -6px;
+			border-top: 0;
+			border-left: 0;
+		}
+
+		&.is-down {
+			top: -6px;
+			border-bottom: 0;
+			border-right: 0;
+		}
+
+		&.is-side {
+			right: -6px;
+			border-bottom: 0;
+			border-left: 0;
+		}
+	}
+
+	&__clip {
+		overflow: hidden;
+		border-radius: 12px;
+	}
+
+	&__visual {
+		padding: 10px 10px 0;
+	}
+
+	&__visual-box {
+		position: relative;
+		height: 212px;
+		overflow: hidden;
+		border-radius: 8px;
+		background: $wcgs-visual-gradient;
+	}
+
+	&__body {
+		padding: 14px 16px 16px;
+	}
+
+	&__title {
+		font-size: 15.5px;
+		font-weight: 600;
+		letter-spacing: -0.01em;
+		line-height: 1.35;
+		text-transform: capitalize;
+		color: $wcgs-text;
+	}
+
+	&__text {
+		font-size: 13px;
+		line-height: 1.55;
+		color: $wcgs-body;
+		text-wrap: pretty;
+	}
+
+	&__chips {
+		margin-top: 4px;
+
+		span {
+			padding: 4px 9px;
+			border-radius: 999px;
+			background: #f4f4f6;
+			font-size: 12px;
+			color: $wcgs-text-2;
+		}
+	}
+
+	&__upgrade {
+
+		@include wcgs-reset-button;
+		height: 38px;
+		margin-top: 10px;
+		gap: 7px;
+		border-radius: 6px;
+
+		@include wcgs-pro-cta;
+	}
+}
+
+// Popover visuals.
+.wcgs-fpv-center {
+	position: absolute;
+	inset: 0;
+
+	&.is-gap {
+		gap: 10px;
+	}
+}
+
+.wcgs-fpv {
+
+	&__col {
+		gap: 5px;
+	}
+
+	&__main.is-150 {
+		position: relative;
+		width: 150px;
+		height: 150px;
+		overflow: hidden;
+
+		@include wcgs-pro-frame;
+	}
+
+	&__thumbs {
+		gap: 5px;
+	}
+
+	&__thumb {
+
+		@include wcgs-pro-frame(4px, 0.07);
+
+		&.is-active {
+			box-shadow: $wcgs-pro-active-ring;
+		}
+	}
+
+	&__badge {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		z-index: 3;
+		height: 24px;
+		border-radius: 999px;
+		background: #fff;
+		box-shadow:
+			0 0 0 1px rgba(16, 17, 20, 0.06),
+			0 2px 6px rgba(16, 17, 20, 0.08);
+		font-size: 11px;
+		font-variant-numeric: tabular-nums;
+		color: $wcgs-body;
+
+		b {
+			font-weight: 600;
+			color: $wcgs-text;
+		}
+	}
+
+	&__badge-item {
+		position: absolute;
+		inset: 0;
+		white-space: nowrap;
+		opacity: 0;
+		animation: wcgs-tn-lbl 9s ease infinite both;
+	}
+}
+
+// Default visual: the gallery cycles through its images.
+.wcgs-fpv-cycle {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 146px;
+	transform: translate(-50%, -50%);
+
+	&__main {
+		position: relative;
+		width: 100%;
+		aspect-ratio: 1;
+		overflow: hidden;
+		border-radius: 6px;
+		background: #fff;
+	}
+
+	&__layer {
+		position: absolute;
+		inset: 0;
+
+		&.is-fading {
+			animation: wcgs-fp-fade4 8s cubic-bezier(0.4, 0, 0.2, 1) infinite both;
+		}
+	}
+
+	&__ring {
+		position: absolute;
+		inset: 0;
+		z-index: 2;
+		pointer-events: none;
+
+		@include wcgs-pro-frame;
+	}
+
+	&__thumbs {
+		position: relative;
+	}
+
+	&__thumb {
+		aspect-ratio: 1;
+
+		@include wcgs-pro-frame(4px);
+	}
+
+	&__active {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		width: calc((100% - 18px) / 4);
+		border-radius: 4px;
+		box-shadow: $wcgs-pro-active-ring;
+		opacity: 0;
+		pointer-events: none;
+		animation: wcgs-fp-bd 8s cubic-bezier(0.4, 0, 0.2, 1) infinite both;
+	}
+
+	&__pointer-in {
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		z-index: 3;
+		width: calc((100% - 18px) / 4);
+		pointer-events: none;
+		animation: wcgs-fp-ptr-in 1.2s $wcgs-pro-glide both;
+	}
+
+	&__pointer {
+		position: absolute;
+		inset: 0;
+		animation: wcgs-fp-ptr 8s $wcgs-pro-glide 1.2s infinite both;
+
+		.wcgs-pro-pointer {
+			position: absolute;
+			left: 50%;
+			top: 44%;
+		}
+	}
+
+	&__glow {
+
+		@include wcgs-pro-dot(30px, 44%);
+		border-radius: 50%;
+		background: radial-gradient(circle, rgba(37, 99, 235, 0.28) 0%, rgba(37, 99, 235, 0) 70%);
+	}
+}
+
+// Outside zoom.
+.wcgs-fpv-zoomout {
+
+	&__main {
+		position: relative;
+		width: 128px;
+		height: 128px;
+
+		@include wcgs-pro-frame;
+	}
+
+	&__lens {
+		position: absolute;
+		width: 44px;
+		height: 44px;
+		border: 1.5px solid $wcgs-pro-blue;
+		border-radius: 3px;
+		background: rgba(37, 99, 235, 0.1);
+		animation: wcgs-zo-lens 7s $wcgs-pro-glide infinite both;
+	}
+
+	&__side {
+		align-self: flex-start;
+		margin-top: 7px;
+	}
+
+	&__label {
+		height: 14px;
+		font-size: 10.5px;
+		font-weight: 500;
+		letter-spacing: 0.01em;
+		color: $wcgs-body;
+	}
+
+	&__window {
+		width: 128px;
+		height: 128px;
+		border-radius: 6px;
+		background-position: 23% 67%;
+		box-shadow:
+			0 8px 22px rgba(16, 17, 20, 0.14),
+			0 0 0 1px rgba(16, 17, 20, 0.06);
+		animation: wcgs-zo-win 7s $wcgs-pro-glide infinite both;
+	}
+}
+
+// Magnific zoom.
+.wcgs-fpv-zoomlens__lens {
+	position: absolute;
+	width: 64px;
+	height: 64px;
+	border-radius: 50%;
+	background-position: 0 0;
+	box-shadow: $wcgs-pro-lens-shadow;
+	animation: wcgs-zl-lens 7s $wcgs-pro-glide infinite both;
+}
+
+.wcgs-fpv__main.is-150 > .wcgs-fpv-zoomlens__lens {
+	position: absolute;
+}
+
+// Mouse-wheel zoom.
+.wcgs-fpv-zwheel {
+
+	&__main {
+		background-position: 50% 40%;
+		animation: wcgs-zw-img 6s $wcgs-pro-glide infinite both;
+	}
+
+	&__mouse {
+		position: absolute;
+		right: 8px;
+		bottom: 8px;
+		width: 30px;
+		height: 38px;
+		border-radius: 8px;
+		background: rgba(255, 255, 255, 0.94);
+		box-shadow:
+			0 0 0 1px rgba(16, 17, 20, 0.06),
+			0 4px 10px rgba(16, 17, 20, 0.12);
+	}
+
+	&__body {
+		position: relative;
+		width: 16px;
+		height: 24px;
+		border: 1.5px solid $wcgs-text;
+		border-radius: 8px;
+	}
+
+	&__wheel {
+		position: absolute;
+		left: 50%;
+		top: 4px;
+		width: 2px;
+		height: 5px;
+		margin-left: -1px;
+		border-radius: 1px;
+		background: $wcgs-pro-blue;
+		animation: wcgs-zw-wheel 6s ease-in-out infinite both;
+	}
+}
+
+// Zoom scale and lens style lenses.
+.wcgs-fpv-lens {
+	position: absolute;
+	left: 40px;
+	top: 40px;
+	width: 70px;
+	height: 70px;
+}
+
+.wcgs-fpv-zscale__lens {
+	border-radius: 50%;
+	background-position: -77.5px -77.5px;
+	box-shadow: $wcgs-pro-lens-shadow;
+	animation: wcgs-zs-lens 9s $wcgs-pro-swing infinite both;
+}
+
+.wcgs-fpv-zlstyle__lens {
+	background-position: -115px -115px;
+	animation: wcgs-zls-lens 9s $wcgs-pro-swing infinite both;
+}
+
+// Thumbnails navigation box size.
+.wcgs-fpv-tnbox {
+	width: 210px;
+	margin-top: 22px;
+
+	&__main {
+		height: 128px;
+
+		@include wcgs-pro-frame;
+	}
+
+	&__strip {
+		position: relative;
+	}
+
+	&__thumb {
+		position: relative;
+		height: 46px;
+
+		@include wcgs-pro-frame(4px, 0.07);
+
+		&.is-active {
+			box-shadow: $wcgs-pro-active-ring;
+		}
+	}
+
+	&__arrow {
+		position: absolute;
+		top: 50%;
+		z-index: 2;
+		background: rgba(29, 29, 31, 0.8);
+		color: #fff;
+		box-shadow: 0 2px 8px rgba(16, 17, 20, 0.18);
+		transform: translateY(-50%);
+
+		&.is-left {
+			left: 0;
+			animation: wcgs-tn-box-l 9s $wcgs-pro-swing infinite both;
+		}
+
+		&.is-right {
+			right: 0;
+			animation: wcgs-tn-box-r 9s $wcgs-pro-swing infinite both;
+		}
+
+		svg {
+
+			@include wcgs-pro-square(11px);
+			display: block;
+			fill: none;
+			stroke: currentcolor;
+			stroke-width: 2.6;
+			stroke-linecap: round;
+			stroke-linejoin: round;
+		}
+	}
+}
+
+// Playlist button and its playlist (a static mock of the videos).
+.wcgs-fpv-playlist {
+	position: absolute;
+	inset: 0;
+
+	&__button {
+		position: absolute;
+		left: 8px;
+		bottom: 8px;
+		z-index: 2;
+		height: 32px;
+		padding: 0 9px;
+		overflow: hidden;
+		border-radius: 999px;
+		background: rgba(29, 29, 31, 0.88);
+		box-shadow: 0 3px 8px rgba(16, 17, 20, 0.2);
+		font-size: 10.5px;
+		font-weight: 500;
+		white-space: nowrap;
+		color: #fff;
+		transform-origin: left center;
+		animation:
+			wcgs-plv-ico 8s $wcgs-ease infinite both,
+			wcgs-plv-tap 8s ease infinite both;
+
+		svg {
+			display: block;
+			flex: 0 0 14px;
+		}
+	}
+
+	&__button-label {
+		animation: wcgs-plv-lbl 8s ease infinite both;
+	}
+
+	&__overlay {
+		position: absolute;
+		inset: 0;
+		z-index: 3;
+		padding: 10px;
+		background: rgba(12, 12, 14, 0.78);
+		pointer-events: none;
+		animation: wcgs-plv-ov 8s ease infinite both;
+	}
+
+	&__panel {
+		aspect-ratio: 16 / 9;
+		overflow: hidden;
+		border-radius: 6px;
+		box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+		animation: wcgs-plv-pan 8s cubic-bezier(0.16, 1, 0.3, 1) infinite both;
+	}
+
+	&__video {
+		position: relative;
+		flex: 0 0 60%;
+		overflow: hidden;
+		background: #000;
+	}
+
+	&__frame {
+		position: absolute;
+		inset: 0;
+		background-color: #26262b;
+
+		&.is-next {
+			background-color: #2b2833;
+			animation: wcgs-plv-sw 8s ease infinite both;
+		}
+	}
+
+	&__progress {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 3px;
+		background: rgba(255, 255, 255, 0.3);
+
+		span {
+			display: block;
+			width: 34%;
+			height: 100%;
+			background: #f03;
+		}
+	}
+
+	&__list {
+		background: #0f0f0f;
+	}
+
+	&__head {
+		padding: 8px 8px 6px;
+		border-bottom: 1px solid #272727;
+	}
+
+	&__title {
+
+		span {
+
+			@include wcgs-truncate;
+			font-size: 9.5px;
+			font-weight: 700;
+			color: #fff;
+		}
+
+		svg {
+
+			@include wcgs-pro-square(9px);
+			display: block;
+			fill: none;
+			stroke: #aaa;
+			stroke-width: 2.4;
+			stroke-linecap: round;
+		}
+	}
+
+	&__count {
+		font-size: 8px;
+		color: #aaa;
+	}
+
+	&__rows {
+		padding: 4px;
+	}
+
+	&__row {
+		gap: 5px;
+		padding: 3px 4px;
+		border-radius: 4px;
+
+		&.is-1 {
+			animation: wcgs-plv-r1 8s ease infinite both;
+		}
+
+		&.is-2 {
+			animation: wcgs-plv-r2 8s ease infinite both;
+		}
+	}
+
+	&__index {
+		flex: 0 0 8px;
+		width: 8px;
+		font-size: 8px;
+		text-align: center;
+		color: #888;
+	}
+
+	&__thumb {
+		flex: 0 0 34px;
+		width: 34px;
+		height: 19px;
+		border-radius: 3px;
+		background-color: #26262b;
+	}
+
+	&__name {
+
+		@include wcgs-truncate;
+		font-size: 8.5px;
+		font-weight: 600;
+		line-height: 1.25;
+		color: #fff;
+	}
+
+	&__pointer {
+		position: absolute;
+		z-index: 5;
+		animation: wcgs-plv-ptr 8s $wcgs-pro-glide infinite both;
+	}
+}
+
+// Locked options behind a "+N" tile.
+.wcgs-fpv-grid {
+	position: absolute;
+	inset: 0;
+	align-content: center;
+	padding: 14px;
+
+	&__item {
+		justify-content: center;
+		padding: 9px 6px;
+		border-radius: 6px;
+		background: #fff;
+		box-shadow:
+			0 0 0 1px rgba(16, 17, 20, 0.06),
+			0 1px 2px rgba(16, 17, 20, 0.04);
+
+		> svg {
+			display: block;
+			flex-shrink: 0;
+		}
+	}
+
+	&__preview {
+		min-height: 22px;
+	}
+
+	&__label {
+		font-size: 11.5px;
+		line-height: 1.3;
+		text-align: center;
+		color: $wcgs-text-2;
+	}
+}
+
+// "More X Options in Pro" box.
+.wcgs-more-pro {
+	margin-top: 6px;
+	padding: 16px;
+	border: 1px solid #f1ece2;
+	border-radius: 14px;
+	background: $wcgs-soft-gradient;
+
+	&__title {
+		gap: 7px;
+		font-size: 14px;
+		font-weight: 600;
+		color: $wcgs-text;
+	}
+
+	&__description {
+		font-size: 12.5px;
+		color: $wcgs-muted;
+	}
+
+	&__list {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+	}
+
+	&__item {
+		gap: 7px;
+		margin: 0;
+		font-size: 14px;
+		line-height: 1.4;
+		color: $wcgs-text-2;
+	}
+
+	&__dot {
+
+		@include wcgs-pro-square(5px);
+		margin: 8px 0 0;
+		border-radius: 50%;
+		background: $wcgs-locked;
+	}
+
+	&__demo {
+
+		@include wcgs-reset-button;
+		text-align: left;
+		line-height: inherit;
+		color: inherit;
+		text-decoration: underline dotted #c4c5ca;
+		text-underline-offset: 3px;
+		cursor: default;
+	}
+
+	&__link {
+
+		@include wcgs-reset-button;
+		align-self: flex-start;
+		gap: 5px;
+		font-size: 13px;
+		font-weight: 600;
+		color: $wcgs-accent;
+		transition: color 200ms $wcgs-ease;
+
+		&:hover {
+			color: $wcgs-accent-hover;
+		}
+	}
+
+	&__link-text {
+		padding-bottom: 1px;
+		background: linear-gradient(currentcolor, currentcolor) no-repeat right bottom / 0% 1px;
+		transition: background-size 280ms $wcgs-ease-out;
+	}
+
+	&__link:hover &__link-text {
+		background-position: left bottom;
+		background-size: 100% 1px;
+	}
+
+	&__link-arrow {
+		display: block;
+		flex: 0 0 13px;
+		transition: transform 280ms $wcgs-ease-out;
+	}
+
+	&__link:hover &__link-arrow {
+		transform: translateX(3px);
+	}
+}
+
+// Section upsell card.
+.wcgs-upsell-card {
+	overflow: hidden;
+	border: 1px solid $wcgs-border-light;
+	border-radius: 10px;
+	background: #fff;
+
+	&__visual {
+		position: relative;
+		height: 150px;
+		overflow: hidden;
+		border-bottom: 1px solid $wcgs-line;
+		background: $wcgs-visual-gradient;
+	}
+
+	&__body {
+		padding: 16px 18px 18px;
+	}
+
+	&__title {
+		font-size: 15px;
+		font-weight: 600;
+		color: $wcgs-text;
+	}
+
+	&__description {
+		font-size: 13.5px;
+		line-height: 1.55;
+		color: $wcgs-body;
+		text-wrap: pretty;
+	}
+
+	&__list {
+		margin: 0;
+		padding-left: 18px;
+		list-style: disc;
+		font-size: 13px;
+		line-height: 1.6;
+		color: $wcgs-text-2;
+
+		li {
+			margin: 0;
+		}
+	}
+
+	&__actions {
+		margin-top: 4px;
+	}
+}
+
+// Shop Page Video upsell visual: three product cards, the middle one plays.
+.wcgs-upv-shop {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 50%;
+	width: 320px;
+	margin-left: -160px;
+
+	&__card {
+		position: relative;
+		flex: 0 0 84px;
+		width: 84px;
+		gap: 5px;
+	}
+
+	&__tile {
+		position: relative;
+		width: 84px;
+		height: 84px;
+		overflow: hidden;
+		background-color: #f6f6f6;
+
+		@include wcgs-pro-frame(6px, 0.06);
+	}
+
+	&__stage {
+		position: absolute;
+		inset: 0;
+		perspective: 220px;
+		perspective-origin: 50% 45%;
+	}
+
+	&__orbit {
+		position: absolute;
+		inset: 0;
+		transform-origin: 50% 60%;
+		animation: wcgs-up-sv-orbit 8s cubic-bezier(0.45, 0, 0.55, 1) infinite both;
+	}
+
+	&__sheen {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(105deg, rgba(255, 255, 255, 0) 35%, rgba(255, 255, 255, 0.55) 50%, rgba(255, 255, 255, 0) 65%);
+		background-size: 250% 100%;
+		mix-blend-mode: soft-light;
+		pointer-events: none;
+		animation: wcgs-up-sv-sheen 8s cubic-bezier(0.45, 0, 0.55, 1) infinite both;
+	}
+
+	&__vignette {
+		position: absolute;
+		inset: 0;
+		box-shadow: inset 0 0 18px rgba(16, 17, 20, 0.1);
+		pointer-events: none;
+	}
+
+	&__bar {
+		position: absolute;
+		left: 6px;
+		right: 6px;
+		bottom: 6px;
+		z-index: 2;
+		height: 3px;
+		overflow: hidden;
+		border-radius: 2px;
+		background: rgba(29, 29, 31, 0.18);
+		animation: wcgs-up-sv-bar 8s ease infinite both;
+
+		span {
+			display: block;
+			width: 100%;
+			height: 100%;
+			border-radius: 2px;
+			background: $wcgs-text;
+			transform-origin: 0 50%;
+			animation: wcgs-up-sv-prog 8s linear infinite both;
+		}
+	}
+
+	&__cover {
+		position: absolute;
+		inset: 0;
+		animation: wcgs-up-sv-img 8s ease infinite both;
+	}
+
+	&__click {
+
+		@include wcgs-pro-dot(24px);
+		z-index: 3;
+		border-radius: 50%;
+		box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.55);
+		pointer-events: none;
+		animation: wcgs-up-sv-click 8s ease-out infinite both;
+	}
+
+	&__play {
+
+		@include wcgs-pro-dot(24px);
+		animation: wcgs-up-sv-img 8s ease infinite both;
+
+		> span {
+			width: 100%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			border-radius: 50%;
+			background: rgba(29, 29, 31, 0.82);
+			animation: wcgs-up-sv-ico 8s ease infinite both;
+		}
+	}
+
+	&__line {
+		width: 70%;
+		height: 6px;
+		border-radius: 3px;
+		background: #dadbdf;
+
+		&.is-price {
+			width: 38%;
+			background: #c9b8f5;
+		}
+	}
+
+	&__pointer {
+		position: absolute;
+		z-index: 6;
+		animation: wcgs-up-sv-ptr 8s $wcgs-pro-glide infinite both;
+	}
+}
+
+// Locked rows of the panel.
+.wcgs-pro-row {
+
+	@include wcgs-reset-button;
+	text-align: left;
+
+	&__label {
+		font-size: 14px;
+		font-weight: 500;
+		line-height: 1.4;
+		color: $wcgs-muted;
+	}
+
+	&.is-toggle {
+		min-height: 24px;
+		cursor: default;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 12px;
+
+		.wcgs-pro-row__label {
+			flex: 1;
+		}
+	}
+
+	&__switch {
+		opacity: 0.55;
+
+		span {
+			position: relative;
+			display: block;
+			width: 36px;
+			height: 20px;
+			border-radius: 999px;
+			background: #d5d6da;
+
+			&::after {
+				content: "";
+				position: absolute;
+				top: 2px;
+				left: 2px;
+				width: 16px;
+				height: 16px;
+				border-radius: 50%;
+				background: #fff;
+				box-shadow: 0 1px 2px rgba(16, 17, 20, 0.2);
+			}
+		}
+	}
+
+	&.is-dimension {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	&__fields {
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+		opacity: 0.7;
+
+		> span {
+			height: 40px;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0 12px;
+			border: 1px solid $wcgs-border;
+			border-radius: 4px;
+			background: $wcgs-bg-soft;
+			font-size: 13px;
+			color: $wcgs-faint;
+		}
+	}
+}
+
+// Keyframes of the free design.
+
+@keyframes wcgs-fp-in {
+
+	from {
+		opacity: 0;
+		transform: translateY(-4px) scale(0.98);
+	}
+
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+@keyframes wcgs-fp-out {
+
+	from {
+		opacity: 1;
+		transform: none;
+	}
+
+	to {
+		opacity: 0;
+		transform: translateY(4px) scale(0.98);
+	}
+}
+
+@keyframes wcgs-fp-fade4 {
+
+	0% {
+		opacity: 0;
+	}
+
+	3% {
+		opacity: 1;
+	}
+
+	25% {
+		opacity: 1;
+	}
+
+	28% {
+		opacity: 0;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes wcgs-fp-bd {
+
+	0% {
+		opacity: 0;
+	}
+
+	2.5%,
+	20.5% {
+		opacity: 1;
+	}
+
+	24%,
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes wcgs-fp-ptr-in {
+
+	0% {
+		transform: translateX(-46px);
+		opacity: 0;
+	}
+
+	15% {
+		opacity: 1;
+	}
+
+	40% {
+		transform: translateX(-46px);
+	}
+
+	100% {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+@keyframes wcgs-fp-ptr {
+
+	0%,
+	21% {
+		transform: translateX(0);
+	}
+
+	25%,
+	46% {
+		transform: translateX(calc(100% + 6px));
+	}
+
+	50%,
+	71% {
+		transform: translateX(calc(200% + 12px));
+	}
+
+	75%,
+	96% {
+		transform: translateX(calc(300% + 18px));
+	}
+
+	100% {
+		transform: translateX(0);
+	}
+}
+
+@keyframes wcgs-tn-box-l {
+
+	0%,
+	26% {
+		width: 16px;
+		height: 46px;
+		border-radius: 4px 3px 3px 4px;
+	}
+
+	33%,
+	59% {
+		width: 16px;
+		height: 23px;
+		border-radius: 0 3px 3px 0;
+	}
+
+	66%,
+	92% {
+		width: 24px;
+		height: 23px;
+		border-radius: 0 3px 3px 0;
+	}
+
+	100% {
+		width: 16px;
+		height: 46px;
+		border-radius: 4px 3px 3px 4px;
+	}
+}
+
+@keyframes wcgs-tn-box-r {
+
+	0%,
+	26% {
+		width: 16px;
+		height: 46px;
+		border-radius: 0 4px 4px 0;
+	}
+
+	33%,
+	59% {
+		width: 16px;
+		height: 23px;
+		border-radius: 3px 0 0 3px;
+	}
+
+	66%,
+	92% {
+		width: 24px;
+		height: 23px;
+		border-radius: 3px 0 0 3px;
+	}
+
+	100% {
+		width: 16px;
+		height: 46px;
+		border-radius: 0 4px 4px 0;
+	}
+}
+
+@keyframes wcgs-tn-lbl {
+
+	0% {
+		opacity: 0;
+	}
+
+	4%,
+	29% {
+		opacity: 1;
+	}
+
+	33%,
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes wcgs-zo-lens {
+
+	0%,
+	8% {
+		left: 8.7px;
+		top: 58.6px;
+	}
+
+	30%,
+	40% {
+		left: 70.2px;
+		top: 58.6px;
+	}
+
+	62%,
+	72% {
+		left: 36.9px;
+		top: 51px;
+	}
+
+	100% {
+		left: 8.7px;
+		top: 58.6px;
+	}
+}
+
+@keyframes wcgs-zo-win {
+
+	0%,
+	8% {
+		background-position: 10.4% 69.8%;
+	}
+
+	30%,
+	40% {
+		background-position: 83.5% 69.8%;
+	}
+
+	62%,
+	72% {
+		background-position: 43.9% 60.7%;
+	}
+
+	100% {
+		background-position: 10.4% 69.8%;
+	}
+}
+
+@keyframes wcgs-zl-lens {
+
+	0%,
+	8% {
+		left: 4px;
+		top: 62.5px;
+		background-position: -40px -157px;
+	}
+
+	30%,
+	40% {
+		left: 76px;
+		top: 62.5px;
+		background-position: -184px -157px;
+	}
+
+	62%,
+	72% {
+		left: 37px;
+		top: 53.5px;
+		background-position: -106px -139px;
+	}
+
+	100% {
+		left: 4px;
+		top: 62.5px;
+		background-position: -40px -157px;
+	}
+}
+
+@keyframes wcgs-zw-img {
+
+	0%,
+	14% {
+		background-size: 100%;
+	}
+
+	26%,
+	40% {
+		background-size: 170%;
+	}
+
+	52%,
+	66% {
+		background-size: 240%;
+	}
+
+	78%,
+	86% {
+		background-size: 170%;
+	}
+
+	96%,
+	100% {
+		background-size: 100%;
+	}
+}
+
+@keyframes wcgs-zw-wheel {
+
+	0%,
+	14%,
+	40%,
+	66%,
+	86%,
+	100% {
+		transform: translateY(0);
+		opacity: 1;
+	}
+
+	20%,
+	46% {
+		transform: translateY(-3px);
+		opacity: 0.6;
+	}
+
+	72%,
+	92% {
+		transform: translateY(4px);
+		opacity: 0.6;
+	}
+}
+
+@keyframes wcgs-zs-lens {
+
+	0%,
+	28% {
+		background-size: 225px 225px;
+		background-position: -77.5px -77.5px;
+	}
+
+	33%,
+	61% {
+		background-size: 300px 300px;
+		background-position: -115px -115px;
+	}
+
+	66%,
+	94% {
+		background-size: 450px 450px;
+		background-position: -190px -190px;
+	}
+
+	100% {
+		background-size: 225px 225px;
+		background-position: -77.5px -77.5px;
+	}
+}
+
+@keyframes wcgs-zls-lens {
+
+	0%,
+	28% {
+		border-radius: 50%;
+		box-shadow: $wcgs-pro-lens-shadow;
+	}
+
+	33%,
+	61% {
+		border-radius: 14px;
+		box-shadow:
+			0 0 0 2px $wcgs-pro-blue,
+			0 10px 24px rgba(16, 17, 20, 0.22);
+	}
+
+	66%,
+	94% {
+		border-radius: 2px;
+		box-shadow:
+			0 0 0 2px $wcgs-text,
+			0 10px 24px rgba(16, 17, 20, 0.22);
+	}
+
+	100% {
+		border-radius: 50%;
+		box-shadow: $wcgs-pro-lens-shadow;
+	}
+}
+
+@keyframes wcgs-up-sv-orbit {
+
+	0%,
+	34% {
+		transform: rotateY(0) scale(1) translate(0, 0);
+	}
+
+	46% {
+		transform: rotateY(-28deg) rotateX(6deg) scale(1.16) translate(-3px, -2px);
+	}
+
+	60% {
+		transform: rotateY(-4deg) rotateX(10deg) scale(1.24) translate(0, -3px);
+	}
+
+	74% {
+		transform: rotateY(26deg) rotateX(5deg) scale(1.16) translate(3px, -2px);
+	}
+
+	86%,
+	100% {
+		transform: rotateY(0) scale(1) translate(0, 0);
+	}
+}
+
+@keyframes wcgs-up-sv-sheen {
+
+	0%,
+	34% {
+		background-position: 100% 0;
+		opacity: 0;
+	}
+
+	40% {
+		opacity: 1;
+	}
+
+	80% {
+		opacity: 1;
+	}
+
+	86%,
+	100% {
+		background-position: 0 0;
+		opacity: 0;
+	}
+}
+
+@keyframes wcgs-up-sv-bar {
+
+	0%,
+	30% {
+		opacity: 0;
+		transform: translateY(3px);
+	}
+
+	36%,
+	84% {
+		opacity: 1;
+		transform: none;
+	}
+
+	90%,
+	100% {
+		opacity: 0;
+		transform: translateY(3px);
+	}
+}
+
+@keyframes wcgs-up-sv-prog {
+
+	0%,
+	34% {
+		transform: scaleX(0);
+	}
+
+	86%,
+	100% {
+		transform: scaleX(1);
+	}
+}
+
+@keyframes wcgs-up-sv-img {
+
+	0%,
+	30% {
+		opacity: 1;
+	}
+
+	38%,
+	84% {
+		opacity: 0;
+	}
+
+	92%,
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes wcgs-up-sv-ptr {
+
+	0% {
+		left: 250px;
+		top: 120px;
+		opacity: 0;
+		transform: scale(1);
+	}
+
+	8% {
+		opacity: 1;
+	}
+
+	24% {
+		left: 166px;
+		top: 66px;
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	27% {
+		transform: scale(0.82);
+	}
+
+	30%,
+	84% {
+		left: 166px;
+		top: 66px;
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	92%,
+	100% {
+		left: 166px;
+		top: 66px;
+		opacity: 0;
+		transform: scale(1);
+	}
+}
+
+@keyframes wcgs-up-sv-click {
+
+	0%,
+	26% {
+		opacity: 0;
+		transform: scale(0.6);
+	}
+
+	28% {
+		opacity: 0.9;
+		transform: scale(1);
+	}
+
+	36%,
+	100% {
+		opacity: 0;
+		transform: scale(2.2);
+	}
+}
+
+@keyframes wcgs-up-sv-ico {
+
+	0%,
+	25% {
+		transform: scale(1);
+	}
+
+	28% {
+		transform: scale(0.86);
+	}
+
+	31%,
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes wcgs-plv-ico {
+
+	0%,
+	18% {
+		max-width: 32px;
+	}
+
+	26%,
+	90% {
+		max-width: 120px;
+	}
+
+	96%,
+	100% {
+		max-width: 32px;
+	}
+}
+
+@keyframes wcgs-plv-lbl {
+
+	0%,
+	19% {
+		opacity: 0;
+	}
+
+	27%,
+	88% {
+		opacity: 1;
+	}
+
+	94%,
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes wcgs-plv-tap {
+
+	0%,
+	30% {
+		transform: scale(1);
+	}
+
+	32% {
+		transform: scale(0.92);
+	}
+
+	34%,
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes wcgs-plv-ov {
+
+	0%,
+	34% {
+		opacity: 0;
+	}
+
+	39%,
+	86% {
+		opacity: 1;
+	}
+
+	92%,
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes wcgs-plv-pan {
+
+	0%,
+	34% {
+		opacity: 0;
+		transform: scale(0.94);
+	}
+
+	41%,
+	86% {
+		opacity: 1;
+		transform: none;
+	}
+
+	92%,
+	100% {
+		opacity: 0;
+		transform: scale(0.97);
+	}
+}
+
+@keyframes wcgs-plv-sw {
+
+	0%,
+	58% {
+		opacity: 0;
+	}
+
+	63%,
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes wcgs-plv-r1 {
+
+	0%,
+	57% {
+		background: #272727;
+	}
+
+	60%,
+	100% {
+		background: transparent;
+	}
+}
+
+@keyframes wcgs-plv-r2 {
+
+	0%,
+	57% {
+		background: transparent;
+	}
+
+	60%,
+	100% {
+		background: #272727;
+	}
+}
+
+@keyframes wcgs-plv-ptr {
+
+	0% {
+		left: 210px;
+		top: 44px;
+		opacity: 0;
+	}
+
+	6% {
+		opacity: 1;
+	}
+
+	20%,
+	36% {
+		left: 95px;
+		top: 135px;
+		opacity: 1;
+	}
+
+	50%,
+	60% {
+		left: 225px;
+		top: 109px;
+		opacity: 1;
+	}
+
+	68%,
+	100% {
+		left: 225px;
+		top: 109px;
+		opacity: 0;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.wcgs-fpop,
+	.wcgs-fpop *,
+	.wcgs-upsell-card__visual * {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+	}
+}

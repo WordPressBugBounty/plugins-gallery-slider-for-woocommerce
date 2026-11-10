@@ -1,0 +1,62 @@
+@use "../../styles/variables" as *;
+
+.wcgs-button-group {
+
+	&__wrap {
+		position: relative;
+		padding: 3px;
+		border: 1px solid $wcgs-border-light;
+		border-radius: 5px;
+		background: $wcgs-bg-soft;
+	}
+
+	&__pill {
+		position: absolute;
+		top: 3px;
+		bottom: 3px;
+		border-radius: 3px;
+		background: #fff;
+		box-shadow:
+			0 1px 2px rgba(16, 17, 20, 0.12),
+			0 0 0 1px rgba(16, 17, 20, 0.05);
+		transition:
+			left 240ms $wcgs-ease,
+			width 240ms $wcgs-ease;
+		pointer-events: none;
+	}
+
+	&__item {
+
+		@include wcgs-reset-button;
+		position: relative;
+		z-index: 1;
+		min-height: 32px;
+		padding: 4px 6px;
+		border-radius: 3px;
+		font-size: 13px;
+		font-weight: 500;
+		line-height: 1.2;
+		color: $wcgs-muted;
+		transition: color 160ms $wcgs-ease;
+
+		&:hover,
+		&.is-active {
+			color: $wcgs-text;
+		}
+
+		// Pro option: grey label and a crown; it is never selected.
+		&.is-locked,
+		&.is-locked:hover {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			gap: 5px;
+			color: $wcgs-locked;
+		}
+	}
+
+	&__wrap.is-fit &__item {
+		padding: 4px;
+		white-space: nowrap;
+	}
+}

@@ -1,0 +1,35 @@
+@use "../../../styles/variables" as *;
+
+.wcgs-split-view {
+	position: relative;
+	min-height: 0;
+	overflow: hidden;
+
+	// Scrolls on its own; a size container so its content can adapt to its width.
+	&__main {
+		min-height: 0;
+		overflow-y: auto;
+		overscroll-behavior: contain;
+		padding: 16px;
+		background: $wcgs-wp-gray;
+		container: wcgs-main / inline-size;
+	}
+
+	// Reserves room for the docked panel (360px) or the sidebar (64px).
+	&__spacer {
+		flex: 0 0 360px;
+		transition: flex-basis 560ms $wcgs-ease-out;
+	}
+
+	&.is-collapsed &__spacer {
+		flex-basis: 64px;
+	}
+
+	// Narrow screens: the docked panel overlays the main content.
+	@media (max-width: 960px) {
+
+		&__spacer {
+			flex-basis: 64px;
+		}
+	}
+}

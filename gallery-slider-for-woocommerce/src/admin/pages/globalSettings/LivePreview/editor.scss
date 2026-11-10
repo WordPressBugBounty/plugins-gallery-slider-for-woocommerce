@@ -1,0 +1,577 @@
+@use "../../../styles/variables" as *;
+
+// Fills the split view's main area: toolbar on top, the page below.
+.wcgs-live-preview {
+	height: 100%;
+	min-height: 420px;
+
+	&__card {
+		position: relative;
+		min-height: 0;
+		overflow: hidden;
+		background: #fff;
+		border: 1px solid $wcgs-divider;
+		border-radius: 10px;
+	}
+
+	&__toolbar {
+		min-height: 56px;
+		gap: 10px 12px;
+		padding: 8px 16px;
+		background: #fff;
+		border-bottom: 1px solid $wcgs-border-light;
+	}
+
+	a.wcgs-live-preview__site {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 14px;
+		font-weight: 500;
+		white-space: nowrap;
+		color: $wcgs-text-2;
+
+		&:hover,
+		&:focus {
+			color: $wcgs-text;
+			box-shadow: none;
+		}
+	}
+
+	// Empty, error and loading states in place of the page.
+	&__state {
+		align-self: center;
+		padding: 40px 24px;
+		text-align: center;
+		color: $wcgs-muted;
+		font-size: 14px;
+
+		p {
+			margin: 0;
+			max-width: 46ch;
+		}
+	}
+
+	&__notices {
+		padding: 8px 16px;
+		background: #fff8e6;
+		border-bottom: 1px solid #f5e3b5;
+		font-size: 13px;
+		line-height: 1.45;
+		color: #6b4a00;
+
+		p {
+			margin: 0;
+		}
+
+		p + p {
+			margin-top: 4px;
+		}
+	}
+
+	&__stage {
+		position: relative;
+		min-height: 0;
+		background: #fff;
+	}
+
+	// Dark pill shown while a new render or page is on its way.
+	&__status {
+		position: absolute;
+		top: 12px;
+		left: 50%;
+		z-index: 5;
+		height: 32px;
+		padding: 0 12px 0 10px;
+		border-radius: 999px;
+		background: $wcgs-text;
+		color: #fff;
+		font-size: 13px;
+		font-weight: 500;
+		box-shadow: 0 8px 24px rgba(16, 17, 20, 0.22);
+		pointer-events: none;
+		opacity: 0;
+		transform: translate(-50%, -8px);
+		transition:
+			opacity 220ms $wcgs-ease,
+			transform 280ms $wcgs-ease-out;
+
+		svg {
+			color: #c4b5fd;
+			animation: wcgs-preview-spin 900ms linear infinite;
+		}
+
+		&.is-visible {
+			opacity: 1;
+			transform: translate(-50%, 0);
+			transition-delay: 120ms;
+		}
+	}
+
+	&__error {
+		position: absolute;
+		left: 50%;
+		bottom: 16px;
+		z-index: 5;
+		padding: 8px 8px 8px 14px;
+		border-radius: 6px;
+		background: #fdecec;
+		color: #8a1f1f;
+		font-size: 13px;
+		transform: translateX(-50%);
+
+		button {
+
+			@include wcgs-reset-button;
+			padding: 4px 10px;
+			border-radius: 4px;
+			background: #fff;
+			color: $wcgs-text;
+			font-weight: 500;
+		}
+	}
+
+	&__retry,
+	a.wcgs-live-preview__retry {
+
+		@include wcgs-reset-button;
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		height: 36px;
+		padding: 0 14px;
+		border: 1px solid $wcgs-border;
+		border-radius: 4px;
+		background: #fff;
+		color: $wcgs-text;
+		font-size: 14px;
+		font-weight: 500;
+
+		&:hover,
+		&:focus {
+			border-color: $wcgs-border-hover;
+			color: $wcgs-text;
+		}
+	}
+}
+
+@keyframes wcgs-preview-spin {
+
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+// The page: full width on desktop, a framed screen on tablet and mobile.
+.wcgs-preview-frame {
+	position: relative;
+	width: 100%;
+	max-width: 100%;
+	height: 100%;
+	background: #fff;
+	transition: width 320ms $wcgs-ease-out;
+
+	// Content-box, so the framed page's viewport is the device's full width:
+	// its `(min-width: 768px)` rules (gallery margin, summary float) need
+	// 768px, and the gallery engine assumes it (frameWidth()).
+	&.is-tablet,
+	&.is-mobile {
+		box-sizing: content-box;
+		max-width: calc(100% - 2px);
+		height: calc(100% - 50px);
+		margin: 24px 0;
+		overflow: hidden;
+		border: 1px solid $wcgs-border-light;
+		border-radius: 12px;
+	}
+
+	&.is-tablet {
+		width: 768px;
+	}
+
+	&.is-mobile {
+		width: 390px;
+	}
+
+	// The product's own page (Woo_Gallery_Slider_Preview_Frame); it scrolls
+	// itself.
+	&__page {
+		display: block;
+		width: 100%;
+		height: 100%;
+		border: 0;
+		background: #fff;
+	}
+
+	&__error {
+		position: absolute;
+		inset: 0;
+		justify-content: center;
+		background: #fff;
+	}
+}
+
+// Toolbar product dropdown.
+.wcgs-live-preview__sample {
+	font-size: 13px;
+	white-space: nowrap;
+	color: $wcgs-wp-blue;
+
+	button {
+
+		@include wcgs-reset-button;
+		padding: 0 0 1px;
+		font-size: 13px;
+		font-weight: 500;
+		color: $wcgs-wp-blue;
+		background: linear-gradient(currentcolor, currentcolor) no-repeat right bottom / 0% 1px;
+		transition: background-size 280ms $wcgs-ease-out;
+
+		&:hover,
+		&:focus-visible {
+			background-position: left bottom;
+			background-size: 100% 1px;
+		}
+	}
+}
+
+.wcgs-product-picker {
+	position: relative;
+	width: 250px;
+	max-width: 100%;
+
+	&__search {
+		position: relative;
+		margin-bottom: 4px;
+
+		> svg {
+			position: absolute;
+			top: 50%;
+			left: 10px;
+			margin-top: -7.5px;
+			color: $wcgs-faint;
+			pointer-events: none;
+		}
+
+		input[type="text"] {
+			width: 100%;
+			height: 36px;
+			min-height: 36px;
+			margin: 0;
+			padding: 0 30px 0 32px;
+			border: 1px solid $wcgs-border;
+			border-radius: 5px;
+			background: #fff;
+			box-shadow: none;
+			font-size: 14px;
+			color: $wcgs-text;
+			outline: none;
+			transition: border-color 160ms $wcgs-ease;
+
+			&:focus {
+				border-color: $wcgs-accent;
+				box-shadow: none;
+			}
+		}
+	}
+
+	&__clear {
+
+		@include wcgs-reset-button;
+		position: absolute;
+		top: 50%;
+		right: 6px;
+		width: 22px;
+		height: 22px;
+		margin-top: -11px;
+		border-radius: 4px;
+		color: $wcgs-faint;
+
+		&:hover {
+			background: $wcgs-bg-subtle;
+			color: $wcgs-text;
+		}
+	}
+
+	&__toggle {
+
+		@include wcgs-reset-button;
+		height: $wcgs-control-height;
+		padding: 0 10px 0 6px;
+		border: 1px solid $wcgs-border;
+		border-radius: 4px;
+		background: #fff;
+		font-size: 14px;
+		color: $wcgs-text;
+		transition: border-color 160ms $wcgs-ease;
+
+		&:hover {
+			border-color: $wcgs-border-hover;
+		}
+
+		&.is-open {
+			border-color: $wcgs-text;
+		}
+
+		svg {
+			flex: 0 0 16px;
+			color: $wcgs-faint;
+			transition: transform 200ms $wcgs-ease;
+		}
+
+		&.is-open svg {
+			transform: rotate(180deg);
+		}
+	}
+
+	&__thumb {
+		width: 24px;
+		height: 24px;
+		border-radius: 4px;
+		background: #f5f5f7 center / cover no-repeat;
+	}
+
+	&__name {
+
+		@include wcgs-truncate;
+		text-align: left;
+	}
+
+	&__menu {
+
+		@include wcgs-popover(top center);
+		transform: translateY(-6px) scale(0.97);
+		position: absolute;
+		top: calc(100% + 4px);
+		left: 0;
+		right: 0;
+		z-index: 40;
+		min-width: 280px;
+		max-height: 340px;
+		padding: 6px;
+		overflow: hidden;
+		background: #fff;
+		border: 1px solid $wcgs-menu-border;
+		border-radius: 6px;
+		box-shadow: 0 8px 24px rgba(16, 17, 20, 0.1);
+	}
+
+	&__list {
+		min-height: 0;
+		overflow-y: auto;
+
+		> [role="group"] {
+			display: flex;
+			flex-direction: column;
+			gap: 2px;
+		}
+	}
+
+	&__more {
+		flex: 0 0 auto;
+		min-height: 28px;
+		padding: 4px 0;
+
+		.components-spinner {
+			margin: 0;
+		}
+	}
+
+	&__head {
+		padding: 10px 10px 4px;
+		font-size: 11px;
+		font-weight: 600;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: $wcgs-faint;
+	}
+
+	&__tag {
+
+		@include wcgs-truncate;
+		max-width: 120px;
+		height: 20px;
+		padding: 0 7px;
+		border-radius: 999px;
+		background: #fff7e6;
+		font-size: 11px;
+		font-weight: 500;
+		line-height: 20px;
+		color: $wcgs-amber-text;
+	}
+
+	&__option {
+
+		@include wcgs-reset-button;
+		padding: 7px 8px;
+		border-radius: 4px;
+		font-size: 14px;
+		color: $wcgs-text;
+
+		.wcgs-product-picker__thumb {
+			width: 32px;
+			height: 32px;
+		}
+
+		&:hover,
+		&:focus-visible {
+			background: $wcgs-bg-soft;
+		}
+
+		&.is-selected {
+			background: $wcgs-bg-active;
+		}
+	}
+
+	&__empty {
+		padding: 18px 10px;
+		font-size: 13px;
+		color: $wcgs-muted;
+		text-align: center;
+
+		.components-spinner {
+			margin: 0;
+		}
+	}
+}
+
+// "Gallery Layouts" drawer at the bottom of the preview, and its pill.
+.wcgs-layout-drawer {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 21;
+	background: #fff;
+	border-top: 1px solid $wcgs-divider;
+	border-radius: 12px 12px 0 0;
+	box-shadow: 0 -12px 36px rgba(16, 17, 20, 0.14);
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transform: translateY(24px);
+	transition:
+		opacity 220ms $wcgs-ease,
+		transform 280ms $wcgs-ease,
+		visibility 0s linear 280ms;
+
+	&.is-open {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
+		transform: none;
+		transition:
+			opacity 220ms $wcgs-ease,
+			transform 280ms $wcgs-ease,
+			visibility 0s;
+	}
+
+	&__box {
+		margin: 12px 16px 14px;
+		overflow: hidden;
+		border: 1px solid $wcgs-divider;
+		border-radius: 10px;
+		background: #fff;
+	}
+
+	&__head {
+		padding: 10px 10px 10px 14px;
+		border-bottom: 1px solid $wcgs-line;
+	}
+
+	&__title {
+		font-size: 14px;
+		font-weight: 600;
+		color: $wcgs-text;
+	}
+
+	&__meta {
+
+		@include wcgs-truncate;
+		font-size: 13px;
+		color: $wcgs-muted;
+	}
+
+	&__hide {
+
+		@include wcgs-reset-button;
+		margin-left: auto;
+		height: 30px;
+		padding: 0 10px;
+		border-radius: 5px;
+		font-size: 13px;
+		color: $wcgs-body;
+		transition: background-color 160ms $wcgs-ease;
+
+		&:hover {
+			background-color: $wcgs-bg-subtle;
+			color: $wcgs-text;
+		}
+	}
+
+	// Wider cards than the panel popover, as in the design.
+	.wcgs-layout-picker__grid.wcgs-layout-drawer__grid {
+		grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+		max-height: min(440px, 55vh);
+	}
+
+	// Centers the pill on the bottom edge of the preview.
+	&__dock {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		z-index: 20;
+		padding: 0 16px;
+		pointer-events: none;
+	}
+
+	&__pill {
+
+		@include wcgs-reset-button;
+		pointer-events: auto;
+		height: 42px;
+		padding: 0 16px 0 14px;
+		border: 1px solid $wcgs-divider;
+		border-bottom: 0;
+		border-radius: 10px 10px 0 0;
+		background: #fff;
+		box-shadow: 0 -6px 20px rgba(16, 17, 20, 0.1);
+		font-size: 14px;
+		color: $wcgs-text;
+		transition:
+			border-color 200ms $wcgs-ease,
+			opacity 200ms $wcgs-ease,
+			transform 240ms $wcgs-ease,
+			visibility 0s;
+
+		&:hover {
+			border-color: $wcgs-border-hover;
+		}
+
+		&.is-hidden {
+			opacity: 0;
+			visibility: hidden;
+			pointer-events: none;
+			transform: translateY(12px) scale(0.96);
+			transition:
+				border-color 200ms $wcgs-ease,
+				opacity 200ms $wcgs-ease,
+				transform 240ms $wcgs-ease,
+				visibility 0s linear 240ms;
+		}
+	}
+
+	&__pill-label {
+		color: $wcgs-muted;
+	}
+
+	&__pill-value {
+		font-weight: 600;
+	}
+
+	&__pill-chevron {
+		color: $wcgs-faint;
+		transform: rotate(180deg);
+	}
+}

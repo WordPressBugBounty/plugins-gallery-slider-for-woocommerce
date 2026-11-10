@@ -1,0 +1,12 @@
+@use "../../styles/variables" as *;
+
+.wcgs-tab-placeholder {
+	min-height: 0;
+	padding: 24px;
+	background: $wcgs-wp-gray;
+
+	&__label {
+		font-size: 13px;
+		color: $wcgs-muted;
+	}
+}

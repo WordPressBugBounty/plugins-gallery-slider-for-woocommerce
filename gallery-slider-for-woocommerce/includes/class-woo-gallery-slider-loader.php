@@ -11,12 +11,8 @@
  * @author     ShapedPlugin <support@shapedplugin.com>
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}  // if direct access.
-
 /**
- * WooGallery Loader class
+ * Reno Product Gallery Loader
  */
 class Woo_Gallery_Slider_Loader {
 

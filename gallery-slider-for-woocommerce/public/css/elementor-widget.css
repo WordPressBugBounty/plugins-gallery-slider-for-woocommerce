@@ -9,6 +9,7 @@
     width: 100% !important;
     max-width: 100% !important;
 }
+
 #wpgs-gallery:after {
     content: 'The Gallery will be shown perfectly on the single product page only.';
     width: 100%;

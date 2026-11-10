@@ -1,0 +1,224 @@
+// Design tokens of the Reno settings controls.
+// Source: "Reno Settings Split View" design.
+
+$wcgs-accent: #7c3aed;
+$wcgs-accent-hover: #6d28d9;
+$wcgs-accent-tint: #f3edfd; // color-mix(in srgb, $wcgs-accent 9%, #fff)
+$wcgs-accent-soft: #f5f3ff;
+$wcgs-text: #1d1d1f;
+$wcgs-text-2: #45464a;
+$wcgs-body: #5b5c61;
+$wcgs-muted: #74757a;
+$wcgs-hint: #8c8f94;
+$wcgs-faint: #9a9ba0;
+$wcgs-border: #dddee1;
+$wcgs-border-light: #e6e7ea;
+$wcgs-border-hover: #9a9ba0;
+$wcgs-border-active: #74757a;
+$wcgs-divider: #e2e3e6;
+$wcgs-line: #eeeff1;
+$wcgs-off: #c6c7cb;
+$wcgs-border-strong: #b5b6ba;
+$wcgs-menu-border: #e7e8eb;
+$wcgs-locked: #a5a6ab;
+$wcgs-green: #1f9d55;
+$wcgs-red: #cc1818;
+$wcgs-amber-text: #8a5a00;
+$wcgs-wp-blue: #2271b1;
+$wcgs-wp-gray: #f0f0f1; // wp-admin canvas
+$wcgs-bg-soft: #f7f7f8;
+$wcgs-bg-faint: #fafafb;
+$wcgs-bg-subtle: #f3f3f5; // hover/pressed tile
+$wcgs-bg-active: #f2f2f3;
+$wcgs-bg-hover: #eeeff1;
+$wcgs-ease: cubic-bezier(0.2, 0, 0, 1);
+$wcgs-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+$wcgs-focus-ring: 0 0 0 2px rgba(124, 58, 237, 0.35);
+$wcgs-menu-shadow: 0 10px 28px rgba(16, 17, 20, 0.14);
+$wcgs-tip-shadow: 0 6px 18px rgba(16, 17, 20, 0.18);
+$wcgs-control-height: 40px;
+
+// The shared rules below are placeholders: the mixins `@extend` them, so each
+// stylesheet emits one grouped rule instead of a copy per caller. A mixin that
+// extends must be the first statement of its rule and can't be used inside
+// `@media`.
+
+%wcgs-popover {
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transform: translateY(-6px) scale(0.98);
+	transition:
+		opacity 160ms $wcgs-ease,
+		transform 180ms $wcgs-ease,
+		visibility 0s linear 180ms;
+
+	&.is-open {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
+		transform: none;
+		transition:
+			opacity 160ms $wcgs-ease,
+			transform 180ms $wcgs-ease,
+			visibility 0s;
+	}
+}
+
+%wcgs-reset-button {
+	appearance: none;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: none;
+	font: inherit;
+	box-shadow: none;
+	cursor: pointer;
+
+	&:focus {
+		outline: none;
+		box-shadow: none;
+	}
+
+	&:focus-visible {
+		box-shadow: $wcgs-focus-ring;
+	}
+}
+
+// Popover/menu open-close transition used across dropdowns.
+@mixin wcgs-popover($origin: top center) {
+
+	@extend %wcgs-popover;
+	transform-origin: $origin;
+}
+
+// Reset the wp-admin form styles on a control's own buttons and inputs.
+@mixin wcgs-reset-button {
+
+	@extend %wcgs-reset-button;
+}
+
+// One-line text cut with an ellipsis.
+@mixin wcgs-truncate {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+// Dark tooltip box (the design's `rs-tip-box`), hidden until
+// `wcgs-tip-visible` applies. Callers set the box's `top`/`bottom`, padding,
+// line-height and white-space.
+@mixin wcgs-tip {
+	position: absolute;
+	left: 50%;
+	z-index: 60;
+	border-radius: 5px;
+	background: $wcgs-text;
+	color: #fff;
+	font-size: 12.5px;
+	font-weight: 500;
+	box-shadow: $wcgs-tip-shadow;
+	pointer-events: none;
+	opacity: 0;
+	visibility: hidden;
+	transform: translate(-50%, -3px);
+	transition:
+		opacity 140ms $wcgs-ease,
+		transform 160ms $wcgs-ease,
+		visibility 0s linear 160ms;
+}
+
+@mixin wcgs-tip-visible {
+	opacity: 1;
+	visibility: visible;
+	transform: translate(-50%, 0);
+	transition:
+		opacity 140ms $wcgs-ease,
+		transform 160ms $wcgs-ease,
+		visibility 0s;
+}
+
+// Collapsed slot that pops a header button (Reset) in once `.is-visible`.
+@mixin wcgs-reveal($width: 30px, $ease: $wcgs-ease-out) {
+	position: relative;
+	display: inline-flex;
+	width: 0;
+	opacity: 0;
+	transform: scale(0.6);
+	pointer-events: none;
+	transition:
+		opacity 220ms $wcgs-ease,
+		transform 260ms $ease,
+		width 260ms $ease;
+
+	&.is-visible {
+		width: $width;
+		opacity: 1;
+		transform: scale(1);
+		pointer-events: auto;
+	}
+}
+
+// Square check box / round radio ring of a check or radio item.
+@mixin wcgs-check-box($size: 16px, $radius: 3px, $border-width: 1px) {
+	width: $size;
+	height: $size;
+	flex: 0 0 $size;
+	box-sizing: border-box;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	border: $border-width solid $wcgs-off;
+	border-radius: $radius;
+	background: #fff;
+}
+
+// Highlighted (selected) option of a dropdown list.
+@mixin wcgs-option-active {
+	background: $wcgs-bg-active;
+	color: $wcgs-text;
+	font-weight: 500;
+}
+
+// Thin, rounded scrollbar whose thumb shows only while the scroll area is
+// hovered (or focused). The track keeps its width, so the content doesn't
+// shift when the thumb appears. The thumb color goes through a custom property
+// on the scroller: Chrome doesn't repaint a thumb whose only change is a
+// `:hover::-webkit-scrollbar-thumb` rule.
+@mixin wcgs-scrollbar($color: rgba(16, 17, 20, 0.28), $hover-color: rgba(16, 17, 20, 0.42)) {
+	--wcgs-scrollbar-thumb: transparent;
+
+	&:hover,
+	&:focus-within {
+		--wcgs-scrollbar-thumb: #{$color};
+	}
+
+	// Firefox (Chrome 121+ would drop the ::-webkit rules if this applied).
+	@supports not selector(::-webkit-scrollbar) {
+		scrollbar-width: thin;
+		scrollbar-color: var(--wcgs-scrollbar-thumb) transparent;
+	}
+
+	&::-webkit-scrollbar {
+		width: 12px;
+		height: 12px;
+	}
+
+	&::-webkit-scrollbar-track,
+	&::-webkit-scrollbar-corner {
+		background: transparent;
+	}
+
+	// The transparent border insets the 4px pill from the edge.
+	&::-webkit-scrollbar-thumb {
+		border: 3px solid transparent;
+		border-radius: 999px;
+		background-color: var(--wcgs-scrollbar-thumb);
+		background-clip: padding-box;
+	}
+
+	&::-webkit-scrollbar-thumb:hover,
+	&::-webkit-scrollbar-thumb:active {
+		background-color: $hover-color;
+	}
+}

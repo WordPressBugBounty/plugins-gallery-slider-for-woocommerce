@@ -1,0 +1,117 @@
+@use "../../styles/variables" as *;
+
+.wcgs-select-control {
+
+	&__wrap {
+		position: relative;
+	}
+
+	&__button {
+
+		@include wcgs-reset-button;
+		height: $wcgs-control-height;
+		padding: 0 10px 0 12px;
+		box-sizing: border-box;
+		border: 1px solid $wcgs-border;
+		border-radius: 4px;
+		background: #fff;
+		font-size: 14px;
+		color: $wcgs-text;
+		text-align: left;
+		transition: border-color 220ms $wcgs-ease;
+
+		&:hover {
+			border-color: $wcgs-border-hover;
+		}
+
+		&.is-open {
+			border-color: $wcgs-border-active;
+		}
+	}
+
+	&__value {
+
+		@include wcgs-truncate;
+	}
+
+	&__chevron {
+		flex: 0 0 16px;
+		color: $wcgs-faint;
+		transition: transform 160ms $wcgs-ease;
+	}
+
+	&__button.is-open &__chevron {
+		transform: rotate(180deg);
+	}
+
+	&__menu {
+
+		@include wcgs-popover(top center);
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: calc(100% + 4px);
+		z-index: 41;
+		min-width: 160px;
+		max-height: 280px;
+		overflow-y: auto;
+		gap: 1px;
+		padding: 4px;
+		background: #fff;
+		border: 1px solid $wcgs-border;
+		border-radius: 6px;
+		box-shadow: $wcgs-menu-shadow;
+
+		&.is-right {
+			left: auto;
+			transform-origin: top right;
+		}
+	}
+
+	&__option {
+
+		@include wcgs-reset-button;
+		padding: 8px 10px;
+		border-radius: 4px;
+		text-align: left;
+		font-size: 14px;
+		color: $wcgs-text-2;
+
+		&:hover {
+			background-color: $wcgs-bg-soft;
+		}
+
+		&.is-active {
+
+			@include wcgs-option-active;
+		}
+
+		// Pro option: grey, with the lock pill at the right.
+		&.is-locked {
+			color: $wcgs-locked;
+			cursor: default;
+
+			.wcgs-lock-pill {
+				margin-left: auto;
+			}
+		}
+	}
+
+	// Line between the free and the Pro options.
+	&__divider {
+		flex: 0 0 1px;
+		height: 1px;
+		margin: 4px 6px;
+		background: $wcgs-line;
+	}
+
+	// Small visual of an option (pagination dots, arrow layout).
+	&__preview {
+		min-height: 14px;
+		margin-right: 4px;
+
+		&.is-end {
+			margin: 0 0 0 auto;
+		}
+	}
+}

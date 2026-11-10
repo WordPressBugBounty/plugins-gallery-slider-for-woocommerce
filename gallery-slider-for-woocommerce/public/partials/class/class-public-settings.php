@@ -1,41 +1,41 @@
 <?php
 /**
- * The product images.
+ * The public settings.
  *
  * @package    Woo_Gallery_Slider
  * @subpackage Woo_Gallery_Slider/public
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}  // if direct access.
-
 /**
- * WCGS Public Settings class
+ * Public settings class
  */
 class WCGS_Public_Settings {
 	use WCGS_Public_Default;
 	use WCGS_Public_fontmap;
 
 	/**
-	 * The constructor of the class.
+	 * __construct
 	 *
-	 * @param array $settings settings option.
+	 * @param  mixed $settings settings.
+	 * @return void
 	 */
 	public function __construct( $settings ) {
+
 		if ( is_array( $settings ) ) {
 			foreach ( $settings as $key => $value ) {
+
 				$this->setData( $key, $value );
+
 			}
 		}
 		$this->fonts_map_func();
 	}
 
 	/**
-	 * Set data.
+	 * SetData
 	 *
-	 * @param string $key setting data key.
-	 * @param array  $value setting data value.
+	 * @param  mixed $key array key.
+	 * @param  mixed $value array value.
 	 * @return void
 	 */
 	public function setData( $key, $value ) {
@@ -56,7 +56,7 @@ class WCGS_Public_Settings {
 	}
 
 	/**
-	 * Fonts map function
+	 * Fonts map func
 	 *
 	 * @return void
 	 */

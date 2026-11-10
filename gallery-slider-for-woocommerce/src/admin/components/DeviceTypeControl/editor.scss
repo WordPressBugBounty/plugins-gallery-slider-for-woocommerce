@@ -1,0 +1,98 @@
+@use "../../styles/variables" as *;
+
+// Label-row device switch (button + dropdown).
+.wcgs-device-switch {
+	position: relative;
+
+	&__toggle {
+
+		@include wcgs-reset-button;
+		width: 24px;
+		height: 24px;
+		box-sizing: border-box;
+		border: 1px solid $wcgs-border-light;
+		border-radius: 3px;
+		color: $wcgs-muted;
+		transition:
+			border-color 200ms $wcgs-ease,
+			color 200ms $wcgs-ease;
+
+		&:hover,
+		&.is-open {
+			border-color: $wcgs-off;
+			color: $wcgs-text;
+		}
+	}
+
+	&__menu {
+
+		@include wcgs-popover(top left);
+		position: absolute;
+		left: 0;
+		top: calc(100% + 4px);
+		z-index: 42;
+		width: 28px;
+		overflow: hidden;
+		background: #fff;
+		border: 1px solid $wcgs-border;
+		border-radius: 3px;
+		box-shadow: $wcgs-menu-shadow;
+	}
+
+	&__item {
+
+		@include wcgs-reset-button;
+		height: 26px;
+		color: $wcgs-faint;
+		transition:
+			background-color 160ms $wcgs-ease,
+			color 160ms $wcgs-ease;
+
+		&:hover {
+			background-color: $wcgs-bg-soft;
+			color: $wcgs-text;
+		}
+
+		&.is-active {
+			background: $wcgs-bg-active;
+			color: $wcgs-text;
+		}
+	}
+}
+
+// Segmented device switch (preview toolbar).
+.wcgs-device-toolbar {
+	position: relative;
+	padding: 3px;
+	border: 1px solid $wcgs-border-light;
+	border-radius: 5px;
+	background: #fff;
+
+	&__pill {
+		position: absolute;
+		top: 3px;
+		bottom: 3px;
+		left: 3px;
+		width: 36px;
+		border-radius: 3px;
+		background: $wcgs-bg-subtle;
+		transition: transform 220ms $wcgs-ease;
+	}
+
+	&__item {
+
+		@include wcgs-reset-button;
+		position: relative;
+		z-index: 1;
+		width: 36px;
+		height: 32px;
+		border-radius: 3px;
+		color: $wcgs-faint;
+		transition: color 160ms $wcgs-ease;
+
+		&:hover,
+		&.is-active {
+			color: $wcgs-text;
+		}
+	}
+}

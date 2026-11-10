@@ -85,14 +85,9 @@ class WCGS_Variation_Image_Block_Editor {
 			return $response;
 		}
 
+		// Stored as JSON "[1,2]" since 4.0.0, as "1,2" before.
 		$meta_value = get_post_meta( $variation->get_id(), self::META_KEY, true );
-		$meta_value = strpos( $meta_value, ']' ) !== false ? substr( $meta_value, 1, -1 ) : $meta_value;
-		if ( ! is_string( $meta_value ) || empty( $meta_value ) ) {
-			$response->data[ self::META_KEY ] = array();
-			return $response;
-		}
-
-		$image_ids = array_filter( explode( ',', $meta_value ), 'is_numeric' );
+		$image_ids  = is_string( $meta_value ) ? array_filter( array_map( 'absint', explode( ',', trim( $meta_value, '[] ' ) ) ) ) : array();
 
 		$images = array_values(
 			array_filter(
@@ -130,16 +125,14 @@ class WCGS_Variation_Image_Block_Editor {
 
 		$variation_images = $request->get_param( self::META_KEY );
 
-		if ( is_null( $variation_images ) ) {
-			update_post_meta( $variation->get_id(), self::META_KEY, '' );
+		// Not part of this request (another client, a stock update): keep the gallery.
+		if ( ! is_array( $variation_images ) ) {
 			return;
 		}
 
-		$image_ids = wp_list_pluck( $variation_images, 'id' );
+		$image_ids = array_values( array_filter( array_map( 'absint', wp_list_pluck( $variation_images, 'id' ) ) ) );
 
-		$meta_value = implode( ',', array_filter( $image_ids, 'is_numeric' ) );
-
-		update_post_meta( $variation->get_id(), self::META_KEY, $meta_value );
+		update_post_meta( $variation->get_id(), self::META_KEY, wp_json_encode( $image_ids ) );
 	}
 }
 new WCGS_Variation_Image_Block_Editor();

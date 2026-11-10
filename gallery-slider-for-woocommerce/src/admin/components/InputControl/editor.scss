@@ -1,0 +1,37 @@
+@use "../../styles/variables" as *;
+
+.wcgs-input-control {
+	// Specific enough to beat the wp-admin `input[type="text"]` rules.
+	input.wcgs-input-control__input {
+		width: 100%;
+		height: $wcgs-control-height;
+		min-height: 0;
+		box-sizing: border-box;
+		margin: 0;
+		padding: 0 12px;
+		border: 1px solid $wcgs-border;
+		border-radius: 4px;
+		background: #fff;
+		box-shadow: none;
+		outline: none;
+		font: inherit;
+		font-size: 14px;
+		line-height: normal;
+		color: $wcgs-text;
+		transition: border-color 220ms $wcgs-ease;
+
+		&::placeholder {
+			color: $wcgs-faint;
+		}
+
+		&:hover {
+			border-color: $wcgs-border-hover;
+		}
+
+		&:focus {
+			border-color: $wcgs-border-active;
+			box-shadow: none;
+			outline: none;
+		}
+	}
+}

@@ -1,0 +1,1748 @@
+@use "../../styles/variables" as *;
+
+// Per-Product Layouts tab, from the "Reno Settings Split View" design.
+
+$wcgs-danger: #c0392b;
+$wcgs-danger-bg: #fdf1ef;
+$wcgs-amber: #e8a400;
+$wcgs-shadow-pop: 0 14px 36px rgba(16, 17, 20, 0.16);
+
+// Shown half of the toolbar / bulk bar swap.
+$wcgs-lay-swap-shown:
+	opacity 180ms $wcgs-ease,
+	transform 200ms $wcgs-ease,
+	visibility 0s;
+
+// Hidden half of the toolbar / bulk bar swap.
+@mixin wcgs-lay-swap-hidden($y) {
+	opacity: 0;
+	visibility: hidden;
+	pointer-events: none;
+	transform: translateY($y);
+	transition:
+		opacity 180ms $wcgs-ease,
+		transform 200ms $wcgs-ease,
+		visibility 0s linear 200ms;
+}
+
+// Header buttons of the list and the empty state.
+@mixin wcgs-lay-header-button {
+	gap: 8px;
+	padding: 0 14px;
+	transition-duration: 120ms;
+}
+
+// Search box of the toolbar and the assign drawer.
+@mixin wcgs-lay-search {
+	box-sizing: border-box;
+	padding: 0 12px;
+	border: 1px solid $wcgs-border;
+	background: #fff;
+	color: $wcgs-faint;
+}
+
+// Its bare input, without the wp-admin field styles.
+@mixin wcgs-lay-search-input {
+	flex: 1;
+	min-width: 0;
+	min-height: 0;
+	margin: 0;
+	padding: 0;
+	border: 0;
+	border-radius: 0;
+	background: none;
+	box-shadow: none;
+	outline: none;
+	font: inherit;
+	font-size: 14px;
+	line-height: 1.4;
+	color: $wcgs-text;
+
+	&::-webkit-search-cancel-button {
+		appearance: none;
+	}
+}
+
+// 32px icon button (row menu toggle, drawer close).
+@mixin wcgs-lay-icon-button {
+
+	@include wcgs-reset-button;
+	width: 32px;
+	height: 32px;
+	border-radius: 6px;
+	color: $wcgs-muted;
+}
+
+@keyframes wcgs-lay-card-in {
+
+	from {
+		opacity: 0;
+		transform: translateY(-4px);
+		max-height: 0;
+		margin-top: 0;
+		margin-bottom: 0;
+		padding-top: 0;
+		padding-bottom: 0;
+	}
+
+	to {
+		opacity: 1;
+		transform: none;
+		max-height: 160px;
+	}
+}
+
+@keyframes wcgs-lay-card-out {
+
+	from {
+		opacity: 1;
+		transform: none;
+		max-height: 160px;
+	}
+
+	to {
+		opacity: 0;
+		transform: translateY(-4px);
+		max-height: 0;
+		margin-top: 0;
+		margin-bottom: 0;
+		padding-top: 0;
+		padding-bottom: 0;
+		border-width: 0;
+	}
+}
+
+@keyframes wcgs-lay-spin {
+
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes wcgs-lay-scrim-in {
+
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes wcgs-lay-scrim-out {
+
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes wcgs-lay-drawer-in {
+
+	from {
+		transform: translateX(100%);
+	}
+
+	to {
+		transform: none;
+	}
+}
+
+@keyframes wcgs-lay-drawer-out {
+
+	from {
+		transform: none;
+	}
+
+	to {
+		transform: translateX(100%);
+	}
+}
+
+@keyframes wcgs-lay-pop-in {
+
+	from {
+		opacity: 0;
+		transform: translateY(-6px) scale(0.98);
+	}
+
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+@keyframes wcgs-lay-pop-out {
+
+	from {
+		opacity: 1;
+		transform: none;
+	}
+
+	to {
+		opacity: 0;
+		transform: translateY(-6px) scale(0.98);
+	}
+}
+
+@keyframes wcgs-lay-nudge {
+
+	0% {
+		box-shadow: 0 0 0 0 rgba(232, 164, 0, 0.45);
+	}
+
+	70% {
+		box-shadow: 0 0 0 7px rgba(232, 164, 0, 0);
+	}
+}
+
+@keyframes wcgs-lay-dot-wave {
+
+	0% {
+		transform: scale(1);
+		opacity: 0.55;
+	}
+
+	100% {
+		transform: scale(3.2);
+		opacity: 0;
+	}
+}
+
+@keyframes wcgs-lay-header-in {
+
+	from {
+		opacity: 0;
+		transform: translateY(-6px);
+	}
+
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+// 16px checkbox square (`boxS` in the design).
+.wcgs-check {
+
+	@include wcgs-reset-button;
+	@include wcgs-check-box;
+	color: #fff;
+	transition:
+		background 120ms $wcgs-ease,
+		border-color 120ms $wcgs-ease;
+
+	&__mark {
+		opacity: 0;
+		transition: opacity 120ms $wcgs-ease;
+	}
+
+	&.is-on {
+		border-color: $wcgs-text;
+		background: $wcgs-text;
+	}
+
+	&.is-on &__mark {
+		opacity: 1;
+	}
+}
+
+// Hover tip (`lt-tip` in the design).
+.wcgs-tip {
+	position: relative;
+
+	&__box {
+		position: absolute;
+		bottom: calc(100% + 8px);
+		left: 50%;
+		z-index: 40;
+		width: max-content;
+		max-width: 220px;
+		box-sizing: border-box;
+		padding: 7px 10px;
+		border-radius: 6px;
+		background: $wcgs-text;
+		box-shadow: 0 6px 20px rgba(16, 17, 20, 0.18);
+		font-size: 12px;
+		font-weight: 400;
+		line-height: 1.45;
+		letter-spacing: normal;
+		text-transform: none;
+		text-align: left;
+		white-space: normal;
+		overflow-wrap: anywhere;
+		color: #fff;
+		opacity: 0;
+		pointer-events: none;
+		transform: translateX(-50%) translateY(4px);
+		transition:
+			opacity 160ms $wcgs-ease,
+			transform 160ms $wcgs-ease;
+
+		&::after {
+			content: "";
+			position: absolute;
+			top: 100%;
+			left: 50%;
+			transform: translateX(-50%);
+			border: 5px solid transparent;
+			border-top-color: $wcgs-text;
+		}
+
+		&.is-list {
+			white-space: pre;
+			max-width: none;
+			line-height: 1.6;
+		}
+
+		&.is-nowrap {
+			white-space: nowrap;
+		}
+	}
+
+	&:hover &__box,
+	&:focus-visible &__box {
+		opacity: 1;
+		transform: translateX(-50%) translateY(0);
+	}
+
+	// Tip hanging from the left edge, opening down (first drawer rows).
+	&.is-left &__box {
+		left: -8px;
+		transform: translateY(6px) scale(0.97);
+		transform-origin: bottom left;
+
+		transition:
+			opacity 180ms $wcgs-ease,
+			transform 200ms $wcgs-ease;
+
+		&::after {
+			left: 10px;
+			transform: none;
+		}
+	}
+
+	&.is-left:hover &__box {
+		transform: none;
+		transition-delay: 80ms;
+	}
+
+	&.is-left.is-down &__box {
+		bottom: auto;
+		top: calc(100% + 8px);
+		transform: translateY(-6px) scale(0.97);
+		transform-origin: top left;
+
+		&::after {
+			top: auto;
+			bottom: 100%;
+			border-top-color: transparent;
+			border-bottom-color: $wcgs-text;
+		}
+	}
+
+	&.is-left.is-down:hover &__box {
+		transform: none;
+	}
+}
+
+// Page.
+.wcgs-layouts {
+	position: relative;
+	min-height: 0;
+	overflow-y: auto;
+	background: $wcgs-wp-gray;
+	color: $wcgs-text;
+
+	&__inner {
+		position: relative;
+		padding: 28px 32px;
+	}
+
+	&__loading {
+		min-height: 240px;
+	}
+
+	&__backdrop {
+		position: fixed;
+		inset: 0;
+		z-index: 35;
+	}
+}
+
+.wcgs-layouts-head {
+	gap: 12px 16px;
+	margin: -28px -32px 24px;
+	padding: 20px 32px;
+	border-bottom: 1px solid $wcgs-line;
+
+	> div {
+		flex: 1 1 260px;
+		min-width: 220px;
+	}
+
+	// Beats the wp-admin `.wrap h1` / `h1` rules.
+	h1 {
+		margin: 0 0 3px;
+		padding: 0;
+		font-size: 18px;
+		font-weight: 600;
+		line-height: 1.3;
+		letter-spacing: -0.01em;
+		color: $wcgs-text;
+	}
+
+	p {
+		margin: 0;
+		font-size: 13px;
+		color: $wcgs-muted;
+	}
+
+	.wcgs-btn {
+
+		@include wcgs-lay-header-button;
+		font-weight: 600;
+	}
+}
+
+// Create and Import once the one free layout exists: they open the upgrade
+// popover, so they stay clickable but look disabled (`layCreateSt`).
+.wcgs-layouts .wcgs-btn.is-locked {
+	opacity: 0.4;
+	cursor: not-allowed;
+	pointer-events: auto;
+
+	&.is-primary:hover {
+		background: $wcgs-accent;
+		border-color: $wcgs-accent;
+	}
+
+	&.is-secondary:hover {
+		background: #fff;
+		border-color: $wcgs-border;
+		color: $wcgs-body;
+	}
+}
+
+// Gold banner of the one-layout limit (`layLimitOn` in the free design).
+.wcgs-layouts-limit {
+	gap: 16px 32px;
+	margin: 0 0 20px;
+	padding: 20px 24px;
+	border: 1px solid #f1ece2;
+	border-radius: 10px;
+	background: linear-gradient(135deg, #fffcf5 0%, #fffefc 50%, #fbfaff 100%);
+
+	&__text {
+		flex: 1 1 420px;
+	}
+
+	&__title {
+		font-size: 15px;
+		font-weight: 600;
+		color: $wcgs-text;
+	}
+
+	&__description {
+		font-size: 13.5px;
+		line-height: 1.55;
+		color: $wcgs-body;
+		text-wrap: pretty;
+	}
+
+	&__checks {
+		gap: 8px 20px;
+
+		span {
+			display: flex;
+			align-items: center;
+			gap: 7px;
+			font-size: 13.5px;
+			color: $wcgs-text-2;
+		}
+	}
+}
+
+// Empty state hero.
+.wcgs-layouts-empty {
+	align-items: stretch;
+	gap: 40px;
+	padding: 32px;
+	border: 1px solid $wcgs-divider;
+	border-radius: 10px;
+	background: linear-gradient(135deg, #fbfaff 0%, #fff 45%, #f7f8fa 100%);
+
+	&__text {
+		flex: 1 1 0;
+		min-width: 300px;
+
+		h2 {
+			margin: 0;
+			padding: 0;
+			font-size: 28px;
+			line-height: 1.2;
+			font-weight: 600;
+			letter-spacing: -0.02em;
+			color: $wcgs-text;
+			text-wrap: pretty;
+		}
+
+		p {
+			margin: 0;
+			font-size: 15px;
+			line-height: 1.6;
+			color: $wcgs-body;
+			text-wrap: pretty;
+		}
+	}
+
+	&__actions {
+		margin-top: 12px;
+
+		.wcgs-btn {
+
+			@include wcgs-lay-header-button;
+			font-weight: 600;
+		}
+	}
+
+	&__video {
+
+		@include wcgs-reset-button;
+		height: 40px;
+		margin-left: 2px;
+		font-size: 14px;
+		font-weight: 500;
+		color: $wcgs-body;
+		text-decoration: none;
+
+		&:hover,
+		&:focus {
+			color: $wcgs-body;
+			text-decoration: none;
+			box-shadow: none;
+		}
+	}
+
+	&__video-icon {
+		flex: 0 0 46px;
+		margin: -3px 0;
+		color: $wcgs-faint;
+		transition: color 200ms $wcgs-ease;
+	}
+
+	&__video-text {
+		display: inline-block;
+		overflow: hidden;
+		white-space: nowrap;
+		max-width: 0;
+		opacity: 0;
+		margin-left: 0;
+		transform: translateX(-6px);
+		transition:
+			max-width 280ms $wcgs-ease-out,
+			opacity 200ms $wcgs-ease,
+			margin-left 280ms $wcgs-ease-out,
+			transform 280ms $wcgs-ease-out;
+	}
+
+	&__video:hover &__video-icon,
+	&__video:focus-visible &__video-icon {
+		color: #6b6e75;
+	}
+
+	&__video:hover &__video-text,
+	&__video:focus-visible &__video-text {
+		max-width: 120px;
+		opacity: 1;
+		margin-left: 8px;
+		transform: none;
+	}
+
+	// The illustration: one image of sample products pointing at their layouts.
+	&__art {
+		flex: 1 1 0;
+		min-width: 300px;
+		overflow: hidden;
+		border: 1px solid $wcgs-line;
+		border-radius: 12px;
+		background: #f5f5f6;
+
+		img {
+			display: block;
+			width: 100%;
+			height: auto;
+		}
+	}
+}
+
+// Toolbar and bulk bar, stacked in one cell.
+.wcgs-layouts-toolbar {
+	margin-bottom: 12px;
+
+	&__row {
+		grid-area: 1 / 1;
+		min-height: 44px;
+		transition: $wcgs-lay-swap-shown;
+
+		&.is-hidden {
+
+			@include wcgs-lay-swap-hidden(6px);
+		}
+
+		.wcgs-btn.wcgs-layouts-toolbar__import {
+
+			@include wcgs-lay-header-button;
+			color: $wcgs-body;
+
+			&:hover {
+				color: $wcgs-text;
+			}
+		}
+	}
+
+	&__search {
+
+		@include wcgs-lay-search;
+		width: 280px;
+		max-width: 100%;
+		height: $wcgs-control-height;
+		border-radius: 4px;
+		transition: border-color 120ms $wcgs-ease;
+
+		&:hover,
+		&:focus-within {
+			border-color: $wcgs-border-hover;
+		}
+
+		input,
+		input[type="search"] {
+
+			@include wcgs-lay-search-input;
+		}
+	}
+
+	&__count {
+		margin-left: auto;
+		font-size: 13px;
+		color: $wcgs-muted;
+	}
+}
+
+.wcgs-layouts-bulk {
+	grid-area: 1 / 1;
+	min-height: 44px;
+	box-sizing: border-box;
+	padding: 3px 6px 3px 14px;
+	border: 1px solid $wcgs-border;
+	border-radius: 6px;
+	background: $wcgs-bg-soft;
+
+	@include wcgs-lay-swap-hidden(-6px);
+
+	&.is-visible {
+		opacity: 1;
+		visibility: visible;
+		pointer-events: auto;
+		transform: none;
+		transition: $wcgs-lay-swap-shown;
+	}
+
+	&__label {
+		margin-right: 8px;
+		font-size: 14px;
+		font-weight: 600;
+		color: $wcgs-text;
+	}
+
+	&__divider {
+		width: 1px;
+		height: 20px;
+		margin-right: 4px;
+		background: $wcgs-border;
+	}
+
+	&__button {
+
+		@include wcgs-reset-button;
+		gap: 7px;
+		height: 32px;
+		padding: 0 11px;
+		border-radius: 5px;
+		font-size: 13.5px;
+		font-weight: 500;
+		color: $wcgs-text;
+		transition: background 120ms $wcgs-ease;
+
+		&:hover {
+			background: $wcgs-bg-hover;
+		}
+
+		&.is-danger {
+			color: $wcgs-danger;
+
+			&:hover {
+				background: $wcgs-danger-bg;
+			}
+		}
+	}
+
+	&__button.wcgs-layouts-bulk__clear {
+		margin-left: auto;
+		padding: 0 10px;
+		font-weight: 400;
+		color: $wcgs-text-2;
+
+		&:hover {
+			color: $wcgs-text;
+		}
+	}
+}
+
+// Table.
+$wcgs-row-columns: 18px 16px minmax(0, 1.6fr) minmax(0, 2.2fr) 96px 92px 108px 34px;
+
+.wcgs-layouts-table {
+	border: 1px solid $wcgs-divider;
+	border-radius: 8px;
+	background: #fff;
+
+	&__head {
+		grid-template-columns: $wcgs-row-columns;
+		height: 42px;
+		padding: 0 16px;
+		border-bottom: 1px solid $wcgs-line;
+		border-radius: 8px 8px 0 0;
+		background: $wcgs-bg-faint;
+		font-size: 12px;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+		text-transform: uppercase;
+		color: $wcgs-faint;
+	}
+
+	&__empty {
+		padding: 36px 16px;
+		text-align: center;
+		font-size: 14px;
+		color: $wcgs-muted;
+	}
+}
+
+.wcgs-layout-row {
+	grid-template-columns: $wcgs-row-columns;
+	padding: 12px 16px;
+	border-bottom: 1px solid $wcgs-wp-gray;
+	cursor: pointer;
+	outline: none;
+	transition:
+		background 120ms $wcgs-ease,
+		opacity 120ms $wcgs-ease;
+
+	&:hover {
+		background: $wcgs-bg-faint;
+	}
+
+	&:focus-visible {
+		box-shadow: inset $wcgs-focus-ring;
+	}
+
+	&.is-last {
+		border-bottom: 0;
+		border-radius: 0 0 8px 8px;
+	}
+
+	&.is-selected {
+		background: $wcgs-bg-soft;
+	}
+
+	&.is-dim {
+		opacity: 0.72;
+	}
+
+	&.is-menu-open {
+		position: relative;
+		z-index: 50;
+	}
+
+	&.is-drag-over {
+		box-shadow: inset 0 2px 0 $wcgs-accent;
+	}
+
+	&__handle {
+		color: $wcgs-off;
+		cursor: grab;
+
+		&:active {
+			cursor: grabbing;
+		}
+	}
+
+	&__art {
+		width: 36px;
+		height: 36px;
+		flex: 0 0 36px;
+		box-sizing: border-box;
+		border: 1px solid $wcgs-divider;
+		border-radius: 6px;
+		background: #fff;
+	}
+
+	&__title > div {
+
+		@include wcgs-truncate;
+		font-size: 14px;
+		font-weight: 500;
+		color: $wcgs-text;
+	}
+
+	&__pill {
+
+		@include wcgs-truncate;
+		display: inline-block;
+		max-width: 100%;
+		height: 22px;
+		line-height: 22px;
+		box-sizing: border-box;
+		margin-top: 5px;
+		padding: 0 8px;
+		border-radius: 999px;
+		background: $wcgs-bg-subtle;
+		font-size: 12px;
+		color: $wcgs-text-2;
+		vertical-align: top;
+	}
+
+	&__names {
+
+		@include wcgs-truncate;
+		flex: 0 1 auto;
+		min-width: 0;
+		color: $wcgs-text;
+	}
+
+	&__line {
+		font-size: 13.5px;
+		line-height: 1.4;
+
+		&.is-muted .wcgs-layout-row__names {
+			color: $wcgs-muted;
+		}
+
+		&.is-none .wcgs-layout-row__names {
+			color: $wcgs-amber-text;
+		}
+	}
+
+	&__prefix {
+		color: $wcgs-muted;
+	}
+
+	&__more {
+		height: 22px;
+		margin: -2px 0;
+		padding: 0 7px;
+		border-radius: 4px;
+		font-size: 12.5px;
+		font-weight: 500;
+		color: $wcgs-body;
+		cursor: pointer;
+		transition:
+			background 120ms $wcgs-ease,
+			color 120ms $wcgs-ease;
+
+		&:hover {
+			background: $wcgs-bg-hover;
+			color: $wcgs-text;
+		}
+	}
+
+	&__affected {
+		font-size: 14px;
+		font-variant-numeric: tabular-nums;
+		color: $wcgs-text;
+	}
+
+	&__status-pill {
+
+		@include wcgs-reset-button;
+		height: 26px;
+		padding: 0 10px;
+		border-radius: 999px;
+		font-size: 12.5px;
+		font-weight: 500;
+		white-space: nowrap;
+		transition:
+			background 140ms $wcgs-ease,
+			color 140ms $wcgs-ease,
+			box-shadow 140ms $wcgs-ease;
+
+		&:hover {
+			box-shadow: inset 0 0 0 1px rgba(16, 17, 20, 0.16);
+		}
+
+		&.is-active {
+			background: #e8f5ee;
+			color: #1e6b41;
+		}
+
+		&.is-inactive {
+			background: $wcgs-bg-subtle;
+			color: $wcgs-body;
+		}
+
+		&.is-draft {
+			background: #fff7e6;
+			color: $wcgs-amber-text;
+		}
+
+	}
+
+	&__updated {
+		font-size: 13px;
+		color: $wcgs-muted;
+	}
+
+	&__menu {
+		position: relative;
+	}
+
+	&__menu-toggle {
+
+		@include wcgs-lay-icon-button;
+		transition: background 120ms $wcgs-ease;
+
+		&:hover {
+			background: $wcgs-bg-subtle;
+			color: $wcgs-text;
+		}
+	}
+
+	&__menu-list {
+
+		@include wcgs-popover(top right);
+		position: absolute;
+		right: 0;
+		top: calc(100% + 4px);
+		z-index: 70;
+		width: 170px;
+		box-sizing: border-box;
+		padding: 4px;
+		border: 1px solid $wcgs-border;
+		border-radius: 6px;
+		background: #fff;
+		box-shadow: $wcgs-menu-shadow;
+		transform: translateY(-4px) scale(0.98);
+		transition:
+			opacity 140ms $wcgs-ease,
+			transform 160ms $wcgs-ease,
+			visibility 0s linear 160ms;
+
+		&.is-open {
+			transform: none;
+			transition:
+				opacity 140ms $wcgs-ease,
+				transform 160ms $wcgs-ease,
+				visibility 0s;
+		}
+
+		button {
+
+			@include wcgs-reset-button;
+			width: 100%;
+			display: flex;
+			align-items: center;
+			height: 34px;
+			padding: 0 10px;
+			border-radius: 4px;
+			background: #fff;
+			font-size: 14px;
+			text-align: left;
+			color: $wcgs-text;
+
+			&:hover {
+				background: $wcgs-bg-soft;
+			}
+
+			&.is-danger {
+				color: $wcgs-danger;
+			}
+		}
+	}
+}
+
+// Layout editor header (replaces the page header). Above the settings
+// panel (z-index 30), so its save popover is not painted over.
+.wcgs-layout-editor-header {
+	position: relative;
+	z-index: 40;
+	min-height: 68px;
+	box-sizing: border-box;
+	padding: 10px 24px;
+	border-bottom: 1px solid $wcgs-divider;
+	background: #fff;
+	animation: wcgs-lay-header-in 300ms $wcgs-ease-out;
+
+	&__back {
+
+		@include wcgs-reset-button;
+		width: 36px;
+		height: 36px;
+		flex: 0 0 36px;
+		border: 1px solid $wcgs-border;
+		border-radius: 6px;
+		background: #fff;
+		color: $wcgs-text-2;
+		transition:
+			background 120ms $wcgs-ease,
+			border-color 120ms $wcgs-ease,
+			color 120ms $wcgs-ease;
+
+		&:hover {
+			background: $wcgs-bg-soft;
+			border-color: $wcgs-border-hover;
+			color: $wcgs-text;
+		}
+	}
+
+	&__name {
+		position: relative;
+		cursor: text;
+
+		.wcgs-layout-editor-header__input {
+			width: 280px;
+			max-width: 100%;
+			height: 34px;
+			min-height: 0;
+			box-sizing: border-box;
+			margin: 0 0 0 -8px;
+			padding: 0 32px 0 8px;
+			border: 1px solid transparent;
+			border-radius: 5px;
+			background: none;
+			box-shadow: none;
+			outline: none;
+			font: inherit;
+			font-size: 16px;
+			font-weight: 600;
+			line-height: 1.4;
+			color: $wcgs-text;
+			transition:
+				border-color 120ms $wcgs-ease,
+				background 120ms $wcgs-ease;
+
+			&:hover {
+				border-color: $wcgs-border;
+			}
+
+			&:focus {
+				border-color: $wcgs-text;
+				background: #fff;
+				box-shadow: none;
+			}
+		}
+
+		svg {
+			position: absolute;
+			right: 10px;
+			top: 50%;
+			margin-top: -7.5px;
+			pointer-events: none;
+		}
+	}
+
+	&__assign-label {
+		white-space: nowrap;
+		color: $wcgs-muted;
+	}
+
+	&__assign {
+
+		@include wcgs-reset-button;
+		height: 38px;
+		max-width: 380px;
+		box-sizing: border-box;
+		padding: 0 12px;
+		border: 1px solid $wcgs-border;
+		border-radius: 4px;
+		background: #fff;
+		font-size: 14px;
+		color: $wcgs-text;
+		transition:
+			border-color 200ms $wcgs-ease,
+			background-color 200ms $wcgs-ease;
+
+		&:hover {
+			border-color: $wcgs-border-hover;
+			background: $wcgs-bg-soft;
+		}
+
+		> svg {
+			flex: 0 0 auto;
+			color: $wcgs-faint;
+		}
+
+		&.is-unassigned {
+			border-color: #ecedef;
+			background: #f8f8f9;
+
+			&:hover {
+				border-color: $wcgs-off;
+				background: #e9e9ec;
+			}
+
+			.wcgs-layout-editor-header__assign-label {
+				color: $wcgs-text-2;
+			}
+		}
+
+		&.is-nudging {
+			border-color: $wcgs-amber;
+			animation: wcgs-lay-nudge 1.1s $wcgs-ease 2;
+		}
+
+		&:disabled {
+			opacity: 0.6;
+			cursor: default;
+		}
+	}
+
+	&__dot {
+		position: relative;
+		width: 8px;
+		height: 8px;
+		flex: 0 0 8px;
+		border-radius: 50%;
+		background: $wcgs-green;
+	}
+
+	&__wave {
+		position: absolute;
+		inset: 0;
+		border-radius: 50%;
+		background: $wcgs-amber;
+		animation: wcgs-lay-dot-wave 2.4s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
+		will-change: transform, opacity;
+
+		&:last-child {
+			animation-delay: 1.2s;
+		}
+	}
+
+	&__assign.is-unassigned &__dot {
+		background: $wcgs-amber;
+	}
+
+	&__assign-value {
+
+		@include wcgs-truncate;
+		font-weight: 500;
+	}
+
+	&__actions {
+		margin-left: auto;
+	}
+
+	// Above the button, as the design's `rs-tip-box` here.
+	&__tip {
+
+		@include wcgs-tip;
+		bottom: calc(100% + 6px);
+		padding: 6px 10px;
+		line-height: 18px;
+		white-space: nowrap;
+	}
+
+	&__reset-wrap {
+
+		@include wcgs-reveal;
+
+		&:hover .wcgs-layout-editor-header__tip {
+
+			@include wcgs-tip-visible;
+		}
+	}
+
+	&__reset {
+
+		@include wcgs-reset-button;
+		width: 30px;
+		height: 30px;
+		border-radius: 4px;
+		color: $wcgs-faint;
+		transition: color 160ms $wcgs-ease;
+
+		&:hover {
+			color: $wcgs-text;
+		}
+	}
+
+	&__save {
+
+		@include wcgs-reset-button;
+		height: 38px;
+		padding: 0 14px;
+		border: 1px solid $wcgs-accent;
+		border-radius: 4px;
+		background: $wcgs-accent;
+		font-size: 14px;
+		font-weight: 600;
+		white-space: nowrap;
+		color: #fff;
+		transition:
+			background-color 160ms $wcgs-ease,
+			border-color 160ms $wcgs-ease,
+			color 160ms $wcgs-ease;
+
+		&[aria-disabled="true"] {
+			opacity: 0.55;
+			cursor: default;
+		}
+	}
+
+	&__anchor {
+		position: relative;
+		align-self: flex-end;
+		width: 0;
+		height: 0;
+	}
+
+	&__backdrop {
+		position: fixed;
+		inset: 0;
+		z-index: 84;
+	}
+
+	&__popover {
+		position: absolute;
+		right: 0;
+		top: 10px;
+		z-index: 85;
+		width: 340px;
+		max-width: calc(100vw - 32px);
+		box-sizing: border-box;
+		padding: 16px;
+		border: 1px solid $wcgs-divider;
+		border-radius: 8px;
+		background: #fff;
+		box-shadow: $wcgs-shadow-pop;
+		transform-origin: top right;
+		animation: wcgs-lay-pop-in 200ms $wcgs-ease;
+
+		&.is-out {
+			animation: wcgs-lay-pop-out 160ms $wcgs-ease forwards;
+		}
+	}
+
+	&__caret {
+		position: absolute;
+		top: -6px;
+		right: 28px;
+		width: 10px;
+		height: 10px;
+		border-left: 1px solid $wcgs-divider;
+		border-top: 1px solid $wcgs-divider;
+		background: #fff;
+		transform: rotate(45deg);
+	}
+
+	&__popover-title {
+		font-size: 14.5px;
+		font-weight: 600;
+		color: $wcgs-text;
+	}
+
+	&__popover-text {
+		margin-top: 4px;
+		font-size: 13.5px;
+		line-height: 1.5;
+		color: $wcgs-body;
+		text-wrap: pretty;
+	}
+
+	&__popover-actions {
+		margin-top: 14px;
+
+		.wcgs-btn {
+			height: 34px;
+			font-size: 13.5px;
+		}
+
+		.wcgs-btn.is-secondary {
+			padding: 0 12px;
+			color: $wcgs-text-2;
+
+			&:hover {
+				color: $wcgs-text;
+			}
+		}
+
+		.wcgs-btn.is-primary {
+			font-weight: 600;
+		}
+	}
+}
+
+// Assign drawer.
+.wcgs-assign-drawer {
+	position: fixed;
+	inset: 0;
+	z-index: 99980;
+	color: $wcgs-text;
+	-webkit-font-smoothing: antialiased;
+
+	&__scrim {
+		position: absolute;
+		inset: 0;
+		background: rgba(16, 17, 20, 0.32);
+		animation: wcgs-lay-scrim-in 200ms ease;
+	}
+
+	// Below the WordPress admin bar, which stays on top.
+	&__panel {
+		position: absolute;
+		top: 32px;
+		right: 0;
+		bottom: 0;
+		width: 520px;
+		max-width: 100vw;
+		background: #fff;
+		box-shadow: -16px 0 40px rgba(16, 17, 20, 0.16);
+		animation: wcgs-lay-drawer-in 260ms $wcgs-ease;
+	}
+
+	@media (max-width: 782px) {
+
+		&__panel {
+			top: 46px;
+		}
+	}
+
+	&.is-closing &__scrim {
+		animation: wcgs-lay-scrim-out 220ms ease forwards;
+	}
+
+	&.is-closing &__panel {
+		animation: wcgs-lay-drawer-out 220ms $wcgs-ease forwards;
+	}
+
+	&__head {
+		padding: 20px 22px 14px;
+		border-bottom: 1px solid $wcgs-line;
+
+		> div {
+			flex: 1;
+			min-width: 0;
+		}
+	}
+
+	&__title {
+		font-size: 17px;
+		font-weight: 600;
+	}
+
+	&__subtitle {
+		margin-top: 3px;
+		font-size: 13px;
+		line-height: 1.45;
+		color: $wcgs-muted;
+	}
+
+	&__close {
+
+		@include wcgs-lay-icon-button;
+
+		&:hover {
+			background: $wcgs-bg-subtle;
+			color: $wcgs-text;
+		}
+	}
+
+	&__controls {
+		padding: 14px 22px 0;
+	}
+
+	&__tabs {
+		position: relative;
+		padding: 3px;
+		border: 1px solid $wcgs-border-light;
+		border-radius: 5px;
+		background: $wcgs-bg-soft;
+	}
+
+	&__tab-pill {
+		position: absolute;
+		top: 3px;
+		bottom: 3px;
+		left: 0;
+		border-radius: 3px;
+		background: #fff;
+		box-shadow:
+			0 1px 2px rgba(16, 17, 20, 0.14),
+			0 0 1px rgba(16, 17, 20, 0.1);
+		transition:
+			transform 200ms $wcgs-ease,
+			width 200ms $wcgs-ease;
+	}
+
+	&__tab {
+
+		@include wcgs-reset-button;
+		position: relative;
+		flex: 1 1 0;
+		height: 34px;
+		padding: 0 12px;
+		font-size: 14px;
+		font-weight: 400;
+		white-space: nowrap;
+		color: $wcgs-text-2;
+		transition: color 160ms $wcgs-ease;
+
+		&.is-active {
+			color: $wcgs-text;
+		}
+	}
+
+	&__search {
+
+		@include wcgs-lay-search;
+		height: 38px;
+		border-radius: 6px;
+
+		input,
+		input[type="search"] {
+
+			@include wcgs-lay-search-input;
+		}
+	}
+
+	&__free {
+
+		@include wcgs-reset-button;
+		align-self: flex-start;
+		padding: 2px 0;
+		font-size: 13.5px;
+		color: $wcgs-text-2;
+	}
+
+	// The drawer's checked boxes are accent-colored.
+	&__free,
+	&__row {
+
+		.wcgs-check.is-on {
+			border-color: $wcgs-accent;
+			background: $wcgs-accent;
+		}
+	}
+
+	&__list {
+		position: relative;
+		min-height: 0;
+		overflow-y: auto;
+		overscroll-behavior: contain;
+		padding: 8px 14px;
+	}
+
+	&__label {
+
+		@include wcgs-truncate;
+		flex: 0 1 auto;
+		font-size: 14px;
+		color: $wcgs-text;
+	}
+
+	&__row {
+
+		@include wcgs-reset-button;
+		padding: 8px;
+		border-radius: 5px;
+		text-align: left;
+
+		&.has-thumb {
+			padding: 7px 8px;
+		}
+
+		&:hover {
+			background: $wcgs-bg-soft;
+		}
+
+		&.is-locked {
+			cursor: not-allowed;
+
+			.wcgs-check {
+				border-color: $wcgs-divider;
+				background: $wcgs-bg-subtle;
+			}
+
+			.wcgs-assign-drawer__label {
+				color: $wcgs-faint;
+			}
+		}
+	}
+
+	&__thumb {
+		width: 30px;
+		height: 30px;
+		flex: 0 0 30px;
+		border-radius: 5px;
+		background-color: #f5f5f7;
+		background-size: contain;
+		background-position: center;
+		background-repeat: no-repeat;
+	}
+
+	&__meta {
+		margin-left: auto;
+		padding-left: 8px;
+		font-size: 12.5px;
+		font-variant-numeric: tabular-nums;
+		white-space: nowrap;
+		color: $wcgs-faint;
+	}
+
+	&__excl-hint {
+		padding: 6px 8px 8px;
+		font-size: 13px;
+		line-height: 1.45;
+		color: $wcgs-muted;
+	}
+
+	&__loading {
+		padding: 12px 8px;
+		font-size: 13px;
+		color: $wcgs-muted;
+		animation: wcgs-lay-scrim-in 160ms ease;
+
+		> span {
+			width: 14px;
+			height: 14px;
+			box-sizing: border-box;
+			border: 2px solid $wcgs-divider;
+			border-top-color: $wcgs-text;
+			border-radius: 50%;
+			animation: wcgs-lay-spin 700ms linear infinite;
+		}
+	}
+
+	&__sentinel {
+		height: 1px;
+	}
+
+	&__state {
+		padding: 28px 8px;
+		text-align: center;
+		font-size: 13.5px;
+		color: $wcgs-muted;
+	}
+
+	&__hint {
+		padding: 8px 8px 4px;
+		text-align: center;
+		font-size: 12px;
+		color: $wcgs-faint;
+	}
+
+	&__summary {
+		padding: 10px 22px 12px;
+		border-top: 1px solid $wcgs-line;
+		overflow: hidden;
+		animation: wcgs-lay-card-in 260ms $wcgs-ease;
+
+		&.is-leaving {
+			animation: wcgs-lay-card-out 200ms $wcgs-ease forwards;
+		}
+	}
+
+	&__summary-toggle {
+
+		@include wcgs-reset-button;
+		padding: 4px 0;
+		text-align: left;
+	}
+
+	&__summary-count {
+		font-size: 13px;
+		font-weight: 600;
+		color: $wcgs-text;
+	}
+
+	&__summary-affected {
+		font-size: 12.5px;
+		color: $wcgs-muted;
+	}
+
+	&__summary-chevron {
+		margin-left: auto;
+		color: $wcgs-muted;
+		transform: rotate(-90deg);
+		transition: transform 200ms $wcgs-ease;
+
+		&.is-open {
+			transform: none;
+		}
+	}
+
+	&__chips-wrap {
+		display: grid;
+		grid-template-rows: 0fr;
+		opacity: 0;
+		transition:
+			grid-template-rows 240ms $wcgs-ease,
+			opacity 200ms $wcgs-ease;
+
+		> div {
+			min-height: 0;
+			overflow: hidden;
+		}
+
+		&.is-open {
+			grid-template-rows: 1fr;
+			opacity: 1;
+		}
+	}
+
+	&__chips {
+		max-height: 92px;
+		overflow-y: auto;
+		padding-top: 10px;
+	}
+
+	&__chip {
+		height: 26px;
+		padding: 0 3px 0 9px;
+		border-radius: 4px;
+		background: $wcgs-bg-subtle;
+		font-size: 13px;
+		color: $wcgs-text;
+		white-space: nowrap;
+	}
+
+	&__chip-remove {
+
+		@include wcgs-reset-button;
+		width: 20px;
+		height: 20px;
+		border-radius: 3px;
+		color: $wcgs-muted;
+
+		&:hover {
+			background: $wcgs-border-light;
+			color: $wcgs-text;
+		}
+	}
+
+	&__chip-kind {
+		color: $wcgs-muted;
+	}
+
+	&__foot {
+		padding: 14px 22px 18px;
+		border-top: 1px solid $wcgs-wp-gray;
+	}
+
+	&__buttons {
+
+		.wcgs-btn {
+			height: 38px;
+			border-radius: 6px;
+			transition-duration: 120ms;
+		}
+
+		.wcgs-btn.wcgs-assign-drawer__clear {
+			padding: 0 14px;
+		}
+	}
+}
+
+// Toast.
+@media (max-width: 960px) {
+
+	.wcgs-layouts-table__head,
+	.wcgs-layout-row {
+		grid-template-columns: 18px 16px minmax(0, 1.6fr) minmax(0, 2fr) 92px 34px;
+	}
+
+	.wcgs-layout-row__affected,
+	.wcgs-layout-row__updated,
+	.wcgs-layouts-table__head > span:nth-child(5),
+	.wcgs-layouts-table__head > span:nth-child(7) {
+		display: none;
+	}
+}
+
+// "Watch Video" modal: the layouts tutorial over the whole screen.
+.wcgs-video-modal {
+	position: fixed;
+	inset: 0;
+	z-index: 100000; // Above the admin bar (99999).
+	box-sizing: border-box;
+	padding: 56px 24px;
+	background: rgba(16, 17, 20, 0.72);
+	animation: wcgs-scrim-in 200ms ease;
+
+	&.is-closing {
+		animation: wcgs-scrim-out 180ms ease forwards;
+	}
+
+	&__dialog {
+		position: relative;
+		// 16:9 inside the padded viewport.
+		width: min(1080px, calc((100vh - 112px) * 16 / 9), 100%);
+		animation: wcgs-pop-in 220ms $wcgs-ease;
+	}
+
+	&.is-closing &__dialog {
+		animation: wcgs-pop-out 160ms $wcgs-ease forwards;
+	}
+
+	&__player {
+		overflow: hidden;
+		aspect-ratio: 16 / 9;
+		border-radius: 12px;
+		background: #000;
+		box-shadow: 0 24px 64px rgba(0, 0, 0, 0.4);
+
+		iframe {
+			display: block;
+			width: 100%;
+			height: 100%;
+			border: 0;
+		}
+	}
+
+	&__close {
+
+		@include wcgs-reset-button;
+		position: absolute;
+		top: -30px;
+		right: -20px;
+		width: 36px;
+		height: 36px;
+		border-radius: 50%;
+		color: rgba(255, 255, 255, 0.85);
+
+		// No room beside the player: above its corner instead.
+		@media (max-width: 600px) {
+			top: -44px;
+			right: 0;
+		}
+		transition:
+			background 120ms $wcgs-ease,
+			color 120ms $wcgs-ease;
+
+		&:hover,
+		&:focus-visible {
+			background: rgba(255, 255, 255, 0.14);
+			color: #fff;
+		}
+
+		&:focus-visible {
+			outline: none;
+			box-shadow: $wcgs-focus-ring;
+		}
+	}
+}

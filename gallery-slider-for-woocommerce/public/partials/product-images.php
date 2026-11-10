@@ -1,18 +1,22 @@
 <?php
 /**
- * The product images.
+ * WooCommerce Product Gallery Slider.
  *
  * @package    Woo_Gallery_Slider
  * @subpackage Woo_Gallery_Slider/public
+ * @author     ShapedPlugin <support@shapedplugin.com>
+ * @version    2.0.0
  */
-
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-}  // if direct access.
 
 if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 	/**
 	 * WooCommerce Product Gallery Slider.
+	 *
+	 * The gallery script rebuilds this markup after a variation change
+	 * (generateGalleryItemHTML() / generateThumbnailItemHTML()), and the
+	 * dashboard's live preview renders it with React
+	 * (src/admin/pages/globalSettings/LivePreview/engine/Gallery.jsx): make
+	 * markup changes in all three.
 	 */
 	class WCGS_Product_Gallery {
 		/**
@@ -21,13 +25,6 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 		 * @var array
 		 */
 		private $settings;
-
-		/**
-		 * Assigns data
-		 *
-		 * @var mixed
-		 */
-		private $assigns_data;
 
 		/**
 		 * Current product
@@ -48,44 +45,31 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 		 *
 		 * @var array
 		 */
-		private $gallery = array();
+		private $gallery_items = array();
 
 		/**
-		 * Product id.
+		 * Image_lazy_load
 		 *
-		 * @var mixed
+		 * @var bool
 		 */
-		private $product_id = null;
-
-		/**
-		 * Product type.
-		 *
-		 * @var mixed
-		 */
-		private $product_type = '';
+		private $image_lazy_load = true;
 
 		/**
 		 * Constructor
 		 */
 		public function __construct() {
 			$this->product = $this->get_product();
-			if ( ! $this->product instanceof WC_Product ) {
+			if ( ! $this->product ) {
 				return;
 			}
-			$this->product_id   = $this->product->get_id();
-			$this->product_type = $this->product->get_type();
-			$this->helper       = new WCGS_Public_Helper();
-			$this->settings     = get_option( 'wcgs_settings', array() );
-			$this->display_gallery_output();
+			$this->helper   = new WCGS_Public_Helper();
+			$this->settings = Woo_Gallery_Slider_Responsive::to_runtime( get_option( 'wcgs_settings', array() ) );
+			$this->assigns_layout();
+			// Free features only, also over a layout's values.
+			$this->settings = WCGS_Public_Helper::free_settings( $this->settings );
+			$this->init();
 		}
-		/**
-		 * Get lazy load attribute
-		 *
-		 * @return string
-		 */
-		private function get_lazy_load_attribute() {
-			return isset( $this->settings['wcgs_image_lazy_load'] ) && 'ondemand' === $this->settings['wcgs_image_lazy_load'] ? 'loading="lazy"' : '';
-		}
+
 		/**
 		 * Update with Assigned Layout data.
 		 *
@@ -107,8 +91,38 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 		private function apply_assigned_layout( $layout_id ) {
 			$assigned_options = get_post_meta( $layout_id, 'wcgs_metabox', true );
 			if ( ! empty( $assigned_options ) ) {
-				$this->settings = $this->helper->wp_parse_args_recursive( $assigned_options, $this->settings );
+				$assigned_options = Woo_Gallery_Slider_Responsive::to_runtime( $assigned_options );
+				$this->settings   = Woo_Gallery_Slider_Responsive::from_layout( $this->helper->wp_parse_args_recursive( $assigned_options, $this->settings ), $assigned_options );
 			}
+		}
+
+		/**
+		 * Initialize gallery.
+		 */
+		private function init() {
+			if ( ! $this->product ) {
+				return;
+			}
+			$is_gallery_cache = $this->settings['gallery_cache'] ?? false;
+			$transient_key    = false;
+
+			$product_id = $this->product->get_id();
+			// A variation preselected in the URL (?attribute_pa_color=blue) renders its own
+			// images: don't serve or store that markup as the product's gallery.
+			if ( $is_gallery_cache && ! $this->get_selected_attributes() ) {
+				// The markup differs on mobile devices (the full gallery width),
+				// so cache each device class under its own key.
+				$transient_key = Woo_Gallery_Slider_Cache::key( 'wcgs_gallery_html_' . $product_id . ( wp_is_mobile() ? '_m' : '' ) );
+				$cached_html   = get_transient( $transient_key );
+				// Check if cached HTML exists and return it.
+				if ( false !== $cached_html ) {
+					echo $cached_html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- the markup rendered below.
+					return;
+				}
+			}
+
+			$this->prepare_gallery_items();
+			$this->render_gallery( $transient_key );
 		}
 
 		/**
@@ -123,44 +137,823 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 		}
 
 		/**
-		 * Get slider configuration
-		 *
-		 * @return array
+		 * Prepare gallery items.
 		 */
-		public function get_slider_config() {
-			return array(
-				'slider_dir'            => $this->settings['slider_dir'] ?? '',
-				'thumbnailnavigation'   => $this->settings['thumbnailnavigation'] ?? false,
-				'navigation'            => $this->settings['navigation'] ?? true,
-				'video_popup_place'     => $this->settings['video_popup_place'] ?? 'popup',
-				'preloader'             => $this->settings['preloader'] ?? true,
-				'slider_dir_rtl'        => ! empty( $this->settings['slider_dir'] ) ? 'dir=rtl' : '',
-				'include_feature_image' => $this->get_feature_image_setting(),
-			);
+		private function prepare_gallery_items() {
+			$this->image_lazy_load = isset( $this->settings['wcgs_image_lazy_load'] ) && 'ondemand' === $this->settings['wcgs_image_lazy_load'];
+			$this->product->get_type() === 'variable'
+			? $this->handle_variation_gallery() : $this->handle_simple_product_gallery();
+
+			$this->sort_gallery_items();
 		}
 
 		/**
-		 * Get feature image setting
-		 *
-		 * @return array
+		 * Handle variation gallery items.
 		 */
-		private function get_feature_image_setting() {
-			$include_feature_image = $this->settings['include_feature_image_to_gallery'] ?? array( 'default_gl' );
-			if ( is_string( $include_feature_image ) ) {
-				return array( $include_feature_image );
-			}
-			return $include_feature_image;
-		}
-
-		/**
-		 * Process variable product gallery
-		 */
-		private function process_variable_gallery() {
+		private function handle_variation_gallery() {
+			$image_id          = $this->product->get_image_id();
 			$default_variation = $this->get_default_variation();
-			if ( empty( $default_variation ) ) {
+			! empty( $default_variation )
+			? $this->add_variation_images( $default_variation )
+			: $this->add_default_product_images();
+			if ( empty( $this->gallery_items ) ) {
+				$this->add_image_to_gallery( $image_id );
+			}
+		}
+
+		/**
+		 * Handle simple product gallery items.
+		 */
+		private function handle_simple_product_gallery() {
+			$image_id = $this->product->get_image_id();
+			if ( $this->should_include_featured_image( 'default_gl' ) && $image_id ) {
+				$this->add_image_to_gallery( $image_id );
+			}
+			$this->add_gallery_images();
+			if ( empty( $this->gallery_items ) ) {
+				$this->add_image_to_gallery( $image_id );
+			}
+		}
+
+		/**
+		 * Add variation images to gallery
+		 *
+		 * @param array $variation Variation attributes.
+		 */
+		private function add_variation_images( $variation ) {
+			$feature_image_id = $this->product->get_image_id();
+			if ( $this->should_include_featured_image( 'variable_gl' ) && $feature_image_id ) {
+				$this->add_image_to_gallery( $feature_image_id );
+			}
+			$_temp_variations = array();
+			foreach ( $variation as $key => $value ) {
+				$_temp_variations[ 'attribute_' . $key ] = $value;
+			}
+			$data_store   = WC_Data_Store::load( 'product' );
+			$variation_id = $data_store->find_matching_product_variation( $this->product, $_temp_variations );
+
+			if ( $variation_id ) {
+				$image_id = get_post_thumbnail_id( $variation_id );
+				if ( $image_id ) {
+					$this->add_image_to_gallery( $image_id );
+				}
+				$this->add_variation_gallery_images( $variation_id );
+			}
+		}
+
+		/**
+		 * Add default product images to gallery.
+		 */
+		private function add_default_product_images() {
+			$image_id = $this->product->get_image_id();
+			if ( $this->should_include_featured_image( 'default_gl' ) && $image_id ) {
+				$this->add_image_to_gallery( $image_id );
+			}
+			$this->add_gallery_images();
+		}
+
+		/**
+		 * Remove duplicate images from the gallery items based on their URLs.
+		 *
+		 * @param array $items Array of gallery items.
+		 * @return array Filtered array with unique items based on URLs.
+		 */
+		private function remove_duplicate_images_by_url( $items ) {
+			$unique_items = array();
+			$seen_urls    = array();
+
+			foreach ( $items as $item ) {
+				if ( empty( $item['url'] ) || in_array( $item['url'], $seen_urls, true ) ) {
+					continue;
+				}
+
+				$seen_urls[]    = $item['url'];
+				$unique_items[] = $item;
+			}
+
+			return $unique_items;
+		}
+
+		/**
+		 * Add image to gallery
+		 *
+		 * @param int $image_id Image ID.
+		 */
+		private function add_image_to_gallery( $image_id ) {
+			if ( ! $image_id ) {
 				return;
 			}
-			$this->add_variation_feature_image( $default_variation );
+			$image_url = wp_get_attachment_url( $image_id );
+			if ( empty( $image_url ) ) {
+				return;
+			}
+			$this->gallery_items[] = $this->get_image_data( $image_id );
+		}
+
+		/**
+		 * Add gallery images.
+		 */
+		private function add_gallery_images() {
+			$attachment_ids = $this->helper->gallery_image_ids( $this->product, $this->settings );
+			foreach ( $attachment_ids as $attachment_id ) {
+				$this->add_image_to_gallery( $attachment_id );
+			}
+		}
+
+		/**
+		 * Add variation gallery images: all images of the variation's gallery.
+		 *
+		 * @param int $variation_id Variation ID.
+		 */
+		private function add_variation_gallery_images( $variation_id ) {
+			$gallery_ids = WCGS_Public_Helper::variation_gallery_ids( $variation_id );
+			foreach ( $gallery_ids as $gallery_id ) {
+				$this->add_image_to_gallery( $gallery_id );
+			}
+		}
+
+		/**
+		 * Get image data.
+		 *
+		 * @param int $image_id Image ID.
+		 * @return array
+		 */
+		private function get_image_data( $image_id ) {
+			$image_meta_handler = new WCGS_Public_Image( $this->settings );
+			return $image_meta_handler->get_image_meta( $image_id );
+		}
+
+		/**
+		 * Sort gallery items.
+		 */
+		private function sort_gallery_items() {
+			$this->gallery_items = $this->remove_duplicate_images_by_url( $this->gallery_items );
+			if ( 'in_gallery' !== $this->helper->video_presentation( $this->settings ) ) {
+				// With the video gallery off, the video images show as plain images.
+				foreach ( $this->gallery_items as $index => $item ) {
+					unset( $this->gallery_items[ $index ]['video'] );
+				}
+				return;
+			}
+			// Sort videos last based on settings.
+			if ( isset( $this->settings['video_order'] ) && 'video_come_last' === $this->settings['video_order'] ) {
+				usort( $this->gallery_items, array( $this, 'sort_videos_last' ) );
+			}
+		}
+
+		/**
+		 * Sort callback to put videos last.
+		 *
+		 * @param  array $a List.
+		 * @param  array $b List.
+		 * @return array
+		 */
+		private function sort_videos_last( $a, $b ) {
+			return ( isset( $a['video'] ) ? 1 : 0 ) - ( isset( $b['video'] ) ? 1 : 0 );
+		}
+
+		/**
+		 * Render gallery HTML.
+		 *
+		 * @param  mixed $transient_key Transient key/false.
+		 * @return void
+		 */
+		private function render_gallery( $transient_key ) {
+			// Generate the gallery HTML.
+			$gallery_class = $this->get_gallery_classes();
+			$slider_dir    = $this->get_slider_direction();
+
+			ob_start();
+			do_action( 'sp_woo_gallery_slider_before_container' );
+			$this->render_gallery_container( $gallery_class, $slider_dir );
+			do_action( 'sp_woo_gallery_slider_after_container' );
+			$html = ob_get_clean();
+			$html = $this->helper->minify_output( $html );
+			// Store the HTML in a transient.
+			if ( $transient_key ) {
+				set_transient( $transient_key, $html, WOO_GALLERY_SLIDER_TRANSIENT_EXPIRATION );
+			}
+			echo $html; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped while rendering.
+		}
+
+		/**
+		 * Render gallery container
+		 *
+		 * @param string $gallery_class Gallery CSS classes.
+		 * @param string $slider_dir Slider direction attribute.
+		 */
+		public function render_gallery_container( $gallery_class, $slider_dir ) {
+			$gallery_width = ! empty( $this->settings['gallery_width'] ) ? $this->settings['gallery_width'] : 50;
+			if ( wp_is_mobile() ) {
+				$gallery_width = 100;
+			}
+			?>
+		<div id="wpgs-gallery" <?php echo esc_attr( $slider_dir ); ?> class="wcgs-woocommerce-product-gallery <?php echo esc_attr( $gallery_class ); ?>" style="max-width: <?php echo esc_attr( $gallery_width ); ?>%; overflow: hidden;" data-id="<?php echo esc_attr( $this->product->get_id() ); ?>">
+			<?php
+			$this->maybe_render_thumbnails();
+			$this->render_main_gallery();
+			$this->maybe_render_preloader();
+			?>
+		</div>
+			<?php
+		}
+
+		/**
+		 * Render thumbnails unless the layout hides them.
+		 */
+		private function maybe_render_thumbnails() {
+			if ( 'hide_thumb' !== ( $this->settings['gallery_layout'] ?? 'horizontal' ) ) {
+				$this->render_thumbnails();
+			}
+		}
+
+		/**
+		 * Render thumbnails.
+		 */
+		private function render_thumbnails() {
+			$thumbnailnavigation_style = ! empty( $this->settings['thumbnailnavigation_style'] ) ? $this->settings['thumbnailnavigation_style'] : 'custom';
+			$thumb_nav_style_attr      = ' thumbnailnavigation-' . $thumbnailnavigation_style;
+			$thumb_nav_visibility      = $this->settings['thumb_nav_visibility'] ?? 'hover';
+			?>
+		<div class="gallery-navigation-carousel-wrapper <?php echo esc_attr( $this->get_gallery_layout_class() ); ?>">
+			<div thumbsSlider="" class="gallery-navigation-carousel spswiper <?php echo esc_attr( $this->get_gallery_layout_class() . $thumb_nav_style_attr ); ?> <?php echo esc_attr( $thumb_nav_visibility ); ?>">
+				<div class="spswiper-wrapper">
+					<?php
+					foreach ( $this->gallery_items as $item ) {
+						if ( ! isset( $item['url'] ) ) {
+							continue;
+						}
+						$this->render_thumbnail( $item );
+					}
+					?>
+				</div>
+					<?php $this->render_thumbnail_navigation(); ?>
+			</div>
+			<div class="wcgs-border-bottom"></div>
+		</div>
+			<?php
+		}
+
+		/**
+		 * Render thumbnail
+		 *
+		 * @param array $item Gallery item data.
+		 */
+		private function render_thumbnail( $item ) {
+			$image_attributes = array(
+				'class'      => 'skip-lazy wcgs-thumb-image',
+				'alt'        => $item['alt_text'],
+				'src'        => $item['thumb_url'],
+				'height'     => $item['thumbHeight'],
+				'width'      => $item['thumbWidth'],
+				'data-cap'   => $item['cap'],
+				'data-image' => $item['full_url'],
+			);
+
+			if ( ! empty( $item['video'] ) ) {
+				$this->add_video_attributes( $image_attributes, $item );
+			}
+			?>
+	<div class="wcgs-thumb spswiper-slide">
+		<img <?php echo $this->build_attributes_string( $image_attributes ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in build_attributes_string(). ?> <?php echo $this->get_lazy_load_attribute(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+	</div>
+			<?php
+		}
+
+		/**
+		 * Add video-specific attributes to image.
+		 *
+		 * @param array $attributes Image attributes array.
+		 * @param array $item Gallery item data.
+		 */
+		private function add_video_attributes( &$attributes, $item ) {
+			$video_url = wp_parse_url( $item['video'] );
+			if ( ! $video_url || empty( $video_url['host'] ) ) {
+				$video_url = array( 'host' => '' );
+			}
+
+			$video_host                  = $video_url['host'];
+			$attributes['data-videosrc'] = $item['video'];
+			if ( strpos( $video_host, 'youtu' ) !== false ) {
+				$video_id                   = $this->get_youtube_video_id( $item['video'] );
+				$attributes['data-type']    = 'youtube';
+				$attributes['data-videoid'] = $video_id;
+			} elseif ( strpos( $video_host, 'vimeo' ) !== false ) {
+				$video_id                   = substr( wp_parse_url( $item['video'], PHP_URL_PATH ), 1 );
+				$attributes['data-type']    = 'vimeo';
+				$attributes['data-videoid'] = $video_id;
+			} elseif ( strpos( $video_host, 'dailymotion' ) !== false ) {
+				$attributes['data-type'] = 'dailymotion';
+			} elseif ( strpos( $video_host, 'facebook' ) !== false ) {
+				$attributes['data-type'] = 'facebook';
+			} elseif ( strpos( $video_host, 'mediadelivery' ) !== false ) {
+				$attributes['data-type'] = 'iframe';
+			} else {
+				$attributes['data-type']        = 'html5video';
+				$attributes['data-videomp4']    = $item['video'];
+				$attributes['data-description'] = 'Html5 Video Description';
+			}
+		}
+
+		/**
+		 * Build HTML attributes string from array.
+		 *
+		 * @param array $attributes Array of attribute key/value pairs.
+		 * @return string
+		 */
+		private function build_attributes_string( $attributes ) {
+			$html = '';
+			foreach ( $attributes as $key => $value ) {
+				if ( ! empty( $value ) ) {
+					$html .= sprintf( ' %s="%s"', esc_attr( $key ), esc_attr( $value ) );
+				}
+			}
+			return $html;
+		}
+
+		/**
+		 * Render thumbnail navigation.
+		 */
+		private function render_thumbnail_navigation() {
+			if ( ! empty( $this->settings['thumbnailnavigation'] ) ) {
+				?>
+			<div class="wcgs-spswiper-button-next wcgs-spswiper-arrow sp-wgsp-icon-right-open-3"></div>
+			<div class="wcgs-spswiper-button-prev wcgs-spswiper-arrow sp-wgsp-icon-left-open-4"></div>
+				<?php
+			}
+		}
+
+		/**
+		 * Render main gallery.
+		 *
+		 * @return void
+		 */
+		private function render_main_gallery() {
+			?>
+	<div class="wcgs-carousel <?php echo esc_attr( $this->get_carousel_classes() ); ?>">
+		<div class="spswiper-wrapper">
+			<?php
+			array_walk( $this->gallery_items, array( $this, 'render_gallery_item' ) );
+			?>
+		</div>
+			<?php
+			$this->render_navigation();
+			$this->maybe_render_pagination();
+			?>
+	</div>
+			<?php
+		}
+
+		/**
+		 * Render gallery item
+		 *
+		 * @param array $item Gallery item data.
+		 * @param int   $index Item index.
+		 */
+		public function render_gallery_item( $item, $index ) {
+			if ( ! isset( $item['url'] ) ) {
+				return;
+			}
+			$control_id = 'wcgs-control-item' . $index;
+			?>
+		<div class="spswiper-slide" id="<?php echo esc_attr( $control_id ); ?>">
+			<?php
+			if ( isset( $item['video'] ) ) {
+				$this->render_video_item( $item, $index );
+			} else {
+				$this->render_image_item( $item, $index );
+			}
+			?>
+		</div>
+			<?php
+		}
+
+		/**
+		 * Render video item.
+		 *
+		 * @param array $item  Video item data.
+		 * @param int   $index Item index.
+		 */
+		private function render_video_item( $item, $index = '' ) {
+			$video             = $item['video'];
+			$poster_img        = $item['url'];
+			$video_url         = wp_parse_url( $video );
+			$video_host        = ! empty( $video_url['host'] ) ? $video_url['host'] : '';
+			$video_popup_place = $this->settings['video_popup_place'] ?? 'popup';
+			$fetchpriority     = 0 === $index ? 'fetchpriority="high"' : '';
+			// In popup mode the card shows its image (not zoomed: a click opens the
+			// video). With the lightbox off, its play icon opens the video on its
+			// own, from these attributes.
+			$popup_attributes = '';
+			if ( $video_url && 'inline' !== $video_popup_place ) {
+				$popup_attributes = ' data-video-popup="' . esc_url( $this->get_video_embed_link( $video, $video_host ) ) . '" data-video-type="' . esc_attr( $this->get_video_popup_type( $video_host ) ) . '"';
+			}
+			?>
+	<div class="wcgs-slider-image video"<?php echo $popup_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped above. ?>>
+			<?php
+			if ( $video_url ) {
+				// The lightbox opens at the video: its icon, the image and the play
+				// icon all click this anchor (as in 3.x).
+				if ( ! empty( $this->settings['lightbox'] ) ) {
+					$this->render_video_lightbox( $item, $video, $video_host );
+				}
+				if ( 'inline' === $video_popup_place ) {
+					echo '<div class="wcgs-iframe-wrapper">';
+					$this->render_inline_video( $video, $video_host, $poster_img );
+					$this->render_video_icon( $video_host );
+					$this->render_video_thumbnail( $item, true, $fetchpriority );
+					if ( false === strpos( $video_host, 'facebook' ) ) {
+						echo '<div class="wcgs-touch-layer"></div>';
+					}
+					echo '</div>';
+				} else {
+					$this->render_video_icon( $video_host );
+					$this->render_video_thumbnail( $item, false, $fetchpriority );
+				}
+			}
+			$this->maybe_render_caption( $item );
+			?>
+		</div>
+			<?php
+		}
+
+		/**
+		 * Fancybox type of a popup video: `iframe` for the hosts Fancybox cannot
+		 * detect, else empty (YouTube, Vimeo and video files are detected).
+		 *
+		 * @since 4.0.0
+		 * @param string $video_host Video host domain.
+		 * @return string
+		 */
+		private function get_video_popup_type( $video_host ) {
+			foreach ( array( 'facebook', 'dailymotion', 'wistia', 'sproutvideo', 'mediadelivery' ) as $host ) {
+				if ( false !== strpos( $video_host, $host ) ) {
+					return 'iframe';
+				}
+			}
+			return '';
+		}
+
+		/**
+		 * Accessible title of a video iframe, e.g. "Vimeo video".
+		 *
+		 * @since 4.0.0
+		 * @param string $host Video host name, shown as is.
+		 * @return string
+		 */
+		private function video_title( $host ) {
+			/* translators: %s: video host name, e.g. Vimeo. */
+			return sprintf( __( '%s video', 'gallery-slider-for-woocommerce' ), $host );
+		}
+
+		/**
+		 * Render the lightbox anchor of a video card: the lightbox shows the
+		 * video, in the gallery's order.
+		 *
+		 * @since 4.0.0
+		 * @param array  $item       Gallery item data.
+		 * @param string $video      Video URL.
+		 * @param string $video_host Video host domain.
+		 * @return void
+		 */
+		private function render_video_lightbox( $item, $video, $video_host ) {
+			$type = $this->get_video_popup_type( $video_host );
+			?>
+			<a class="wcgs-slider-lightbox" aria-label="<?php esc_attr_e( 'Open lightbox', 'gallery-slider-for-woocommerce' ); ?>" data-caption="<?php echo esc_attr( $item['cap'] ); ?>" data-fancybox="view" href="<?php echo esc_url( $this->get_video_embed_link( $video, $video_host ) ); ?>" data-thumb="<?php echo esc_url( $item['thumb_url'] ?? $item['url'] ); ?>"<?php echo '' !== $type ? ' data-type="' . esc_attr( $type ) . '"' : ''; ?>>
+				<div class="wcgs-lightbox grid-lightbox <?php echo esc_attr( $this->settings['lightbox_icon_position'] ?? 'top_right' ); ?>" data-caption="<?php echo esc_attr( $item['cap'] ); ?>"><span class="sp-wgsp-icon-<?php echo esc_attr( $this->get_lightbox_icon() ); ?>"></span></div>
+			</a>
+			<?php
+		}
+
+		/**
+		 * Render the lightbox anchor of an image.
+		 *
+		 * @since 4.0.0
+		 * @param array $item Gallery item data.
+		 * @return void
+		 */
+		private function render_image_lightbox( $item ) {
+			?>
+			<a class="wcgs-slider-lightbox" aria-label="<?php esc_attr_e( 'Open lightbox', 'gallery-slider-for-woocommerce' ); ?>" data-caption="<?php echo esc_attr( $item['cap'] ); ?>" data-fancybox="view" href="<?php echo esc_url( $item['full_url'] ); ?>" data-thumb="<?php echo esc_url( $item['thumb_url'] ?? $item['url'] ); ?>">
+				<div class="wcgs-lightbox grid-lightbox <?php echo esc_attr( $this->settings['lightbox_icon_position'] ?? 'top_right' ); ?>" data-caption="<?php echo esc_attr( $item['cap'] ); ?>"><span class="sp-wgsp-icon-<?php echo esc_attr( $this->get_lightbox_icon() ); ?>"></span></div>
+			</a>
+			<?php
+		}
+
+		/**
+		 * Render inline video: a placeholder the gallery script turns into the
+		 * player when the play icon is clicked.
+		 *
+		 * @param string $video      Video URL.
+		 * @param string $video_host Video host domain.
+		 * @param string $poster_img Poster image URL.
+		 */
+		private function render_inline_video( $video, $video_host, $poster_img = '' ) {
+			$lazy_load = $this->get_lazy_load_attribute();
+			if ( strpos( $video_host, 'youtu' ) !== false ) {
+				$video_id = $this->get_youtube_video_id( $video );
+				?>
+		<div class="skip-lazy wcgs-iframe wcgs-youtube-video" data-video-id="<?php echo esc_attr( $video_id ); ?>" data-src="<?php echo esc_url( $video ); ?>"></div>
+				<?php
+			} elseif ( strpos( $video_host, 'vimeo' ) !== false ) {
+				$video_id = substr( wp_parse_url( $video, PHP_URL_PATH ), 1 );
+				// Support vimeo unlisted video.
+				$video_url = strpos( $video_id, '/' ) !== false
+					? 'https://player.vimeo.com/video/' . str_replace( '/', '?h=', $video_id ) . '&autoplay=0&controls=1&loop=0'
+					: 'https://player.vimeo.com/video/' . $video_id . '?autoplay=0&controls=1&loop=0';
+				?>
+		<div class="skip-lazy wcgs-iframe" data-title="<?php echo esc_attr( $this->video_title( 'Vimeo' ) ); ?>" data-width="600" data-height="400" data-src="<?php echo esc_url( $video_url ); ?>" data-frameborder="0" data-allow="autoplay; fullscreen" allowfullscreen <?php echo $lazy_load; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> ></div>
+				<?php
+			} elseif ( strpos( $video_host, 'dailymotion' ) !== false ) {
+				$video = $this->generateDailymotionEmbedURL( $video );
+				?>
+		<div class="skip-lazy wcgs-iframe" data-title="<?php echo esc_attr( $this->video_title( 'Dailymotion' ) ); ?>" data-width="560" data-height="400" data-src="<?php echo esc_url( $video ); ?>?autoplay=1&mute=1" data-frameborder="0" data-allow="autoplay; fullscreen" allowfullscreen <?php echo $lazy_load; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> ></div>
+				<?php
+			} elseif ( strpos( $video_host, 'facebook' ) !== false ) {
+				?>
+		<div class="skip-lazy wcgs-iframe facebook-iframe" data-title="<?php echo esc_attr( $this->video_title( 'Facebook' ) ); ?>" data-width="560" data-height="400" data-frameborder="0" data-allow="autoplay; fullscreen" data-src="<?php echo esc_url( $video ); ?>" allowfullscreen <?php echo $lazy_load; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> ></div>
+				<?php
+			} elseif ( strpos( $video_host, 'wistia' ) !== false ) {
+				?>
+		<div class="skip-lazy wcgs-iframe wistia-iframe" data-title="<?php echo esc_attr( $this->video_title( 'Wistia' ) ); ?>" data-width="560" data-height="400" data-frameborder="0" data-allow="autoplay; fullscreen" data-src="<?php echo esc_url( $video ); ?>" allowfullscreen <?php echo $lazy_load; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> ></div>
+				<?php
+			} elseif ( strpos( $video_host, 'mediadelivery' ) !== false ) {
+				$video = str_replace( '/play/', '/embed/', $video );
+				?>
+		<div class="skip-lazy wcgs-iframe wcgs-bunny-iframe" data-title="<?php echo esc_attr( $this->video_title( 'Bunny Stream' ) ); ?>" data-width="560" data-height="400" data-frameborder="0" data-allow="autoplay" data-src="<?php echo esc_url( $video ); ?>" allowfullscreen <?php echo $lazy_load; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> ></div>
+				<?php
+			} elseif ( strpos( $video_host, 'sproutvideo' ) !== false ) {
+				?>
+		<div class="skip-lazy wcgs-iframe sproutvideo-iframe" data-title="<?php echo esc_attr( $this->video_title( 'SproutVideo' ) ); ?>" data-width="560" data-height="400" data-frameborder="0" data-allow="autoplay; fullscreen" data-src="<?php echo esc_url( $video ); ?>" allowfullscreen <?php echo $lazy_load; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> ></div>
+				<?php
+			} else {
+				// Self-hosted video.
+				?>
+		<div class="wcgs-video-self-hosted">
+			<video playsinline preload="auto" class="video-js" poster="<?php echo esc_url( $poster_img ); ?>" controls <?php echo $lazy_load; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> data-setup="{}">
+				<source src="<?php echo esc_url( $video ); ?>" type="video/mp4">
+			</video>
+		</div>
+				<?php
+			}
+		}
+
+		/**
+		 * Render video thumbnail. The image never zooms: a click opens the video.
+		 *
+		 * @param array  $item          Video item data.
+		 * @param bool   $inline        Whether the video plays inline (the image is its poster).
+		 * @param string $fetchpriority Fetch priority attribute.
+		 */
+		private function render_video_thumbnail( $item, $inline = false, $fetchpriority = '' ) {
+			$sizes = 'sizes="(max-width: 520px) 400px, (max-width: 768px) 600px, 600px"';
+			?>
+	<img class="skip-lazy wcgs-slider-image-tag wcgs-lazyloaded" alt="<?php echo esc_attr( $item['alt_text'] ); ?>" data-cap="<?php echo esc_attr( $item['cap'] ); ?>" data-videosrc="<?php echo esc_attr( $item['video'] ); ?>" data-image-src="<?php echo esc_url( $item['url'] ); ?>" src="<?php echo esc_url( $item['url'] ); ?>" data-image="<?php echo esc_url( $item['full_url'] ); ?>" height="<?php echo esc_attr( $item['imageHeight'] ); ?>" width="<?php echo esc_attr( $item['imageWidth'] ); ?>" <?php echo $this->get_image_srcset( $item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in get_image_srcset(). ?> <?php echo $this->get_lazy_load_attribute(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo $sizes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo $fetchpriority; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo $inline ? 'style="visibility: hidden"' : ''; ?>
+		/>
+			<?php
+		}
+
+		/**
+		 * The srcset attribute of a main image, for the Product Image Size.
+		 *
+		 * @since 4.0.0
+		 * @param array $item Gallery item data.
+		 * @return string
+		 */
+		private function get_image_srcset( $item ) {
+			$image_size = isset( $this->settings['image_sizes'] ) ? $this->settings['image_sizes'] : 'woocommerce_single';
+			return 'srcset="' . esc_attr( (string) wp_get_attachment_image_srcset( $item['image_id'], $image_size ) ) . '"';
+		}
+
+		/**
+		 * Get video embed link
+		 *
+		 * @param string $video Video URL.
+		 * @param string $video_host Video host domain.
+		 * @return string
+		 */
+		private function get_video_embed_link( $video, $video_host ) {
+			if ( strpos( $video_host, 'youtu' ) !== false ) {
+				$video_id = $this->get_youtube_video_id( $video );
+				return "https://www.youtube.com/embed/{$video_id}";
+			}
+			if ( strpos( $video_host, 'dailymotion' ) !== false ) {
+				return $this->generateDailymotionEmbedURL( $video );
+			}
+			if ( strpos( $video_host, 'mediadelivery' ) !== false ) {
+				return str_replace( '/play/', '/embed/', $video );
+			}
+			return $video; // Return original URL for other cases (e.g., self-hosted or Facebook).
+		}
+
+		/**
+		 * Generate Dailymotion EmbedURL
+		 *
+		 * @param  string $url Video URL.
+		 * @return mixed Embed URL/false.
+		 */
+		private function generateDailymotionEmbedURL( $url ) { // phpcs:ignore WordPress.NamingConventions.ValidFunctionName.MethodNameInvalid
+			if ( preg_match( '/(?:dailymotion\.com\/video\/|player\.html\?video=|embed\/video\/)([a-zA-Z0-9]+)/', $url, $matches ) ) {
+				return 'https://www.dailymotion.com/embed/video/' . $matches[1];
+			}
+			return false;
+		}
+
+		/**
+		 * Get YouTube video ID
+		 *
+		 * @param string $url YouTube video URL.
+		 * @return string
+		 */
+		private function get_youtube_video_id( $url ) {
+			// Replace 'shorts/' with 'watch?v=' to support youtube shorts.
+			$url = str_replace( 'shorts/', 'watch?v=', $url );
+			if ( strpos( $url, 'youtu.be' ) !== false ) {
+				return basename( wp_parse_url( $url, PHP_URL_PATH ) );
+			}
+			$query = wp_parse_url( $url, PHP_URL_QUERY );
+			if ( ! empty( $query ) ) {
+				parse_str( $query, $params );
+				return isset( $params['v'] ) ? $params['v'] : '';
+			}
+			return '';
+		}
+
+		/**
+		 * Get lazy load attribute
+		 *
+		 * @return string
+		 */
+		private function get_lazy_load_attribute() {
+			return $this->image_lazy_load ? 'loading="lazy"' : '';
+		}
+
+		/**
+		 * Get lightbox icon
+		 *
+		 * @return string
+		 */
+		private function get_lightbox_icon() {
+			$icon_mapping = array(
+				'search-plus' => 'zoom-in-1',
+			);
+
+			$icon = $this->settings['lightbox_icon'] ?? 'search';
+			return $icon_mapping[ $icon ] ?? $icon;
+		}
+
+		/**
+		 * Maybe render caption
+		 *
+		 * @param array $item Gallery item data.
+		 */
+		private function maybe_render_caption( $item ) {
+			if ( ! empty( $item['cap'] ) && ! empty( $this->settings['show_caption'] ) ) {
+				?>
+		<div class="wcgs-slider-image-caption">
+			<span><?php echo esc_html( $item['cap'] ); ?></span>
+		</div>
+				<?php
+			}
+		}
+
+		/**
+		 * Render video icon: the play icon in the middle of the image.
+		 *
+		 * @param string $video_host The video host.
+		 * @return void
+		 */
+		private function render_video_icon( $video_host ) {
+			$video_icon_type = isset( $this->settings['video_icon'] ) ? $this->settings['video_icon'] : 'play-01';
+			$video_icon      = '<i class="wcgs-video-icon sp-wgsp-icon-' . esc_attr( $video_icon_type ) . '"></i>';
+			if ( 'native' === $video_icon_type ) {
+				$video_icon_map = array(
+					'vimeo'       => '<i class="sp-wgsp-icon-vimeo wcgs-video-icon"></i>',
+					'facebook'    => '<i class="sp-wgsp-icon-facebook-circled wcgs-video-icon"></i>',
+					'youtu'       => '<i class="sp-wgsp-icon-youtube-play wcgs-video-icon"></i>',
+					'dailymotion' => '<i class="sp-wgsp-icon-dailymotion wcgs-video-icon"></i>',
+				);
+				$video_icon     = '<i class="wcgs-video-icon sp-wgsp-icon-play-01"></i>';
+				foreach ( $video_icon_map as $host => $icon ) {
+					if ( strpos( $video_host, $host ) !== false ) {
+						$video_icon = $icon;
+						break;
+					}
+				}
+			}
+			?>
+		<div class="wcgs-video-icon-wrapper middle">
+			<?php echo $video_icon; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- built above. ?>
+		</div>
+			<?php
+		}
+
+		/**
+		 * Render image item.
+		 *
+		 * @param array $item  Image item data.
+		 * @param int   $index Item index.
+		 */
+		private function render_image_item( $item, $index = '' ) {
+			$sizes         = 'sizes="(max-width: 520px) 400px, (max-width: 768px) 600px, 600px"';
+			$fetchpriority = 0 === $index ? 'fetchpriority="high"' : '';
+			?>
+		<div class="wcgs-slider-image">
+			<?php
+			if ( ! empty( $this->settings['lightbox'] ) ) {
+				$this->render_image_lightbox( $item );
+			}
+			?>
+			<img class="skip-lazy wcgs-slider-image-tag wcgs_xzoom wcgs-lazyloaded" alt="<?php echo esc_attr( $item['alt_text'] ); ?>" data-cap="<?php echo esc_attr( $item['cap'] ); ?>" src="<?php echo esc_url( $item['url'] ); ?>" data-image="<?php echo esc_url( $item['full_url'] ); ?>" xoriginal="<?php echo esc_url( $item['full_url'] ); ?>" height="<?php echo esc_attr( $item['imageHeight'] ); ?>" width="<?php echo esc_attr( $item['imageWidth'] ); ?>" <?php echo $this->get_image_srcset( $item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- escaped in get_image_srcset(). ?> <?php echo $fetchpriority; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo $this->get_lazy_load_attribute(); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> <?php echo $sizes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> />
+			<?php $this->maybe_render_caption( $item ); ?>
+		</div>
+			<?php
+		}
+
+		/**
+		 * Render navigation
+		 */
+		private function render_navigation() {
+			if ( ! empty( $this->settings['navigation'] ) ) {
+				?>
+			<div class="wcgs-spswiper-button-next wcgs-spswiper-arrow" tabindex="0" role="button" aria-label="<?php esc_attr_e( 'Next slide', 'gallery-slider-for-woocommerce' ); ?>" ></div>
+			<div class="wcgs-spswiper-button-prev wcgs-spswiper-arrow" tabindex="0" role="button" aria-label="<?php esc_attr_e( 'Previous slide', 'gallery-slider-for-woocommerce' ); ?>" ></div>
+				<?php
+			}
+		}
+
+		/**
+		 * Render preloader if enabled.
+		 */
+		private function maybe_render_preloader() {
+			if ( ! empty( $this->settings['preloader'] ) ) {
+				?>
+			<div class="wcgs-gallery-preloader" style="opacity: 1; z-index: 9999;"></div>
+				<?php
+			}
+		}
+
+		/**
+		 * Render pagination if enabled.
+		 */
+		private function maybe_render_pagination() {
+			if ( ! empty( $this->settings['pagination'] ) ) {
+				$pagination_type = ! empty( $this->settings['pagination_type'] ) ? $this->settings['pagination_type'] : 'bullets';
+				?>
+		<div class="spswiper-pagination <?php echo esc_attr( $pagination_type ); ?>"></div>
+				<?php
+			}
+		}
+
+		/**
+		 * Get gallery classes.
+		 *
+		 * @return string
+		 */
+		private function get_gallery_classes() {
+			$classes         = array( 'wcgs-spswiper-before-init' );
+			$classes[]       = $this->get_gallery_layout_class();
+			$preloader_style = ! empty( $this->settings['preloader_style'] ) ? $this->settings['preloader_style'] : 'normal';
+			if ( ! empty( $this->settings['preloader'] ) ) {
+				$classes[] = 'wcgs_preloader_' . $preloader_style;
+			}
+			return implode( ' ', $classes );
+		}
+
+		/**
+		 * Get gallery layout class: thumbnails beside the image (`vertical`) or
+		 * above or below it (`horizontal`; their side is set in the CSS).
+		 *
+		 * @return string
+		 */
+		private function get_gallery_layout_class() {
+			return in_array( $this->settings['gallery_layout'] ?? 'horizontal', array( 'vertical', 'vertical_right' ), true ) ? 'vertical' : 'horizontal';
+		}
+
+		/**
+		 * Get slider direction.
+		 *
+		 * @return string
+		 */
+		private function get_slider_direction() {
+			return ( ! empty( $this->settings['slider_dir'] ) || is_rtl() ) ? 'dir=rtl' : '';
+		}
+
+		/**
+		 * Get carousel classes.
+		 *
+		 * @return string
+		 */
+		private function get_carousel_classes() {
+			$classes = array(
+				$this->settings['navigation_position'] ?? 'center_center',
+				$this->settings['zoom_type'] ?? 'in_side',
+				$this->settings['slide_orientation'] ?? 'horizontal',
+				'wcgs_xzoom_wrapper',
+				'spswiper spswiper-container',
+			);
+
+			return implode( ' ', array_filter( $classes ) );
 		}
 
 		/**
@@ -191,446 +984,24 @@ if ( ! class_exists( 'WCGS_Product_Gallery' ) ) {
 			$attributes = $this->product->get_attributes();
 			foreach ( $attributes as $attribute_name => $options ) {
 				$key = 'attribute_' . sanitize_title( $attribute_name );
-				if ( isset( $_REQUEST[ $key ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Not strictly necessary here.
-					$selected[ $attribute_name ] = wc_clean( wp_unslash( $_REQUEST[ $key ] ) ); // phpcs:ignore
+				if ( isset( $_REQUEST[ $key ] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- a read-only pre-selection, as WooCommerce does.
+					$selected[ $attribute_name ] = wc_clean( wp_unslash( $_REQUEST[ $key ] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended
 				}
 			}
 			return $selected;
 		}
-		/**
-		 * Add variation feature image to gallery
-		 *
-		 * @param array $default_variation The default variation.
-		 */
-		private function add_variation_feature_image( $default_variation ) {
-			$image_id = $this->product->get_image_id();
-			if ( is_array( $this->get_feature_image_setting() ) &&
-			in_array( 'variable_gl', $this->get_feature_image_setting(), true ) &&
-			$image_id ) {
-				$this->gallery[] = $this->helper->wcgs_image_meta( $image_id, $this->settings );
-			}
-
-			$_temp_variations   = $this->prepare_variation_attributes( $default_variation );
-			$variation_id       = $this->find_matching_variation( $_temp_variations );
-			$variation_image_id = get_post_thumbnail_id( $variation_id );
-
-			if ( $this->validate_image_id( $variation_image_id ) ) {
-				$this->gallery[] = $this->helper->wcgs_image_meta( $variation_image_id, $this->settings );
-			}
-			$this->add_variation_gallery_images( $variation_id );
-		}
 
 		/**
-		 * Validate image ID
+		 * Check if featured image should be included.
 		 *
-		 * @param int $image_id Image ID to validate.
+		 * @param string $context Context for inclusion check.
 		 * @return bool
 		 */
-		private function validate_image_id( $image_id ) {
-			return ! empty( $image_id ) && wp_attachment_is_image( $image_id );
-		}
-
-		/**
-		 * Prepare variation attributes
-		 *
-		 * @param array $default_variation default variation attributes.
-		 * @return array
-		 */
-		private function prepare_variation_attributes( $default_variation ) {
-			$_temp_variations = array();
-			foreach ( $default_variation as $key => $value ) {
-				$_temp_variations[ 'attribute_' . $key ] = $value;
-			}
-			return $_temp_variations;
-		}
-
-		/**
-		 * Find matching variation ID
-		 *
-		 * @param array $attributes product attributes.
-		 * @return int
-		 */
-		private function find_matching_variation( $attributes ) {
-			$data_store = WC_Data_Store::load( 'product' );
-			return $data_store->find_matching_product_variation( $this->product, $attributes );
-		}
-
-		/**
-		 * Add variation gallery images
-		 *
-		 * @param int $variation_id variation id.
-		 */
-		private function add_variation_gallery_images( $variation_id ) {
-			$woo_gallery_slider = get_post_meta( $variation_id, 'woo_gallery_slider', true );
-			if ( empty( $woo_gallery_slider ) ) {
-				return;
-			}
-			$gallery_arr = strpos( $woo_gallery_slider, ']' ) !== false ? substr( $woo_gallery_slider, 1, -1 ) : $woo_gallery_slider;
-			if ( strpos( $gallery_arr, ',' ) ) {
-				$this->add_multiple_gallery_images( $gallery_arr );
-			} else {
-				$this->add_single_gallery_image( $gallery_arr );
-			}
-			$this->add_fallback_feature_image();
-		}
-
-		/**
-		 * Add multiple gallery images
-		 *
-		 * @param string $gallery_arr Gallery array string.
-		 */
-		private function add_multiple_gallery_images( $gallery_arr ) {
-			$count         = 1;
-			$gallery_array = explode( ',', $gallery_arr );
-			foreach ( $gallery_array as $gallery_item ) {
-				if ( 2 >= $count ) {
-					if ( $this->validate_image_id( $gallery_item ) ) {
-						$this->gallery[] = $this->helper->wcgs_image_meta( $gallery_item, $this->settings );
-					}
-				}
-				++$count;
-			}
-		}
-
-		/**
-		 * Add single gallery image
-		 *
-		 * @param string $gallery_arr Gallery item.
-		 */
-		private function add_single_gallery_image( $gallery_arr ) {
-			if ( $this->validate_image_id( $gallery_arr ) ) {
-				$this->gallery[] = $this->helper->wcgs_image_meta( $gallery_arr, $this->settings );
-			}
-		}
-
-		/**
-		 * Add fallback feature image if gallery is empty
-		 */
-		private function add_fallback_feature_image() {
-			if ( empty( $this->gallery[0] ) ) {
-				$image_id = $this->product->get_image_id();
-				if ( $this->validate_image_id( $image_id ) ) {
-					$this->gallery[] = $this->helper->wcgs_image_meta( $image_id, $this->settings );
-				}
-			}
-		}
-
-		/**
-		 * Process simple product gallery
-		 */
-		private function process_simple_gallery() {
-			$this->add_simple_product_feature_image();
-			$this->add_simple_product_gallery_images();
-		}
-
-		/**
-		 * Add feature image for simple product
-		 */
-		private function add_simple_product_feature_image() {
-			$image_id = $this->product->get_image_id();
-			if ( is_array( $this->get_feature_image_setting() ) &&
-			in_array( 'default_gl', $this->get_feature_image_setting(), true ) &&
-			$this->validate_image_id( $image_id ) ) {
-				$this->gallery[] = $this->helper->wcgs_image_meta( $image_id, $this->settings );
-			}
-		}
-
-		/**
-		 * Add gallery images for simple product
-		 */
-		private function add_simple_product_gallery_images() {
-			$gallery_image_source = $this->settings['gallery_image_source'] ?? 'uploaded';
-			if ( 'attached' === $gallery_image_source ) {
-				$this->add_attached_images();
-			} else {
-				$this->add_uploaded_images();
-			}
-		}
-
-		/**
-		 * Sort gallery items.
-		 */
-		private function sort_gallery_items() {
-			$video_order = $this->settings['video_order'] ?? '';
-			// Sort videos first or last based on settings.
-			if ( 'video_come_last' === $video_order ) {
-				usort( $this->gallery, array( $this, 'sort_videos_last' ) );
-			}
-		}
-
-		/**
-		 * Sort callback to put videos last.
-		 *
-		 * @param  array $a List.
-		 * @param  array $b List.
-		 * @return array
-		 */
-		private function sort_videos_last( $a, $b ) {
-			return ( isset( $a['video'] ) ? 1 : 0 ) - ( isset( $b['video'] ) ? 1 : 0 );
-		}
-
-		/**
-		 * Add images attached to product content
-		 */
-		private function add_attached_images() {
-			$wgsc_post           = get_post( $this->product_id );
-			$wcgs_post_content   = $wgsc_post->post_content;
-			$wcgs_search_pattern = '~<img [^\>]*\ />~';
-			preg_match_all( $wcgs_search_pattern, $wcgs_post_content, $post_images );
-			$wcgs_number_of_images = count( $post_images[0] );
-			if ( $wcgs_number_of_images > 0 ) {
-				foreach ( $post_images[0] as $image ) {
-					$image_id = $this->extract_image_id( $image );
-					if ( $image_id && $this->validate_image_id( $image_id ) ) {
-						$this->gallery[] = $this->helper->wcgs_image_meta( $image_id, $this->settings );
-					}
-				}
-			}
-		}
-
-		/**
-		 * Extract image ID from img tag
-		 *
-		 * @param string $image Image HTML tag.
-		 * @return string|null
-		 */
-		private function extract_image_id( $image ) {
-			$class_start     = substr( $image, strpos( $image, 'class="' ) + 7 );
-			$class_end       = substr( $class_start, 0, strpos( $class_start, '" ' ) );
-			$image_class_pos = strpos( $class_end, 'wp-image-' );
-			if ( false !== $image_class_pos ) {
-				return substr( $class_end, $image_class_pos + 9 );
-			}
-			return null;
-		}
-
-		/**
-		 * Add uploaded gallery images
-		 */
-		private function add_uploaded_images() {
-			$attachment_ids = $this->product->get_gallery_image_ids();
-			foreach ( $attachment_ids as $attachment_id ) {
-				if ( $this->validate_image_id( $attachment_id ) ) {
-					$this->gallery[] = $this->helper->wcgs_image_meta( $attachment_id, $this->settings );
-				}
-			}
-		}
-
-		/**
-		 * Build gallery based on product type
-		 *
-		 * @return array
-		 */
-		public function build_gallery() {
-			try {
-				if ( ! empty( $this->get_default_variation() ) ) {
-					$this->process_variable_gallery();
-				} else {
-					$this->process_simple_gallery();
-				}
-
-				if ( empty( $this->gallery ) ) {
-					$image_id = $this->product->get_image_id();
-					if ( $this->validate_image_id( $image_id ) ) {
-						$this->gallery[] = $this->helper->wcgs_image_meta( $image_id, $this->settings );
-					}
-				}
-
-				$this->sort_gallery_items();
-			} catch ( Exception $e ) {
-				return array();
-			}
-		}
-
-		/**
-		 * Display gallery output.
-		 *
-		 * @return void
-		 */
-		public function display_gallery_output() {
-			$cache_key  = 'wcgsf_woo_gallery_' . $this->product_id . WOO_GALLERY_SLIDER_VERSION;
-			$cache_data = $this->helper->spwg_get_transient( $cache_key );
-
-			ob_start();
-				$this->assigns_layout();
-				$this->render_gallery();
-				$gallery = $this->helper->minify_output( ob_get_clean() );
-			echo $gallery; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		}
-
-
-		/**
-		 * Render gallery.
-		 *
-		 * @return void
-		 */
-		public function render_gallery() {
-			$this->build_gallery();
-			$gallery              = $this->gallery;
-			$slider_config        = $this->get_slider_config();
-			$slider_dir_rtl       = $slider_config['slider_dir_rtl'];
-			$thumbnailnavigation  = $slider_config['thumbnailnavigation'];
-			$navigation           = $slider_config['navigation'];
-			$preloader            = $slider_config['preloader'];
-			$video_popup_place    = $slider_config['video_popup_place'];
-			$product_id           = $this->product_id;
-			$settings             = $this->settings;
-			$lightbox             = isset( $settings['lightbox'] ) ? $settings['lightbox'] : '';
-			$image_size           = isset( $settings['image_sizes'] ) ? $settings['image_sizes'] : 'woocommerce_single';
-			$thumb_nav_visibility = isset( $settings['thumb_nav_visibility'] ) ? $settings['thumb_nav_visibility'] : 'hover';
-			$_navigation_position = isset( $settings['navigation_position'] ) ? $settings['navigation_position'] : 'center_center';
-			$lightbox_icon        = isset( $settings['lightbox_icon'] ) ? $settings['lightbox_icon'] : 'search';
-
-			$layout_class = '';
-			if ( isset( $this->settings['gallery_layout'] ) && ( ( 'vertical_right' === $this->settings['gallery_layout'] ) || ( ( 'vertical' === $this->settings['gallery_layout'] ) ) ) ) {
-				$layout_class .= 'vertical wcgs-vertical-right';
-				if ( isset( $this->settings['slider_height_type'] ) && 'fix_height' === $this->settings['slider_height_type'] ) {
-						$layout_class .= ' wcgs-fixed-height';
-				}
-			} else {
-				$layout_class .= 'horizontal';
-			}
-
-			if ( 'bottom_left' === $_navigation_position ) {
-				$layout_class .= ' wcgs-nav-bottom-left';
-			}
-
-			$preloader_style                 = ! empty( $this->settings['preloader_style'] ) ? $this->settings['preloader_style'] : 'normal';
-			$thumbnailnavigation_style       = ! empty( $this->settings['thumbnailnavigation_style'] ) ? $this->settings['thumbnailnavigation_style'] : 'custom';
-			$thumbnailnavigation_style_class = ' thumbnailnavigation-' . $thumbnailnavigation_style;
-			if ( $preloader ) {
-				$layout_class .= ' wcgs_preloader_' . $preloader_style;
-			}
-			$lightbox_icon_position = ! empty( $this->settings['lightbox_icon_position'] ) ? $this->settings['lightbox_icon_position'] : 'top-right';
-			$gallery_width          = ! empty( $settings['gallery_width'] ) ? $settings['gallery_width'] : 0;
-			?>
-	<div id="wpgs-gallery" <?php echo wp_kses_post( $slider_dir_rtl ); ?> class="wcgs-woocommerce-product-gallery wcgs-spswiper-before-init <?php echo esc_html( $layout_class ); ?>" style='min-width: <?php echo esc_attr( $gallery_width ); ?>%; overflow: hidden;' data-id="<?php echo esc_attr( $product_id ); ?>">
-		<div class="gallery-navigation-carousel-wrapper <?php echo esc_html( $layout_class ); ?>">
-			<div thumbsSlider="" class="gallery-navigation-carousel spswiper <?php echo esc_html( $layout_class . $thumbnailnavigation_style_class ); ?> <?php echo esc_attr( $thumb_nav_visibility ); ?>">
-				<div class="spswiper-wrapper">
-					<?php
-					foreach ( $gallery as $slide ) {
-						if ( isset( $slide['full_url'] ) && ! empty( $slide['full_url'] ) ) {
-							$video_type = '';
-							$has_video  = isset( $slide['video'] ) && ! empty( $slide['video'] );
-							if ( $has_video ) {
-								$video     = $slide['video'];
-								$video_url = wp_parse_url( $video );
-								if ( isset( $video_url['host'] ) && strpos( $video_url['host'], 'youtu' ) !== false ) {
-									$video_type = 'youtube';
-								}
-							}
-							?>
-						<div class="wcgs-thumb spswiper-slide">
-							<img alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['thumb_url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" data-type="<?php echo esc_attr( $video_type ); ?>" width="<?php echo esc_attr( $slide['thumbWidth'] ); ?>" height="<?php echo esc_attr( $slide['thumbHeight'] ); ?>" <?php echo wp_kses_post( $this->get_lazy_load_attribute() ); ?> />
-						</div>
-							<?php
-						}
-					}
-					?>
-				</div>
-				<?php if ( $thumbnailnavigation ) { ?>
-						<div class="wcgs-spswiper-button-next wcgs-spswiper-arrow"></div>
-						<div class="wcgs-spswiper-button-prev wcgs-spswiper-arrow"></div>
-				<?php } ?>
-			</div>
-			<div class="wcgs-border-bottom"></div>
-		</div>
-		<div class="wcgs-carousel <?php echo esc_html( $layout_class ); ?> spswiper">
-			<div class="spswiper-wrapper">
-				<?php
-				$index = 1;
-				foreach ( $gallery as $slide ) {
-					if ( isset( $slide['full_url'] ) && ! empty( $slide['full_url'] ) ) {
-						?>
-						<div class="spswiper-slide">
-						<div class="wcgs-slider-image">
-						<?php
-						$has_video   = isset( $slide['video'] ) && ! empty( $slide['video'] );
-						$full_srcset = wp_get_attachment_image_srcset( $slide['id'], $image_size );
-						$image_sizes = wp_get_attachment_image_sizes( $slide['id'], $image_size );
-						if ( $has_video ) {
-							$video     = $slide['video'];
-							$video_url = wp_parse_url( $video );
-							if ( isset( $video_url['host'] ) && strpos( $video_url['host'], 'youtu' ) !== false ) {
-								// Check if it's a YouTube Shorts URL.
-								parse_str( $video, $video_query_array );
-								$video_id = array_values( $video_query_array )[0];
-								?>
-									<a  class="wcgs-slider-lightbox" href="<?php echo esc_url( $video ); ?>" data-fancybox="view" data-fancybox-type="iframe" data-fancybox-height="600" data-fancybox-width="400" aria-label="lightbox-icon"></a>
-									<?php
-									if ( 'inline' === $video_popup_place ) {
-										?>
-										<div class="wcgs-iframe-wrapper">
-										<div class="wcgs-iframe wcgs-youtube-video" data-video-id="<?php echo esc_attr( $video_id ); ?>" data-src="<?php echo esc_attr( $video ); ?>"></div><img class="wcgs-slider-image-tag" style="visibility: hidden" alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" srcset="<?php echo esc_html( $full_srcset ); ?>" sizes="<?php echo esc_html( $image_sizes ); ?>"  <?php echo 1 === $index ? 'fetchpriority="high" loading="eager"' : wp_kses_post( $this->get_lazy_load_attribute() ); ?> /></div>
-										<?php
-									} else {
-										?>
-										<img class="wcgs-slider-image-tag" alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" data-type="youtube"  <?php echo 1 === $index ? 'fetchpriority="high" loading="eager"' : wp_kses_post( $this->get_lazy_load_attribute() ); ?>  srcset="<?php echo esc_html( $full_srcset ); ?>" sizes="<?php echo esc_html( $image_sizes ); ?>" />
-										<?php
-									}
-							} else {
-								?>
-									<a class="wcgs-slider-lightbox" data-fancybox="view" href="<?php echo esc_url( $slide['full_url'] ); ?>" aria-label="lightbox" data-caption="<?php echo esc_attr( $slide['cap'] ); ?>"></a>
-									<img class="wcgs-slider-image-tag" <?php echo 1 === $index ? 'fetchpriority="high" loading="eager"' : wp_kses_post( $this->get_lazy_load_attribute() ); ?>  alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" srcset="<?php echo esc_html( $full_srcset ); ?>" sizes="<?php echo esc_html( $image_sizes ); ?>" />
-										<?php
-							}
-						} else {
-							?>
-								<a class="wcgs-slider-lightbox" data-fancybox="view" href="<?php echo esc_url( $slide['full_url'] ); ?>" aria-label="lightbox" data-caption="<?php echo esc_attr( $slide['cap'] ); ?>"></a>
-								<img class="wcgs-slider-image-tag" <?php echo 1 === $index ? 'fetchpriority="high" loading="eager"' : wp_kses_post( $this->get_lazy_load_attribute() ); ?>  alt="<?php echo esc_html( $slide['alt_text'] ); ?>" data-cap="<?php echo esc_html( $slide['cap'] ); ?>" src="<?php echo esc_url( $slide['url'] ); ?>" data-image="<?php echo esc_url( $slide['full_url'] ); ?>" width="<?php echo esc_attr( $slide['imageWidth'] ); ?>" height="<?php echo esc_attr( $slide['imageHeight'] ); ?>" srcset="<?php echo esc_html( $full_srcset ); ?>" sizes="<?php echo esc_html( $image_sizes ); ?>" />
-									<?php
-						}
-						++$index;
-						?>
-							</div>
-						</div>
-						<?php
-					}
-				}
-				?>
-			</div>
-			<div class="spswiper-pagination"></div>
-			<?php
-			if ( $navigation ) {
-				?>
-				<div class="wcgs-spswiper-button-next wcgs-spswiper-arrow"></div>
-				<div class="wcgs-spswiper-button-prev wcgs-spswiper-arrow"></div>
-				<?php
-			}
-			?>
-			<?php
-			if ( $lightbox ) {
-
-				$lightbox_icon_attr = '';
-				switch ( $lightbox_icon ) {
-					case 'search':
-						$lightbox_icon_attr = 'sp_wgs-icon-search';
-						break;
-					case 'search-plus':
-						$lightbox_icon_attr = 'sp_wgs-icon-zoom-in-1';
-						break;
-					case 'plus':
-						$lightbox_icon_attr = 'sp_wgs-icon-plus';
-						break;
-					case 'info':
-						$lightbox_icon_attr = 'sp_wgs-icon-info';
-						break;
-				}
-				?>
-			<div class="wcgs-lightbox <?php echo esc_html( $lightbox_icon_position ); ?>"><span class="sp_wgs-lightbox"><span class="<?php echo esc_attr( $lightbox_icon_attr ); ?>"></span></span></div>
-				<?php
-			}
-			?>
-		</div>
-			<?php
-			if ( $preloader ) {
-				?>
-				<div class="wcgs-gallery-preloader" style="opacity: 1; z-index: 9999;"></div>
-			<?php } ?>
-		</div>
-			<?php
+		private function should_include_featured_image( $context ) {
+			$include_feature_image = $this->settings['include_feature_image_to_gallery'] ?? array( 'default_gl' );
+			return is_array( $include_feature_image ) ? in_array( $context, $include_feature_image, true ) : $include_feature_image === $context;
 		}
 	}
 }
+// Initialize gallery.
 new WCGS_Product_Gallery();

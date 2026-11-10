@@ -1,0 +1,26 @@
+@use "../../styles/variables" as *;
+
+.wcgs-control-note {
+	font-size: 13px;
+	line-height: 1.45;
+	color: $wcgs-muted;
+	text-wrap: pretty;
+
+	strong {
+		font-weight: 600;
+		color: $wcgs-text;
+	}
+
+	a {
+		font-weight: 500;
+		color: $wcgs-accent;
+		text-decoration: none;
+
+		&:hover,
+		&:focus {
+			color: $wcgs-accent;
+			text-decoration: underline;
+			box-shadow: none;
+		}
+	}
+}

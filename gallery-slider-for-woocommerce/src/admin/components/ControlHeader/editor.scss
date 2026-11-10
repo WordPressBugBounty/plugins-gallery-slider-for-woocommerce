@@ -1,0 +1,70 @@
+@use "../../styles/variables" as *;
+
+// Base wrapper of every control (all controls import ControlHeader).
+.wcgs-control {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	min-width: 0;
+	box-sizing: border-box;
+	font-size: 14px;
+	line-height: 1.4;
+	color: $wcgs-text;
+	-webkit-font-smoothing: antialiased;
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+}
+
+.wcgs-control-header {
+	font-size: 14px;
+	font-weight: 500;
+	line-height: 1.4;
+	color: $wcgs-text;
+
+	// Labels wrap: translated labels are often longer than the English
+	// ones, and an ellipsis would hide what the control does.
+	&__label {
+		overflow-wrap: anywhere;
+		cursor: inherit;
+	}
+
+	&.is-small {
+		font-size: 12.5px;
+		line-height: 1.3;
+		color: $wcgs-muted;
+	}
+
+	&__reset {
+
+		@include wcgs-reset-button;
+		margin-left: auto;
+		width: 20px;
+		height: 20px;
+		flex: 0 0 20px;
+		border-radius: 4px;
+		color: $wcgs-faint;
+		opacity: 0;
+		transform: scale(0.6);
+		pointer-events: none;
+		transition:
+			opacity 180ms $wcgs-ease,
+			transform 200ms $wcgs-ease,
+			color 160ms $wcgs-ease,
+			background-color 160ms $wcgs-ease;
+
+		&.is-visible {
+			opacity: 1;
+			transform: scale(1);
+			pointer-events: auto;
+		}
+
+		&:hover {
+			color: $wcgs-text;
+			background-color: $wcgs-bg-active;
+		}
+	}
+}

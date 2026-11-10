@@ -1,0 +1,83 @@
+@use "../../../../styles/variables" as *;
+
+// Settings of a section body; shown fields are 18px apart.
+// Folding field (the design's `c` condition): height, opacity and a small lift.
+.wcgs-field {
+	grid-template-rows: 0fr;
+	opacity: 0;
+	pointer-events: none;
+	transition:
+		grid-template-rows 300ms $wcgs-ease,
+		opacity 220ms $wcgs-ease,
+		margin-top 300ms $wcgs-ease;
+
+	&__inner {
+		min-width: 0;
+		min-height: 0;
+		overflow: hidden;
+		transform: translateY(-8px);
+		transition: transform 300ms $wcgs-ease;
+	}
+
+	&.is-shown {
+		grid-template-rows: 1fr;
+		opacity: 1;
+		pointer-events: auto;
+	}
+
+	// Popovers (menus, color picker) may leave a shown field.
+	&.is-shown > &__inner {
+		overflow: visible;
+		transform: none;
+	}
+
+	&.is-shown ~ &.is-shown {
+		margin-top: 18px;
+	}
+}
+
+// Labelled row of small controls.
+.wcgs-row {
+
+	&__grid {
+
+		// Cells keep their label 6px above the field, as in the design.
+		> .wcgs-control {
+			gap: 6px;
+		}
+
+		// Color pairs: two per line, lines 18px apart.
+		&.is-pairs {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 18px 12px;
+		}
+	}
+}
+
+// Thumbnail tile of the Active Thumbnail Style cards.
+.wcgs-thumb-preview {
+	position: relative;
+	width: 22px;
+	height: 22px;
+	box-sizing: border-box;
+	border-radius: 3px;
+	background: #e6e7ea;
+	transition: all 200ms $wcgs-ease;
+
+	svg {
+		display: block;
+		fill: #858b94;
+	}
+
+	&__line {
+		position: absolute;
+		left: 1px;
+		right: 1px;
+		height: 2px;
+		border-radius: 1px;
+	}
+}
+
+.wcgs-accordion__loading {
+	padding: 8px 0;
+}

@@ -1,1832 +1,4274 @@
+# Copyright (C) 2026 Reno Product Gallery Team, ShapedPlugin LLC
+# This file is distributed under the GPLv3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Reno Product Gallery 3.2.0\n"
-"POT-Creation-Date: 2026-07-28 15:40+0600\n"
-"PO-Revision-Date: 2024-07-29 17:56+0600\n"
-"Last-Translator: \n"
-"Language-Team: ShapedPlugin <support@shapedplugin.com>\n"
-"Language: en\n"
+"Project-Id-Version: Reno Product Gallery (formerly WooGallery) 4.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/gallery-slider-for-woocommerce\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.5\n"
-"X-Poedit-Basepath: ..\n"
-"X-Poedit-KeywordsList: __;_e;_ex;_n;_nx;_n_noop;esc_html__;esc_html_e;esc_html_x;"
-"esc_attr__;esc_attr_e;esc_attr_x;number_format_i18n\n"
-"X-Poedit-SearchPath-0: .\n"
+"POT-Creation-Date: 2026-11-10T11:02:48+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: gallery-slider-for-woocommerce\n"
 
-#: admin/class-woo-gallery-slider-admin.php:90
-#: admin/class-woo-gallery-slider-admin.php:96
-msgid "Manage Layouts"
+#. Plugin Name of the plugin
+#: woo-gallery-slider.php
+msgid "Reno Product Gallery (formerly WooGallery)"
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:91
-msgid "Layout"
+#. Plugin URI of the plugin
+#: woo-gallery-slider.php
+msgid "https://renoproductgallery.com/?ref=143"
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:92
-#: admin/partials/sections/class-wcgs-assign.php:42
-#: admin/partials/shapedplugin-framework/fields/group/group.php:48
-msgid "Add New"
+#. Description of the plugin
+#: woo-gallery-slider.php
+msgid "Reno Product Gallery plugin allows you to insert additional images for each variation to let visitors see different images when product variations are switched. Increase your sales by transforming the WooCommerce default product gallery instantly to a beautiful thumbnails gallery slider on a single product page."
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:93
-msgid "Add New Layout"
+#. Author of the plugin
+#: woo-gallery-slider.php
+msgid "Reno Product Gallery Team, ShapedPlugin LLC"
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:94
-msgid "Edit"
+#. Author URI of the plugin
+#: woo-gallery-slider.php
+msgid "https://renoproductgallery.com/"
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:95
-msgid "New Layout"
-msgstr ""
-
-#: admin/class-woo-gallery-slider-admin.php:97
-msgid "Search"
-msgstr ""
-
-#: admin/class-woo-gallery-slider-admin.php:98
-msgid "No Layout Found"
-msgstr ""
-
-#: admin/class-woo-gallery-slider-admin.php:99
-msgid "No Layout Found in Trash"
-msgstr ""
-
-#: admin/class-woo-gallery-slider-admin.php:130
+#: admin/class-woo-gallery-slider-admin.php:109
+#: build/admin/wcgs-dashboard.js:1
+#: src/admin/constants/sections.js:49
 msgid "Product Gallery"
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:147 admin/partials/class-wcgs-assigns.php:46
-#: admin/partials/class-wcgs-metaboxs.php:37 admin/partials/class-wcgs-settings.php:46
-#, php-format
-msgid ""
-"Enjoying %1$sReno Product Gallery?%2$s Please rate us %3$s★★★★★%4$s %5$sWordPress.org."
-"%6$s Your positive feedback will help us grow more. Thank you! 😊"
+#: admin/class-woo-gallery-slider-admin.php:131
+#: admin/class-woo-gallery-slider-admin.php:137
+msgid "Manage Layouts"
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:173
-msgid "Title"
+#: admin/class-woo-gallery-slider-admin.php:132
+#: build/admin/wcgs-dashboard.js:30
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/perProductLayout/LayoutList.jsx:479
+#: src/admin/pages/wizard/constants.js:18
+msgid "Layout"
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:174
-#: admin/partials/sections/class-wcgs-general.php:37
-msgid "Gallery Layout"
+#: admin/class-woo-gallery-slider-admin.php:133
+msgid "Add New"
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:175
-msgid "Date"
+#: admin/class-woo-gallery-slider-admin.php:134
+msgid "Add New Layout"
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:245 admin/partials/class-wcgs-assigns.php:56
-#: admin/partials/shapedplugin-framework/classes/metabox-options.class.php:404
-msgid ""
-"Create unlimited custom product gallery layouts and assign them to specific products "
-"and categories."
+#: admin/class-woo-gallery-slider-admin.php:135
+#: build/admin/wcgs-dashboard.js:26
+#: src/admin/pages/perProductLayout/LayoutRow.jsx:317
+msgid "Edit"
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:248
-#, php-format
-msgid ""
-"Take your online shop's product page experience to the next level with many premium "
-"features and %1$sBoost Sales!%2$s %3$s"
+#: admin/class-woo-gallery-slider-admin.php:136
+msgid "New Layout"
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:254 admin/partials/class-wcgs-assigns.php:63
-#: admin/partials/class-wcgs-settings.php:65
-#: admin/partials/shapedplugin-framework/classes/metabox-options.class.php:415
-#: admin/partials/shapedplugin-framework/fields/shortcode/shortcode.php:72
-msgid "Upgrade to Pro Now"
+#: admin/class-woo-gallery-slider-admin.php:138
+#: build/admin/wcgs-dashboard.js:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:179
+msgid "Search"
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:290
-#: admin/partials/sections/class-wcgs-general.php:49
-msgid "Thumbs Bottom"
+#: admin/class-woo-gallery-slider-admin.php:139
+msgid "No Layout Found"
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:293
-#: admin/partials/sections/class-wcgs-general.php:54
-msgid "Thumbs Left"
+#: admin/class-woo-gallery-slider-admin.php:140
+msgid "No Layout Found in Trash"
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:296
-msgid "Grid"
+#: admin/class-woo-gallery-slider-admin.php:202
+msgid "Reno Product Gallery Video"
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:299
-#: admin/partials/sections/class-wcgs-general.php:81
-msgid "Hierarchy Grid"
-msgstr ""
-
-#: admin/class-woo-gallery-slider-admin.php:302
-#: admin/partials/sections/class-wcgs-general.php:93
-msgid "Anchor Nav"
-msgstr ""
-
-#: admin/class-woo-gallery-slider-admin.php:305
-#: admin/partials/sections/class-wcgs-general.php:59
-msgid "Thumbs Right"
-msgstr ""
-
-#: admin/class-woo-gallery-slider-admin.php:308
-#: admin/partials/sections/class-wcgs-general.php:64
-msgid "Thumbs Top"
-msgstr ""
-
-#: admin/class-woo-gallery-slider-admin.php:311
-msgid "Multi Row Thumbs"
-msgstr ""
-
-#: admin/class-woo-gallery-slider-admin.php:314
-#: admin/partials/sections/class-wcgs-general.php:87
-msgid "Modern Grid"
-msgstr ""
-
-#: admin/class-woo-gallery-slider-admin.php:317
-#: admin/partials/sections/class-wcgs-general.php:69
-msgid "Slider"
-msgstr ""
-
-#: admin/class-woo-gallery-slider-admin.php:335
-#: admin/class-woo-gallery-slider-admin.php:338
-msgid "Layout updated."
-msgstr ""
-
-#: admin/class-woo-gallery-slider-admin.php:340
-#, php-format
-msgid "Layout restored to revision from %s"
-msgstr ""
-
-#: admin/class-woo-gallery-slider-admin.php:341
-msgid "Layout published."
-msgstr ""
-
-#: admin/class-woo-gallery-slider-admin.php:342
-msgid "Layout saved."
-msgstr ""
-
-#: admin/class-woo-gallery-slider-admin.php:343
-msgid "Layout submitted."
-msgstr ""
-
-#: admin/class-woo-gallery-slider-admin.php:345
-#, php-format
-msgid "Layout scheduled for: <strong>%1$s</strong>."
-msgstr ""
-
-#: admin/class-woo-gallery-slider-admin.php:345
-msgid "M j, Y @ G:i"
-msgstr ""
-
-#: admin/class-woo-gallery-slider-admin.php:346
-msgid "Layout draft updated."
-msgstr ""
-
-#: admin/class-woo-gallery-slider-admin.php:461
-msgid "Reno Product Gallery Video (Youtube)"
-msgstr ""
-
-#: admin/class-woo-gallery-slider-admin.php:465
+#: admin/class-woo-gallery-slider-admin.php:206
 msgid "Video Link"
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:469
+#. translators: 1: start link and strong tag, 2: close link and strong tag, 3: start link and strong tag.
+#: admin/class-woo-gallery-slider-admin.php:210
 #, php-format
-msgid "To show this video on the %1$sShop page%2$s, %3$s Upgrade to Pro!%2$s"
+msgid "To show this video on the %1$sShop page%2$s, %3$sUpgrade to Pro!%2$s"
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:504
-msgid "Variation Image Gallery by Reno Product Gallery"
+#: admin/class-woo-gallery-slider-admin.php:330
+#: block/variation-images/build/index.js:6767
+msgid "Variation Image Gallery"
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:543
+#: admin/class-woo-gallery-slider-admin.php:353
 msgid "Remove all"
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:545
+#: admin/class-woo-gallery-slider-admin.php:354
 msgid "Add Gallery Images"
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:547
+#: admin/class-woo-gallery-slider-admin.php:355
 msgid "Add more"
 msgstr ""
 
-#: admin/class-woo-gallery-slider-admin.php:549
+#: admin/class-woo-gallery-slider-admin.php:356
+#: block/variation-images/build/index.js:6846
 msgid "Edit Gallery"
 msgstr ""
 
-#: admin/help-page/help.php:193 admin/partials/class-wgs-admin-notices.php:206
-#: admin/partials/class-wgs-admin-notices.php:207
-msgid "Activate"
-msgstr ""
-
-#: admin/help-page/help.php:200 admin/partials/class-wgs-admin-notices.php:200
-msgid "Install Now"
-msgstr ""
-
-#: admin/help-page/help.php:206
-msgid "More Details"
-msgstr ""
-
-#: admin/help-page/help.php:238
-msgid "Version:"
-msgstr ""
-
-#: admin/help-page/help.php:247
-msgid "+ Active Installations"
-msgstr ""
-
-#: admin/help-page/help.php:255
-msgid "Last Updated:"
-msgstr ""
-
-#: admin/help-page/help.php:256
-msgid "ago"
-msgstr ""
-
-#: admin/partials/class-wcgs-assigns.php:33
-msgid "Assign Layout"
-msgstr ""
-
-#: admin/partials/class-wcgs-assigns.php:59
+#. translators: 1: start link tag, 2: close link tag.
+#: admin/class-woo-gallery-slider-admin.php:362
 #, php-format
-msgid ""
-"Take your online shop's product page experience to the next level with many premium "
-"features and %1$sBoost Sales!%2$ss%3$s"
+msgid "To add more images & videos, %1$sUpgrade to Pro!%2$s"
 msgstr ""
 
-#: admin/partials/class-wcgs-metaboxs.php:34
-msgid "Gallery Settings"
+#: admin/dashboard/class-woo-gallery-slider-dashboard-api.php:182
+msgid "Gallery cache cleared."
 msgstr ""
 
-#: admin/partials/class-wcgs-metaboxs.php:54
-msgid "Page Builders"
-msgstr ""
-
-#: admin/partials/class-wcgs-metaboxs.php:83
-msgid "How To Use"
-msgstr ""
-
-#: admin/partials/class-wcgs-settings.php:33
-#: admin/partials/sections/class-wcgs-advance.php:240
-msgid "Global Settings"
-msgstr ""
-
-#: admin/partials/class-wcgs-settings.php:57
+#. translators: %d: number of deleted cache entries.
+#: admin/dashboard/class-woo-gallery-slider-dashboard-api.php:192
 #, php-format
-msgid "Upgrade to %1$sReno Product Gallery Pro%2$s"
-msgstr ""
-
-#: admin/partials/class-wcgs-settings.php:60
-msgid "To unlock this feature, simply upgrade to Pro!"
-msgstr ""
-
-#: admin/partials/class-wcgs-settings.php:62
-#, php-format
-msgid ""
-"Take your online shop's product page experience to the next level with many premium "
-"features and %1$sBoost Sales!%2$s"
-msgstr ""
-
-#: admin/partials/class-wgs-admin-notices.php:176
-#: admin/partials/class-wgs-rebrand-notice.php:175
-msgid "Authorization failed!"
-msgstr ""
-
-#: admin/partials/class-wgs-admin-notices.php:199
-msgid "Install"
-msgstr ""
-
-#: admin/partials/class-wgs-rebrand-notice.php:128
-#, php-format
-msgid "%1$s is now %2$s — Everything else remains the same. Why we rebranded"
-msgstr ""
-
-#: admin/partials/class-wgs-rebrand-notice.php:129
-msgid "WooGallery"
-msgstr ""
-
-#: admin/partials/class-wgs-rebrand-notice.php:130
-msgid "Reno Product Gallery"
-msgstr ""
-
-#: admin/partials/class-wgs-rebrand-notice.php:135
-msgid "Read more about the rebranding"
-msgstr ""
-
-#: admin/partials/class-wgs-rebrand-notice.php:144
-msgid "Dismiss this notice"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:32
-msgid "Advanced"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:38
-msgid "Advanced Controls"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:44
-msgid "Clean-up Data on Deletion"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:45
-msgid ""
-"Check this box if you would like Reno Product Gallery plugin to completely remove all "
-"of its data when the plugin is deleted."
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:52
-msgid "Shortcode"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:56
-#, php-format
-msgid ""
-"If the Product Gallery is not displaying automatically on your product pages when "
-"edited using page builders (%1$sDivi, Elementor, Bricks%2$s Builder, etc.), use this "
-"shortcode manually to render the Product Gallery. %3$sSee Instructions.%4$s"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:71
-msgid "Assets (Styles & Scripts)"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:76
-msgid "FancyBox CSS"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:77
-#: admin/partials/sections/class-wcgs-advance.php:86
-#: admin/partials/sections/class-wcgs-advance.php:95
-#: admin/partials/sections/class-wcgs-advance.php:104
-msgid "Enqueued"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:78
-#: admin/partials/sections/class-wcgs-advance.php:87
-#: admin/partials/sections/class-wcgs-advance.php:96
-#: admin/partials/sections/class-wcgs-advance.php:105
-msgid "Dequeued"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:85
-msgid "FancyBox JS"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:94
-msgid "Swiper CSS"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:103
-msgid "Swiper JS"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:112
-msgid "Speed Optimization"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:122
-#, php-format
-msgid ""
-"To improve the loading speed of your single product page with %3$sReno Product "
-"Gallery%4$s, please follow these %1$sguidelines%2$s. Additionally, you may refer to "
-"your caching plugin's recommendations for further optimization."
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:132
-msgid "Load the Product Gallery on the Visible Viewport"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:133
-msgid ""
-"Check this box if you would like Reno Product Gallery plugin to ensure the product "
-"gallery loads automatically when it enters the visible viewport"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:139
-msgid "Remove Default WooCommerce Gallery Scripts"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:140
-msgid ""
-"WooCommerce gallery assets are disabled because Reno Product Gallery is handling those "
-"functions."
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:143
-msgid "Lightbox(PhotoSwipe) "
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:144
-msgid "Zoom (Zoom)"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:145
-msgid "Slider(FlexSlider)"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:151
-msgid "Add handler to Dequeue Unnecessary CSS files"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:152
-msgid ""
-"Enter the CSS file handlers separated by comma. e.g., theme-style, plugin-style-xyz"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:153
-msgid ""
-"Enter the CSS file handles to remove, separated by commas. Caution: Incorrectly "
-"removing CSS files can break site styling. Only use this if you understand CSS handles."
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:159
-msgid "Add handler to Dequeue Unnecessary JS files "
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:160
-msgid ""
-"Enter the JS file handlers, separated by comma. e.g., theme-script, plugin-script-xyz"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:161
-msgid ""
-"Enter the JS file handles to remove, separated by commas. Caution: Incorrectly "
-"removing JS files can break site styling. Only use this if you understand JS handles."
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:167
-msgid "Migration"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:175
-msgid ""
-"Migrate galleries from the following plugins to <b>Reno Product Gallery</b>. The "
-"migration process will run in the background."
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:184
-#: admin/partials/sections/class-wcgs-advance.php:194
-#: admin/partials/sections/class-wcgs-advance.php:204
-#: admin/partials/sections/class-wcgs-advance.php:214
-#: admin/partials/sections/class-wcgs-advance.php:224
-msgid "Migrate Now"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:230
-msgid "Import & Export"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:237
-msgid "Choose What to Export"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:241
-msgid "All Layout(s)"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:242
-msgid "Selected Layout(s)"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:255
-msgid "Choose Layout(s)"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:270
-msgid "Export"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:277
-msgid "Import JSON File to Upload"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:283
-msgid "Additional CSS & JS"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:289
-msgid "Additional CSS"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:298
-msgid "Additional JS"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:309
-#: admin/partials/sections/class-wcgs-shoppage.php:32
-msgid "Shop Page Video"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-advance.php:318
-#: admin/partials/sections/class-wcgs-shoppage.php:41
-#, php-format
-msgid ""
-"Want to show multiple types of %1$s Product Featured Videos with AutoPlay%2$s on the "
-"%3$sShop/Archive Page%4$s and speed up customer decision-making? %5$sUpgrade to Pro!"
-"%6$s See the %7$savailable options.%8$s"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-assign.php:31
-#: admin/partials/sections/class-wcgs-gallery.php:31
-msgid "Gallery"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-assign.php:43
-msgid "Assign Layout:"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-assign.php:49
-msgid "Filter Products"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-assign.php:51
-msgid "Category(s)"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-assign.php:52
-#: admin/partials/sections/class-wcgs-assign.php:81
-msgid "Specific Product(s)"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-assign.php:61
-msgid "Specific Category(s)"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-assign.php:62
-msgid "Choose the product category term(s)."
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-assign.php:71
-msgid "Choose term(s)"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-assign.php:91
-msgid "Choose Product"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-assign.php:98
-msgid "Select Layout"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-assign.php:99
-msgid "Choose the products to display. Sort the products position by drag & drop."
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-assign.php:107
-msgid "Choose Layout"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:37
-msgid "Gallery Slider"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:43
-msgid "AutoPlay"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:44
-#: admin/partials/sections/class-wcgs-gallery.php:99
-#: admin/partials/sections/class-wcgs-gallery.php:155
-#: admin/partials/sections/class-wcgs-gallery.php:164
-#: admin/partials/sections/class-wcgs-gallery.php:173
-#: admin/partials/sections/class-wcgs-gallery.php:182
-#: admin/partials/sections/class-wcgs-gallery.php:603
-#: admin/partials/sections/class-wcgs-gallery.php:649
-#: admin/partials/sections/class-wcgs-gallery.php:855
-#: admin/partials/sections/class-wcgs-lightbox.php:38
-msgid "Enabled"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:45
-#: admin/partials/sections/class-wcgs-gallery.php:100
-#: admin/partials/sections/class-wcgs-gallery.php:156
-#: admin/partials/sections/class-wcgs-gallery.php:165
-#: admin/partials/sections/class-wcgs-gallery.php:174
-#: admin/partials/sections/class-wcgs-gallery.php:183
-#: admin/partials/sections/class-wcgs-gallery.php:604
-#: admin/partials/sections/class-wcgs-gallery.php:650
-#: admin/partials/sections/class-wcgs-gallery.php:856
-#: admin/partials/sections/class-wcgs-lightbox.php:39
-msgid "Disabled"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:53
-#: admin/partials/sections/class-wcgs-gallery.php:62
-msgid "AutoPlay Interval"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:63
-msgid ""
-"Set the autoplay delay or interval time, indicating the duration to pause between "
-"automatically cycling through slides. For example, 1000 milliseconds (ms) equal 1 "
-"second."
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:69
-#: admin/partials/sections/class-wcgs-gallery.php:77
-msgid "Slider Speed"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:78
-msgid "Set slider scrolling speed. For example, 1000 milliseconds (ms) equal 1 second."
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:86
-msgid "Slide Orientation"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:87
-#: admin/partials/sections/class-wcgs-gallery.php:454
-#: admin/partials/sections/class-wcgs-gallery.php:679
-#: admin/partials/sections/class-wcgs-gallery.php:745
-#: admin/partials/sections/class-wcgs-gallery.php:772
-#: admin/partials/sections/class-wcgs-gallery.php:830
-#: admin/partials/sections/class-wcgs-gallery.php:846
-#: admin/partials/sections/class-wcgs-gallery.php:901
-#: admin/partials/sections/class-wcgs-gallery.php:959
-#: admin/partials/sections/class-wcgs-general.php:138
-#: admin/partials/sections/class-wcgs-general.php:156
-#: admin/partials/sections/class-wcgs-general.php:271
-#: admin/partials/sections/class-wcgs-lightbox.php:62
-msgid "Live Demo"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:89
-msgid "Horizontal"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:90
-msgid "Vertical"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:97
-msgid "Infinite Loop"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:107
-msgid "Sliding Effect"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:109
-#: admin/partials/sections/class-wcgs-lightbox.php:49
-msgid "Slide"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:110
-msgid "Flip"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:111
-msgid "Cube"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:112
-#: admin/partials/sections/class-wcgs-lightbox.php:53
-msgid "Fade (Pro)"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:120
-msgid "Gallery Height"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:122
-msgid "Adaptive"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:123
-msgid "Max Image Height"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:132
-#: admin/partials/sections/class-wcgs-gallery.php:829
-msgid "Height"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:154
-msgid "Accessibility"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:163
-msgid "RTL Mode"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:172
-msgid "Free Mode"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:181
-msgid "Mouse Wheel"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:198
-msgid "Navigation & Pagination"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:204
-#: admin/partials/sections/class-wcgs-gallery.php:205
-msgid "Slider Navigation"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:206
-#: admin/partials/sections/class-wcgs-gallery.php:346
-#: admin/partials/sections/class-wcgs-gallery.php:434
-#: admin/partials/sections/class-wcgs-lightbox.php:178
-#: admin/partials/sections/class-wcgs-lightbox.php:205
-#: admin/partials/sections/class-wcgs-lightbox.php:215
-msgid "Show"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:207
-#: admin/partials/sections/class-wcgs-gallery.php:347
-#: admin/partials/sections/class-wcgs-gallery.php:435
-#: admin/partials/sections/class-wcgs-lightbox.php:179
-#: admin/partials/sections/class-wcgs-lightbox.php:206
-#: admin/partials/sections/class-wcgs-lightbox.php:216
-msgid "Hide"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:215
-msgid "Navigation Icon Style"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:267
-msgid "Navigation Position"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:271
-msgid "Center Center"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:275
-#: admin/partials/sections/class-wcgs-lightbox.php:79
-msgid "Bottom Left"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:279
-#: admin/partials/sections/class-wcgs-lightbox.php:75
-msgid "Bottom Right"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:284
-msgid "Bottom Center"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:294
-msgid "Navigation Icon Size"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:302
-msgid "Navigation Color"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:304
-#: admin/partials/sections/class-wcgs-gallery.php:403
-#: admin/partials/sections/class-wcgs-gallery.php:533
-#: admin/partials/sections/class-wcgs-lightbox.php:161
-#: admin/partials/shapedplugin-framework/fields/border/border.php:150
-msgid "Color"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:305
-#: admin/partials/sections/class-wcgs-gallery.php:534
-#: admin/partials/sections/class-wcgs-lightbox.php:162
-#: admin/partials/shapedplugin-framework/fields/border/border.php:164
-msgid "Hover Color"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:306
-#: admin/partials/sections/class-wcgs-gallery.php:535
-#: admin/partials/sections/class-wcgs-lightbox.php:163
-msgid "Background"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:307
-#: admin/partials/sections/class-wcgs-gallery.php:536
-#: admin/partials/sections/class-wcgs-lightbox.php:164
-msgid "Hover Background"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:320
-msgid "Navigation Background Radius"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:329
-msgid "Navigation Visibility"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:331
-#: admin/partials/sections/class-wcgs-gallery.php:417
-#: admin/partials/sections/class-wcgs-gallery.php:444
-msgid "Always"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:332
-#: admin/partials/sections/class-wcgs-gallery.php:418
-#: admin/partials/sections/class-wcgs-gallery.php:445
-msgid "On hover"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:339
-msgid "Pagination"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:344
-msgid "Slider Pagination"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:345
-#: admin/partials/sections/class-wcgs-gallery.php:426
-#: admin/partials/sections/class-wcgs-gallery.php:432
-#: admin/partials/sections/class-wcgs-gallery.php:433
-msgid "Thumbnails Navigation"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:355
-msgid "Pagination Style"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:359
-msgid "Bullets"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:363
-msgid "Dynamic"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:367
-msgid "Strokes"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:371
-msgid "Numbers"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:376
-msgid "Progress Bar"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:381
-msgid "Dot Hopper"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:386
-msgid "Expanding Dot"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:391
-msgid "Flexing Fraction"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:401
-msgid "Pagination Color"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:404
-msgid "Active Color"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:415
-msgid "Pagination Visibility"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:442
-msgid "Thumbnails Navigation Visibility"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:454
-#: admin/partials/sections/class-wcgs-gallery.php:455
-msgid "Thumbnails Navigation Style"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:454
-msgid "Stylize your thumbnail navigation using Inner, Outer, and Custom design."
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:454
-#: admin/partials/sections/class-wcgs-gallery.php:679
-#: admin/partials/sections/class-wcgs-gallery.php:745
-#: admin/partials/sections/class-wcgs-gallery.php:772
-#: admin/partials/sections/class-wcgs-gallery.php:830
-#: admin/partials/sections/class-wcgs-gallery.php:901
-#: admin/partials/sections/class-wcgs-gallery.php:959
-#: admin/partials/sections/class-wcgs-general.php:138
-#: admin/partials/sections/class-wcgs-general.php:156
-#: admin/partials/sections/class-wcgs-general.php:271
-#: admin/partials/sections/class-wcgs-lightbox.php:62
-msgid "Open Docs"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:459
-#: admin/partials/sections/class-wcgs-gallery.php:816
-msgid "Custom"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:463
-msgid "Inner Right"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:467
-msgid "Outer"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:472
-msgid "Inner"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:484
-msgid "Thumbnail Navigation Icon"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:524
-msgid "Thumbnail Navigation Icon Size"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:531
-msgid "Thumbnail Navigation Color"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:549
-msgid "Product Image"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:555
-msgid "Image Size"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:591
-msgid "Lazy Load"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:593
-#: admin/partials/shapedplugin-framework/fields/switcher/switcher.php:46
-msgid "Off"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:594
-msgid "On Demand"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:602
-msgid "Preloader"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:611
-msgid "Preload Style"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:613
-#: admin/partials/sections/class-wcgs-general.php:185
-#: admin/partials/sections/class-wcgs-general.php:273
-msgid "Normal"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:614
-msgid "Fade"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:615
-msgid "Gray"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:616
-#: admin/partials/sections/class-wcgs-gallery.php:775
-msgid "Blur"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:624
-msgid "Border Radius"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:631
-msgid "Image Mode"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:633
-msgid "Original"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:634
-#: admin/partials/sections/class-wcgs-general.php:274
-msgid "Grayscale"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:635
-msgid "Grayscale on hover"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:642
-msgid "Product Image Zoom"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:648
-msgid "Enable Image Zoom"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:658
-#: admin/partials/sections/class-wcgs-gallery.php:679
-msgid "Zoom Style"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:662
-msgid "Default"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:666
-msgid "Inside (2x)"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:670
-msgid "Right Side"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:675
-msgid "Magnific"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:679
-msgid ""
-"This option indicates the visual or interactive approach used to magnify or enlarge "
-"product thumbnails."
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:687
-msgid "Zoom Scale"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:699
-msgid "Cursor Type"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:724
-#: admin/partials/sections/class-wcgs-gallery.php:726
-msgid "Lens Shape"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:726
-msgid "Choose a source from where you want to display the gallery images."
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:729
-msgid "Circle"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:732
-msgid "Box"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:744
-msgid "Lens Color"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:753
-msgid "Lens Border"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:771
-msgid "Product Image Overlay on Hover"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:778
-msgid "Custom Color"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:790
-msgid "Image Overlay Color"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:798
-msgid "Image Overlay opacity"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:810
-msgid "Zoom Window Size Type"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:813
-msgid "Auto"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:827
-#: admin/partials/sections/class-wcgs-gallery.php:830
-msgid "Zoom Window Size"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:828
-msgid "Width"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:830
-msgid "Adjust the zoom window size as per your need."
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:845
-msgid "Zoom Window Distance"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:854
-msgid "Use Zoom for Mobile Devices"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:876
-msgid "Select Categories (Pro)"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:877
-msgid "Exclude Zoom by Category(s)"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:894
-msgid "Product Video Gallery"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:900
-#: admin/partials/sections/class-wcgs-gallery.php:901
-msgid "Video Play Mode"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:901
-msgid ""
-"This option refers to the specific behavior or settings related to how a video is "
-"played."
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:903
-msgid "Inline"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:904
-msgid "Popup"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:913
-msgid "Video Icon Style"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:958
-#: admin/partials/sections/class-wcgs-gallery.php:959
-msgid "Place of the Videos in Gallery Slider"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:959
-msgid "Determine where and when you want to display the video."
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:961
-msgid "Keep Videos in Default Position"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:962
-msgid "End of the Slider"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-gallery.php:963
-msgid "At Starting of the Slider (Pro)"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:30
-msgid "General"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:40
-#, php-format
-msgid ""
-"Want to enhance your product pages with %1$s16+ gallery layouts%2$s  to boost sales? "
-"%3$sUpgrade to Pro!%4$s"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:75
-msgid "Tiles"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:99
-msgid "Vertical Scroll"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:105
-msgid "Multi-row Thumbs"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:119
-msgid "Thumbnail Items Per View"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:125
-#: admin/partials/sections/class-wcgs-general.php:126
-msgid "Vertical Thumbnails Width"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:137
-#: admin/partials/sections/class-wcgs-general.php:138
-msgid "Thumbnails Space"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:139
-msgid "Gap"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:140
-msgid "Vertical Gap"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:155
-#: admin/partials/sections/class-wcgs-general.php:156
-msgid "Thumbnails Size"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:156
-msgid "Adjust the thumbnail Size according to your website design."
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:164
-msgid "Thumbnails Border"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:182
-msgid "Thumbnails Hover Effect"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:183
-msgid "Thumbnail Hover Effect"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:186
-#: admin/partials/sections/class-wcgs-general.php:238
-msgid "Zoom Out"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:187
-msgid "Slide Down"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:188
-msgid "Zoom In (Pro)"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:189
-msgid "Slide Up (Pro)"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:199
-msgid "Thumbnails Activate On"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:200
-msgid "Thumbnails Activate on"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:208
-msgid "Click"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:210
-msgid "Mouseover"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:220
-msgid "Active Thumbnail Style"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:225
-msgid "Border Around"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:229
-msgid "Inner Line"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:233
-msgid "Outer Line"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:243
-msgid "Opacity"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:253
-#: admin/partials/sections/class-wcgs-general.php:254
-msgid "Active Thumbnail Border"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:270
-#: admin/partials/sections/class-wcgs-general.php:271
-msgid "Inactive Thumbnails Effect"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:271
-msgid ""
-"Refers to the visual treatment of thumbnails that are not currently selected or in "
-"focus."
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:275
-msgid "Opacity (Pro)"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:283
-msgid "Gallery Width"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:296
-msgid "Responsive Gallery Width"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:306
-msgid ""
-"%1$sA default value of 0 means that the thumbnail gallery will inherit the Gallery "
-"Width value intended for large devices. This default Gallery width is set to 50% up "
-"above,%2$s Tablet -Screen size is smaller than 768px. Set the value in between 480-768,"
-"%3$s Mobile - Screen size is smaller than 480px.  Set a value between 0-480."
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:317
-#: admin/partials/sections/class-wcgs-general.php:318
-msgid "Gallery Bottom Gap"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:326
-#: admin/partials/sections/class-wcgs-general.php:328
-msgid "Gallery Image Source"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:330
-msgid "Only images uploaded to the product gallery"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:331
-msgid "All images attached to this product content"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:338
-msgid "Include Feature Image"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:342
-msgid "To Default Gallery"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-general.php:343
-msgid "To Variation Gallery"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-help.php:32
-msgid "Get Help"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-lightbox.php:32
-msgid "Lightbox"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-lightbox.php:37
-msgid "Enable Lightbox"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-lightbox.php:47
-msgid "Lightbox Sliding Effect"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-lightbox.php:50
-msgid "Classic"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-lightbox.php:51
-msgid "Crossfade"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-lightbox.php:52
-msgid "No Animation"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-lightbox.php:62
-#: admin/partials/sections/class-wcgs-lightbox.php:63
-msgid "Lightbox Icon Display Position"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-lightbox.php:62
-msgid "Choose where you want to place the lightbox icon over the product thumbnail."
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-lightbox.php:67
-msgid "Top Right"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-lightbox.php:71
-msgid "Top Left"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-lightbox.php:83
-msgid "Middle"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-lightbox.php:94
-msgid "Lightbox Icon Style"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-lightbox.php:151
-msgid "Lightbox Icon Size"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-lightbox.php:159
-msgid "Lightbox Icon Color"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-lightbox.php:177
-msgid "Lightbox Caption"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-lightbox.php:187
-msgid "Lightbox Caption Size"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-lightbox.php:197
-msgid "Caption Color"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-lightbox.php:204
-msgid "Image Counter"
-msgstr ""
-
-#: admin/partials/sections/class-wcgs-lightbox.php:214
-msgid "Full Screen Button"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/metabox-options.class.php:370
-#: admin/partials/shapedplugin-framework/fields/select/select.php:140
-msgid "No data available."
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/metabox-options.class.php:386
-msgid "Reset"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/metabox-options.class.php:387
-msgid "update post"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/metabox-options.class.php:387
-msgid "Cancel"
-msgstr ""
+msgid "Cleared %d cached entry."
+msgid_plural "Cleared %d cached entries."
+msgstr[0] ""
+msgstr[1] ""
 
-#: admin/partials/shapedplugin-framework/classes/metabox-options.class.php:408
-#, php-format
-msgid ""
-"Take your online shop's product page experience to the next level with many premium "
-"features and %1$sBoost Sales!%2$s%3$s"
+#: admin/dashboard/class-woo-gallery-slider-dashboard.php:127
+msgid "Reno Product Gallery Dashboard"
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/classes/options.class.php:316
-msgid "You do not have permission to perform this action."
+#: admin/dashboard/class-woo-gallery-slider-dashboard.php:128
+msgid "Dashboard"
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/classes/options.class.php:324
-msgid "Nonce verification failed."
+#: admin/dashboard/class-woo-gallery-slider-dashboard.php:135
+#: admin/dashboard/class-woo-gallery-slider-dashboard.php:136
+#: build/admin/wcgs-dashboard.js:1
+#: build/admin/wcgs-dashboard.js:29
+#: build/admin/wcgs-dashboard.js:47
+#: build/admin/wcgs-dashboard.js:55
+#: src/admin/constants/tabs.js:15
+#: src/admin/pages/perProductLayout/LayoutList.jsx:283
+#: src/admin/pages/settings/ImportExportTab.jsx:61
+#: src/admin/pages/wizard/DoneStep.jsx:113
+msgid "Per-Product Layouts"
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/classes/options.class.php:406
-#, php-format
-msgid "Migrated %d variation(s) in this batch."
+#: admin/dashboard/class-woo-gallery-slider-dashboard.php:142
+#: admin/dashboard/class-woo-gallery-slider-dashboard.php:143
+#: includes/class-woo-gallery-slider.php:116
+#: build/admin/wcgs-dashboard.js:1
+#: build/admin/wcgs-dashboard.js:52
+#: src/admin/constants/tabs.js:19
+#: src/admin/pages/settings/index.jsx:97
+msgid "Settings"
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/classes/options.class.php:425
-msgid "Error while saving the changes."
+#: admin/dashboard/class-woo-gallery-slider-dashboard.php:151
+#: admin/dashboard/class-woo-gallery-slider-dashboard.php:152
+msgid "Variation Swatches"
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/classes/options.class.php:593
-#: admin/partials/shapedplugin-framework/classes/options.class.php:617
-msgid "Default settings restored."
+#: admin/dashboard/class-woo-gallery-slider-global-settings-api.php:468
+#: admin/dashboard/class-woo-gallery-slider-settings-api.php:259
+msgid "No settings to save."
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/classes/options.class.php:710
+#: admin/dashboard/class-woo-gallery-slider-global-settings-api.php:478
+#: admin/dashboard/class-woo-gallery-slider-settings-api.php:281
 msgid "Settings saved."
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/classes/options.class.php:948
-msgid "show all options"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/options.class.php:950
-msgid "Search option(s)"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/options.class.php:953
-msgid "Save Settings"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/options.class.php:953
-#: admin/partials/shapedplugin-framework/classes/options.class.php:1068
-msgid "Saving..."
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/options.class.php:954
-msgid "Reset Tab"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/options.class.php:954
-#: admin/partials/shapedplugin-framework/classes/options.class.php:1069
-msgid "Are you sure to reset this section options?"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/options.class.php:1045
-msgid "No option provided by developer."
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/options.class.php:1068
-msgid "Save"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/options.class.php:1069
-msgid "Reset Section"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/options.class.php:1070
-msgid "Reset All"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/options.class.php:1070
-msgid "Are you sure to reset all options?"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/setup.class.php:361
-msgid "Are you sure?"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/setup.class.php:362
-msgid "Restoring options."
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/setup.class.php:363
-msgid "Importing options."
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/setup.class.php:365
-#, php-format
-msgid "Please enter %s or more characters"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/setup.class.php:366
-msgid "Searching..."
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/setup.class.php:367
-msgid "No results found."
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/setup.class.php:415
-#, php-format
-msgid "Ooops! This field type (%s) can not be used here, yet."
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/setup.class.php:491
-msgid "This field class is not available!"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/classes/setup.class.php:494
-msgid "This type is not found!"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/border/border.php:53
-msgid "top"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/border/border.php:54
-msgid "right"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/border/border.php:55
-msgid "bottom"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/border/border.php:56
-msgid "left"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/border/border.php:57
-msgid "all"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/border/border.php:84
-msgid "Solid"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/border/border.php:85
-msgid "Dashed"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/border/border.php:86
-msgid "Dotted"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/border/border.php:87
-msgid "Double"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/border/border.php:88
-msgid "Inset"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/border/border.php:89
-msgid "Outset"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/border/border.php:90
-msgid "Groove"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/border/border.php:91
-msgid "ridge"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/border/border.php:92
-msgid "None"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/border/border.php:136
-msgid "Style"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/border/border.php:157
-msgid "Active"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/border/border.php:172
-msgid "Radius"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/checkbox/checkbox.php:87
-#: admin/partials/shapedplugin-framework/fields/radio/radio.php:75
-msgid "No data provided for this option type."
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/group/group.php:61
-msgid "Error: Field ID conflict."
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/group/group.php:72
-#: admin/partials/shapedplugin-framework/fields/group/group.php:111
-msgid "Are you sure to delete this item?"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/group/group.php:144
-msgid "You cannot add more."
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/group/group.php:145
-msgid "You cannot remove more."
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/image_sizes/image_sizes.php:80
+#: admin/dashboard/class-woo-gallery-slider-global-settings-api.php:808
 msgid "Original uploaded image"
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/fields/image_sizes/image_sizes.php:81
-msgid "Set custom size (Pro)"
+#: admin/dashboard/class-woo-gallery-slider-layouts-api.php:211
+msgid "The free version includes one per-product layout. Upgrade to Pro to create unlimited per-product layouts."
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/fields/image_sizes/image_sizes.php:126
-msgid "No image sizes found."
+#: admin/dashboard/class-woo-gallery-slider-layouts-api.php:450
+#: admin/dashboard/class-woo-gallery-slider-layouts-api.php:788
+#: admin/dashboard/class-woo-gallery-slider-layouts-api.php:1248
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/pages/perProductLayout/EditorHeader.jsx:197
+msgid "Untitled Layout"
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/fields/migration/migration.php:42
-msgid "Run Migration"
+#: admin/dashboard/class-woo-gallery-slider-layouts-api.php:503
+msgid "Layout saved."
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/fields/shortcode/shortcode.php:49
+#: admin/dashboard/class-woo-gallery-slider-layouts-api.php:524
+msgid "Layout moved to the trash."
+msgstr ""
+
+#. translators: %d: number of layouts.
+#: admin/dashboard/class-woo-gallery-slider-layouts-api.php:552
 #, php-format
-msgid "Unlock Full Potential with %1$sPRO%2$s"
+msgid "%d layout moved to the trash."
+msgid_plural "%d layouts moved to the trash."
+msgstr[0] ""
+msgstr[1] ""
+
+#: admin/dashboard/class-woo-gallery-slider-layouts-api.php:572
+msgid "Layouts activated."
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/fields/shortcode/shortcode.php:56
+#: admin/dashboard/class-woo-gallery-slider-layouts-api.php:573
+msgid "Layouts deactivated."
+msgstr ""
+
+#: admin/dashboard/class-woo-gallery-slider-layouts-api.php:601
+msgid "Order saved."
+msgstr ""
+
+#: admin/dashboard/class-woo-gallery-slider-layouts-api.php:722
+msgid "Assigned Products"
+msgstr ""
+
+#: admin/dashboard/class-woo-gallery-slider-layouts-api.php:904
+msgid "This layout no longer exists."
+msgstr ""
+
+#: admin/dashboard/class-woo-gallery-slider-layouts-api.php:1258
+msgid "Just now"
+msgstr ""
+
+#. translators: %s: human-readable time difference.
+#: admin/dashboard/class-woo-gallery-slider-layouts-api.php:1261
 #, php-format
-msgid "Create Engaging, Branded Product Galleries with %1$sPro%2$s and Drive More Sales!"
+msgid "%s ago"
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/fields/shortcode/shortcode.php:61
-msgid "16+ Modern Gallery Layouts"
+#: admin/dashboard/class-woo-gallery-slider-preview-api.php:385
+msgid "The gallery is turned off for this product by custom code (the wcgs_disable_gallery_slider filter), so your store shows the default WooCommerce gallery."
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/fields/shortcode/shortcode.php:62
-msgid "Different Layouts Per Category"
+#: admin/dashboard/class-woo-gallery-slider-preview-api.php:395
+msgid "This layout is inactive, so your store does not use it yet. Activate it in the layouts list once it is assigned."
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/fields/shortcode/shortcode.php:63
-msgid "Additional Variation Gallery"
+#: admin/dashboard/class-woo-gallery-slider-preview-api.php:401
+msgid "The free version applies only your first layout, so your store does not use this one. Upgrade to Pro to use more layouts."
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/fields/shortcode/shortcode.php:64
-msgid "Product Videos in Galleries"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/shortcode/shortcode.php:65
-msgid "Product Videos on Shop Page"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/shortcode/shortcode.php:66
-msgid "Advanced Product Image Zoom"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/shortcode/shortcode.php:67
-msgid "Powerful Product Lightbox"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/shortcode/shortcode.php:68
-msgid "200+ Customizations and More"
-msgstr ""
-
-#: admin/partials/shapedplugin-framework/fields/shortcode/shortcode.php:84
+#. translators: %s: layout title.
+#: admin/dashboard/class-woo-gallery-slider-preview-api.php:408
 #, php-format
-msgid ""
-"Reno Product Gallery works smoothly with Gutenberg, Classic Editor, %1$sElementor%2$s, "
-"Divi, Bricks, Beaver, Oxygen, WPBakery Builder, etc."
+msgid "On your store this product uses the “%s” layout. Assign it to this layout to see this gallery there."
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/fields/switcher/switcher.php:45
-msgid "On"
+#: admin/dashboard/class-woo-gallery-slider-preview-api.php:415
+msgid "On your store this product uses the Global Settings. Assign it to this layout to see this gallery there."
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/functions/actions.php:32
-#: admin/partials/shapedplugin-framework/functions/actions.php:53
-msgid "Error: Invalid nonce verification."
+#. translators: %s: layout title.
+#: admin/dashboard/class-woo-gallery-slider-preview-api.php:423
+#, php-format
+msgid "On your store this product uses the “%s” layout, which overrides some of these settings."
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/functions/actions.php:60
-msgid "Error: Invalid term ID."
+#: admin/dashboard/class-woo-gallery-slider-preview-api.php:431
+msgid "This product has no images. Pick another product to preview the gallery."
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/functions/actions.php:66
-msgid "Error: You do not have permission to do that."
+#: admin/dashboard/class-woo-gallery-slider-settings-api.php:316
+msgid "Unknown search type."
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/functions/validate.php:25
-#: admin/partials/shapedplugin-framework/functions/validate.php:93
-msgid "Please write a valid email address!"
+#: admin/dashboard/class-woo-gallery-slider-settings-api.php:337
+msgid "Unknown plugin to migrate from."
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/functions/validate.php:40
-#: admin/partials/shapedplugin-framework/functions/validate.php:115
-msgid "Please write a numeric data!"
+#: admin/dashboard/class-woo-gallery-slider-settings-api.php:430
+msgid "Choose at least one layout to export."
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/functions/validate.php:57
-#: admin/partials/shapedplugin-framework/functions/validate.php:136
-msgid "Error! This field is required!"
+#: admin/dashboard/class-woo-gallery-slider-settings-api.php:435
+msgid "Unknown export type."
 msgstr ""
 
-#: admin/partials/shapedplugin-framework/functions/validate.php:74
-#: admin/partials/shapedplugin-framework/functions/validate.php:157
-msgid "Please write a valid url!"
+#: admin/dashboard/class-woo-gallery-slider-settings-api.php:440
+msgid "There are no layouts to export."
 msgstr ""
 
-#: includes/class-woo-gallery-slider-import-export.php:111
-msgid "You do not have permission to export."
+#: admin/dashboard/class-woo-gallery-slider-settings-api.php:458
+#: build/admin/wcgs-dashboard.js:49
+#: src/admin/pages/settings/ImportExportTab.jsx:289
+msgid "This file is not a Reno Product Gallery export."
 msgstr ""
 
-#: includes/class-woo-gallery-slider-import-export.php:290
-msgid "Error: Nonce verification has failed. Please try again."
-msgstr ""
-
-#: includes/class-woo-gallery-slider-import-export.php:295
-msgid "You do not have permission to import."
-msgstr ""
-
-#: includes/class-woo-gallery-slider-import-export.php:303
-#: includes/class-woo-gallery-slider-import-export.php:350
+#: admin/dashboard/class-woo-gallery-slider-settings-api.php:465
+#: admin/dashboard/class-woo-gallery-slider-settings-api.php:501
 msgid "Nothing to import."
 msgstr ""
 
-#: includes/class-woo-gallery-slider-import-export.php:319
-msgid "Invalid JSON data."
+#: admin/dashboard/class-woo-gallery-slider-settings-api.php:482
+msgid "Imported the first layout of the file. The free version includes one per-product layout."
 msgstr ""
 
-#: includes/class-woo-gallery-slider-import-export.php:335
-msgid "Global settings imported successfully."
+#: admin/dashboard/class-woo-gallery-slider-settings-api.php:483
+msgid "Imported 1 layout."
 msgstr ""
 
-#: includes/class-woo-gallery-slider-import-export.php:343
-msgid "Invalid shortcode data structure."
+#: admin/dashboard/class-woo-gallery-slider-settings-api.php:496
+msgid "Global settings imported."
 msgstr ""
 
-#: includes/class-woo-gallery-slider-variation-image-import.php:143
-#: includes/class-woo-gallery-slider-variation-image-import.php:218
-#: includes/class-woo-gallery-slider-variation-image-import.php:231
-msgid "Reno Product Gallery Variation Images"
+#. translators: %d: layout ID.
+#: admin/dashboard/class-woo-gallery-slider-settings-api.php:681
+#, php-format
+msgid "(no title) #%d"
 msgstr ""
 
-#: includes/class-woo-gallery-slider-variation-image-import.php:374
+#: admin/helper/class-woo-gallery-slider-cron.php:37
+msgid "Once Weekly"
+msgstr ""
+
+#: admin/partials/class-wgs-admin-notices.php:164
+msgid "Unauthorized."
+msgstr ""
+
+#: admin/partials/class-wgs-admin-notices.php:210
+msgid "Authorization failed!"
+msgstr ""
+
+#: admin/partials/class-wgs-admin-notices.php:236
+msgid "Install"
+msgstr ""
+
+#: admin/partials/class-wgs-admin-notices.php:237
+msgid "Install Now"
+msgstr ""
+
+#: admin/partials/class-wgs-admin-notices.php:243
+#: admin/partials/class-wgs-admin-notices.php:244
+#: build/admin/wcgs-dashboard.js:30
+#: src/admin/pages/perProductLayout/LayoutList.jsx:381
+msgid "Activate"
+msgstr ""
+
+#: includes/class-woo-gallery-slider-product-gallery-video.php:135
+#: includes/class-woo-gallery-slider-product-gallery-video.php:241
+#: includes/class-woo-gallery-slider-product-gallery-video.php:254
+msgid "Reno Product Gallery Videos"
+msgstr ""
+
+#. translators: %s: image URL
+#: includes/class-woo-gallery-slider-product-gallery-video.php:484
+#: includes/class-woo-gallery-slider-variation-image-import.php:566
 #, php-format
 msgid "Not able to attach \"%s\"."
 msgstr ""
 
-#: includes/class-woo-gallery-slider-variation-image-import.php:391
+#: includes/class-woo-gallery-slider-variation-image-import.php:155
+#: includes/class-woo-gallery-slider-variation-image-import.php:292
+#: includes/class-woo-gallery-slider-variation-image-import.php:305
+msgid "Reno Product Gallery Variation Images"
+msgstr ""
+
+#. translators: %s: image URL
+#: includes/class-woo-gallery-slider-variation-image-import.php:585
 #, php-format
 msgid "Unable to use image \"%s\"."
 msgstr ""
 
-#: includes/class-woo-gallery-slider.php:95
-msgid "Settings"
+#: includes/class-woo-gallery-slider-video-url.php:118
+msgid "Video URL shown for this image in Reno Product Gallery."
 msgstr ""
 
-#: includes/class-woo-gallery-slider.php:99
+#: includes/class-woo-gallery-slider.php:118
 msgid "Go Pro!"
+msgstr ""
+
+#. translators: %s: video host name, e.g. Vimeo.
+#: public/class-woo-gallery-slider-public.php:534
+#: public/partials/product-images.php:606
+#: build/admin/wcgs-dashboard.js:19
+#: build/admin/wcgs-dashboard.js:20
+#: src/admin/pages/globalSettings/LivePreview/engine/Gallery.jsx:31
+#: src/admin/pages/globalSettings/LivePreview/Product/engine.js:91
+#, php-format,js-format
+msgid "%s video"
+msgstr ""
+
+#: public/class-woo-gallery-slider-public.php:535
+#: public/partials/product-images.php:622
+#: public/partials/product-images.php:637
+#: build/admin/wcgs-dashboard.js:19
+#: src/admin/pages/globalSettings/LivePreview/engine/Gallery.jsx:300
+#: src/admin/pages/globalSettings/LivePreview/engine/Gallery.jsx:331
+#: src/admin/pages/globalSettings/LivePreview/Product/engine.js:990
+msgid "Open lightbox"
+msgstr ""
+
+#: public/class-woo-gallery-slider-public.php:536
+#: public/partials/product-images.php:879
+#: build/admin/wcgs-dashboard.js:19
+#: src/admin/pages/globalSettings/LivePreview/engine/Gallery.jsx:670
+#: src/admin/pages/globalSettings/LivePreview/Product/engine.js:672
+msgid "Next slide"
+msgstr ""
+
+#: public/class-woo-gallery-slider-public.php:537
+#: public/partials/product-images.php:880
+#: build/admin/wcgs-dashboard.js:19
+#: src/admin/pages/globalSettings/LivePreview/engine/Gallery.jsx:679
+#: src/admin/pages/globalSettings/LivePreview/Product/engine.js:668
+msgid "Previous slide"
+msgstr ""
+
+#: public/partials/class/class-public-helper.php:34
+#: build/admin/wcgs-dashboard.js:2
+#: build/admin/wcgs-dashboard.js:19
+#: build/admin/wcgs-dashboard.js:23
+#: build/admin/wcgs-dashboard.js:36
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/components/ChangelogDrawer/index.jsx:132
+#: src/admin/components/ChangelogDrawer/index.jsx:136
+#: src/admin/pages/globalSettings/LivePreview/Product/engine.js:51
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:661
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:665
+#: src/admin/pages/perProductLayout/VideoModal.jsx:77
+#: src/admin/pages/settings/AdvancedTab.jsx:131
+msgid "Close"
+msgstr ""
+
+#: public/partials/class/class-public-helper.php:35
+#: build/admin/wcgs-dashboard.js:19
+#: src/admin/pages/globalSettings/LivePreview/Product/engine.js:52
+msgid "Next"
+msgstr ""
+
+#: public/partials/class/class-public-helper.php:36
+#: build/admin/wcgs-dashboard.js:19
+#: src/admin/pages/globalSettings/LivePreview/Product/engine.js:53
+msgid "Previous"
+msgstr ""
+
+#: public/partials/class/class-public-helper.php:37
+#: build/admin/wcgs-dashboard.js:19
+#: src/admin/pages/globalSettings/LivePreview/Product/engine.js:54
+msgid "You can close this modal content with the ESC key"
+msgstr ""
+
+#: public/partials/class/class-public-helper.php:38
+#: build/admin/wcgs-dashboard.js:19
+#: src/admin/pages/globalSettings/LivePreview/Product/engine.js:58
+msgid "Something went wrong. Please try again later."
+msgstr ""
+
+#: public/partials/class/class-public-helper.php:39
+#: build/admin/wcgs-dashboard.js:19
+#: src/admin/pages/globalSettings/LivePreview/Product/engine.js:62
+msgid "Image not found"
+msgstr ""
+
+#: public/partials/class/class-public-helper.php:40
+#: build/admin/wcgs-dashboard.js:19
+#: src/admin/pages/globalSettings/LivePreview/Product/engine.js:63
+msgid "HTML element not found"
+msgstr ""
+
+#: public/partials/class/class-public-helper.php:41
+#: build/admin/wcgs-dashboard.js:19
+#: src/admin/pages/globalSettings/LivePreview/Product/engine.js:67
+msgid "Error loading content: not found"
+msgstr ""
+
+#: public/partials/class/class-public-helper.php:42
+#: build/admin/wcgs-dashboard.js:19
+#: src/admin/pages/globalSettings/LivePreview/Product/engine.js:71
+msgid "Error loading content: forbidden"
+msgstr ""
+
+#: public/partials/class/class-public-helper.php:43
+#: build/admin/wcgs-dashboard.js:19
+#: src/admin/pages/globalSettings/LivePreview/Product/engine.js:75
+msgid "Error loading page"
+msgstr ""
+
+#: public/partials/class/class-public-helper.php:44
+#: public/partials/class/class-public-helper.php:45
+#: build/admin/wcgs-dashboard.js:19
+#: src/admin/pages/globalSettings/LivePreview/Product/engine.js:76
+#: src/admin/pages/globalSettings/LivePreview/Product/engine.js:80
+msgid "Toggle full-screen mode"
+msgstr ""
+
+#. translators: 1: WooCommerce plugin details link start, 2: link end.
+#: woo-gallery-slider.php:152
+#, php-format
+msgid "You must install and activate %1$sWooCommerce%2$s plugin to make the <strong>Reno Product Gallery</strong> work."
+msgstr ""
+
+#: block/variation-images/build/index.js:6722
+msgid "Remove image"
+msgstr ""
+
+#: block/variation-images/build/index.js:6796
+msgid "Remove All"
+msgstr ""
+
+#: block/variation-images/build/index.js:6821
+msgid "Add More"
+msgstr ""
+
+#: block/variation-images/build/index.js:6873
+msgid "Add Variation Images"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: build/admin/wcgs-dashboard.js:15
+#: build/admin/wcgs-dashboard.js:16
+#: build/admin/wcgs-dashboard.js:46
+#: build/admin/wcgs-dashboard.js:48
+#: src/admin/constants/tabs.js:11
+#: src/admin/pages/globalSettings/SettingsPanel/index.jsx:24
+#: src/admin/pages/globalSettings/Sidebar/index.jsx:40
+#: src/admin/pages/globalSettings/SplitView/index.jsx:31
+#: src/admin/pages/settings/ImportExportTab.jsx:15
+#: src/admin/pages/settings/ImportExportTab.jsx:85
+msgid "Global Settings"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: src/admin/constants/sections.js:13
+msgid "Gallery Slider"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: src/admin/constants/sections.js:17
+msgid "Navigation & Pagination"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/constants/sections.js:24
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:57
+msgid "Thumbnails Navigation"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: src/admin/constants/sections.js:28
+msgid "Product Image"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: src/admin/constants/sections.js:32
+msgid "Product Image Zoom"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: build/admin/wcgs-dashboard.js:15
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/constants/sections.js:36
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:78
+#: src/admin/pages/wizard/constants.js:50
+msgid "Product Video Gallery"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/constants/sections.js:43
+#: src/admin/constants/sections.js:44
+#: src/admin/pages/settings/AdvancedTab.jsx:226
+msgid "General"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: src/admin/constants/sections.js:50
+msgid "Gallery"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/constants/sections.js:56
+#: src/admin/constants/sections.js:57
+#: src/admin/pages/wizard/constants.js:40
+#: src/admin/pages/wizard/constants.js:41
+msgid "Lightbox"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/constants/sections.js:62
+#: src/admin/pages/wizard/constants.js:61
+msgid "Shop Page Video"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/constants/sections.js:63
+#: src/admin/pages/wizard/constants.js:51
+msgid "Video"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: src/admin/constants/settingsTabs.js:11
+msgid "Advanced Controls"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: src/admin/constants/settingsTabs.js:23
+msgid "Speed Optimization"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: src/admin/constants/settingsTabs.js:41
+msgid "Migration"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: src/admin/constants/settingsTabs.js:46
+msgid "Import & Export"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: src/admin/constants/settingsTabs.js:56
+msgid "Additional CSS & JS"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: src/admin/store/actions.js:156
+msgid "Could not load the dashboard data."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: src/admin/store/actions.js:188
+msgid "Could not clear the gallery cache."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: src/admin/store/actions.js:367
+msgid "Could not load the settings."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: src/admin/store/actions.js:409
+#: src/admin/store/actions.js:558
+msgid "Changes saved"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: src/admin/store/actions.js:417
+msgid "Could not save the settings."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: src/admin/store/actions.js:516
+msgid "Could not load the global settings."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: src/admin/store/actions.js:566
+msgid "Could not save the global settings."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: src/admin/store/actions.js:790
+msgid "Could not load the layouts."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: src/admin/store/actions.js:835
+msgid "Could not load the layout."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:1
+#: src/admin/store/actions.js:973
+msgid "Layout saved as draft"
+msgstr ""
+
+#. translators: %s: number of products.
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/store/actions.js:979
+#, js-format
+msgid "Layout saved · applies to %s product"
+msgid_plural "Layout saved · applies to %s products"
+msgstr[0] ""
+msgstr[1] ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/Pro/FeaturePopover.jsx:544
+#: src/admin/store/actions.js:765
+msgid "Unlimited per-product layouts"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/Pro/FeaturePopover.jsx:548
+#: src/admin/store/actions.js:769
+msgid "Free includes one per-product layout. Pro lets you create and assign as many as you need."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/store/actions.js:998
+msgid "Could not save the layout."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/store/actions.js:1052
+msgid "Could not delete the layout."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/store/actions.js:1087
+msgid "Could not update the layouts."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/store/actions.js:1116
+msgid "Could not save the order."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/HeaderTabs/index.jsx:70
+msgid "Dashboard sections"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/Pro/shared.jsx:117
+msgid "Pro"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/Pro/shared.jsx:142
+#: src/admin/components/Pro/shared.jsx:146
+msgid "Get Pro"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/Pro/blocks.jsx:73
+#: src/admin/components/Pro/FeaturePopover.jsx:202
+#: src/admin/components/Pro/shared.jsx:181
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/Pro/visuals.jsx:162
+msgid "Zoom window"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/Pro/visuals.jsx:207
+msgid "Scale"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/Pro/visuals.jsx:230
+msgid "Round"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/components/Pro/visuals.jsx:231
+#: src/admin/pages/swatches/FeatureTour.jsx:316
+msgid "Rounded"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: build/admin/wcgs-dashboard.js:14
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/components/Pro/visuals.jsx:232
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:153
+#: src/admin/pages/swatches/FeatureTour.jsx:317
+msgid "Square"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/components/Pro/blocks.jsx:180
+#: src/admin/components/Pro/visuals.jsx:262
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:228
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:357
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:158
+msgid "Width"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/Pro/blocks.jsx:186
+#: src/admin/components/Pro/visuals.jsx:266
+msgid "Height"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/Pro/visuals.jsx:313
+msgid "First Look — On-Body Review"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/Pro/visuals.jsx:314
+msgid "Fabric & Fit Close-Up"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/Pro/visuals.jsx:315
+msgid "Three Ways to Style It"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/Pro/visuals.jsx:325
+msgid "Watch Videos"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/Pro/visuals.jsx:355
+msgid "Classic Crew Pullover"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/Pro/visuals.jsx:365
+msgid "Product Videos · 3"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: build/admin/wcgs-dashboard.js:4
+#: src/admin/components/IconPicker/index.jsx:113
+#: src/admin/components/Pro/FeaturePopover.jsx:532
+msgid "Available in Reno Product Gallery Pro."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/HelpMenu/index.jsx:87
+msgid "Documentation"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/HelpMenu/index.jsx:92
+msgid "Video Tutorials"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/HelpMenu/index.jsx:97
+msgid "What’s New"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/HelpMenu/index.jsx:102
+msgid "Contact Support"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/HelpMenu/index.jsx:107
+msgid "About Us"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/HelpMenu/index.jsx:120
+msgid "Help & docs"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/HelpMenu/index.jsx:121
+msgid "Help"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/HelpMenu/index.jsx:157
+msgid "Setup Wizard"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/ChangelogDrawer/index.jsx:123
+msgid "Latest Updates - Changelog"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/ChangelogDrawer/index.jsx:154
+msgid "The changelog could not be loaded right now."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/ChangelogDrawer/index.jsx:164
+msgid "View the changelog online"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/pages/settings/ConfirmDialog.jsx:122
+msgid "Cancel"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/components/DeviceTypeControl/index.jsx:12
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:52
+msgid "Desktop"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/components/DeviceTypeControl/index.jsx:13
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:60
+msgid "Tablet"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/components/DeviceTypeControl/index.jsx:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:64
+msgid "Mobile"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/DeviceTypeControl/index.jsx:47
+msgid "Preview device"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:2
+#: src/admin/components/DeviceTypeControl/index.jsx:86
+msgid "Responsive value"
+msgstr ""
+
+#. translators: %s: device name, e.g. "Tablet".
+#: build/admin/wcgs-dashboard.js:3
+#: src/admin/components/DeviceTypeControl/index.jsx:92
+#, js-format
+msgid "Responsive value: %s"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: src/admin/components/ControlHeader/index.jsx:36
+msgid "Reset to default"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: src/admin/components/NumberBox/index.jsx:133
+msgid "Increase"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: src/admin/components/NumberBox/index.jsx:145
+msgid "Decrease"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: src/admin/components/NumberBox/index.jsx:169
+#: src/admin/components/NumberGroup/index.jsx:102
+msgid "Unit"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: src/admin/components/ColorControl/index.jsx:227
+msgid "Open color picker"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: build/admin/wcgs-dashboard.js:15
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/components/ColorControl/index.jsx:242
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:261
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:140
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:160
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:220
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:122
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:183
+#: src/admin/pages/swatches/FeatureTour.jsx:260
+msgid "Color"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: src/admin/components/ColorControl/index.jsx:349
+msgid "Saved colors"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: build/admin/wcgs-dashboard.js:6
+#: build/admin/wcgs-dashboard.js:15
+#: build/admin/wcgs-dashboard.js:56
+#: src/admin/components/BoxShadowControl/index.jsx:21
+#: src/admin/components/MultiSelect/index.jsx:56
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:58
+#: src/admin/pages/wizard/index.jsx:450
+msgid "None"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: src/admin/components/BoxShadowControl/index.jsx:24
+msgid "Outset"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: src/admin/components/BoxShadowControl/index.jsx:26
+msgid "Inset"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: src/admin/components/BoxShadowControl/index.jsx:58
+msgid "Box Shadow"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/components/BoxShadowControl/index.jsx:108
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Field.jsx:275
+msgid "X"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/components/BoxShadowControl/index.jsx:114
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Field.jsx:280
+msgid "Y"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/components/BoxShadowControl/index.jsx:120
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Field.jsx:283
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ProductImage.jsx:99
+msgid "Blur"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/components/BoxShadowControl/index.jsx:126
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Field.jsx:286
+msgid "Spread"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: src/admin/components/BoxShadowControl/index.jsx:134
+msgid "Shadow Type"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: src/admin/components/BoxShadowControl/index.jsx:143
+msgid "Shadow Color"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: src/admin/components/SpacingControl/index.jsx:103
+msgid "Top & Bottom"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: src/admin/components/SpacingControl/index.jsx:108
+msgid "Left & Right"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: src/admin/components/SpacingControl/index.jsx:116
+msgctxt "spacing side"
+msgid "Top"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: src/admin/components/SpacingControl/index.jsx:121
+msgid "Right"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: src/admin/components/SpacingControl/index.jsx:122
+msgctxt "spacing side"
+msgid "Bottom"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: src/admin/components/SpacingControl/index.jsx:127
+msgid "Left"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: src/admin/components/SpacingControl/index.jsx:134
+msgid "Unlink values"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:3
+#: src/admin/components/SpacingControl/index.jsx:135
+msgid "Link values"
+msgstr ""
+
+#. translators: %d: number of icon styles.
+#: build/admin/wcgs-dashboard.js:4
+#: src/admin/components/IconPicker/index.jsx:98
+#, js-format
+msgid "%d more icon styles"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:4
+#: src/admin/components/IconPicker/index.jsx:101
+msgid "Unlock every icon style with Pro."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:4
+#: src/admin/components/IconPicker/index.jsx:112
+msgid "More icon styles"
+msgstr ""
+
+#. translators: 1: number of styles, 2: setting name, e.g. "active thumbnail".
+#: build/admin/wcgs-dashboard.js:5
+#: src/admin/components/CardSelect/index.jsx:93
+#, js-format
+msgid "%1$d more %2$s styles"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:5
+#: src/admin/components/CardSelect/index.jsx:97
+msgid "Unlock every style with Pro."
+msgstr ""
+
+#. translators: %d: number of Pro styles.
+#: build/admin/wcgs-dashboard.js:6
+#: src/admin/components/CardSelect/index.jsx:137
+#, js-format
+msgid "+%d more"
+msgstr ""
+
+#. translators: %s: option name.
+#. translators: %s: item name.
+#: build/admin/wcgs-dashboard.js:7
+#: build/admin/wcgs-dashboard.js:41
+#: src/admin/components/MultiSelect/index.jsx:175
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:894
+#, js-format
+msgid "Remove %s"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:7
+#: build/admin/wcgs-dashboard.js:9
+#: build/admin/wcgs-dashboard.js:40
+#: src/admin/components/MediaUpload/index.jsx:120
+#: src/admin/components/MediaUpload/index.jsx:124
+#: src/admin/components/MultiSelect/index.jsx:181
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:888
+msgid "Remove"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:7
+#: src/admin/components/MultiSelect/index.jsx:216
+msgid "Search…"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:7
+#: src/admin/components/MultiSelect/index.jsx:220
+msgid "Search options"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:7
+#: src/admin/components/MultiSelect/index.jsx:305
+msgid "Searching…"
+msgstr ""
+
+#. translators: %s: search text.
+#: build/admin/wcgs-dashboard.js:8
+#: src/admin/components/MultiSelect/index.jsx:315
+#, js-format
+msgid "No matches for “%s”"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:8
+#: src/admin/components/LayoutPicker/index.jsx:19
+msgid "Thumbs Bottom"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:8
+#: src/admin/components/LayoutPicker/index.jsx:23
+msgid "Thumbs Left"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:8
+#: src/admin/components/LayoutPicker/index.jsx:27
+msgid "Thumbs Right"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:8
+#: src/admin/components/LayoutPicker/index.jsx:31
+msgid "Thumbs Top"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:8
+#: src/admin/components/LayoutPicker/index.jsx:35
+msgid "Slider"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:8
+#: src/admin/components/LayoutPicker/index.jsx:39
+msgid "Tiles"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:8
+#: src/admin/components/LayoutPicker/index.jsx:44
+msgid "Hierarchy Grid"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:8
+#: src/admin/components/LayoutPicker/index.jsx:49
+msgid "Modern Grid"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:8
+#: src/admin/components/LayoutPicker/index.jsx:54
+msgid "Anchor Nav"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:8
+#: src/admin/components/LayoutPicker/index.jsx:59
+msgid "Vertical Scroll"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:8
+#: src/admin/components/LayoutPicker/index.jsx:64
+msgid "Multi-row Thumbs"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:8
+#: build/admin/wcgs-dashboard.js:20
+#: src/admin/components/LayoutPicker/index.jsx:143
+#: src/admin/components/LayoutPicker/index.jsx:304
+#: src/admin/pages/globalSettings/LivePreview/LayoutDrawer.jsx:118
+msgid "Gallery Layouts"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:8
+#: src/admin/components/LayoutPicker/index.jsx:288
+msgid "Change Layout"
+msgstr ""
+
+#. translators: %s: layout name.
+#: build/admin/wcgs-dashboard.js:9
+#: build/admin/wcgs-dashboard.js:21
+#: src/admin/components/LayoutPicker/index.jsx:312
+#: src/admin/pages/globalSettings/LivePreview/LayoutDrawer.jsx:126
+#, js-format
+msgid "%s selected"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:9
+#: src/admin/components/MediaUpload/index.jsx:64
+msgid "Select file"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:9
+#: src/admin/components/MediaUpload/index.jsx:67
+msgid "Use this file"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:9
+#: src/admin/components/MediaUpload/index.jsx:114
+msgid "Replace"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:9
+#: src/admin/pages/perProductLayout/utils.js:78
+msgid "1 category"
+msgstr ""
+
+#. translators: %d: number of categories.
+#: build/admin/wcgs-dashboard.js:10
+#: src/admin/pages/perProductLayout/utils.js:84
+#, js-format
+msgid "%d categories"
+msgstr ""
+
+#. translators: %d: number of products.
+#: build/admin/wcgs-dashboard.js:11
+#: build/admin/wcgs-dashboard.js:33
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:505
+#: src/admin/pages/perProductLayout/utils.js:93
+#, js-format
+msgid "%d product"
+msgid_plural "%d products"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of excluded products.
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/pages/perProductLayout/utils.js:108
+#, js-format
+msgid "%d excluded"
+msgid_plural "%d excluded"
+msgstr[0] ""
+msgstr[1] ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/pages/perProductLayout/utils.js:120
+msgid "Not assigned yet"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/pages/perProductLayout/EditorHeader.jsx:168
+#: src/admin/pages/perProductLayout/EditorHeader.jsx:172
+msgid "Back to Layouts"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/pages/perProductLayout/EditorHeader.jsx:184
+msgid "Rename layout"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/pages/perProductLayout/EditorHeader.jsx:201
+msgid "Layout name"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/pages/perProductLayout/EditorHeader.jsx:226
+msgid "Assign To"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: build/admin/wcgs-dashboard.js:52
+#: src/admin/pages/globalSettings/SettingsPanel/PanelHeader.jsx:70
+#: src/admin/pages/globalSettings/SettingsPanel/PanelHeader.jsx:80
+#: src/admin/pages/perProductLayout/EditorHeader.jsx:243
+#: src/admin/pages/perProductLayout/EditorHeader.jsx:252
+#: src/admin/pages/settings/index.jsx:114
+#: src/admin/pages/settings/index.jsx:126
+msgid "Reset to defaults"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: build/admin/wcgs-dashboard.js:52
+#: build/admin/wcgs-dashboard.js:55
+#: src/admin/pages/globalSettings/SettingsPanel/PanelHeader.jsx:96
+#: src/admin/pages/perProductLayout/EditorHeader.jsx:265
+#: src/admin/pages/settings/index.jsx:141
+#: src/admin/pages/wizard/index.jsx:427
+msgid "Saving…"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: build/admin/wcgs-dashboard.js:15
+#: build/admin/wcgs-dashboard.js:52
+#: src/admin/pages/globalSettings/SettingsPanel/PanelHeader.jsx:97
+#: src/admin/pages/globalSettings/Sidebar/index.jsx:63
+#: src/admin/pages/perProductLayout/EditorHeader.jsx:266
+#: src/admin/pages/settings/index.jsx:145
+msgid "Save changes"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/pages/perProductLayout/EditorHeader.jsx:292
+msgid "This layout isn’t assigned yet"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/pages/perProductLayout/EditorHeader.jsx:298
+msgid "Assign it to categories or products to use it on your store, or save it as a draft and assign it later."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/pages/perProductLayout/EditorHeader.jsx:312
+msgid "Save as Draft"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/pages/perProductLayout/EditorHeader.jsx:326
+msgid "Assign Now"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/index.jsx:134
+#: src/admin/pages/perProductLayout/EditorHeader.jsx:339
+msgid "Reset This Layout?"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/index.jsx:145
+#: src/admin/pages/perProductLayout/EditorHeader.jsx:343
+msgid "All options in this layout go back to their starting values from Global Settings. Nothing changes on your store until you save."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: build/admin/wcgs-dashboard.js:15
+#: build/admin/wcgs-dashboard.js:52
+#: src/admin/pages/globalSettings/SettingsPanel/index.jsx:154
+#: src/admin/pages/perProductLayout/EditorHeader.jsx:347
+#: src/admin/pages/settings/index.jsx:213
+msgid "Yes, Reset"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: build/admin/wcgs-dashboard.js:57
+#: src/admin/components/Header.jsx:38
+#: src/admin/pages/wizard/index.jsx:487
+msgid "Reno Product Gallery"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/components/Header.jsx:48
+msgid "View the changelog"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:29
+msgid "Set custom size"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:56
+msgid "Laptop"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:72
+msgid "Always"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:76
+msgid "On Hover"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:81
+msgid "Click"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:84
+msgid "Mouseover"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:91
+msgid "Inline"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:12
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:93
+msgid "Popup"
+msgstr ""
+
+#. translators: %d: icon style number.
+#: build/admin/wcgs-dashboard.js:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:114
+#, js-format
+msgid "Style %d"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:14
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:121
+#: src/admin/pages/swatches/FeatureTour.jsx:315
+msgid "Circle"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:127
+msgid "Circle Outline"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:132
+msgid "Filled Circle"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:137
+msgid "Triangle"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:142
+msgid "Triangle Outline"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:147
+msgid "Rounded Square"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:159
+msgid "Camera"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:164
+msgid "Media"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:168
+msgid "Native"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:14
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:46
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:184
+msgid "Zoom In"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:189
+msgid "Magnifier Plus"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:194
+msgid "Expand"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:199
+msgid "Expand Frame"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:204
+msgid "Expand All"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:209
+msgid "Corner Arrows"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:214
+msgid "Eye"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:219
+msgid "Eye Filled"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:225
+msgid "Plus"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:230
+msgid "Small Plus"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:235
+msgid "Info"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:14
+#: src/admin/pages/globalSettings/SettingsPanel/sections/options.js:241
+msgid "Focus"
+msgstr ""
+
+#. translators: %s: device name, e.g. "Desktop".
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/useGlobalSettings.js:62
+#, js-format
+msgid "Use the %s value"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:33
+msgid "Border Around"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:35
+msgid "Inner Line"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:36
+msgid "Outer Line"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:37
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:47
+msgid "Zoom Out"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:38
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:56
+msgid "Opacity"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:45
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ProductImage.jsx:78
+msgid "Normal"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:48
+msgid "Slide Up"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:49
+msgid "Slide Down"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:57
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ProductImage.jsx:139
+msgid "Grayscale"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Slider.jsx:15
+msgid "Infinite Loop"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Slider.jsx:19
+msgid "Accessibility"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Slider.jsx:21
+msgid "RTL Mode"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Slider.jsx:22
+msgid "Free Mode"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Slider.jsx:23
+msgid "Mouse Wheel"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:17
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Slider.jsx:28
+msgid "Slide"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:18
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ProductImage.jsx:85
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Slider.jsx:29
+msgid "Fade"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Slider.jsx:30
+msgid "Flip"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Slider.jsx:31
+msgid "Cube"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:25
+msgid "Bullets"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:26
+msgid "Dynamic"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:27
+msgid "Strokes"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:28
+msgid "Numbers"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:31
+msgid "Progress Bar"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:33
+msgid "Dot Hopper"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:36
+msgid "Expanding Dot"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:40
+msgid "Flexing Fraction"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:55
+msgid "Vertically Center"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:91
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:59
+msgid "Bottom Right"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:98
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:63
+msgid "Bottom Left"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:67
+msgid "Bottom Center"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:21
+msgid "Outer"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:24
+msgid "Inner Right"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:26
+msgid "Inner"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: build/admin/wcgs-dashboard.js:26
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:27
+#: src/admin/pages/perProductLayout/utils.js:17
+msgid "Custom"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:12
+msgid "Default"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:17
+msgid "Inside (2×)"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:22
+msgid "Outside"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:25
+msgid "Outside Zoom"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:26
+msgid "A magnified view opens in a window beside the main image as shoppers move across it."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:35
+msgid "Magnific"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:38
+msgid "Magnific Zoom"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:39
+msgid "A round magnifying lens follows the cursor and enlarges the detail beneath it."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:50
+msgid "Cursor style"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:51
+msgid "Exclude zoom"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:53
+msgid "Mouse-wheel zoom"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:55
+msgid "Mouse-Wheel Zoom"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:56
+msgid "Shoppers scroll to zoom in and out right on the image."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:64
+msgid "Zoom scale"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:66
+msgid "Zoom Scale"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:67
+msgid "Set how far the image magnifies, from a subtle 1.5x to a close 3x."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:75
+msgid "Lens style"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:77
+msgid "Lens Style"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:78
+msgid "Choose the lens shape and border to match your store."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:85
+msgid "Image overlay"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:87
+msgid "Zoom window size & shadow"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:18
+msgid "In Gallery"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:22
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:25
+msgid "Playlist Button"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:26
+msgid "Group product videos behind one button. Shoppers open a tidy playlist right on the gallery."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:39
+msgid "At Starting of the Slider"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:43
+msgid "Keep Videos in Default Position"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:50
+msgid "End of the Slider"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:57
+msgid "Playlist button"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:58
+msgid "Custom video icon upload"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:59
+msgid "Video icon position & size"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:60
+msgid "Autoplay & loop"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:61
+msgid "Self-hosted player style"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:62
+msgid "YouTube player controls"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:19
+msgid "Classic"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:20
+msgid "Crossfade"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:23
+msgid "No Animation"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:30
+msgid "Overlay background"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:31
+msgid "Icon visibility"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:32
+msgid "Slideshow"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:33
+msgid "Thumbnail gallery"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:34
+msgid "Image download"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:35
+msgid "Zoom & rotate"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: build/admin/wcgs-dashboard.js:20
+#: src/admin/pages/globalSettings/LivePreview/LayoutDrawer.jsx:97
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:103
+msgid "Gallery Layout"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:114
+msgid "Thumbnails"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:122
+msgid "Thumbnail Items per View"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:133
+msgid "Vertical Thumbnails Width"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:144
+msgid "Thumbnails Space"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:148
+msgid "Horizontal and vertical spacing between thumbnails."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:157
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Slider.jsx:95
+msgid "Horizontal"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:173
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Slider.jsx:102
+msgid "Vertical"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:192
+msgid "Thumbnails Inner Padding"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:196
+msgid "Padding inside each thumbnail, around the image."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:206
+msgid "Thumbnails Size"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:210
+msgid "Width and height of each thumbnail."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:220
+msgid "Thumbnails Border"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:244
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:170
+msgid "Radius"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:273
+msgid "Hover"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:286
+msgid "Thumbnails Hover Effect"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:296
+msgid "Thumbnails Activate On"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:307
+msgid "Active & Inactive Thumbnails"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:315
+msgid "Active Thumbnail Style"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:344
+msgid "Active Thumbnails Bottom Line"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:348
+msgid "Active Thumbnail Border"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:369
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:224
+msgid "Active Color"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:379
+msgid "Active Thumbnail Box Shadow"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:392
+msgid "Active Thumbnail Box Shadow Color"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:402
+msgid "Inactive Thumbnails Effect"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:406
+msgid "Visual effect applied to thumbnails that are not currently selected."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:417
+msgid "Gallery Width"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:430
+msgid "Responsive Gallery Width"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:434
+msgid "Desktop and laptop 0 keeps the Gallery Width above. Tablet applies below 768px, mobile below 480px."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:457
+msgid "Gallery Bottom Gap"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:461
+msgid "Space below the gallery before the page content continues."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:472
+msgid "Image Source"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:480
+msgid "Gallery Image Source"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:484
+msgid "All Images: shows the Product Gallery images plus every image inserted in the product description. Gallery Images: shows only the images added to the Product Gallery box."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:492
+msgid "All Images"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:499
+msgid "Gallery Images"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:509
+msgid "Include Featured Image & Video"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:513
+msgid "Choose where the product’s featured image and video are added. To default gallery: they appear in the gallery shown before any variation is picked. To variation gallery: they stay in the gallery after a shopper selects a variation, alongside that variation’s images."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:521
+msgid "To default gallery"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:528
+msgid "To variation gallery"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:538
+msgid "Default Gallery with Variation Images"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:546
+msgid "Gallery Image Caption"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/General.jsx:550
+msgid "Show the image caption beneath the main gallery image."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Slider.jsx:47
+msgid "AutoPlay"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Slider.jsx:53
+msgid "AutoPlay Interval"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Slider.jsx:69
+msgid "AutoPlay Speed"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Slider.jsx:73
+msgid "Duration of the slide transition between images, in milliseconds."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Slider.jsx:87
+msgid "Slide Orientation"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:59
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Slider.jsx:112
+msgid "Sliding Effect"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Slider.jsx:122
+msgid "Gallery Height"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Slider.jsx:131
+msgid "Adaptive"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Slider.jsx:138
+msgid "Max Image Height"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Slider.jsx:145
+msgid "Fixed Height"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:85
+msgid "Slider Navigation"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:94
+msgid "Navigation Icon Style"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:105
+msgid "Navigation Visibility"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:115
+msgid "Navigation Position"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:127
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:97
+msgid "Icon Size"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:143
+msgid "Nav Box Radius"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:144
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:164
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:126
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:192
+msgid "Hover Color"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:151
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:171
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:133
+msgid "Background"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:158
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:178
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:140
+msgid "Hover Background"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:189
+msgid "Pagination"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:197
+msgid "Slider Pagination"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:206
+msgid "Pagination Style"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:234
+msgid "Pagination Visibility"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/NavPag.jsx:244
+msgid "Pagination Margin"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:49
+msgid "This layout has no thumbnail arrows, so these settings do not apply to it."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:66
+msgid "Thumbnails Navigation Visibility"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:76
+msgid "Thumbnails Navigation Style"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:86
+msgid "Thumbnail Navigation Icon"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:150
+msgid "Thumbnails Navigation Border"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:202
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:207
+msgid "Thumbnails Navigation Box Size"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ThumbsNav.jsx:211
+msgid "Set the width and height of the thumbnail arrows to match your gallery style."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ProductImage.jsx:22
+msgid "Image Size"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ProductImage.jsx:32
+msgid "Lazy Load"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ProductImage.jsx:36
+msgid "Loads images only as shoppers reach them."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ProductImage.jsx:44
+msgid "Off"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ProductImage.jsx:51
+msgid "On Demand"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ProductImage.jsx:61
+msgid "Preloader"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ProductImage.jsx:70
+msgid "Preload Style"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ProductImage.jsx:92
+msgid "Gray"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ProductImage.jsx:111
+msgid "Border Radius"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ProductImage.jsx:124
+msgid "Image Mode"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ProductImage.jsx:132
+msgid "Original"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ProductImage.jsx:146
+msgid "Grayscale on hover"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:106
+msgid "Enable Image Zoom"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:115
+msgid "Zoom Behavior"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:123
+msgid "Zoom Style"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:145
+msgid "Zoom on Mobile"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:154
+msgid "More Zoom Options in Pro"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Zoom.jsx:158
+msgid "Finer control over how shoppers inspect details."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:88
+msgid "Presentation"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:96
+msgid "Video Presentation"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:106
+msgid "Video Play Mode"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:117
+msgid "Play Icon"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:125
+msgid "Video Icon Style"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:137
+msgid "Gallery Order"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:145
+msgid "Place of the Videos in Gallery"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:155
+msgid "More Video Options in Pro"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Video.jsx:159
+msgid "More ways to present and play product videos."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:50
+msgid "Enable Lightbox"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:69
+msgid "Icon Display Position"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:77
+msgid "Top Right"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:84
+msgid "Top Left"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:105
+msgid "Middle"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:115
+msgid "Lightbox Icon Style"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:125
+msgid "Lightbox Icon Size"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:168
+msgid "Lightbox Caption"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:179
+msgid "Caption Size"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:191
+msgid "Caption Color"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:203
+msgid "Controls"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:208
+msgid "Image Counter"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:217
+msgid "Full Screen Button"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:226
+msgid "More Lightbox Options in Pro"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/Lightbox.jsx:230
+msgid "Richer controls for the full-screen view."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ShopVideo.jsx:11
+msgid "Videos on the Shop Page"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ShopVideo.jsx:15
+msgid "Show featured product videos right on Shop and archive product cards."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ShopVideo.jsx:20
+msgid "Inline or popup playback"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ShopVideo.jsx:21
+msgid "10+ play icon styles"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ShopVideo.jsx:22
+msgid "Autoplay and loop"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/sections/ShopVideo.jsx:23
+msgid "Mobile-optimised playback"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/index.jsx:94
+msgid "Settings panel"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/index.jsx:101
+msgid "Collapse panel"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/index.jsx:138
+msgid "Reset Global Settings to Default?"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/SettingsPanel/index.jsx:149
+msgid "Every section of the panel goes back to its default values. Nothing changes on your store until you save."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/Sidebar/index.jsx:64
+msgid "All changes saved"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: build/admin/wcgs-dashboard.js:52
+#: src/admin/pages/globalSettings/Sidebar/index.jsx:71
+#: src/admin/pages/settings/index.jsx:155
+msgid "Settings sections"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:15
+#: src/admin/pages/globalSettings/Sidebar/index.jsx:78
+msgid "Expand panel"
+msgstr ""
+
+#. translators: %d: number of sections.
+#: build/admin/wcgs-dashboard.js:16
+#: src/admin/pages/globalSettings/Sidebar/index.jsx:153
+#, js-format
+msgid "%d section"
+msgid_plural "%d sections"
+msgstr[0] ""
+msgstr[1] ""
+
+#: build/admin/wcgs-dashboard.js:16
+#: src/admin/pages/globalSettings/Sidebar/index.jsx:223
+msgid "Save"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:16
+#: src/admin/pages/globalSettings/SplitView/index.jsx:30
+msgid "Per-Product Layout"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:16
+#: src/admin/pages/globalSettings/SplitView/index.jsx:63
+msgid "Main content"
+msgstr ""
+
+#. translators: %s: layout name.
+#: build/admin/wcgs-dashboard.js:17
+#: src/admin/pages/globalSettings/LivePreview/ProductPicker.jsx:145
+#, js-format
+msgid "Uses %s"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:17
+#: src/admin/pages/globalSettings/LivePreview/ProductPicker.jsx:163
+msgid "Product shown in the preview"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:17
+#: src/admin/pages/globalSettings/LivePreview/ProductPicker.jsx:171
+msgid "Choose a product"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:17
+#: build/admin/wcgs-dashboard.js:36
+#: src/admin/pages/globalSettings/LivePreview/ProductPicker.jsx:191
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:615
+msgid "Search products…"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:17
+#: src/admin/pages/globalSettings/LivePreview/ProductPicker.jsx:195
+msgid "Search products"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:17
+#: src/admin/pages/globalSettings/LivePreview/ProductPicker.jsx:206
+msgid "Clear search"
+msgstr ""
+
+#. translators: %s: search text.
+#: build/admin/wcgs-dashboard.js:18
+#: src/admin/pages/globalSettings/LivePreview/ProductPicker.jsx:255
+#, js-format
+msgid "No products match “%s”"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:18
+#: src/admin/pages/globalSettings/LivePreview/ProductPicker.jsx:261
+msgid "No products yet."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:20
+#: src/admin/pages/globalSettings/LivePreview/Product/index.jsx:170
+msgid "The preview needs your store on the same address as this dashboard. Use View on Site to see the product page."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:20
+#: src/admin/pages/globalSettings/LivePreview/Product/index.jsx:181
+msgid "This product page has no place for the gallery. Use View on Site to see the product page."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:20
+#: src/admin/pages/globalSettings/LivePreview/Product/index.jsx:271
+msgid "Product page preview"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:21
+#: src/admin/pages/globalSettings/LivePreview/LayoutDrawer.jsx:137
+msgid "Hide layouts"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:21
+#: src/admin/pages/globalSettings/LivePreview/LayoutDrawer.jsx:143
+msgid "Hide"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:21
+#: src/admin/pages/globalSettings/LivePreview/usePreviewData.js:99
+msgid "The preview could not be loaded."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:21
+#: src/admin/pages/globalSettings/LivePreview/index.jsx:194
+msgid "Add a product with images to preview the gallery here."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:21
+#: src/admin/pages/globalSettings/LivePreview/index.jsx:203
+msgid "Add product"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:21
+#: src/admin/pages/globalSettings/LivePreview/index.jsx:186
+#: src/admin/pages/globalSettings/LivePreview/index.jsx:302
+msgid "Try again"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:21
+#: src/admin/pages/globalSettings/LivePreview/index.jsx:232
+msgid "Sample product ·"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:21
+#: src/admin/pages/globalSettings/LivePreview/index.jsx:240
+msgid "Assign products"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:21
+#: src/admin/pages/globalSettings/LivePreview/index.jsx:245
+msgid "to preview them here"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:21
+#: src/admin/pages/globalSettings/LivePreview/index.jsx:267
+msgid "View on Site"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:21
+#: src/admin/pages/globalSettings/LivePreview/index.jsx:292
+msgid "Updating preview…"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:21
+#: build/admin/wcgs-dashboard.js:41
+#: build/admin/wcgs-dashboard.js:52
+#: src/admin/pages/globalSettings/index.jsx:45
+#: src/admin/pages/perProductLayout/LayoutEditor.jsx:101
+#: src/admin/pages/settings/index.jsx:226
+msgid "Save your changes?"
+msgstr ""
+
+#. translators: %s: "3 unsaved changes".
+#: build/admin/wcgs-dashboard.js:22
+#: src/admin/pages/globalSettings/index.jsx:51
+#, js-format
+msgid "You have %s in Global Settings. Save them before leaving, or discard them."
+msgstr ""
+
+#. translators: %d: number of unsaved changes.
+#: build/admin/wcgs-dashboard.js:23
+#: build/admin/wcgs-dashboard.js:43
+#: build/admin/wcgs-dashboard.js:52
+#: src/admin/pages/globalSettings/index.jsx:57
+#: src/admin/pages/perProductLayout/LayoutEditor.jsx:113
+#: src/admin/pages/settings/index.jsx:82
+#, js-format
+msgid "%d unsaved change"
+msgid_plural "%d unsaved changes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: build/admin/wcgs-dashboard.js:23
+#: build/admin/wcgs-dashboard.js:43
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/globalSettings/index.jsx:66
+#: src/admin/pages/perProductLayout/LayoutEditor.jsx:122
+#: src/admin/pages/settings/index.jsx:238
+msgid "Save & Leave"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:23
+#: build/admin/wcgs-dashboard.js:43
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/globalSettings/index.jsx:70
+#: src/admin/pages/perProductLayout/LayoutEditor.jsx:126
+#: src/admin/pages/settings/index.jsx:242
+msgid "Discard"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:23
+#: src/admin/pages/perProductLayout/EmptyState.jsx:49
+msgid "Create Different Galleries for Different Products"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:23
+#: src/admin/pages/perProductLayout/EmptyState.jsx:55
+msgid "Give specific products or categories their own gallery style."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:23
+#: src/admin/pages/perProductLayout/EmptyState.jsx:60
+msgid "Everything else keeps your Global Settings."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:23
+#: build/admin/wcgs-dashboard.js:29
+#: src/admin/pages/perProductLayout/EmptyState.jsx:71
+#: src/admin/pages/perProductLayout/LayoutList.jsx:305
+msgid "Create New Layout"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:23
+#: src/admin/pages/perProductLayout/EmptyState.jsx:81
+#: src/admin/pages/perProductLayout/EmptyState.jsx:88
+msgid "Watch Video"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:23
+#: src/admin/pages/perProductLayout/EmptyState.jsx:112
+msgid "How to Create Custom Gallery Layouts for Specific Products and Categories"
+msgstr ""
+
+#. translators: %d: number of further categories.
+#: build/admin/wcgs-dashboard.js:24
+#: src/admin/pages/perProductLayout/LayoutRow.jsx:47
+#, js-format
+msgctxt "categories"
+msgid "+%d more"
+msgid_plural "+%d more"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of further products.
+#: build/admin/wcgs-dashboard.js:25
+#: src/admin/pages/perProductLayout/LayoutRow.jsx:58
+#, js-format
+msgctxt "products"
+msgid "+%d more"
+msgid_plural "+%d more"
+msgstr[0] ""
+msgstr[1] ""
+
+#: build/admin/wcgs-dashboard.js:25
+#: src/admin/pages/perProductLayout/utils.js:146
+msgid "Categories:"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:25
+#: src/admin/pages/perProductLayout/utils.js:155
+msgid "Products:"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:25
+#: build/admin/wcgs-dashboard.js:36
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:604
+#: src/admin/pages/perProductLayout/utils.js:164
+msgid "Excluded:"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:25
+#: src/admin/pages/perProductLayout/LayoutRow.jsx:145
+msgid "Inactive"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:25
+#: src/admin/pages/perProductLayout/LayoutRow.jsx:146
+msgid "Click to activate"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:25
+#: src/admin/pages/perProductLayout/LayoutRow.jsx:149
+msgid "Draft"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:25
+#: src/admin/pages/perProductLayout/LayoutRow.jsx:150
+msgid "Assign products or categories to activate"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:25
+#: src/admin/pages/perProductLayout/LayoutRow.jsx:156
+msgid "Pro Only"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:25
+#: src/admin/pages/perProductLayout/LayoutRow.jsx:157
+msgid "The free version applies only the first layout"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:25
+#: src/admin/pages/perProductLayout/LayoutRow.jsx:162
+msgid "Active"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:25
+#: src/admin/pages/perProductLayout/LayoutRow.jsx:163
+msgid "Click to deactivate"
+msgstr ""
+
+#. translators: %s: layout name.
+#: build/admin/wcgs-dashboard.js:26
+#: src/admin/pages/perProductLayout/LayoutRow.jsx:201
+#, js-format
+msgid "Select %s"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:26
+#: src/admin/pages/perProductLayout/LayoutRow.jsx:215
+msgid "Drag to reorder"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:26
+#: src/admin/pages/perProductLayout/LayoutRow.jsx:251
+msgid "Not assigned"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:26
+#: src/admin/pages/perProductLayout/LayoutRow.jsx:290
+#: src/admin/pages/perProductLayout/LayoutRow.jsx:294
+msgid "More actions"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:26
+#: build/admin/wcgs-dashboard.js:30
+#: build/admin/wcgs-dashboard.js:46
+#: src/admin/pages/perProductLayout/LayoutList.jsx:409
+#: src/admin/pages/perProductLayout/LayoutRow.jsx:325
+#: src/admin/pages/settings/ImportExportTab.jsx:159
+msgid "Export"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:26
+#: build/admin/wcgs-dashboard.js:30
+#: build/admin/wcgs-dashboard.js:32
+#: src/admin/pages/perProductLayout/LayoutList.jsx:420
+#: src/admin/pages/perProductLayout/LayoutList.jsx:612
+#: src/admin/pages/perProductLayout/LayoutRow.jsx:334
+msgid "Delete"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:26
+#: src/admin/pages/perProductLayout/LayoutList.jsx:52
+msgid "Create Unlimited Per-Product Layouts"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:26
+#: src/admin/pages/perProductLayout/LayoutList.jsx:59
+msgid "Free includes one per-product layout. Upgrade to give every product and category its own gallery."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:26
+#: src/admin/pages/perProductLayout/LayoutList.jsx:66
+msgid "Unlimited layouts"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:26
+#: src/admin/pages/perProductLayout/LayoutList.jsx:67
+msgid "Assign to any product or category"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:26
+#: src/admin/pages/perProductLayout/LayoutList.jsx:71
+msgid "Duplicate & bulk actions"
+msgstr ""
+
+#. translators: %s: file name.
+#: build/admin/wcgs-dashboard.js:27
+#: build/admin/wcgs-dashboard.js:47
+#: src/admin/pages/perProductLayout/LayoutList.jsx:183
+#: src/admin/pages/settings/ImportExportTab.jsx:141
+#, js-format
+msgid "Downloaded %s"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:27
+#: build/admin/wcgs-dashboard.js:47
+#: src/admin/pages/perProductLayout/LayoutList.jsx:192
+#: src/admin/pages/settings/ImportExportTab.jsx:150
+msgid "Export failed."
+msgstr ""
+
+#. translators: %d: number of layouts.
+#: build/admin/wcgs-dashboard.js:28
+#: src/admin/pages/perProductLayout/LayoutList.jsx:259
+#, js-format
+msgid "%d layout"
+msgid_plural "%d layouts"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %d: number of active layouts.
+#: build/admin/wcgs-dashboard.js:29
+#: src/admin/pages/perProductLayout/LayoutList.jsx:268
+#, js-format
+msgid "%d active"
+msgid_plural "%d active"
+msgstr[0] ""
+msgstr[1] ""
+
+#: build/admin/wcgs-dashboard.js:29
+#: src/admin/pages/perProductLayout/LayoutList.jsx:289
+msgid "Custom galleries for specific products and categories."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:29
+#: src/admin/pages/perProductLayout/LayoutList.jsx:298
+#: src/admin/pages/perProductLayout/LayoutList.jsx:343
+msgid "Free includes one per-product layout"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:29
+#: src/admin/pages/perProductLayout/LayoutList.jsx:329
+msgid "Search layouts…"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:29
+#: src/admin/pages/perProductLayout/LayoutList.jsx:333
+msgid "Search layouts"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:29
+#: build/admin/wcgs-dashboard.js:49
+#: src/admin/pages/perProductLayout/LayoutList.jsx:352
+#: src/admin/pages/settings/ImportExportTab.jsx:353
+msgid "Import"
+msgstr ""
+
+#. translators: %d: number of selected layouts.
+#. translators: %d: number of picked items.
+#. translators: %d: number of selected plugins.
+#: build/admin/wcgs-dashboard.js:30
+#: build/admin/wcgs-dashboard.js:39
+#: build/admin/wcgs-dashboard.js:54
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:838
+#: src/admin/pages/perProductLayout/LayoutList.jsx:367
+#: src/admin/pages/wizard/PluginsStep.jsx:75
+#, js-format
+msgid "%d selected"
+msgid_plural "%d selected"
+msgstr[0] ""
+msgstr[1] ""
+
+#: build/admin/wcgs-dashboard.js:30
+#: src/admin/pages/perProductLayout/LayoutList.jsx:394
+msgid "Deactivate"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:30
+#: src/admin/pages/perProductLayout/LayoutList.jsx:428
+msgid "Clear Selection"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:30
+#: build/admin/wcgs-dashboard.js:55
+#: src/admin/pages/perProductLayout/LayoutList.jsx:448
+#: src/admin/pages/perProductLayout/LayoutList.jsx:452
+#: src/admin/pages/wizard/PluginsStep.jsx:128
+msgid "Select all"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:30
+#: src/admin/pages/perProductLayout/LayoutList.jsx:482
+msgid "Assigned To"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:30
+#: build/admin/wcgs-dashboard.js:32
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:37
+#: src/admin/pages/perProductLayout/LayoutList.jsx:488
+msgid "Products"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:30
+#: src/admin/pages/perProductLayout/LayoutList.jsx:494
+msgid "Status"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:30
+#: src/admin/pages/perProductLayout/LayoutList.jsx:497
+msgid "Updated"
+msgstr ""
+
+#. translators: %s: search text.
+#: build/admin/wcgs-dashboard.js:31
+#: src/admin/pages/perProductLayout/LayoutList.jsx:572
+#, js-format
+msgid "No layouts match “%s”."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:31
+#: src/admin/pages/perProductLayout/LayoutList.jsx:595
+msgid "Delete this layout?"
+msgstr ""
+
+#. translators: %d: number of layouts.
+#: build/admin/wcgs-dashboard.js:32
+#: src/admin/pages/perProductLayout/LayoutList.jsx:601
+#, js-format
+msgid "Delete %d layouts?"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:32
+#: src/admin/pages/perProductLayout/LayoutList.jsx:608
+msgid "Products using it go back to your Global Settings. The layout is moved to the trash."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:32
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:33
+msgid "Categories"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:32
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:41
+msgid "Exclude"
+msgstr ""
+
+#. translators: %s: layout name.
+#: build/admin/wcgs-dashboard.js:34
+#: build/admin/wcgs-dashboard.js:35
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:518
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:542
+#, js-format
+msgid "Assigned to %s"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:35
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:552
+msgid "Product"
+msgstr ""
+
+#. translators: %s: layout name.
+#: build/admin/wcgs-dashboard.js:36
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:574
+#, js-format
+msgid "Excluded in %s"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:36
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:592
+msgid "Category:"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:36
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:598
+msgid "Product:"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:36
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:610
+msgid "Search categories…"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:36
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:620
+msgid "Search products to exclude…"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:36
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:646
+msgid "Assign Layout"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:36
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:652
+msgid "Select the categories or specific products where this layout will appear."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:36
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:750
+msgid "Show only not excluded"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:36
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:754
+msgid "Show only unassigned"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:36
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:767
+msgid "Selected products never use this layout, even when their category is assigned."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:36
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:789
+msgid "Loading more products…"
+msgstr ""
+
+#. translators: 1: products listed, 2: products found.
+#: build/admin/wcgs-dashboard.js:37
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:799
+#, js-format
+msgid "Showing %1$s of %2$s"
+msgstr ""
+
+#. translators: %s: search text.
+#: build/admin/wcgs-dashboard.js:38
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:812
+#, js-format
+msgid "Nothing matches “%s”."
+msgstr ""
+
+#. translators: %s: number of products.
+#: build/admin/wcgs-dashboard.js:40
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:848
+#, js-format
+msgid "≈ %s product"
+msgid_plural "≈ %s products"
+msgstr[0] ""
+msgstr[1] ""
+
+#: build/admin/wcgs-dashboard.js:41
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:926
+msgid "Clear All"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:41
+#: src/admin/pages/perProductLayout/AssignDrawer.jsx:936
+msgid "Done"
+msgstr ""
+
+#. translators: %s: "3 unsaved changes".
+#: build/admin/wcgs-dashboard.js:42
+#: src/admin/pages/perProductLayout/LayoutEditor.jsx:107
+#, js-format
+msgid "You have %s in this layout. Save them before leaving, or discard them."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:13
+msgid "FancyBox CSS"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:17
+msgid "FancyBox JS"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:21
+msgid "Swiper CSS"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:25
+msgid "Swiper JS"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:29
+msgid "VideoJS CSS"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:33
+msgid "VideoJS JS"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:62
+msgid "Click to copy"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:89
+msgid "Copied"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:148
+msgid "Delete Reno Product Gallery Data on Uninstall?"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:154
+msgid "If you delete Reno Product Gallery from the Plugins page, these will be removed permanently:"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:161
+msgid "• Global Settings and Settings"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:167
+msgid "• Per-Product Layouts and their assignments"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:173
+msgid "• Variation galleries and videos added to products"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:180
+msgid "Deactivating the plugin won’t delete anything. This only happens on delete."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:193
+msgid "Keep My Data"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:203
+msgid "Yes, Turn On"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:229
+msgid "Shortcode"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:235
+msgid "If Reno Product Gallery doesn’t show automatically on product pages built with a page builder (Divi, Elementor, Bricks Builder, etc.), add this shortcode manually to display it."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:245
+msgid "See Instructions"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:258
+msgid "Data & Privacy"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:261
+#: src/admin/pages/settings/AdvancedTab.jsx:274
+msgid "Clean Up Data on Deletion"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:265
+msgid "When on, deleting Reno from the Plugins page also removes its settings and layouts. Leave it off if you might reinstall later."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:287
+msgid "Turn a file off only if your theme or another plugin already loads it. Turning off a needed file can break the gallery, lightbox or video player."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/AdvancedTab.jsx:292
+msgid "Assets (Styles & Scripts)"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/SpeedTab.jsx:11
+msgid "Lightbox (PhotoSwipe)"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/settings/SpeedTab.jsx:13
+#: src/admin/pages/wizard/constants.js:31
+msgid "Zoom"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/SpeedTab.jsx:16
+msgid "Slider (FlexSlider)"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/SpeedTab.jsx:20
+msgid "Enter handles separated by commas. Applies to product pages only."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:43
+#: src/admin/pages/settings/MigrationTab.jsx:61
+msgid "Migration failed."
+msgstr ""
+
+#. translators: %s: plugin author.
+#: build/admin/wcgs-dashboard.js:44
+#: src/admin/pages/settings/MigrationTab.jsx:79
+#, js-format
+msgid "by %s"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:44
+#: src/admin/pages/settings/MigrationTab.jsx:94
+msgid "Migrate Now"
+msgstr ""
+
+#. translators: %d: percent done.
+#: build/admin/wcgs-dashboard.js:45
+#: src/admin/pages/settings/MigrationTab.jsx:109
+#, js-format
+msgid "Migrating… %d%%"
+msgstr ""
+
+#. translators: %d: number of migrated products.
+#: build/admin/wcgs-dashboard.js:46
+#: src/admin/pages/settings/MigrationTab.jsx:130
+#, js-format
+msgid "%d product migrated"
+msgid_plural "%d products migrated"
+msgstr[0] ""
+msgstr[1] ""
+
+#: build/admin/wcgs-dashboard.js:46
+#: src/admin/pages/settings/MigrationTab.jsx:150
+msgid "Run Again"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:46
+#: src/admin/pages/settings/ImportExportTab.jsx:19
+msgid "All Product Layouts"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:46
+#: src/admin/pages/settings/ImportExportTab.jsx:23
+msgid "Specific Product Layouts"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:46
+#: src/admin/pages/settings/ImportExportTab.jsx:162
+#: src/admin/pages/settings/ImportExportTab.jsx:180
+msgid "What to Export"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:46
+#: src/admin/pages/settings/ImportExportTab.jsx:166
+msgid "Choose which parts of your setup go into the file. Product media like videos stay with each product and aren’t exported."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:46
+#: src/admin/pages/settings/ImportExportTab.jsx:195
+msgid "Select layouts"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:46
+#: src/admin/pages/settings/ImportExportTab.jsx:202
+msgid "There are no layouts yet."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:47
+#: src/admin/pages/settings/ImportExportTab.jsx:224
+msgid "Export as JSON"
+msgstr ""
+
+#. translators: %d: number of layouts in the file.
+#: build/admin/wcgs-dashboard.js:48
+#: src/admin/pages/settings/ImportExportTab.jsx:69
+#, js-format
+msgid "1 new (the first of %d, the free version includes one layout)"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:48
+#: src/admin/pages/settings/ImportExportTab.jsx:75
+msgid "1 new"
+msgstr ""
+
+#. translators: %d: number of settings.
+#: build/admin/wcgs-dashboard.js:49
+#: src/admin/pages/settings/ImportExportTab.jsx:91
+#, js-format
+msgid "%d setting updated"
+msgid_plural "%d settings updated"
+msgstr[0] ""
+msgstr[1] ""
+
+#: build/admin/wcgs-dashboard.js:49
+#: src/admin/pages/settings/ImportExportTab.jsx:300
+msgid "The file could not be read."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:49
+#: src/admin/pages/settings/ImportExportTab.jsx:356
+msgid "Import File"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:49
+#: src/admin/pages/settings/ImportExportTab.jsx:357
+msgid "Use a .json file exported from Reno Product Gallery. You’ll see what changes before anything is imported."
+msgstr ""
+
+#. translators: %d: file size in bytes.
+#: build/admin/wcgs-dashboard.js:50
+#: src/admin/pages/settings/ImportExportTab.jsx:34
+#, js-format
+msgid "%d B"
+msgstr ""
+
+#. translators: %s: file size in kilobytes.
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/ImportExportTab.jsx:39
+#, js-format
+msgid "%s KB"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/ImportExportTab.jsx:393
+#: src/admin/pages/settings/ImportExportTab.jsx:397
+msgid "Remove file"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/ImportExportTab.jsx:433
+msgid "Drop a .json file here or"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/ImportExportTab.jsx:438
+msgid "browse"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/ImportExportTab.jsx:445
+msgid "Only files exported from Reno Product Gallery"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/ImportExportTab.jsx:462
+msgid "What Will Change"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/ImportExportTab.jsx:466
+msgid "A preview of the file’s contents. Nothing changes until you click Import."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/ImportExportTab.jsx:338
+msgid "Import failed."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/ImportExportTab.jsx:494
+msgid "Import Settings"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/SpeedTab.jsx:39
+msgid "See speed guide"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/SpeedTab.jsx:45
+msgid "Make your product pages load faster by controlling which files Reno Product Gallery loads. For the best results, also follow your caching plugin’s recommendations."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/SpeedTab.jsx:52
+#: src/admin/pages/settings/SpeedTab.jsx:68
+msgid "Lazy Load the Gallery"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/SpeedTab.jsx:56
+msgid "Loads the gallery only when it scrolls into view, so the rest of the page appears faster. Best for galleries placed below the fold."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/SpeedTab.jsx:76
+#: src/admin/pages/settings/SpeedTab.jsx:92
+msgid "Cache Gallery Images"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/SpeedTab.jsx:80
+msgid "Saves each product’s gallery so it isn’t rebuilt on every visit. After editing a gallery, clear your site cache to see the changes."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/SpeedTab.jsx:104
+msgid "Clearing…"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/SpeedTab.jsx:108
+msgid "Clear Cache"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/SpeedTab.jsx:116
+msgid "Remove WooCommerce Gallery Scripts"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/SpeedTab.jsx:120
+msgid "Reno replaces WooCommerce’s own gallery, so these files load for nothing. Keep one only if another plugin needs it."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/SpeedTab.jsx:135
+#: src/admin/pages/settings/SpeedTab.jsx:155
+msgid "Remove CSS Files"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/SpeedTab.jsx:139
+msgid "Stops other themes or plugins from loading stylesheets you don’t need on product pages. Use the file’s handle name, not its URL."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/SpeedTab.jsx:150
+msgid "e.g. theme-style, plugin-style-xyz"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/SpeedTab.jsx:162
+#: src/admin/pages/settings/SpeedTab.jsx:182
+msgid "Remove JavaScript Files"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/SpeedTab.jsx:166
+msgid "Stops other themes or plugins from loading scripts you don’t need on product pages. Removing a needed script can break features, so test after saving."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/SpeedTab.jsx:177
+msgid "e.g. theme-script, plugin-script-xyz"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/MigrationTab.jsx:174
+msgid "Bring your galleries from another plugin into Reno Product Gallery. Your original data stays untouched."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/CodeTab.jsx:62
+msgid "Additional CSS"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/CodeTab.jsx:73
+msgid "Additional JS"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/CodeTab.jsx:81
+msgid "// runs after gallery init"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:51
+#: src/admin/pages/settings/CodeTab.jsx:89
+msgid "Only administrators who can post unfiltered HTML can change this script."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:52
+#: src/admin/pages/settings/index.jsx:205
+msgid "Reset Settings to Default?"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:52
+#: src/admin/pages/settings/index.jsx:209
+msgid "All sections in Settings go back to their default values. Nothing changes on your store until you save."
+msgstr ""
+
+#. translators: %s: "3 unsaved changes".
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/settings/index.jsx:232
+#, js-format
+msgid "You have %s in Settings. Save them before leaving, or discard them."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/index.jsx:127
+#: src/admin/pages/wizard/addons.js:42
+msgid "Smart Variation Swatches"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/addons.js:46
+msgid "Color, image and label swatches. A swatch click switches the gallery images."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/addons.js:56
+msgid "ShapedRecommend"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/addons.js:57
+msgid "Related and frequently bought together products on product and cart pages."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/addons.js:67
+msgid "ShapedCart"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/addons.js:68
+msgid "A slide-out cart so shoppers keep browsing after adding to cart."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/addons.js:78
+msgid "Product Tabs for WooCommerce"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/addons.js:82
+msgid "Custom tabs for specs, size guides, shipping info and FAQs."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/addons.js:147
+msgid "The plugin was installed but could not be activated."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/addons.js:160
+msgid "The plugin could not be installed."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/atoms.jsx:87
+#: src/admin/pages/wizard/WelcomeStep.jsx:115
+msgid "Color:"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/atoms.jsx:88
+msgid "Size:"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:234
+msgid "Green / Navy"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:67
+#: src/admin/pages/swatches/FeatureTour.jsx:239
+#: src/admin/pages/swatches/FeatureTour.jsx:303
+msgid "Burgundy"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:397
+msgid "Color swatches"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:398
+msgid "Solid or two-tone colors in place of dropdowns."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:22
+msgid "Before"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:25
+msgid "Choose an option"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:37
+msgid "After"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:41
+#: src/admin/pages/swatches/FeatureTour.jsx:66
+#: src/admin/pages/swatches/FeatureTour.jsx:295
+#: src/admin/pages/swatches/HeroMock.jsx:62
+msgid "Forest"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:405
+msgid "Image swatches"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:406
+msgid "Use product photos as the swatch itself."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:68
+#: src/admin/pages/swatches/FeatureTour.jsx:365
+msgid "Navy"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:69
+msgid "Stone"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:413
+msgid "Label and button swatches"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:417
+msgid "Sizes, fits and materials as tap-ready buttons."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:104
+msgid "Fit:"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:105
+#: src/admin/pages/swatches/FeatureTour.jsx:112
+msgid "Regular"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:109
+msgid "Slim"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:115
+msgid "Relaxed"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:121
+msgid "Material:"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:122
+#: src/admin/pages/swatches/FeatureTour.jsx:129
+msgid "Fleece"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:126
+msgid "Cotton"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:132
+msgid "Shell"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:424
+msgid "Swatches on the Shop page"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:428
+msgid "Shoppers preview colors right on product cards."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:143
+msgid "Course Anorak"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:149
+msgid "Clima Shell"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:155
+msgid "Half-Zip Pullover"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:435
+msgid "Out-of-stock handling"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:436
+msgid "Unavailable options are crossed out or hidden."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:200
+msgid "Crossed out"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:217
+msgid "Hidden"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:443
+msgid "Synced with your gallery"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:447
+msgid "A swatch click switches Reno Product Gallery images."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:281
+msgid "Pick a color. The gallery switches to its photos."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:454
+msgid "Tooltips on hover"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:455
+msgid "Show the variant name or a photo preview above each swatch."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:462
+msgid "Shapes and sizes"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:463
+msgid "Circle, rounded or square swatches at any size."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:343
+#: src/admin/pages/wizard/WelcomeStep.jsx:141
+msgid "Size"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: build/admin/wcgs-dashboard.js:55
+#: src/admin/pages/swatches/FeatureTour.jsx:389
+#: src/admin/pages/swatches/FeatureTour.jsx:470
+#: src/admin/pages/wizard/PluginsStep.jsx:124
+msgid "Clear selection"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/FeatureTour.jsx:471
+msgid "One tap resets every chosen option."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/HeroMock.jsx:50
+msgid "Course Control Anorak"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/HeroMock.jsx:86
+msgid "Style:"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/HeroMock.jsx:90
+msgid "Front"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/HeroMock.jsx:126
+#: src/admin/pages/wizard/WelcomeStep.jsx:159
+#: src/admin/pages/wizard/WelcomeStep.jsx:253
+msgid "Add to cart"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/index.jsx:44
+msgid "Get Smart Swatches"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/index.jsx:52
+msgid "Open Smart Swatches"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/index.jsx:61
+msgid "Install Smart Swatches"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/index.jsx:68
+msgid "Activating…"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: build/admin/wcgs-dashboard.js:55
+#: src/admin/pages/swatches/index.jsx:69
+#: src/admin/pages/wizard/index.jsx:426
+#: src/admin/pages/wizard/PluginsStep.jsx:195
+msgid "Installing…"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/index.jsx:71
+msgid "Activate Smart Swatches"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/index.jsx:121
+msgid "Free plugin"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/index.jsx:133
+msgid "A free plugin that turns WooCommerce variation dropdowns into color, image and label swatches. Shoppers see every option up front and pick faster."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/index.jsx:151
+msgid "See Live Demo →"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/index.jsx:169
+msgid "Show every option. Sell every variant."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/swatches/index.jsx:175
+msgid "Replace clunky dropdowns with swatches shoppers read at a glance. Works with your theme and any variable product. No code."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/WelcomeStep.jsx:93
+msgid "Basketball"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/WelcomeStep.jsx:99
+#: src/admin/pages/wizard/WelcomeStep.jsx:236
+msgid "KD17 Multi-Colour"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/WelcomeStep.jsx:108
+msgid "4.8 · 126 reviews"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/WelcomeStep.jsx:117
+msgid "Multi-Colour"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/WelcomeStep.jsx:180
+msgid "STORE"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/WelcomeStep.jsx:281
+msgid "Product Pages That Show Off Every Detail"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/WelcomeStep.jsx:287
+msgid "Beautiful gallery layouts, zoom, lightbox and video for your WooCommerce store. Set up the basics in under a minute."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/WelcomeStep.jsx:300
+msgid "Set Up My Gallery"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/WelcomeStep.jsx:311
+msgid "Skip setup"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/LayoutStep.jsx:19
+msgid "Choose Your Gallery Layout"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/LayoutStep.jsx:23
+msgid "Pick how images appear on your product pages. Later you can give specific products their own layout."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/constants.js:19
+msgid "Features"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/constants.js:20
+msgid "Plugins"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/constants.js:30
+msgid "Image Zoom"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/constants.js:32
+msgid "Shoppers look closer at fabric, texture and finish."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/constants.js:42
+msgid "Open images full screen with swipe and zoom."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/constants.js:52
+msgid "Add YouTube, Vimeo or self-hosted videos to the gallery."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/constants.js:62
+msgid "Play product videos on Shop page cards."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/FeaturesStep.jsx:20
+msgid "Turn On the Features You Want"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/FeaturesStep.jsx:24
+msgid "Switch features on now. You can fine-tune each one later in Settings."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:53
+#: src/admin/pages/wizard/FeaturesStep.jsx:72
+msgid "Upgrade"
+msgstr ""
+
+#. translators: %d: number of plugins.
+#. translators: %d: number of installed plugins.
+#: build/admin/wcgs-dashboard.js:55
+#: build/admin/wcgs-dashboard.js:57
+#: src/admin/pages/wizard/index.jsx:458
+#: src/admin/pages/wizard/PluginsStep.jsx:85
+#, js-format
+msgid "%d plugin"
+msgid_plural "%d plugins"
+msgstr[0] ""
+msgstr[1] ""
+
+#: build/admin/wcgs-dashboard.js:55
+#: src/admin/pages/wizard/PluginsStep.jsx:97
+msgid "Essential Tools for Your Store, Built to Sell More"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:55
+#: src/admin/pages/wizard/PluginsStep.jsx:101
+msgid "Free plugins from the Reno team that work with your product gallery. Choose any to install now."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:55
+#: src/admin/pages/wizard/PluginsStep.jsx:111
+msgid "All free on WordPress.org"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:55
+#: src/admin/pages/wizard/PluginsStep.jsx:137
+msgid "Your account can’t install plugins. Ask a site administrator to install them, or find them on WordPress.org."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:55
+#: src/admin/pages/wizard/PluginsStep.jsx:174
+msgid "Free"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:55
+#: src/admin/pages/wizard/PluginsStep.jsx:208
+msgid "Installed"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:55
+#: src/admin/pages/wizard/DoneStep.jsx:75
+msgid "Your Gallery Is Ready"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:55
+#: src/admin/pages/wizard/DoneStep.jsx:81
+msgid "Your choices are live on your product pages. Fine-tune anything in Settings."
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:55
+#: src/admin/pages/wizard/DoneStep.jsx:106
+msgid "Go to Settings"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:55
+#: src/admin/pages/wizard/DoneStep.jsx:125
+msgid "View a Product"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:55
+#: src/admin/pages/wizard/DoneStep.jsx:130
+msgid "(opens in a new tab)"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:55
+#: src/admin/pages/wizard/index.jsx:423
+msgid "Continue"
+msgstr ""
+
+#. translators: %d: number of plugins to install.
+#: build/admin/wcgs-dashboard.js:56
+#: src/admin/pages/wizard/index.jsx:432
+#, js-format
+msgid "Install %d & Finish"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:56
+#: src/admin/pages/wizard/index.jsx:438
+msgid "Finish"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:56
+#: src/admin/pages/wizard/index.jsx:443
+msgid "Gallery layout"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:56
+#: src/admin/pages/wizard/index.jsx:447
+msgid "Features on"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:56
+#: src/admin/pages/wizard/index.jsx:455
+msgid "Plugins installed"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:57
+#: src/admin/pages/wizard/index.jsx:501
+msgid "Exit Setup"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:57
+#: src/admin/pages/wizard/index.jsx:588
+msgid "Back"
+msgstr ""
+
+#: build/admin/wcgs-dashboard.js:57
+#: src/admin/pages/wizard/index.jsx:349
+msgid "Your choices could not be saved. Please try again."
+msgstr ""
+
+#: block/variation-images/build/block.json
+#: block/variation-images/src/block.json
+msgctxt "block title"
+msgid "Variation Images"
+msgstr ""
+
+#: block/variation-images/build/block.json
+#: block/variation-images/src/block.json
+msgctxt "block description"
+msgid "A block to demonstrate extending the Product Editor"
 msgstr ""

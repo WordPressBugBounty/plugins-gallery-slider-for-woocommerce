@@ -1,0 +1,57 @@
+@use "../../styles/variables" as *;
+
+// Fast tooltip that replaces the native `title` tooltip of the dashboard's
+// buttons and links (see `TitleTooltip`).
+.wcgs-title-tip {
+	position: fixed;
+	z-index: 100001;
+	max-width: 240px;
+	box-sizing: border-box;
+	padding: 6px 10px;
+	border-radius: 5px;
+	background: $wcgs-text;
+	box-shadow: $wcgs-tip-shadow;
+	color: #fff;
+	font-size: 12.5px;
+	font-weight: 500;
+	line-height: 18px;
+	text-align: center;
+	white-space: normal;
+	overflow-wrap: anywhere;
+	pointer-events: none;
+	visibility: hidden;
+	opacity: 0;
+	transform: translateY(3px);
+
+	&__arrow {
+		position: absolute;
+		top: 100%;
+		border: 5px solid transparent;
+		border-top-color: $wcgs-text;
+	}
+
+	&.is-below {
+		transform: translateY(-3px);
+
+		.wcgs-title-tip__arrow {
+			top: auto;
+			bottom: 100%;
+			border-top-color: transparent;
+			border-bottom-color: $wcgs-text;
+		}
+	}
+
+	&.is-visible {
+		visibility: visible;
+		opacity: 1;
+		transform: none;
+		transition:
+			opacity 120ms $wcgs-ease,
+			transform 140ms $wcgs-ease;
+	}
+
+	// A feature popover is open: it already explains the element.
+	body:has(.wcgs-fpop) & {
+		display: none;
+	}
+}

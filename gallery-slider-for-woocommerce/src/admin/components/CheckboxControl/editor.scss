@@ -1,0 +1,43 @@
+@use "../../styles/variables" as *;
+
+.wcgs-checkbox-control {
+
+	&__item {
+
+		@include wcgs-reset-button;
+		border-radius: 3px;
+		font-size: 14px;
+		color: $wcgs-text;
+		text-align: left;
+	}
+
+	&__box {
+
+		@include wcgs-check-box;
+		transition:
+			background 120ms $wcgs-ease,
+			border-color 120ms $wcgs-ease;
+
+		svg {
+			opacity: 0;
+			transform: scale(0.6);
+			transition:
+				opacity 120ms $wcgs-ease,
+				transform 160ms $wcgs-ease;
+		}
+
+		&.is-checked {
+			background: $wcgs-accent;
+			border-color: $wcgs-accent;
+
+			svg {
+				opacity: 1;
+				transform: none;
+			}
+		}
+	}
+
+	&__item:hover &__box:not(.is-checked) {
+		border-color: $wcgs-border-hover;
+	}
+}

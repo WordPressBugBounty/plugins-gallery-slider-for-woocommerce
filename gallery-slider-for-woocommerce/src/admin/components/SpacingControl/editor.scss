@@ -1,0 +1,32 @@
+@use "../../styles/variables" as *;
+
+.wcgs-spacing-control {
+
+	&__link {
+
+		@include wcgs-reset-button;
+		margin-left: 6px;
+		width: 40px;
+		height: $wcgs-control-height;
+		box-sizing: border-box;
+		border: 1px solid $wcgs-border;
+		border-radius: 4px;
+		background: #fff;
+		color: $wcgs-faint;
+		transition:
+			background-color 180ms $wcgs-ease,
+			color 180ms $wcgs-ease,
+			border-color 180ms $wcgs-ease;
+
+		&.is-linked {
+			border-color: $wcgs-off;
+			background: $wcgs-bg-active;
+			color: $wcgs-text;
+		}
+
+		&:hover {
+			border-color: $wcgs-border-hover;
+			color: $wcgs-text;
+		}
+	}
+}

@@ -1,0 +1,1502 @@
+@use "../../styles/variables" as *;
+
+// Setup Wizard (free design `wz`, variant 1): a full-screen dialog.
+
+$wcgs-wz-photo: #f5f5f5;
+$wcgs-wz-star: #e6a700;
+
+// Quiet button (Exit Setup, Back) hover.
+@mixin wcgs-wz-ghost-hover {
+
+	&:hover {
+		background: $wcgs-bg-subtle;
+		color: $wcgs-text;
+	}
+}
+
+@mixin wcgs-wz-disabled {
+
+	&:disabled {
+		opacity: 0.5;
+		cursor: default;
+	}
+}
+
+// Name and description of the feature cards and the add-on rows.
+@mixin wcgs-wz-card-name {
+	font-size: 15px;
+	font-weight: 600;
+	color: $wcgs-text;
+}
+
+@mixin wcgs-wz-card-text {
+	font-size: 13.5px;
+	line-height: 1.5;
+	color: $wcgs-muted;
+	text-wrap: pretty;
+}
+
+@keyframes wcgs-wz-in {
+
+	from {
+		opacity: 0;
+	}
+
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes wcgs-wz-out {
+
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes wcgs-wz-rise {
+
+	from {
+		opacity: 0;
+		transform: translateY(14px);
+	}
+
+	to {
+		opacity: 1;
+		transform: none;
+	}
+}
+
+@keyframes wcgs-wz-pop {
+
+	0% {
+		opacity: 0;
+		transform: scale(0.6);
+	}
+
+	60% {
+		opacity: 1;
+		transform: scale(1.06);
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@keyframes wcgs-wz-draw {
+
+	to {
+		stroke-dashoffset: 0;
+	}
+}
+
+@keyframes wcgs-wz-ring {
+
+	0% {
+		opacity: 0.35;
+		transform: scale(1);
+	}
+
+	100% {
+		opacity: 0;
+		transform: scale(1.9);
+	}
+}
+
+@keyframes wcgs-wz-confetti {
+
+	0% {
+		opacity: 0;
+		transform: translate3d(0, 0, 0) rotate(0);
+	}
+
+	8% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+		transform: translate3d(30px, 92vh, 0) rotate(540deg);
+	}
+}
+
+@keyframes wcgs-wz-fade {
+
+	0% {
+		opacity: 0;
+	}
+
+	4%,
+	25% {
+		opacity: 1;
+	}
+
+	29%,
+	100% {
+		opacity: 0;
+	}
+}
+
+@keyframes wcgs-wz-pulse {
+
+	0%,
+	100% {
+		transform: scale(1);
+	}
+
+	50% {
+		transform: scale(1.06);
+	}
+}
+
+@keyframes wcgs-wz-dot {
+
+	0%,
+	24% {
+		transform: translateX(0);
+	}
+
+	27%,
+	49% {
+		transform: translateX(8px);
+	}
+
+	52%,
+	74% {
+		transform: translateX(16px);
+	}
+
+	77%,
+	97% {
+		transform: translateX(24px);
+	}
+
+	100% {
+		transform: translateX(0);
+	}
+}
+
+@keyframes wcgs-wz-mag-lens {
+
+	0% {
+		transform: translate3d(13.04%, 21.74%, 0);
+	}
+
+	33% {
+		transform: translate3d(95.65%, 30.43%, 0);
+	}
+
+	66% {
+		transform: translate3d(73.91%, 100%, 0);
+	}
+
+	100% {
+		transform: translate3d(21.74%, 86.96%, 0);
+	}
+}
+
+@keyframes wcgs-wz-mag-image {
+
+	0% {
+		transform: translate3d(-17.5%, -21.5%, 0);
+	}
+
+	33% {
+		transform: translate3d(-55.5%, -25.5%, 0);
+	}
+
+	66% {
+		transform: translate3d(-45.5%, -57.5%, 0);
+	}
+
+	100% {
+		transform: translate3d(-21.5%, -51.5%, 0);
+	}
+}
+
+@keyframes wcgs-wz-spin {
+
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+// Spinner of the install buttons and rows (also on the Swatches page).
+.wcgs-wizard-spinner {
+	flex: 0 0 14px;
+	width: 14px;
+	height: 14px;
+	box-sizing: border-box;
+	border: 2px solid #ddd6fe;
+	border-top-color: $wcgs-accent;
+	border-radius: 50%;
+	animation: wcgs-wz-spin 700ms linear infinite;
+
+	&.is-light {
+		border-color: rgba(255, 255, 255, 0.4);
+		border-top-color: #fff;
+	}
+}
+
+// Dialog: over the whole admin screen, admin bar and notices included.
+.wcgs-wizard {
+	position: fixed;
+	inset: 0;
+	z-index: 100050;
+	background: #fff;
+	color: $wcgs-text;
+	font-size: 14px;
+	line-height: 1.4;
+	-webkit-font-smoothing: antialiased;
+	animation: wcgs-wz-in 260ms ease;
+
+	&.is-closing {
+		animation: wcgs-wz-out 220ms ease forwards;
+	}
+
+	&:focus {
+		outline: none;
+	}
+
+	*,
+	*::before,
+	*::after {
+		box-sizing: border-box;
+	}
+
+	// Reset the wp-admin and browser button styles; the class rules below win.
+	:where(button, a) {
+
+		@include wcgs-reset-button;
+		text-decoration: none;
+	}
+
+	h1,
+	p,
+	dl,
+	dd,
+	ol {
+		margin: 0;
+		padding: 0;
+	}
+
+	&__header {
+		flex: 0 0 68px;
+		gap: clamp(12px, 2vw, 24px);
+		padding: 0 clamp(16px, 3vw, 32px);
+		border-bottom: 1px solid $wcgs-line;
+		background: #fff;
+	}
+
+	&__logo {
+		width: auto;
+		height: 26px;
+	}
+
+	&__progress {
+		overflow: hidden;
+	}
+
+	&__exit {
+		height: 36px;
+		padding: 0 12px;
+		border-radius: 6px;
+		font-size: 14px;
+		font-weight: 500;
+		color: $wcgs-body;
+		transition:
+			background-color 140ms $wcgs-ease,
+			color 140ms $wcgs-ease;
+
+		@include wcgs-wz-ghost-hover;
+	}
+
+	&__body {
+		min-height: 0;
+		position: relative;
+		overflow-x: hidden;
+		overflow-y: auto;
+
+		&.is-step {
+			scrollbar-gutter: stable;
+		}
+	}
+
+	&__footer {
+		flex: 0 0 76px;
+		border-top: 1px solid $wcgs-line;
+		background: rgba(255, 255, 255, 0.96);
+		backdrop-filter: blur(8px);
+	}
+
+	&__footer-inner {
+		max-width: 1080px;
+		margin: 0 auto;
+		padding: 0 clamp(16px, 4vw, 40px);
+	}
+
+	&__error {
+		font-size: 13px;
+		color: $wcgs-red;
+		text-align: right;
+	}
+
+	&__back {
+		height: 42px;
+		padding: 0 14px 0 10px;
+		border-radius: 6px;
+		font-size: 14.5px;
+		font-weight: 500;
+		color: $wcgs-text-2;
+		transition: background-color 140ms $wcgs-ease;
+
+		@include wcgs-wz-ghost-hover;
+		@include wcgs-wz-disabled;
+	}
+
+	&__continue {
+		height: 42px;
+		padding: 0 20px;
+		border-radius: 6px;
+		background: $wcgs-accent;
+		font-size: 14.5px;
+		font-weight: 600;
+		color: #fff;
+		white-space: nowrap;
+		transition:
+			background-color 160ms $wcgs-ease,
+			opacity 160ms $wcgs-ease;
+
+		&:hover {
+			background: $wcgs-accent-hover;
+		}
+
+		&.is-busy {
+			opacity: 0.6;
+			cursor: default;
+		}
+	}
+}
+
+// Step indicator: 28px dots joined by lines that fill in.
+.wcgs-wizard-steps {
+	list-style: none;
+
+	&__item {
+		margin: 0;
+	}
+
+	&__line {
+		position: relative;
+		width: clamp(16px, 4vw, 56px);
+		height: 2px;
+		margin: 0 clamp(6px, 1vw, 12px);
+		overflow: hidden;
+		border-radius: 2px;
+		background: $wcgs-border-light;
+	}
+
+	&__fill {
+		position: absolute;
+		inset: 0;
+		background: $wcgs-accent;
+		transform-origin: left;
+		transition: transform 420ms $wcgs-ease-out;
+	}
+
+	&__dot {
+		flex: 0 0 28px;
+		width: 28px;
+		height: 28px;
+		border-radius: 50%;
+		background: #fff;
+		box-shadow: inset 0 0 0 1.5px $wcgs-border;
+		font-size: 13px;
+		font-weight: 600;
+		color: $wcgs-hint;
+		transition:
+			background-color 240ms $wcgs-ease,
+			color 240ms $wcgs-ease,
+			box-shadow 240ms $wcgs-ease;
+	}
+
+	&__check {
+		animation: wcgs-wz-pop 260ms $wcgs-ease-out;
+	}
+
+	&__label {
+		font-size: clamp(12.5px, 1.2vw, 14px);
+		font-weight: 500;
+		white-space: nowrap;
+		color: $wcgs-hint;
+		transition: color 240ms $wcgs-ease;
+	}
+
+	&__item.is-active &__dot,
+	&__item.is-done &__dot {
+		background: $wcgs-accent;
+		color: #fff;
+		box-shadow: none;
+	}
+
+	&__item.is-active &__dot {
+		box-shadow: 0 0 0 4px #ede5fd;
+	}
+
+	&__item.is-active &__label {
+		font-weight: 600;
+		color: $wcgs-text;
+	}
+
+	&__item.is-done &__label {
+		color: $wcgs-text-2;
+	}
+}
+
+// Welcome.
+.wcgs-wizard-welcome {
+	min-height: 100%;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 540px), 1fr));
+
+	&__intro {
+		gap: 32px;
+		padding:
+			clamp(28px, 5vw, 56px) clamp(20px, 5vw, 56px) clamp(28px, 5vw, 56px)
+			max(clamp(20px, 5vw, 56px), calc((100vw - 1360px) / 2 + 56px));
+	}
+
+	&__text,
+	&__actions {
+		display: flex;
+		flex-direction: column;
+		gap: 18px;
+		animation: wcgs-wz-rise 600ms $wcgs-ease-out both;
+	}
+
+	&__actions {
+		flex-direction: row;
+		animation-delay: 120ms;
+	}
+
+	&__title {
+		font-size: clamp(32px, 4vw, 48px);
+		font-weight: 680;
+		line-height: 1.08;
+		letter-spacing: -0.035em;
+		color: $wcgs-text;
+		text-wrap: balance;
+	}
+
+	&__lead {
+		max-width: 460px;
+		font-size: clamp(15px, 1.4vw, 17px);
+		line-height: 1.6;
+		color: $wcgs-body;
+		text-wrap: pretty;
+	}
+
+	.wcgs-wizard &__start {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		height: 50px;
+		padding: 0 26px;
+		border-radius: 8px;
+		background: $wcgs-accent;
+		box-shadow: 0 8px 20px rgba(124, 58, 237, 0.28);
+		font-size: 16px;
+		font-weight: 600;
+		color: #fff;
+		transition:
+			background-color 160ms $wcgs-ease,
+			transform 160ms $wcgs-ease,
+			box-shadow 160ms $wcgs-ease;
+
+		&:hover {
+			background: $wcgs-accent-hover;
+			box-shadow: 0 12px 26px rgba(124, 58, 237, 0.34);
+			transform: translateY(-1px);
+		}
+
+		&:focus-visible {
+			box-shadow:
+				0 8px 20px rgba(124, 58, 237, 0.28),
+				0 0 0 3px rgba(124, 58, 237, 0.35);
+		}
+	}
+
+	.wcgs-wizard &__skip {
+		padding: 6px 2px;
+		font-size: 14.5px;
+		font-weight: 500;
+		color: $wcgs-body;
+
+		&:hover {
+			color: $wcgs-text;
+			text-decoration: underline;
+		}
+	}
+}
+
+// Product photos of the hero mock.
+.wcgs-wizard-hero__photo {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	max-width: none;
+	object-fit: cover;
+}
+
+.wcgs-wizard-hero {
+	position: relative;
+	padding: 64px clamp(32px, 4vw, 56px) 112px clamp(64px, 6vw, 96px);
+	overflow: hidden;
+	background: linear-gradient(135deg, #f4f0ff 0%, #f7f7fa 52%, #eef4ff 100%);
+
+	&__glow {
+		position: absolute;
+		top: -120px;
+		right: -120px;
+		width: 520px;
+		height: 520px;
+		border-radius: 50%;
+		background: radial-gradient(closest-side, rgba(124, 58, 237, 0.12), rgba(124, 58, 237, 0));
+	}
+
+	&__stage {
+		position: relative;
+		width: 640px;
+		max-width: 100%;
+	}
+
+	&__page {
+		position: relative;
+		grid-template-columns: minmax(0, 1fr) minmax(150px, 190px);
+		gap: 14px 20px;
+		padding: 20px;
+		border-radius: 16px;
+		background: #fff;
+		box-shadow:
+			0 1px 2px rgba(16, 17, 20, 0.05),
+			0 24px 60px rgba(48, 28, 110, 0.16);
+		animation: wcgs-wz-rise 700ms $wcgs-ease-out 120ms both;
+	}
+
+	&__gallery {
+		position: relative;
+		align-self: start;
+		aspect-ratio: 1 / 1.22;
+		overflow: hidden;
+		border-radius: 8px;
+	}
+
+	&__grid {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+	}
+
+	&__tile {
+		position: relative;
+		aspect-ratio: 1;
+		overflow: hidden;
+		border-radius: 8px;
+		background: $wcgs-wz-photo;
+	}
+
+	&__expand {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		background: #fff;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+		color: $wcgs-text;
+	}
+
+	&__lens {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 46%;
+		aspect-ratio: 1;
+		overflow: hidden;
+		border: 2px solid #fff;
+		border-radius: 50%;
+		background: $wcgs-wz-photo;
+		box-shadow:
+			0 10px 28px rgba(0, 0, 0, 0.22),
+			0 0 0 1px rgba(0, 0, 0, 0.06);
+		will-change: transform;
+		animation: wcgs-wz-mag-lens 9s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+	}
+
+	.wcgs-wizard-hero__photo.wcgs-wizard-hero__lens-image {
+		inset: auto;
+		left: 0;
+		top: 0;
+		width: 435%;
+		height: 435%;
+		will-change: transform;
+		animation: wcgs-wz-mag-image 9s cubic-bezier(0.45, 0, 0.55, 1) infinite alternate;
+	}
+
+	&__play {
+		position: absolute;
+		left: 50%;
+		top: 50%;
+		width: 46px;
+		height: 46px;
+		margin: -23px 0 0 -23px;
+		border-radius: 50%;
+		background: #fff;
+		box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+		animation: wcgs-wz-pulse 2.4s ease-in-out infinite;
+
+		svg {
+			display: block;
+			transform: translateX(-0.4px);
+		}
+	}
+
+	&__summary {
+		padding-top: 4px;
+	}
+
+	&__category {
+		font-size: 11.5px;
+		font-weight: 600;
+		letter-spacing: 0.05em;
+		text-transform: uppercase;
+		color: $wcgs-hint;
+	}
+
+	&__name {
+		font-size: 18px;
+		font-weight: 650;
+		line-height: 1.25;
+		letter-spacing: -0.01em;
+		color: $wcgs-text;
+	}
+
+	&__price {
+		font-size: 15px;
+		font-weight: 500;
+		color: $wcgs-text;
+	}
+
+	&__rating {
+		font-size: 12px;
+		color: $wcgs-body;
+	}
+
+	&__stars {
+		letter-spacing: 1px;
+		color: $wcgs-wz-star;
+	}
+
+	&__option {
+		gap: 7px;
+	}
+
+	&__label {
+		font-size: 12px;
+		color: $wcgs-body;
+
+		b {
+			font-weight: 600;
+			color: $wcgs-text;
+		}
+	}
+
+	&__color {
+		width: 24px;
+		height: 24px;
+		border-radius: 50%;
+		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+
+		&.is-active {
+			box-shadow:
+				0 0 0 2px #fff,
+				0 0 0 3.5px $wcgs-text;
+		}
+	}
+
+	&__sizes {
+		gap: 5px;
+	}
+
+	&__size {
+		height: 30px;
+		border: 1px solid $wcgs-divider;
+		border-radius: 4px;
+		font-size: 12px;
+		font-weight: 500;
+		color: $wcgs-text-2;
+
+		&.is-active {
+			border: 1.5px solid $wcgs-text;
+			color: $wcgs-text;
+		}
+	}
+
+	&__cart {
+		height: 40px;
+		margin-top: 2px;
+		border-radius: 6px;
+		background: $wcgs-text;
+		font-size: 13.5px;
+		font-weight: 600;
+		color: #fff;
+	}
+}
+
+// Phone with the mobile slider, over the hero's bottom-right corner.
+.wcgs-wizard-phone {
+	position: absolute;
+	right: -40px;
+	bottom: -64px;
+	z-index: 2;
+	width: 132px;
+	aspect-ratio: 9 / 19;
+	padding: 4px;
+	border-radius: 26px;
+	background: $wcgs-text;
+	box-shadow:
+		0 18px 40px rgba(16, 17, 20, 0.18),
+		inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+	animation: wcgs-wz-rise 700ms $wcgs-ease-out 900ms both;
+
+	&__screen {
+		position: relative;
+		height: 100%;
+		overflow: hidden;
+		border-radius: 22px;
+		background: #fff;
+	}
+
+	&__status {
+		flex: 0 0 22px;
+		padding: 0 12px;
+		font-size: 8px;
+		font-weight: 600;
+		color: $wcgs-text;
+	}
+
+	&__notch {
+		width: 34px;
+		height: 10px;
+		border-radius: 999px;
+		background: $wcgs-text;
+	}
+
+	&__battery {
+		width: 10px;
+		height: 5px;
+		border-radius: 1.5px;
+		box-shadow: inset 0 0 0 1px $wcgs-text;
+	}
+
+	&__bar {
+		padding: 4px 10px 6px;
+	}
+
+	&__menu-line {
+		width: 10px;
+		height: 1.5px;
+		border-radius: 1px;
+		background: $wcgs-text;
+	}
+
+	&__brand {
+		font-size: 8.5px;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		color: $wcgs-text;
+	}
+
+	&__slider {
+		position: relative;
+		aspect-ratio: 1;
+		overflow: hidden;
+		background: $wcgs-wz-photo;
+	}
+
+	&__slide {
+		opacity: 0;
+		animation: wcgs-wz-fade 12s ease-in-out infinite;
+
+		&.is-slide-1 {
+			animation-delay: 3s;
+		}
+
+		&.is-slide-2 {
+			animation-delay: 6s;
+		}
+
+		&.is-slide-3 {
+			animation-delay: 9s;
+		}
+	}
+
+	&__arrow {
+		position: absolute;
+		top: 50%;
+		width: 20px;
+		height: 20px;
+		margin-top: -10px;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.92);
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.14);
+		color: $wcgs-text;
+
+		&.is-prev {
+			left: 6px;
+		}
+
+		&.is-next {
+			right: 6px;
+		}
+
+		svg {
+			display: block;
+		}
+	}
+
+	&__dots {
+		position: absolute;
+		left: 50%;
+		bottom: 7px;
+		padding: 3px 5px;
+		border-radius: 999px;
+		background: rgba(255, 255, 255, 0.75);
+		transform: translateX(-50%);
+	}
+
+	&__dots-track {
+		position: relative;
+	}
+
+	&__dot {
+		width: 4px;
+		height: 4px;
+		border-radius: 50%;
+		background: rgba(29, 29, 31, 0.22);
+
+		&.is-current {
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: $wcgs-text;
+			animation: wcgs-wz-dot 12s ease-in-out infinite;
+		}
+	}
+
+	&__info {
+		padding: 9px 10px 0;
+	}
+
+	&__name {
+		font-size: 9.5px;
+		font-weight: 650;
+		line-height: 1.25;
+		color: $wcgs-text;
+	}
+
+	&__price {
+		font-size: 9px;
+		color: $wcgs-body;
+	}
+
+	&__rating {
+		font-size: 8px;
+		color: $wcgs-muted;
+	}
+
+	&__stars {
+		letter-spacing: 0.5px;
+		color: $wcgs-wz-star;
+	}
+
+	&__cart {
+		margin-top: auto;
+		padding: 0 10px 12px;
+	}
+
+	&__cart-button {
+		height: 22px;
+		border-radius: 5px;
+		background: $wcgs-text;
+		font-size: 8.5px;
+		font-weight: 600;
+		color: #fff;
+	}
+}
+
+// Numbered steps.
+.wcgs-wizard-step {
+	margin: 0 auto;
+	padding: clamp(24px, 4vw, 40px) clamp(16px, 4vw, 40px);
+	gap: clamp(20px, 3vw, 28px);
+	animation: wcgs-wz-in 320ms $wcgs-ease;
+
+	&.is-wide {
+		max-width: 1080px;
+	}
+
+	&.is-narrow {
+		max-width: 820px;
+	}
+
+	&.is-roomy {
+		padding: clamp(24px, 4vw, 48px) clamp(16px, 4vw, 40px) clamp(40px, 6vw, 64px);
+		gap: clamp(20px, 3vw, 32px);
+	}
+
+	&__head {
+		max-width: 640px;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	&__title {
+		font-size: clamp(24px, 3vw, 32px);
+		font-weight: 650;
+		line-height: 1.15;
+		letter-spacing: -0.025em;
+		color: $wcgs-text;
+		text-wrap: balance;
+	}
+
+	&__text {
+		font-size: 15.5px;
+		line-height: 1.6;
+		color: $wcgs-body;
+		text-wrap: pretty;
+	}
+}
+
+// Step 1: layout cards.
+.wcgs-wizard-layouts {
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, max(140px, calc((100% - 72px) / 4))), 1fr));
+	gap: clamp(16px, 2.4vw, 28px) clamp(14px, 2vw, 24px);
+}
+
+.wcgs-wizard-layout {
+	align-items: stretch;
+	border-radius: 8px;
+	animation: wcgs-wz-rise 380ms $wcgs-ease-out both;
+
+	&__card {
+		position: relative;
+		height: 128px;
+		border: 1px solid $wcgs-divider;
+		border-radius: 8px;
+		background: #fff;
+		transition:
+			border-color 240ms $wcgs-ease,
+			box-shadow 240ms $wcgs-ease;
+	}
+
+	&:hover &__card {
+		border-color: #8a8b90;
+		box-shadow: 0 2px 8px rgba(16, 17, 20, 0.06);
+	}
+
+	&.is-active &__card {
+		border: 1.5px solid $wcgs-accent;
+		box-shadow: none;
+	}
+
+	&.is-locked {
+		cursor: default;
+	}
+
+	&.is-locked &__card {
+		background: $wcgs-bg-faint;
+	}
+
+	&.is-locked:hover &__card {
+		border-color: $wcgs-divider;
+		box-shadow: none;
+	}
+
+	&.is-locked .wcgs-layout-art {
+		opacity: 0.55;
+	}
+
+	&__check {
+		position: absolute;
+		top: 5px;
+		right: 5px;
+		width: 16px;
+		height: 16px;
+		border-radius: 50%;
+		background: $wcgs-accent;
+		animation: wcgs-wz-pop 240ms $wcgs-ease-out;
+	}
+
+	&__name {
+		font-size: 13.5px;
+		font-weight: 500;
+		line-height: 1.3;
+		color: $wcgs-text;
+		text-align: center;
+		text-wrap: balance;
+	}
+
+	&.is-locked &__name {
+		color: $wcgs-locked;
+	}
+}
+
+// Step 2: feature cards.
+.wcgs-wizard-features {
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, max(300px, calc((100% - 14px) / 2))), 1fr));
+}
+
+.wcgs-wizard-feature {
+	padding: 18px 20px;
+	border: 1px solid $wcgs-divider;
+	border-radius: 12px;
+	background: #fff;
+	text-align: left;
+	animation: wcgs-wz-rise 420ms $wcgs-ease-out both;
+	transition:
+		border-color 160ms $wcgs-ease,
+		box-shadow 160ms $wcgs-ease;
+
+	&:hover {
+		border-color: $wcgs-border-strong;
+	}
+
+	&.is-on {
+		border-color: #d9ccfb;
+		box-shadow: 0 6px 18px rgba(124, 58, 237, 0.08);
+	}
+
+	&__tile {
+		flex: 0 0 44px;
+		width: 44px;
+		height: 44px;
+		border-radius: 10px;
+		background: $wcgs-bg-subtle;
+		color: $wcgs-body;
+		transition:
+			background-color 200ms $wcgs-ease,
+			color 200ms $wcgs-ease;
+	}
+
+	&.is-on &__tile {
+		background: #f3eefe;
+		color: $wcgs-accent;
+	}
+
+	&.is-locked &__tile {
+		background: #fff7e6;
+		color: #c98a0b;
+	}
+
+	&__name {
+
+		@include wcgs-wz-card-name;
+	}
+
+	&__text {
+
+		@include wcgs-wz-card-text;
+	}
+
+	&__upgrade {
+		font-size: 13px;
+		font-weight: 600;
+		white-space: nowrap;
+		color: #a86f00;
+	}
+}
+
+.wcgs-wizard-toggle {
+	position: relative;
+	flex: 0 0 40px;
+	width: 40px;
+	height: 22px;
+	border-radius: 999px;
+	background: #d4d5d9;
+	transition: background-color 200ms $wcgs-ease;
+
+	&__knob {
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		width: 18px;
+		height: 18px;
+		border-radius: 50%;
+		background: #fff;
+		box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+		transition: transform 220ms $wcgs-ease-out;
+	}
+
+	.is-on > & {
+		background: $wcgs-accent;
+	}
+
+	.is-on > & &__knob {
+		transform: translateX(18px);
+	}
+}
+
+// Step 3: add-on rows.
+.wcgs-wizard-plugins {
+	overflow: hidden;
+	border: 1px solid $wcgs-divider;
+	border-radius: 12px;
+
+	&__head {
+		padding: 12px 20px;
+		border-bottom: 1px solid $wcgs-line;
+		background: $wcgs-bg-faint;
+	}
+
+	&__count {
+		font-size: 13px;
+		color: $wcgs-body;
+	}
+
+	.wcgs-wizard &__all {
+		padding: 4px 0;
+		font-size: 13px;
+		font-weight: 600;
+		color: $wcgs-accent;
+
+		&:hover {
+			text-decoration: underline;
+		}
+
+		@include wcgs-wz-disabled;
+	}
+
+	&__note {
+		padding: 12px 20px;
+		border-bottom: 1px solid $wcgs-line;
+		background: #fffbf0;
+		font-size: 13px;
+		line-height: 1.5;
+		color: $wcgs-muted;
+	}
+}
+
+.wcgs-wizard-plugin {
+	padding: 18px 20px;
+	background: #fff;
+	text-align: left;
+	animation: wcgs-wz-rise 420ms $wcgs-ease-out both;
+	transition: background-color 140ms $wcgs-ease;
+
+	& + & {
+		border-top: 1px solid $wcgs-line;
+	}
+
+	&:hover {
+		background: $wcgs-bg-faint;
+	}
+
+	&.is-picked {
+		background: #fbf9ff;
+
+		&:hover {
+			background: #f6f2ff;
+		}
+	}
+
+	&.is-locked {
+		cursor: default;
+
+		&:hover {
+			background: #fff;
+		}
+	}
+
+	&__tile {
+		flex: 0 0 48px;
+		width: 48px;
+		height: 48px;
+		border-radius: 12px;
+		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+		font-size: 15px;
+		font-weight: 700;
+		letter-spacing: 0.02em;
+		color: #fff;
+	}
+
+	&__tile.has-icon {
+		position: relative;
+		overflow: hidden;
+		background: $wcgs-bg-subtle;
+
+		img {
+			display: block;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+		}
+
+		// Keep the hairline ring above the icon.
+		&::after {
+			content: "";
+			position: absolute;
+			inset: 0;
+			border-radius: inherit;
+			box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+			pointer-events: none;
+		}
+	}
+
+	&__name {
+
+		@include wcgs-wz-card-name;
+	}
+
+	&__tag {
+		height: 20px;
+		padding: 0 7px;
+		border-radius: 4px;
+		background: $wcgs-bg-subtle;
+		font-size: 11.5px;
+		font-weight: 600;
+		color: $wcgs-body;
+	}
+
+	&__text {
+
+		@include wcgs-wz-card-text;
+	}
+
+	&__error {
+		font-size: 13px;
+		line-height: 1.5;
+		color: $wcgs-red;
+	}
+
+	&__state {
+		font-size: 13px;
+		font-weight: 500;
+		white-space: nowrap;
+
+		&.is-busy {
+			color: $wcgs-accent;
+		}
+
+		&.is-done {
+			gap: 6px;
+			font-weight: 600;
+			color: #1e8a4c;
+			animation: wcgs-wz-pop 260ms $wcgs-ease-out;
+		}
+	}
+
+	&__box {
+		flex: 0 0 22px;
+		width: 22px;
+		height: 22px;
+		border: 1.5px solid $wcgs-border-strong;
+		border-radius: 6px;
+		background: #fff;
+		transition:
+			background-color 140ms $wcgs-ease,
+			border-color 140ms $wcgs-ease;
+
+		svg {
+			opacity: 0;
+		}
+	}
+
+	&.is-picked &__box {
+		border: 1px solid $wcgs-accent;
+		background: $wcgs-accent;
+
+		svg {
+			opacity: 1;
+		}
+	}
+}
+
+// Done.
+.wcgs-wizard-done {
+	position: relative;
+	min-height: 100%;
+	padding: clamp(32px, 5vw, 56px) clamp(16px, 4vw, 40px);
+	overflow: hidden;
+	background: linear-gradient(180deg, #fbf9ff 0%, #fff 60%);
+
+	&__confetti {
+		position: absolute;
+		top: -20px;
+		opacity: 0;
+		pointer-events: none;
+		animation-name: wcgs-wz-confetti;
+		animation-timing-function: cubic-bezier(0.3, 0.6, 0.5, 1);
+		animation-fill-mode: forwards;
+	}
+
+	&__inner {
+		position: relative;
+		max-width: 560px;
+		gap: 28px;
+		text-align: center;
+	}
+
+	&__badge {
+		position: relative;
+		width: 96px;
+		height: 96px;
+	}
+
+	&__circle {
+		position: relative;
+		animation: wcgs-wz-pop 500ms $wcgs-ease-out both;
+	}
+
+	&__ring {
+		position: absolute;
+		inset: 0;
+		border-radius: 50%;
+		background: #16a34a;
+		opacity: 0;
+		animation: wcgs-wz-ring 1.6s ease-out 500ms 2;
+	}
+
+	&__tick {
+		stroke-dasharray: 54;
+		stroke-dashoffset: 54;
+		animation: wcgs-wz-draw 420ms $wcgs-ease 520ms forwards;
+	}
+
+	&__text {
+		animation: wcgs-wz-rise 600ms $wcgs-ease-out 650ms both;
+	}
+
+	&__title {
+		font-size: clamp(28px, 4vw, 40px);
+		font-weight: 680;
+		line-height: 1.1;
+		letter-spacing: -0.03em;
+		color: $wcgs-text;
+	}
+
+	&__lead {
+		font-size: 16px;
+		line-height: 1.6;
+		color: $wcgs-body;
+		text-wrap: pretty;
+	}
+
+	&__summary {
+		max-width: 460px;
+		overflow: hidden;
+		border: 1px solid $wcgs-line;
+		border-radius: 12px;
+		background: #fff;
+		box-shadow: 0 12px 32px rgba(16, 17, 20, 0.06);
+		text-align: left;
+	}
+
+	&__row {
+		padding: 14px 20px;
+		animation: wcgs-wz-rise 500ms $wcgs-ease-out both;
+
+		& + & {
+			border-top: 1px solid $wcgs-bg-subtle;
+		}
+
+		dt {
+			font-size: 13.5px;
+			color: $wcgs-muted;
+		}
+
+		dd {
+			margin: 0;
+			font-size: 14px;
+			font-weight: 600;
+			text-align: right;
+			color: $wcgs-text;
+		}
+	}
+
+	&__actions {
+		animation: wcgs-wz-rise 600ms $wcgs-ease-out 1100ms both;
+	}
+
+	.wcgs-wizard &__primary,
+	.wcgs-wizard &__secondary {
+		display: inline-flex;
+		align-items: center;
+		height: 46px;
+		padding: 0 20px;
+		border-radius: 8px;
+		font-size: 15px;
+		transition:
+			background-color 160ms $wcgs-ease,
+			border-color 160ms $wcgs-ease;
+	}
+
+	.wcgs-wizard &__primary {
+		padding: 0 24px;
+		background: $wcgs-accent;
+		box-shadow: 0 8px 20px rgba(124, 58, 237, 0.25);
+		font-weight: 600;
+		color: #fff;
+
+		&:hover {
+			background: $wcgs-accent-hover;
+		}
+	}
+
+	.wcgs-wizard &__secondary {
+		border: 1px solid $wcgs-border;
+		background: #fff;
+		font-weight: 500;
+		color: $wcgs-text;
+
+		&:hover {
+			border-color: $wcgs-border-hover;
+			background-color: #f6f6f7;
+			color: $wcgs-text;
+		}
+	}
+}
+
+@media (max-width: 782px) {
+
+	.wcgs-wizard-steps__label {
+		display: none;
+	}
+
+	.wcgs-wizard-hero {
+		padding: 40px 56px 96px 32px;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+	.wcgs-wizard,
+	.wcgs-wizard *,
+	.wcgs-wizard *::before,
+	.wcgs-wizard *::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		animation-delay: 0ms !important;
+		transition-duration: 0.01ms !important;
+	}
+
+	// The slides would end hidden; show the first picture instead.
+	.wcgs-wizard-phone__slide {
+		display: none;
+	}
+}
